@@ -1,0 +1,39 @@
+syntax = "proto3";
+package protocol;
+
+import "Enum.proto";
+import "Struct.proto";
+
+message C_JOIN
+{
+
+}
+
+message S_JOIN
+{
+	int32 id = 1;
+}
+
+message C_LEAVE
+{
+	int32 id = 1;
+}
+
+message S_LEAVE
+{
+	int32 id = 1;
+}
+
+message C_MOVE
+{
+	int32 id = 1;
+	Vector vector = 2;
+	Rotate rotate = 3;
+}
+
+message S_MOVE
+{
+	int32 id = 1;
+	Vector vector = 2;
+	Rotate rotate = 3;
+}

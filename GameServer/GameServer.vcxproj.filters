@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="DB">
+      <UniqueIdentifier>{2912e998-5fd1-4e33-9529-ad21afe3ac07}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Main">
+      <UniqueIdentifier>{6629e991-4278-46af-ae7e-4001bb0f82f0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Network">
+      <UniqueIdentifier>{8047a6c8-db0d-4bc1-b287-ac51db22d164}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents">
+      <UniqueIdentifier>{debfa3c4-bb50-4268-bb21-ac5cc194af88}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Network\Protocol">
+      <UniqueIdentifier>{8526b4cb-781f-4740-820c-d27741e70eda}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Main.cpp">
+      <Filter>Main</Filter>
+    </ClCompile>
+    <ClCompile Include="pch.cpp">
+      <Filter>Main</Filter>
+    </ClCompile>
+    <ClCompile Include="GameService.cpp">
+      <Filter>Network</Filter>
+    </ClCompile>
+    <ClCompile Include="GameSession.cpp">
+      <Filter>Network</Filter>
+    </ClCompile>
+    <ClCompile Include="Enum.pb.cc">
+      <Filter>Network\Protocol</Filter>
+    </ClCompile>
+    <ClCompile Include="Struct.pb.cc">
+      <Filter>Network\Protocol</Filter>
+    </ClCompile>
+    <ClCompile Include="GamePacketHandler.cpp">
+      <Filter>Network</Filter>
+    </ClCompile>
+    <ClCompile Include="Packet.pb.cc">
+      <Filter>Network\Protocol</Filter>
+    </ClCompile>
+    <ClCompile Include="Room.cpp">
+      <Filter>Contents</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="pch.h">
+      <Filter>Main</Filter>
+    </ClInclude>
+    <ClInclude Include="GameService.h">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="GameSession.h">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="Enum.pb.h">
+      <Filter>Network\Protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="Struct.pb.h">
+      <Filter>Network\Protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="GamePacketHandler.h">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="Packet.pb.h">
+      <Filter>Network\Protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="Room.h">
+      <Filter>Contents</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

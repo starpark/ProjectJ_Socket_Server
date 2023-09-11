@@ -1,0 +1,27 @@
+syntax = "proto3";
+package protocol;
+
+/* 
+	패킷 타입 정의
+	C : Client to Server
+	S : Server to Client
+*/
+enum PacketType
+{
+	PT_NONE = 0;
+	PT_C_JOIN = 1;
+	PT_S_JOIN = 2;
+	PT_C_LEAVE = 3;
+	PT_S_LEAVE = 4;
+	PT_C_MOVE = 5;
+	PT_S_MOVE = 6;
+}
+
+/*
+	회원가입 결과 코드
+*/
+enum ErrorCode
+{
+	EC_NONE = 0;
+	EC_S_SIGNUP_DUPLICATE_ID = 1;
+}
