@@ -10,22 +10,22 @@ GameSession::GameSession()
 
 GameSession::~GameSession()
 {
-	GLogHelper->WriteStdOut(LogCategory::Log_TEMP, L"~GameSession()\n");
+	//GLogHelper->WriteStdOut(LogCategory::Log_TEMP, L"~GameSession()\n");
 }
 
 void GameSession::OnConnected()
 {
-	GLogHelper->WriteStdOut(LogCategory::Log_TEMP, L"OnConnected\n");
+	//GLogHelper->WriteStdOut(LogCategory::Log_TEMP, L"OnConnected\n");
 }
 
 void GameSession::OnDisconnect()
 {
-	GLogHelper->WriteStdOut(LogCategory::Log_TEMP, L"OnDisconnect\n");
+	//GLogHelper->WriteStdOut(LogCategory::Log_TEMP, L"OnDisconnect\n");
 }
 
 int GameSession::OnRecv(BYTE* buffer, int numOfBytes)
 {
-	GLogHelper->WriteStdOut(LogCategory::Log_TEMP, L"OnRecv\n");
+	//GLogHelper->WriteStdOut(LogCategory::Log_TEMP, L"OnRecv\n");
 	int processLen = 0;
 
 	while (true)
@@ -42,7 +42,7 @@ int GameSession::OnRecv(BYTE* buffer, int numOfBytes)
 			break;
 		}
 
-		GamePacketHandler::HandlePacket(GetGameSessionPtr(), buffer, numOfBytes);
+		GamePacketHandler::HandlePacket(GetGameSessionPtr(), buffer, header.size);
 
 		processLen += header.size;
 	}
