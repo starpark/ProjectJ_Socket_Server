@@ -18,15 +18,14 @@ bool Handle_C_JOIN(shared_ptr<GameSession> session, protocol::C_JOIN& packet)
 {
 	static atomic<int> id = 0;
 
-	protocol::S_JOIN spkt;
-	spkt.set_id(id.fetch_add(1));
-
+	GLogHelper->WriteStdOut(LogCategory::Log_TEMP, L"Handle_C_JOIN\n");
 
 	return true;
 }
 
 bool Handle_C_LEAVE(shared_ptr<GameSession> session, protocol::C_LEAVE& packet)
 {
+	GLogHelper->WriteStdOut(LogCategory::Log_TEMP, L"count %d\n", packet.id());
 	return true;
 }
 
@@ -64,10 +63,6 @@ void GamePacketHandler::Init()
 bool GamePacketHandler::HandlePacket(shared_ptr<GameSession> session, BYTE* buffer, int numOfBytes)
 {
 	auto header = reinterpret_cast<PacketHeader*>(buffer);
-	if (header->type >= HANDLER_SIZE)
-	{
-		return handlers_[0](session, buffer, numOfBytes);
-	}
 	return handlers_[header->type](session, buffer, numOfBytes);
 }
 

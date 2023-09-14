@@ -4,7 +4,7 @@
 struct PacketHeader
 {
 	uint16_t size;
-	protocol::PacketType type;
+	uint16_t type;
 };
 
 const int PacketHeaderSize = sizeof(PacketHeader);
