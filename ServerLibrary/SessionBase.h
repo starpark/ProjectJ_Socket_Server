@@ -24,7 +24,7 @@ public: // 외부 사용
 public: // Getter Setter
 	SOCKET GetSocket() const { return socket_; }
 	shared_ptr<class Service> GetOwnerService() const { return ownerService_.lock(); }
-	BYTE* GetRecvBuffer() { return recvBuffer_.GetBufferHead(); }
+	BYTE* GetRecvBuffer() { return recvBuffer_.GetWriteBufferPos(); }
 	SOCKADDR_IN GetAddress() const { return address_; }
 	shared_ptr<SessionBase> GetSessionPtr() { return static_pointer_cast<SessionBase>(shared_from_this()); }
 	bool IsConnected() const { return bIsConnected_.load(); }

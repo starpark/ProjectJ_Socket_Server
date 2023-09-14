@@ -12,10 +12,10 @@ public:
 	RecvBuffer();
 
 public: // Getter
-	unsigned int GetDataSize() const { return head_ - tail_; }
-	unsigned int GetFreeSize() const { return MAX_BUFFER_SIZE - head_; }
-	BYTE* GetBufferHead() { return &buffer_[head_]; }
-	BYTE* GetBufferTail() { return &buffer_[tail_]; }
+	unsigned int GetDataSize() const { return writePos_ - readPos_; }
+	unsigned int GetFreeSize() const { return MAX_BUFFER_SIZE - writePos_; }
+	BYTE* GetWriteBufferPos() { return &buffer_[writePos_]; }
+	BYTE* GetReadBufferPos() { return &buffer_[readPos_]; }
 
 public: // 외부 사용
 	void CleanupBuffer();
@@ -24,6 +24,6 @@ public: // 외부 사용
 
 private:
 	vector<BYTE> buffer_;
-	unsigned int head_;
-	unsigned int tail_;
+	unsigned int writePos_;
+	unsigned int readPos_;
 };

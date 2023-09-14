@@ -150,7 +150,7 @@ void SessionBase::RegisterRecv()
 	DWORD numOfBytes = 0;
 	DWORD flags = 0;
 
-	wsaBuf.buf = reinterpret_cast<CHAR*>(recvBuffer_.GetBufferHead());
+	wsaBuf.buf = reinterpret_cast<CHAR*>(recvBuffer_.GetWriteBufferPos());
 	wsaBuf.len = recvBuffer_.GetFreeSize();
 
 	recvEvent_.Init();
@@ -251,7 +251,7 @@ void SessionBase::ProcessRecv(unsigned int numOfBytes)
 	}
 
 	const int dataSize = recvBuffer_.GetDataSize();
-	int processSize = OnRecv(recvBuffer_.GetBufferTail(), dataSize);
+	int processSize = OnRecv(recvBuffer_.GetReadBufferPos(), dataSize);
 	if (processSize < 0 || dataSize < processSize || recvBuffer_.ReadData(processSize) == false)
 	{
 		Disconnect();
