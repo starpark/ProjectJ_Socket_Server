@@ -36,6 +36,7 @@ public:
 	static bool HandlePacket(shared_ptr<class GameSession> session, BYTE* buffer, int numOfBytes);
 
 	static shared_ptr<SendBuffer> MakeSendBuffer(protocol::S_JOIN& packet);
+	static shared_ptr<SendBuffer> MakeSendBuffer(protocol::S_LEAVE& packet);
 
 private:
 	template <typename PacketMessage, typename HandlerFunc>

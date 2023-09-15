@@ -71,6 +71,11 @@ shared_ptr<SendBuffer> GamePacketHandler::MakeSendBuffer(protocol::S_JOIN& packe
 	return MakeSendBuffer(packet, protocol::PT_S_JOIN);
 }
 
+shared_ptr<SendBuffer> GamePacketHandler::MakeSendBuffer(protocol::S_LEAVE& packet)
+{
+	return MakeSendBuffer(packet, protocol::PT_S_LEAVE);
+}
+
 template <typename PacketMessage, typename HandlerFunc>
 void GamePacketHandler::BindHandler(protocol::PacketType type, HandlerFunc handler)
 {
