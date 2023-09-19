@@ -5,12 +5,12 @@
 GameSession::GameSession()
 	: state_(SessionState::WAIT_CONNECTING)
 {
-	// cout << "GameSession()" << endl;
+	GLogHelper->WriteStdOut(LogCategory::Log_TEMP, L"GameSession()\n");
 }
 
 GameSession::~GameSession()
 {
-	//GLogHelper->WriteStdOut(LogCategory::Log_TEMP, L"~GameSession()\n");
+	GLogHelper->WriteStdOut(LogCategory::Log_TEMP, L"~GameSession()\n");
 }
 
 void GameSession::OnConnected()
@@ -20,7 +20,7 @@ void GameSession::OnConnected()
 
 void GameSession::OnDisconnect()
 {
-	//GLogHelper->WriteStdOut(LogCategory::Log_TEMP, L"OnDisconnect\n");
+	GLogHelper->WriteStdOut(LogCategory::Log_TEMP, L"OnDisconnect\n");
 }
 
 int GameSession::OnRecv(BYTE* buffer, int numOfBytes)

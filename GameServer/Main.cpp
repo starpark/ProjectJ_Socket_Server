@@ -39,7 +39,7 @@ int main()
 	int count = 1;
 	while (true)
 	{
-		protocol::S_JOIN pkt;
+		protocol::S_LEAVE pkt;
 		pkt.set_id(count);
 		count++;
 		auto sendBuffer = GamePacketHandler::MakeSendBuffer(pkt);
