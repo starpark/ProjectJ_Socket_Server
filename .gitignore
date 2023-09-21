@@ -53,11 +53,9 @@
 mono_crash.*
 
 # Build results
-GameServer/x64
-ServerLibrary/x64
-DummyClient/x64
 [Dd]ebugPublic/
 x86/
+x64/
 [Ww][Ii][Nn]32/
 [Aa][Rr][Mm]/
 [Aa][Rr][Mm]64/
