@@ -6,7 +6,7 @@ CREATE TABLE [dbo].[Friends]
 	[create_date] DATETIME NOT NULL,
 	[friendship_date] DATETIME,
 	[status] NVARCHAR(20) NOT NULL DEFAULT 'WAITING',
-	FOREIGN KEY([friend_one]) REFERENCES [dbo].[PlayerAccount](player_id),
-	FOREIGN KEY([friend_two]) REFERENCES [dbo].[PlayerAccount](player_id),
+	FOREIGN KEY([friend_one]) REFERENCES [dbo].[PlayerAccounts](player_id),
+	FOREIGN KEY([friend_two]) REFERENCES [dbo].[PlayerAccounts](player_id),
 	PRIMARY KEY([friend_one], [friend_two])
 )
