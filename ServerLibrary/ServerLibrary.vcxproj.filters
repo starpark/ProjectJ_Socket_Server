@@ -13,9 +13,6 @@
     <Filter Include="Utils">
       <UniqueIdentifier>{8aebd8c3-7ca1-47a3-9027-7c12af66a38f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Protobuf">
-      <UniqueIdentifier>{dd90cc82-578b-4dde-b860-d220880c0125}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Thread">
       <UniqueIdentifier>{57b2181c-979c-4f0c-b6d3-dd07ad958967}</UniqueIdentifier>
     </Filter>
@@ -122,19 +119,5 @@
     <ClCompile Include="LogHelper.cpp">
       <Filter>Utils</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\protobuf\Enum.proto">
-      <Filter>Protobuf</Filter>
-    </None>
-    <None Include="..\protobuf\Struct.proto">
-      <Filter>Protobuf</Filter>
-    </None>
-    <None Include="..\protobuf\GenCode.bat">
-      <Filter>Protobuf</Filter>
-    </None>
-    <None Include="..\protobuf\Packet.proto">
-      <Filter>Protobuf</Filter>
-    </None>
   </ItemGroup>
 </Project>

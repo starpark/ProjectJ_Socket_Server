@@ -185,12 +185,6 @@
     <ClCompile Include="SocketUtils.cpp" />
     <ClCompile Include="ThreadLocal.cpp" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="..\protobuf\Enum.proto" />
-    <None Include="..\protobuf\GenCode.bat" />
-    <None Include="..\protobuf\Packet.proto" />
-    <None Include="..\protobuf\Struct.proto" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
