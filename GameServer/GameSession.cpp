@@ -42,7 +42,8 @@ int GameSession::OnRecv(BYTE* buffer, int numOfBytes)
 			break;
 		}
 
-		GamePacketHandler::HandlePacket(GetGameSessionPtr(), buffer, header.size);
+		shared_ptr<GameSession> Session = GetGameSessionPtr();
+		GamePacketHandler::HandlePacket(Session, buffer, header.size);
 
 		processLen += header.size;
 	}

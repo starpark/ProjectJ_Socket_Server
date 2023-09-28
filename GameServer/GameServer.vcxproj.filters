@@ -16,6 +16,9 @@
     <Filter Include="Network\Protocol">
       <UniqueIdentifier>{8526b4cb-781f-4740-820c-d27741e70eda}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Protobuf">
+      <UniqueIdentifier>{41b2db2f-e824-46f8-822e-d176fdbedb11}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -30,20 +33,20 @@
     <ClCompile Include="GameSession.cpp">
       <Filter>Network</Filter>
     </ClCompile>
-    <ClCompile Include="Enum.pb.cc">
+    <ClCompile Include="GamePacketHandler.cpp">
+      <Filter>Network</Filter>
+    </ClCompile>
+    <ClCompile Include="Room.cpp">
+      <Filter>Contents</Filter>
+    </ClCompile>
+    <ClCompile Include="Message.pb.cc">
       <Filter>Network\Protocol</Filter>
     </ClCompile>
     <ClCompile Include="Struct.pb.cc">
       <Filter>Network\Protocol</Filter>
     </ClCompile>
-    <ClCompile Include="GamePacketHandler.cpp">
-      <Filter>Network</Filter>
-    </ClCompile>
-    <ClCompile Include="Packet.pb.cc">
+    <ClCompile Include="Enum.pb.cc">
       <Filter>Network\Protocol</Filter>
-    </ClCompile>
-    <ClCompile Include="Room.cpp">
-      <Filter>Contents</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -56,20 +59,34 @@
     <ClInclude Include="GameSession.h">
       <Filter>Network</Filter>
     </ClInclude>
-    <ClInclude Include="Enum.pb.h">
+    <ClInclude Include="GamePacketHandler.h">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="Room.h">
+      <Filter>Contents</Filter>
+    </ClInclude>
+    <ClInclude Include="Message.pb.h">
       <Filter>Network\Protocol</Filter>
     </ClInclude>
     <ClInclude Include="Struct.pb.h">
       <Filter>Network\Protocol</Filter>
     </ClInclude>
-    <ClInclude Include="GamePacketHandler.h">
-      <Filter>Network</Filter>
-    </ClInclude>
-    <ClInclude Include="Packet.pb.h">
+    <ClInclude Include="Enum.pb.h">
       <Filter>Network\Protocol</Filter>
     </ClInclude>
-    <ClInclude Include="Room.h">
-      <Filter>Contents</Filter>
-    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\protobuf\Enum.proto">
+      <Filter>Protobuf</Filter>
+    </None>
+    <None Include="..\protobuf\GenCode.bat">
+      <Filter>Protobuf</Filter>
+    </None>
+    <None Include="..\protobuf\Message.proto">
+      <Filter>Protobuf</Filter>
+    </None>
+    <None Include="..\protobuf\Struct.proto">
+      <Filter>Protobuf</Filter>
+    </None>
   </ItemGroup>
 </Project>
