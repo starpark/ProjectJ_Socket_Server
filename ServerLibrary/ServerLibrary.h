@@ -30,3 +30,5 @@ using namespace std;
 #include "ObjectPool.h"
 #include "ThreadLocal.h"
 #include "LogHelper.h"
+
+#include "SessionBase.h"

@@ -146,6 +146,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="DBConnection.h" />
+    <ClInclude Include="DeadLockProfiler.h" />
     <ClInclude Include="Global.h" />
     <ClInclude Include="Iocp.h" />
     <ClInclude Include="Listener.h" />
@@ -165,6 +166,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DBConnection.cpp" />
+    <ClCompile Include="DeadLockProfiler.cpp" />
     <ClCompile Include="Global.cpp" />
     <ClCompile Include="Iocp.cpp" />
     <ClCompile Include="Listener.cpp" />
