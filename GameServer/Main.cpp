@@ -17,7 +17,7 @@ int main()
 	GamePacketHandler::Init();
 
 	vector<thread> threads;
-	auto service = make_shared<GameService>(NetAddress(L"127.0.0.1", 3000),
+	auto service = make_shared<GameService>(NetAddress(L"0.0.0.0", 3000),
 	                                        [=]() { return make_shared<GameSession>(); },
 	                                        1000);
 	if (service->Init())
