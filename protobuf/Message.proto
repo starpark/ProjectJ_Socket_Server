@@ -14,3 +14,19 @@ message S_VERIFY_TOKEN
 {
 	bool result = 1;
 }
+
+message C_LOBBY_CHAT
+{
+	int32 account_id = 1;
+	string nickname = 2;
+	int64 chat_time = 3;
+	string chat = 4;
+}
+
+message S_LOBBY_CHAT
+{
+	int32 account_id = 1;
+	string nickname = 2;
+	int64 chat_time = 3;
+	string chat = 4;
+}

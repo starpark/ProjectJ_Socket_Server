@@ -1,14 +1,8 @@
 syntax = "proto3";
 package ProjectJ;
 
-/* 
-	패킷 타입 정의
-	C : Client to Server
-	S : Server to Client
-*/
-enum PacketType
+enum TestEnum
 {
-	PT_NONE = 0;
-	PT_C_VERIFY_TOKEN = 1;
-	PT_S_VERIFY_TOKEN = 2;
+	one = 0;
+	two = 1;
 }

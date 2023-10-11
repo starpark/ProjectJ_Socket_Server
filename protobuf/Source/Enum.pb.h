@@ -47,31 +47,30 @@ PROTOBUF_NAMESPACE_OPEN
 PROTOBUF_NAMESPACE_CLOSE
 namespace ProjectJ {
 
-enum PacketType : int {
-  PT_NONE = 0,
-  PT_C_VERIFY_TOKEN = 1,
-  PT_S_VERIFY_TOKEN = 2,
-  PacketType_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
-  PacketType_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
+enum TestEnum : int {
+  one = 0,
+  two = 1,
+  TestEnum_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
+  TestEnum_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
 };
-bool PacketType_IsValid(int value);
-constexpr PacketType PacketType_MIN = PT_NONE;
-constexpr PacketType PacketType_MAX = PT_S_VERIFY_TOKEN;
-constexpr int PacketType_ARRAYSIZE = PacketType_MAX + 1;
+bool TestEnum_IsValid(int value);
+constexpr TestEnum TestEnum_MIN = one;
+constexpr TestEnum TestEnum_MAX = two;
+constexpr int TestEnum_ARRAYSIZE = TestEnum_MAX + 1;
 
-const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* PacketType_descriptor();
+const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* TestEnum_descriptor();
 template<typename T>
-inline const std::string& PacketType_Name(T enum_t_value) {
-  static_assert(::std::is_same<T, PacketType>::value ||
+inline const std::string& TestEnum_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, TestEnum>::value ||
     ::std::is_integral<T>::value,
-    "Incorrect type passed to function PacketType_Name.");
+    "Incorrect type passed to function TestEnum_Name.");
   return ::PROTOBUF_NAMESPACE_ID::internal::NameOfEnum(
-    PacketType_descriptor(), enum_t_value);
+    TestEnum_descriptor(), enum_t_value);
 }
-inline bool PacketType_Parse(
-    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, PacketType* value) {
-  return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<PacketType>(
-    PacketType_descriptor(), name, value);
+inline bool TestEnum_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, TestEnum* value) {
+  return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<TestEnum>(
+    TestEnum_descriptor(), name, value);
 }
 // ===================================================================
 
@@ -95,10 +94,10 @@ inline bool PacketType_Parse(
 
 PROTOBUF_NAMESPACE_OPEN
 
-template <> struct is_proto_enum< ::ProjectJ::PacketType> : ::std::true_type {};
+template <> struct is_proto_enum< ::ProjectJ::TestEnum> : ::std::true_type {};
 template <>
-inline const EnumDescriptor* GetEnumDescriptor< ::ProjectJ::PacketType>() {
-  return ::ProjectJ::PacketType_descriptor();
+inline const EnumDescriptor* GetEnumDescriptor< ::ProjectJ::TestEnum>() {
+  return ::ProjectJ::TestEnum_descriptor();
 }
 
 PROTOBUF_NAMESPACE_CLOSE

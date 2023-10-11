@@ -29,13 +29,12 @@ static constexpr ::_pbi::MigrationSchema* schemas = nullptr;
 static constexpr ::_pb::Message* const* file_default_instances = nullptr;
 
 const char descriptor_table_protodef_Enum_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
-  "\n\nEnum.proto\022\010ProjectJ*G\n\nPacketType\022\013\n\007"
-  "PT_NONE\020\000\022\025\n\021PT_C_VERIFY_TOKEN\020\001\022\025\n\021PT_S"
-  "_VERIFY_TOKEN\020\002b\006proto3"
+  "\n\nEnum.proto\022\010ProjectJ*\034\n\010TestEnum\022\007\n\003on"
+  "e\020\000\022\007\n\003two\020\001b\006proto3"
   ;
 static ::_pbi::once_flag descriptor_table_Enum_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_Enum_2eproto = {
-    false, false, 103, descriptor_table_protodef_Enum_2eproto,
+    false, false, 60, descriptor_table_protodef_Enum_2eproto,
     "Enum.proto",
     &descriptor_table_Enum_2eproto_once, nullptr, 0, 0,
     schemas, file_default_instances, TableStruct_Enum_2eproto::offsets,
@@ -49,15 +48,14 @@ PROTOBUF_ATTRIBUTE_WEAK const ::_pbi::DescriptorTable* descriptor_table_Enum_2ep
 // Force running AddDescriptors() at dynamic initialization time.
 PROTOBUF_ATTRIBUTE_INIT_PRIORITY2 static ::_pbi::AddDescriptorsRunner dynamic_init_dummy_Enum_2eproto(&descriptor_table_Enum_2eproto);
 namespace ProjectJ {
-const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* PacketType_descriptor() {
+const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* TestEnum_descriptor() {
   ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_Enum_2eproto);
   return file_level_enum_descriptors_Enum_2eproto[0];
 }
-bool PacketType_IsValid(int value) {
+bool TestEnum_IsValid(int value) {
   switch (value) {
     case 0:
     case 1:
-    case 2:
       return true;
     default:
       return false;
