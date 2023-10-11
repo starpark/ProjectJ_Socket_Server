@@ -52,14 +52,14 @@ shared_ptr<SessionBase> Service::CreateSession()
 
 void Service::RegisterSession(shared_ptr<SessionBase> session)
 {
-	LockGuard gurad(lock_);
+	WRITE_LOCK;
 	sessionCount_++;
 	sessions_.insert(session);
 }
 
 void Service::DeleteSession(shared_ptr<SessionBase> session)
 {
-	LockGuard gurad(lock_);
+	WRITE_LOCK;
 	sessions_.erase(session);
 	sessionCount_--;
 }
@@ -67,7 +67,7 @@ void Service::DeleteSession(shared_ptr<SessionBase> session)
 
 void Service::BroadCastWithoutSelf(shared_ptr<SessionBase> self, shared_ptr<SendBuffer> sendBuffer)
 {
-	LockGuard gurad(lock_);
+	WRITE_LOCK;
 	for (auto session : sessions_)
 	{
 		if (session == self) continue;

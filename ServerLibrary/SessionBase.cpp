@@ -67,7 +67,7 @@ void SessionBase::Send(shared_ptr<SendBuffer> sendBuffer)
 	bool isRegistered = false;
 
 	{
-		LockGuard guard(lock_);
+		WRITE_LOCK;
 
 		sendQueue_.push(sendBuffer);
 
@@ -173,7 +173,7 @@ void SessionBase::RegisterSend()
 	sendEvent_.owner_ = shared_from_this();
 
 	{
-		LockGuard guard(lock_);
+		WRITE_LOCK;
 
 		int sendSize = 0;
 		while (sendQueue_.empty() == false)
@@ -276,7 +276,7 @@ void SessionBase::ProcessSend(unsigned int numOfBytes)
 	OnSend(numOfBytes);
 
 	{
-		LockGuard guard(lock_);
+		WRITE_LOCK;
 		if (sendQueue_.empty())
 		{
 			bIsRegisteredSend_.store(false);

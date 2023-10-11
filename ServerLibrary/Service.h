@@ -39,7 +39,7 @@ public: // Getter
 	uint32_t GetMaxSessionCount() { return maxSessionCount_; }
 
 protected:
-	Lock lock_;
+	USE_LOCK;
 	ServiceType serviceType_;
 	NetAddress netAddress_ = {};
 	SessionFactory sessionFactory_; // Session 생성 함수

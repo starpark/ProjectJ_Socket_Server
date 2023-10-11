@@ -70,7 +70,7 @@ shared_ptr<SendBuffer> SendBufferManager::GetSendBuffer(uint32_t size)
 shared_ptr<SendBufferBlock> SendBufferManager::PopBlock()
 {
 	{
-		LockGuard guard(lock_);
+		WRITE_LOCK;
 		if (sendBufferBlocks_.empty() == false)
 		{
 			shared_ptr<SendBufferBlock> sendBufferBlock = sendBufferBlocks_.top();
@@ -85,10 +85,11 @@ shared_ptr<SendBufferBlock> SendBufferManager::PopBlock()
 
 void SendBufferManager::PushBlock(shared_ptr<SendBufferBlock> block)
 {
-	LockGuard guard(lock_);
+	WRITE_LOCK;
 	sendBufferBlocks_.push(block);
 }
 
 void SendBufferManager::PushGlobal(SendBufferBlock* block)
 {
+	GSendBufferManager->PushBlock(shared_ptr<SendBufferBlock>(block, PushGlobal));
 }

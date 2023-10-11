@@ -63,11 +63,11 @@ private:
 	void HandleError(int errorCode);
 
 protected:
+	USE_LOCK;
 	SOCKET socket_ = INVALID_SOCKET;
 	weak_ptr<class Service> ownerService_;
 	SOCKADDR_IN address_;
 	atomic<bool> bIsConnected_ = false;
-	Lock lock_;
 
 private: // OVERLAPPED 구조체 재사용
 	ConnectEvent connectEvent_;
@@ -79,4 +79,10 @@ private: // 송신, 수신 관련
 	RecvBuffer recvBuffer_;
 	queue<shared_ptr<SendBuffer>> sendQueue_;
 	atomic<bool> bIsRegisteredSend_;
+};
+
+struct PacketHeader
+{
+	uint16_t size;
+	uint16_t type;
 };

@@ -2,27 +2,44 @@
 
 class Lock
 {
-	enum
+	enum : uint32_t
 	{
-		TIMEOUT_TICK = 10000,
-		// 10s
-		MAX_SPIN_COUNT = 5000
+		ACQUIRE_TIMEOUT_TICK = 10000,
+		MAX_SPIN_COUNT = 5000,
+		WRITE_THREAD_MASK = 0xFFFF'0000,
+		READ_COUNT_MASK = 0x0000'FFFF,
+		EMPTY_FLAG = 0x0000'0000
 	};
 
 public:
-	void TryLock();
-	void Unlock();
+	void WriteLock(const char* name);
+	void WriteUnlock(const char* name);
+	void ReadLock(const char* name);
+	void ReadUnlock(const char* name);
 
 private:
-	atomic<bool> lock_ = false;
+	atomic<uint32_t> _lockFlag = EMPTY_FLAG;
+	uint16_t _writeCount = 0;
 };
 
-class LockGuard
+class ReadLockGuard
 {
 public:
-	LockGuard(Lock& lock) : lock_(lock) { lock.TryLock(); }
-	~LockGuard() { lock_.Unlock(); }
+	ReadLockGuard(Lock& lock, const char* name) : _lock(lock), _name(name) { _lock.ReadLock(name); }
+	~ReadLockGuard() { _lock.ReadUnlock(_name); }
 
 private:
-	Lock& lock_;
+	Lock& _lock;
+	const char* _name;
+};
+
+class WriteLockGuard
+{
+public:
+	WriteLockGuard(Lock& lock, const char* name) : _lock(lock), _name(name) { _lock.WriteLock(name); }
+	~WriteLockGuard() { _lock.WriteUnlock(_name); }
+
+private:
+	Lock& _lock;
+	const char* _name;
 };
