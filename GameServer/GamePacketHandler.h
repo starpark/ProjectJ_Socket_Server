@@ -1,70 +1,68 @@
-#pragma once
+﻿#pragma once
 #include "Message.pb.h"
 
-struct PacketHeader
+class GameSession;
+using PacketHandlerFunc = function<bool(shared_ptr<class GameSession>&, BYTE*, int)>;
+extern PacketHandlerFunc GPacketHandler[UINT16_MAX];
+
+enum : uint16_t
 {
-	uint16_t size;
-	uint16_t type;
+	PKT_C_VERIFY_TOKEN = 1000,
+	PKT_S_VERIFY_TOKEN = 1001,
+	PKT_C_LOBBY_CHAT = 1002,
+	PKT_S_LOBBY_CHAT = 1003,
 };
 
-const int PacketHeaderSize = sizeof(PacketHeader);
-
-/*
- *	Handler
- */
-
-bool Handle_Invalid(shared_ptr<class GameSession>& session, BYTE* bufer, int numOfBytes);
+bool Handle_INVALID(shared_ptr<GameSession>& session, BYTE* bufer, int numOfBytes);
 bool Handle_C_VERIFY_TOKEN(shared_ptr<GameSession>& session, ProjectJ::C_VERIFY_TOKEN& packet);
+bool Handle_C_LOBBY_CHAT(shared_ptr<GameSession>& session, ProjectJ::C_LOBBY_CHAT& packet);
 
-/*
- *	GamePacketHandler
- */
-using PacketHandler = function<bool(shared_ptr<GameSession>&, BYTE*, int)>;
 
+// 소켓 수신 데이터 처리 및 송신 버퍼 생성 클래스
+// 최초 작성자: 박별
+// 수정자: 
+// 최종 수정일: 2023-10-10 자동 생성
 class GamePacketHandler
 {
-	enum
-	{
-		HANDLER_SIZE = 10000
-	};
-
 public:
 	static void Init()
 	{
-		for (int i = 0; i < HANDLER_SIZE; i++)
+		for (int i = 0; i < UINT16_MAX; i++)
 		{
-			handlers_[i] = Handle_Invalid;
+			GPacketHandler[i] = Handle_INVALID;
 		}
-		BindHandler<ProjectJ::C_VERIFY_TOKEN>(ProjectJ::PT_C_VERIFY_TOKEN, Handle_C_VERIFY_TOKEN);
+		GPacketHandler[PKT_C_VERIFY_TOKEN] = [](shared_ptr<GameSession> session, BYTE* buffer, int numOfBytes)
+		{
+			return HandlePacket<ProjectJ::C_VERIFY_TOKEN>(Handle_C_VERIFY_TOKEN, session, buffer, numOfBytes);
+		};
+		GPacketHandler[PKT_C_LOBBY_CHAT] = [](shared_ptr<GameSession> session, BYTE* buffer, int numOfBytes)
+		{
+			return HandlePacket<ProjectJ::C_LOBBY_CHAT>(Handle_C_LOBBY_CHAT, session, buffer, numOfBytes);
+		};
 	}
 
 	static bool HandlePacket(shared_ptr<GameSession>& session, BYTE* buffer, int numOfBytes)
 	{
 		auto header = reinterpret_cast<PacketHeader*>(buffer);
-		return handlers_[header->type](session, buffer, numOfBytes);
+		return GPacketHandler[header->type](session, buffer, numOfBytes);
 	}
-
 
 	static shared_ptr<SendBuffer> MakeSendBuffer(ProjectJ::S_VERIFY_TOKEN& packet)
 	{
-		return MakeSendBuffer(packet, ProjectJ::PT_S_VERIFY_TOKEN);
+		return MakeSendBuffer(packet, PKT_S_VERIFY_TOKEN);
+	}
+
+	static shared_ptr<SendBuffer> MakeSendBuffer(ProjectJ::S_LOBBY_CHAT& packet)
+	{
+		return MakeSendBuffer(packet, PKT_S_LOBBY_CHAT);
 	}
 
 private:
-	template <typename PacketMessage, typename HandlerFunc>
-	static void BindHandler(uint16_t type, HandlerFunc handler)
-	{
-		handlers_[type] = [=](shared_ptr<class GameSession> session, BYTE* buffer, int numOfBytes)
-		{
-			return Handler<PacketMessage>(handler, session, buffer, numOfBytes);
-		};
-	}
-
 	template <typename PacketMessage, typename ProcessFunc>
-	static bool Handler(ProcessFunc func, shared_ptr<GameSession>& session, BYTE* buffer, int numOfBytes)
+	static bool HandlePacket(ProcessFunc func, shared_ptr<GameSession>& session, BYTE* buffer, int numOfBytes)
 	{
 		PacketMessage packet;
-		if (packet.ParseFromArray(buffer + PacketHeaderSize, numOfBytes - PacketHeaderSize) == false)
+		if (packet.ParseFromArray(buffer + sizeof(PacketHeader), numOfBytes - sizeof(PacketHeader)) == false)
 		{
 			return false;
 		}
@@ -88,7 +86,4 @@ private:
 
 		return sendBuffer;
 	}
-
-private:
-	static PacketHandler handlers_[HANDLER_SIZE];
 };
