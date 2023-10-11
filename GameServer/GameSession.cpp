@@ -31,7 +31,7 @@ int GameSession::OnRecv(BYTE* buffer, int numOfBytes)
 	while (true)
 	{
 		int dataSize = numOfBytes - processLen;
-		if (dataSize <= PacketHeaderSize)
+		if (dataSize <= sizeof(PacketHeader))
 		{
 			break;
 		}
