@@ -3,8 +3,6 @@
 #include "Iocp.h"
 #include "RecvBuffer.h"
 
-#define MAX_BUFFER_SIZE 0x1000
-
 class SessionBase : public IocpObject
 {
 public:
