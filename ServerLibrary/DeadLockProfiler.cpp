@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "DeadLockProfiler.h"
 
 void DeadLockProfiler::PushLock(const char* name)

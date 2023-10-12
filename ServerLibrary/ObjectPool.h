@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 template <typename ObjectType>
 struct SlistItem : public SLIST_ENTRY
