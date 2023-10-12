@@ -429,4 +429,9 @@ FodyWeavers.xsd
 ### VisualStudio Patch ###
 # Additional files built by Visual Studio
 
+### Custom ###
+# Auto Generated Code
+protobuf/*.h
+protobuf/*.cpp
+
 # End of https://www.toptal.com/developers/gitignore/api/visualstudio,c++
