@@ -24,6 +24,23 @@ void LogHelper::WriteStdOut(LogCategory category, const WCHAR* format, ...)
 	SetColor(true, LogCategory::Log_INFO);
 }
 
+void LogHelper::WriteStdOut(LogCategory category, const char* format, ...)
+{
+	if (format == nullptr)
+		return;
+
+	SetColor(true, category);
+
+	va_list ap;
+	va_start(ap, format);
+	vprintf(format, ap);
+	va_end(ap);
+
+	fflush(stdout);
+
+	SetColor(true, LogCategory::Log_INFO);
+}
+
 void LogHelper::SetColor(bool stdOut, LogCategory category)
 {
 	static WORD SColors[]

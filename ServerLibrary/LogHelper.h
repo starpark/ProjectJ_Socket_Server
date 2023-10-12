@@ -15,6 +15,7 @@ public:
 
 public:
 	void WriteStdOut(LogCategory category, const WCHAR* format, ...);
+	void WriteStdOut(LogCategory category, const char* format, ...);
 
 protected:
 	void SetColor(bool stdOut, LogCategory category);
