@@ -76,16 +76,16 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\protobuf\Enum.proto">
+    <None Include="..\Common\Protobuf\GenCode.bat">
       <Filter>Protobuf</Filter>
     </None>
-    <None Include="..\protobuf\GenCode.bat">
+    <None Include="..\Common\Protobuf\Message.proto">
       <Filter>Protobuf</Filter>
     </None>
-    <None Include="..\protobuf\Message.proto">
+    <None Include="..\Common\Protobuf\Struct.proto">
       <Filter>Protobuf</Filter>
     </None>
-    <None Include="..\protobuf\Struct.proto">
+    <None Include="..\Common\Protobuf\Enum.proto">
       <Filter>Protobuf</Filter>
     </None>
   </ItemGroup>

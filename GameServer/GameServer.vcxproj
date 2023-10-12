@@ -179,10 +179,10 @@
     <ClInclude Include="Struct.pb.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\protobuf\Enum.proto" />
-    <None Include="..\protobuf\GenCode.bat" />
-    <None Include="..\protobuf\Message.proto" />
-    <None Include="..\protobuf\Struct.proto" />
+    <None Include="..\Common\Protobuf\Enum.proto" />
+    <None Include="..\Common\Protobuf\GenCode.bat" />
+    <None Include="..\Common\Protobuf\Message.proto" />
+    <None Include="..\Common\Protobuf\Struct.proto" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
