@@ -1,7 +1,13 @@
-﻿#pragma once
+#pragma once
 
 #include "Iocp.h"
 #include "RecvBuffer.h"
+
+struct PacketHeader
+{
+	uint16_t size;
+	uint16_t type;
+};
 
 class SessionBase : public IocpObject
 {
@@ -9,14 +15,15 @@ public:
 	SessionBase();
 	virtual ~SessionBase();
 
-public: // 인터페이스 구현
+public:
 	HANDLE GetHandle() const override sealed { return reinterpret_cast<HANDLE>(socket_); };
 	void ProcessCompletePort(OverlappedEx* overlapped, unsigned numOfBytes) override;
 
-public: // 외부 사용
+public:
 	bool Connect();
+	bool IsConnected() const { return bIsConnected_.load(); }
 	void Disconnect();
-	void AcceptAndConnect(); // Listener 호출
+	void AcceptAndConnect();
 	void Send(shared_ptr<SendBuffer> sendBuffer);
 
 public: // Getter Setter
@@ -25,13 +32,13 @@ public: // Getter Setter
 	BYTE* GetRecvBuffer() { return recvBuffer_.GetWriteBufferPos(); }
 	SOCKADDR_IN GetAddress() const { return address_; }
 	shared_ptr<SessionBase> GetSessionPtr() { return static_pointer_cast<SessionBase>(shared_from_this()); }
-	bool IsConnected() const { return bIsConnected_.load(); }
+	
 
 	void SetOwnerService(shared_ptr<class Service> service) { ownerService_ = service; }
 	void SetAddress(SOCKADDR_IN address) { address_ = address; }
 
 
-protected: // 분산 서버에서 오버라이딩
+protected:
 	virtual void OnConnected()
 	{
 	}
@@ -47,7 +54,6 @@ protected: // 분산 서버에서 오버라이딩
 	}
 
 private:
-	// 비동기 입출력 관련
 	bool RegisterConnect();
 	void RegisterDisconnect();
 	void RegisterRecv();
@@ -67,20 +73,14 @@ protected:
 	SOCKADDR_IN address_;
 	atomic<bool> bIsConnected_ = false;
 
-private: // OVERLAPPED 구조체 재사용
+private:
 	ConnectEvent connectEvent_;
 	DisconnectEvent disconnectEvent_;
 	RecvEvent recvEvent_;
 	SendEvent sendEvent_;
 
-private: // 송신, 수신 관련
+private:
 	RecvBuffer recvBuffer_;
 	queue<shared_ptr<SendBuffer>> sendQueue_;
 	atomic<bool> bIsRegisteredSend_;
-};
-
-struct PacketHeader
-{
-	uint16_t size;
-	uint16_t type;
 };
