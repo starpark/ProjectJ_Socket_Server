@@ -11,18 +11,18 @@ FPacket_INVALID UJPacketHandler::Packet_INVALID_Delegate;
 FPacket_{{pkt.name}} UJPacketHandler::Packet_{{pkt.name}}_Delegate;
 {%- endfor %}
 
-bool Handle_INVALID(UWorld* World, const TSharedPtr<JPackets>& Packet)
+bool Handle_INVALID(UWorld* World, const TSharedPtr<JPackets>& Packet, float DeltaSeconds)
 {
-	bool Result = UJPacketHandler::Packet_INVALID_Delegate.ExecuteIfBound(World);
+	bool Result = UJPacketHandler::Packet_INVALID_Delegate.ExecuteIfBound(World, DeltaSeconds);
 	return false;
 }
 
 {%- for pkt in parser.send_pkt %}
-bool Handle_{{pkt.name}}(UWorld* World, ProjectJ::{{pkt.name}}& Packet)
+bool Handle_{{pkt.name}}(UWorld* World, ProjectJ::{{pkt.name}}& Packet, float DeltaSeconds)
 {
 	if (UJPacketHandler::Packet_{{pkt.name}}_Delegate.IsBound())
 	{
-		return UJPacketHandler::Packet_{{pkt.name}}_Delegate.Execute(World, Packet);
+		return UJPacketHandler::Packet_{{pkt.name}}_Delegate.Execute(World, Packet, DeltaSeconds);
 	}
 
 	return false;

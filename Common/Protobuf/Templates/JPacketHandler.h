@@ -19,7 +19,7 @@ enum : uint16
 };
 
 // RecvThread 전용 패킷 가공 함수
-using PacketProcessorFunc = TFunction<bool(UWorld*, const TSharedPtr<JPackets>&)>;
+using PacketProcessorFunc = TFunction<bool(UWorld*, const TSharedPtr<JPackets>&, float DeltaSeconds)>;
 extern PacketProcessorFunc GPacketProcessor[UINT16_MAX];
 
 // GameThread 전용 패킷 처리 함수
@@ -27,12 +27,12 @@ using PacketHandlerFunc = TFunction<TSharedPtr<JPackets>(uint16, uint8*, int32)>
 extern PacketHandlerFunc GPacketHandler[UINT16_MAX];
 
 // 패킷 처리 함수
-bool Handle_INVALID(UWorld* World, const TSharedPtr<JPackets>& Packet);
-DECLARE_DELEGATE_OneParam(FPacket_INVALID, UWorld*);
+bool Handle_INVALID(UWorld* World, const TSharedPtr<JPackets>& Packet, float DeltaSeconds);
+DECLARE_DELEGATE_TwoParams(FPacket_INVALID, UWorld*, float);
 
 {%- for pkt in parser.send_pkt %}
-bool Handle_{{pkt.name}}(UWorld* World, ProjectJ::{{pkt.name}}& Packet);
-DECLARE_DELEGATE_RetVal_TwoParams(bool, FPacket_{{pkt.name}}, UWorld*, ProjectJ::{{pkt.name}}&);
+bool Handle_{{pkt.name}}(UWorld* World, ProjectJ::{{pkt.name}}& Packet, float DeltaSeconds);
+DECLARE_DELEGATE_RetVal_ThreeParams(bool, FPacket_{{pkt.name}}, UWorld*, ProjectJ::{{pkt.name}}&, float);
 {%- endfor %}
 
 // 소켓 수신 데이터 처리 및 송신 버퍼 생성 클래스
@@ -56,7 +56,7 @@ public:
 
 		// Processor 바인딩
 {%- for pkt in parser.send_pkt %}
-		GPacketProcessor[PKT_{{pkt.name}}] = [](UWorld* World, const TSharedPtr<JPackets>& PacketPtr) {return ProcessPacket<ProjectJ::{{pkt.name}}>(Handle_{{pkt.name}}, World, PacketPtr);};
+		GPacketProcessor[PKT_{{pkt.name}}] = [](UWorld* World, const TSharedPtr<JPackets>& PacketPtr, float DeltaSeconds) {return ProcessPacket<ProjectJ::{{pkt.name}}>(Handle_{{pkt.name}}, World, PacketPtr, DeltaSeconds);};
 {%- endfor %}
 
 		// Handler 바인딩
@@ -68,7 +68,7 @@ public:
 	// 게임 스레드에서 가공된 데이터를 처리하는 함수
 	// World: 현재 게임의 UWorld 객체 주소
 	// 패킷 처리 성공 여부 반환
-	static bool ProcessPacket(UWorld* World)
+	static bool ProcessPacket(UWorld* World, float DeltaSeconds)
 	{
 		UJGameInstance* JGameInstance = Cast<UJGameInstance>(World->GetGameInstance());
 		if (JGameInstance)
@@ -76,7 +76,7 @@ public:
 			TSharedPtr<JPackets> Packet;
 			if (JGameInstance->GetPacketQueue().Dequeue(Packet))
 			{
-				return GPacketProcessor[Packet->Type](World, Packet);
+				return GPacketProcessor[Packet->Type](World, Packet, DeltaSeconds);
 			}
 		}
 
@@ -142,10 +142,10 @@ protected:
 	// PendingPacket: 처리 대기중인 가공된 패킷 객체 참조
 	// 패킷 처리 성공 여부
 	template <typename PacketType, typename ProcessFunc>
-	static bool ProcessPacket(ProcessFunc Func, UWorld* World, const TSharedPtr<JPackets>& PacketPtr)
+	static bool ProcessPacket(ProcessFunc Func, UWorld* World, const TSharedPtr<JPackets>& PacketPtr, float DeltaSeconds)
 	{
 		PacketType Packet = PacketPtr->Packet.Get<PacketType>();
-		bool ProcessResult = Func(World, Packet);
+		bool ProcessResult = Func(World, Packet, DeltaSeconds);
 		return ProcessResult;
 	}
 
