@@ -22,13 +22,3 @@ bool GameService::Init()
 
 	return true;
 }
-
-void GameService::Start()
-{
-	while (true)
-	{
-		iocpMain_->WorkThread(10);
-
-		// TODO
-	}
-}

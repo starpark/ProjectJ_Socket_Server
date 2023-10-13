@@ -5,6 +5,15 @@
 #include "GamePacketHandler.h"
 #include "LogHelper.h"
 
+void DoWorkThread(const shared_ptr<GameService>& service)
+{
+	while(true)
+	{
+		service->GetIocpMain()->WorkThread(10);
+	}
+	
+}
+
 int main()
 {
 	if (false == GDBConnection->Connect(
@@ -25,9 +34,9 @@ int main()
 		GLogHelper->WriteStdOut(LogCategory::Log_INFO, L"Game Server Start\n");
 		for (int i = 0; i < thread::hardware_concurrency() * 2; i++)
 		{
-			threads.push_back(thread([=]()
+			threads.push_back(thread([&]()
 			{
-				service->Start();
+					DoWorkThread(service);
 			}));
 		}
 	}
@@ -38,7 +47,7 @@ int main()
 		pkt.set_result(true);
 		auto sendBuffer = GamePacketHandler::MakeSendBuffer(pkt);
 		this_thread::sleep_for(1s);
-		service->BroadCastWithoutSelf(nullptr, sendBuffer);
+		service->Broadcast(sendBuffer);
 	}
 
 	for (thread& t : threads)

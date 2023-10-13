@@ -12,5 +12,4 @@ public:
 
 public:
 	bool Init() final;
-	void Start() override;
 };
