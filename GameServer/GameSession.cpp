@@ -3,7 +3,7 @@
 #include "GamePacketHandler.h"
 
 GameSession::GameSession()
-	: state_(SessionState::WAIT_CONNECTING)
+	: state_(SessionState::NONE)
 {
 	GLogHelper->WriteStdOut(LogCategory::Log_TEMP, L"GameSession()\n");
 }
@@ -11,6 +11,11 @@ GameSession::GameSession()
 GameSession::~GameSession()
 {
 	GLogHelper->WriteStdOut(LogCategory::Log_TEMP, L"~GameSession()\n");
+}
+
+void GameSession::ChangeState(SessionState state)
+{
+	state_ = state;
 }
 
 void GameSession::OnConnected()

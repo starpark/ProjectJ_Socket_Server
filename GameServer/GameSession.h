@@ -1,15 +1,14 @@
 ﻿#pragma once
 
 #include "SessionBase.h"
+#include "Player.h"
 
 enum class SessionState : uint8_t
 {
-	// before connection
-	WAIT_CONNECTING = 0,
-	// after connection
-	LOBBY_BEFORE_LOGIN,
-	LOBBY_AFTER_LOGIN,
-	IN_GAME,
+	NONE = 0,
+	LOBBY = 1,
+	ROOM = 2,
+	INGAME = 3
 };
 
 class GameSession : public SessionBase
@@ -18,18 +17,24 @@ public:
 	GameSession();
 	~GameSession() override;
 
-public: // Getter Setter
+public:
 	shared_ptr<GameSession> GetGameSessionPtr() { return static_pointer_cast<GameSession>(shared_from_this()); }
-	SessionState GetState() const { return state_; }
+	SessionState GetState() { return state_; }
+	shared_ptr<Player>& GetPlayer() { return player_; }
 
 	void SetState(SessionState state) { state_ = state; }
+	void SetPlayer(const shared_ptr<Player>& player) { player_ = player; }
 
-protected: // 콘텐츠 코드 재정의
+public:
+	void ChangeState(SessionState state);
+
+protected:
 	void OnConnected() override;
 	void OnDisconnect() override;
 	int OnRecv(BYTE* buffer, int numOfBytes) override;
 	void OnSend(int numOfBytes) override;
 
-protected: // 콘텐츠
+protected:
 	SessionState state_;
+	shared_ptr<Player> player_;
 };
