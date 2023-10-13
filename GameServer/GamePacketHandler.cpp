@@ -32,9 +32,12 @@ bool Handle_C_VERIFY_TOKEN(shared_ptr<GameSession>& session, ProjectJ::C_VERIFY_
 	default:
 		try
 		{
+			shared_ptr<Player> newPlayer = make_shared<Player>();
+
+			newPlayer->ownerSession_ = session;
 			if (decodeObj.payload().has_claim("name") == true)
 			{
-				auto name = decodeObj.payload().get_claim_value<string>("name");
+				newPlayer->name_ = decodeObj.payload().get_claim_value<string>("name");
 			}
 			else
 			{
@@ -43,7 +46,7 @@ bool Handle_C_VERIFY_TOKEN(shared_ptr<GameSession>& session, ProjectJ::C_VERIFY_
 
 			if (decodeObj.payload().has_claim("nickname") == true)
 			{
-				auto nickname = decodeObj.payload().get_claim_value<string>("nickname");
+				newPlayer->nickname_ = decodeObj.payload().get_claim_value<string>("nickname");
 			}
 			else
 			{
@@ -52,22 +55,25 @@ bool Handle_C_VERIFY_TOKEN(shared_ptr<GameSession>& session, ProjectJ::C_VERIFY_
 
 			if (decodeObj.payload().has_claim("player_id") == true)
 			{
-				int playerId = decodeObj.payload().get_claim_value<int>("player_id");
+				newPlayer->playerId_ = decodeObj.payload().get_claim_value<int>("player_id");
 			}
 			else
 			{
 				throw;
 			}
 
+			session->SetPlayer(newPlayer);
 			verifyPacket.set_result(true);
 		}
 		catch (nlohmann::json::exception& e)
 		{
+			// parsing type error
 			GLogHelper->WriteStdOut(LogCategory::Log_ERROR, "%s\n", e.what());
 			verifyPacket.set_result(false);
 		}
 		catch (...)
 		{
+			// claim not found
 			verifyPacket.set_result(false);
 		}
 		break;
