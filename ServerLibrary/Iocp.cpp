@@ -1,4 +1,4 @@
-﻿#include "pch.h"
+#include "pch.h"
 #include "Iocp.h"
 
 
@@ -33,27 +33,24 @@ bool IocpMain::RegisterHandle(HANDLE handle)
 
 void IocpMain::WorkThread(unsigned int timeout)
 {
-	while (true)
-	{
-		DWORD numOfBytes = 0;
-		ULONG_PTR key = 0;
-		OverlappedEx* overlapped = nullptr;
+	DWORD numOfBytes = 0;
+	ULONG_PTR key = 0;
+	OverlappedEx* overlapped = nullptr;
 
-		if (GetQueuedCompletionStatus(iocpHandle_, &numOfBytes, &key, reinterpret_cast<LPOVERLAPPED*>(&overlapped),
-		                              timeout))
+	if (GetQueuedCompletionStatus(iocpHandle_, &numOfBytes, &key, reinterpret_cast<LPOVERLAPPED*>(&overlapped),
+	                              timeout))
+	{
+		shared_ptr<IocpObject> iocpObject = overlapped->owner_;
+		iocpObject->ProcessCompletePort(overlapped, numOfBytes);
+	}
+	else
+	{
+		int errorCode = WSAGetLastError();
+		if (errorCode != WAIT_TIMEOUT)
 		{
+			// 비 정상적인 연결 끊김
 			shared_ptr<IocpObject> iocpObject = overlapped->owner_;
 			iocpObject->ProcessCompletePort(overlapped, numOfBytes);
-		}
-		else
-		{
-			int errorCode = WSAGetLastError();
-			if (errorCode != WAIT_TIMEOUT)
-			{
-				// 비 정상적인 연결 끊김
-				shared_ptr<IocpObject> iocpObject = overlapped->owner_;
-				iocpObject->ProcessCompletePort(overlapped, numOfBytes);
-			}
 		}
 	}
 }
