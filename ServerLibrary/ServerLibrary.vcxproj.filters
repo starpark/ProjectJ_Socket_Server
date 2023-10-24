@@ -19,6 +19,9 @@
     <Filter Include="Memory">
       <UniqueIdentifier>{903ff66f-9967-4916-926a-e2d1dd250496}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Task">
+      <UniqueIdentifier>{6cfa09ed-66fc-4941-b713-9a378c7ce603}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ServerLibrary.h">
@@ -75,6 +78,9 @@
     <ClInclude Include="DeadLockProfiler.h">
       <Filter>Thread</Filter>
     </ClInclude>
+    <ClInclude Include="TickTask.h">
+      <Filter>Task</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -124,6 +130,9 @@
     </ClCompile>
     <ClCompile Include="DeadLockProfiler.cpp">
       <Filter>Thread</Filter>
+    </ClCompile>
+    <ClCompile Include="TickTask.cpp">
+      <Filter>Task</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
