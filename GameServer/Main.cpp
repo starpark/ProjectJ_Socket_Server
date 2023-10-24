@@ -4,15 +4,27 @@
 #include "GameSession.h"
 #include "GamePacketHandler.h"
 #include "LogHelper.h"
+#include "TickTask.h"
 
 void DoWorkThread(const shared_ptr<GameService>& service)
 {
-	while(true)
+	static atomic<int> threadIdGen = 1;
+	LThreadId = threadIdGen.fetch_add(1);
+	while (true)
 	{
 		service->GetIocpMain()->WorkThread(10);
+		GTickTaskManager->DoTask();
 	}
-	
 }
+
+class TestTick : public TickTask
+{
+public:
+	void Tick(double deltaTime) override
+	{
+		cout << LThreadId << ": " << deltaTime << endl;
+	}
+};
 
 int main()
 {
@@ -23,8 +35,9 @@ int main()
 		return 0;
 	}
 
-	GamePacketHandler::Init();
 
+	GamePacketHandler::Init();
+	auto tt = TickTaskManager::MakeTask<TestTick>();
 	vector<thread> threads;
 	auto service = make_shared<GameService>(NetAddress(L"0.0.0.0", 3000),
 	                                        [=]() { return make_shared<GameSession>(); },
@@ -36,7 +49,7 @@ int main()
 		{
 			threads.push_back(thread([&]()
 			{
-					DoWorkThread(service);
+				DoWorkThread(service);
 			}));
 		}
 	}
