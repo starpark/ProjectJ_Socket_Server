@@ -1,8 +1,5 @@
 ﻿// Fill out your copyright notice in the Description page of Project Settings.
-
-
 #include "Network/JPacketHandler.h"
-
 
 PacketProcessorFunc GPacketProcessor[UINT16_MAX];
 PacketHandlerFunc GPacketHandler[UINT16_MAX];
