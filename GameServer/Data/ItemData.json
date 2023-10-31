@@ -1,0 +1,20 @@
+﻿{
+  "Version": "0.1",
+  "Date" :  "2023-10-27",
+  "Items": [
+    {
+      "ItemID": "Item0000",
+      "ItemName": "테스트 아이템",
+      "Description": "테스트용 아이템",
+      "Category": "Test",
+      "Size": {
+        "Height": 2,
+        "Width": 2
+      },
+      "Weight": {
+        "Min": 1000,
+        "Max": 2000
+      }
+    }
+  ]
+}

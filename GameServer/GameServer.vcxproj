@@ -149,11 +149,15 @@
     </ClCompile>
     <ClCompile Include="GameService.cpp" />
     <ClCompile Include="GameSession.cpp" />
+    <ClCompile Include="Inventory.cpp" />
+    <ClCompile Include="Item.cpp" />
+    <ClCompile Include="Lobby.cpp" />
     <ClCompile Include="Main.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="GamePacketHandler.cpp" />
+    <ClCompile Include="Match.cpp" />
     <ClCompile Include="Message.pb.cc">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
@@ -174,6 +178,10 @@
     <ClInclude Include="GameService.h" />
     <ClInclude Include="GameSession.h" />
     <ClInclude Include="GamePacketHandler.h" />
+    <ClInclude Include="Inventory.h" />
+    <ClInclude Include="Item.h" />
+    <ClInclude Include="Lobby.h" />
+    <ClInclude Include="Match.h" />
     <ClInclude Include="Message.pb.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Player.h" />
@@ -185,6 +193,7 @@
     <None Include="..\Common\Protobuf\GenCode.bat" />
     <None Include="..\Common\Protobuf\Message.proto" />
     <None Include="..\Common\Protobuf\Struct.proto" />
+    <None Include="Data\ItemData.json" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

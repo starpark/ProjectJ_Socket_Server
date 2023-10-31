@@ -16,7 +16,10 @@
     <Filter Include="Network\Protocol">
       <UniqueIdentifier>{8526b4cb-781f-4740-820c-d27741e70eda}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Protobuf">
+    <Filter Include="Contents\Data">
+      <UniqueIdentifier>{261b67da-15e0-4489-8de4-ae93945d6ede}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Network\Protobuf">
       <UniqueIdentifier>{41b2db2f-e824-46f8-822e-d176fdbedb11}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -51,6 +54,18 @@
     <ClCompile Include="Player.cpp">
       <Filter>Contents</Filter>
     </ClCompile>
+    <ClCompile Include="Item.cpp">
+      <Filter>Contents</Filter>
+    </ClCompile>
+    <ClCompile Include="Inventory.cpp">
+      <Filter>Contents</Filter>
+    </ClCompile>
+    <ClCompile Include="Match.cpp">
+      <Filter>Contents</Filter>
+    </ClCompile>
+    <ClCompile Include="Lobby.cpp">
+      <Filter>Contents</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -80,19 +95,34 @@
     <ClInclude Include="Player.h">
       <Filter>Contents</Filter>
     </ClInclude>
+    <ClInclude Include="Item.h">
+      <Filter>Contents</Filter>
+    </ClInclude>
+    <ClInclude Include="Inventory.h">
+      <Filter>Contents</Filter>
+    </ClInclude>
+    <ClInclude Include="Match.h">
+      <Filter>Contents</Filter>
+    </ClInclude>
+    <ClInclude Include="Lobby.h">
+      <Filter>Contents</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Common\Protobuf\GenCode.bat">
-      <Filter>Protobuf</Filter>
+      <Filter>Network\Protobuf</Filter>
     </None>
     <None Include="..\Common\Protobuf\Message.proto">
-      <Filter>Protobuf</Filter>
+      <Filter>Network\Protobuf</Filter>
     </None>
     <None Include="..\Common\Protobuf\Struct.proto">
-      <Filter>Protobuf</Filter>
+      <Filter>Network\Protobuf</Filter>
     </None>
     <None Include="..\Common\Protobuf\Enum.proto">
-      <Filter>Protobuf</Filter>
+      <Filter>Network\Protobuf</Filter>
+    </None>
+    <None Include="Data\ItemData.json">
+      <Filter>Contents\Data</Filter>
     </None>
   </ItemGroup>
 </Project>
