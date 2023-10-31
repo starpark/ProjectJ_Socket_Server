@@ -5,8 +5,8 @@
 #include "SocketUtils.h"
 
 Service::Service(ServiceType type, NetAddress address, SessionFactory factory, uint32_t maxSessionCount)
-	: serviceType_(type), netAddress_(address), sessionFactory_(factory), maxSessionCount_(maxSessionCount),
-	  listener_(nullptr), iocpMain_(make_shared<IocpMain>())
+	: serviceType_(type), maxSessionCount_(maxSessionCount), netAddress_(address), listener_(nullptr),
+	  iocpMain_(make_shared<IocpMain>()), sessionFactory_(factory)
 {
 }
 
@@ -39,8 +39,8 @@ bool Service::Init()
 
 shared_ptr<SessionBase> Service::CreateSession()
 {
-	shared_ptr<class SessionBase> session = sessionFactory_();
-	session->SetOwnerService(shared_from_this());
+	shared_ptr<SessionBase> session = sessionFactory_();
+	session->SetService(shared_from_this());
 
 	if (iocpMain_->RegisterHandle(session->GetHandle()) == false)
 	{
