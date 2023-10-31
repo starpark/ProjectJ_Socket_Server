@@ -2,78 +2,110 @@
 #include "Room.h"
 #include "GameSession.h"
 #include "Player.h"
+#include "Lobby.h"
 
-Room::Room(int roomNumber, string title, const shared_ptr<Player>& hostPlayer)
-	:roomNumber_(roomNumber), title_(move(title))
+Room::Room(int roomNumber, string title, shared_ptr<GameSession> hostSession, shared_ptr<Lobby> lobby)
+	: roomID_(roomNumber), title_(move(title)), lobby_(lobby)
 {
-	playerSessions_.assign(4, nullptr);
-	isReady_.assign(4, false);
+	sessionSlots_.assign(4, make_pair(nullptr, false));
 
-	playerSessions_[0] = hostPlayer;
+	sessionSlots_[0].first = hostSession;
 }
 
 Room::~Room()
 {
+	sessionSlots_.clear();
 }
 
-void Room::Broadcast(shared_ptr<SendBuffer> sendBuffer)
+vector<shared_ptr<Player>> Room::GetPlayersInfo()
 {
-	for(auto player : playerSessions_)
+	vector<shared_ptr<Player>> players;
+
+	for (int i = 0; i < MAX_PLAYER_NUMBER; i++)
 	{
-		if (shared_ptr<GameSession> session = player->ownerSession_.lock())
+		players.push_back(sessionSlots_[i].first->GetPlayer());
+	}
+
+	return players;
+}
+
+bool Room::EnterPlayer(shared_ptr<GameSession> session)
+{
+	WRITE_LOCK;
+	if (numberOfPlayers_ == MAX_PLAYER_NUMBER)
+	{
+		return false;
+	}
+
+	for (int i = 0; i < MAX_PLAYER_NUMBER; i++)
+	{
+		if (sessionSlots_[i].first == nullptr)
 		{
-			session->Send(sendBuffer);
+			// TODO Broadcast
+
+			sessionSlots_[i].first = session;
+			sessionSlots_[i].second = false;
+
+			return true;
 		}
+	}
+
+	return false;
+}
+
+bool Room::LeavePlayer(const shared_ptr<GameSession>& session)
+{
+	WRITE_LOCK;
+	for (int i = 0; i < MAX_PLAYER_NUMBER; i++)
+	{
+		if (sessionSlots_[i].first == session)
+		{
+			// TODO Broadcast
+
+			sessionSlots_[i].first = nullptr;
+			sessionSlots_[i].second = false;
+
+			return true;
+		}
+	}
+
+	return false;
+}
+
+void Room::BroadcastHere(shared_ptr<SendBuffer> sendBuffer)
+{
+	WRITE_LOCK;
+	for (auto session : sessionSlots_)
+	{
+		session.first->Send(sendBuffer);
 	}
 }
 
-bool Room::ChangePlayerPosition(const shared_ptr<Player>& player, int currentNumber, int desireNumber)
+bool Room::ChangePlayerPosition(const shared_ptr<GameSession>& session, int currentNumber, int desireNumber)
 {
-	if(currentNumber < 0 || currentNumber > 4 || desireNumber < 0 || desireNumber > 4)
+	if (currentNumber < 0 || currentNumber > 4 || desireNumber < 0 || desireNumber > 4)
 	{
 		return false;
 	}
 
 	WRITE_LOCK;
-	if(playerSessions_[desireNumber] == nullptr && playerSessions_[currentNumber] == player)
+	if (sessionSlots_[desireNumber].first == nullptr && sessionSlots_[currentNumber].first == session)
 	{
-		playerSessions_[desireNumber] = player;
-		playerSessions_[currentNumber] = nullptr;
+		swap(sessionSlots_[desireNumber].first, sessionSlots_[currentNumber].first);
+		//TODO Broadcast
 	}
 
 	return true;
 }
 
-void Room::PlayerToggleReady(const shared_ptr<Player>& player)
+void Room::ToggleReady(const shared_ptr<GameSession>& session)
 {
 	WRITE_LOCK;
-	for(int i = 0; i < MAX_PLAYER_NUMBER; i++)
+	for (int i = 0; i < MAX_PLAYER_NUMBER; i++)
 	{
-		if(playerSessions_[i] == player)
+		if (sessionSlots_[i].first == session)
 		{
-			isReady_[i] = 1 ^ isReady_[i];
+			sessionSlots_[i].second ^= true;
 		}
 	}
-}
-
-void RoomManager::CreateRoom(const shared_ptr<Player>& player, string title)
-{
-	static atomic<int> roomNumberGenerator = 1;
-	int roomNumber = roomNumberGenerator.fetch_add(1);
-	shared_ptr<Room> newRoom = make_shared<Room>(roomNumber, title.substr(0, 20), player);
-
-	WRITE_LOCK;
-	rooms_.insert({ roomNumber , newRoom });
-}
-
-void RoomManager::EnterRoom(int roomNumber)
-{
-}
-
-void RoomManager::LeaveRoom(const shared_ptr<Player>& player)
-{
-}
-
-void RoomManager::DestroyRoom(int roomNumber)
-{
 }

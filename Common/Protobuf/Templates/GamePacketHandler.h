@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "Message.pb.h"
 
 class GameSession;

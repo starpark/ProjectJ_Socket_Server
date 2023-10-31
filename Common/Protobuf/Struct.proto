@@ -1,5 +1,5 @@
 syntax = "proto3";
-package protocol;
+package ProjectJ;
 
 import "Enum.proto";
 
@@ -10,9 +10,51 @@ message Vector
 	float z = 3;
 }
 
-message Rotate
+message Rotator
 {
 	float roll = 1;
 	float pitch = 2;
 	float yaw = 3;
+}
+
+message Room
+{
+	int32 id = 1;
+	string title = 2;
+	int32 number_of_player = 3;
+}
+
+message Player
+{
+	int32 account_id = 1;
+	string nickname = 2;
+}
+
+message RoomInfo
+{
+	message PlayerSlot
+	{
+		Player player =2;
+		bool is_ready = 3;
+	}
+	int32 room_id = 1;
+	string title = 2;
+	PlayerSlot chaser = 3;
+	PlayerSlot fugitive_first = 4;
+	PlayerSlot fugitive_second = 5;
+	PlayerSlot fugitive_third = 6;
+}
+
+message Item
+{
+	int32 id = 1;
+	string code = 2;
+	int32 width = 3;
+	int32 height = 4;
+	int32 weight = 5;
+	bool is_owned = 6;
+	Vector world_position = 7;
+	Rotator world_rotation = 8;
+	int32 onwer_player_index = 9;
+	int32 is_rotated = 10;
 }

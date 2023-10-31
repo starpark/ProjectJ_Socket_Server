@@ -15,18 +15,140 @@ message S_VERIFY_TOKEN
 	bool result = 1;
 }
 
+/* LOBBY PROTOCOL */
+
 message C_LOBBY_CHAT
 {
 	int32 account_id = 1;
 	string nickname = 2;
-	int64 chat_time = 3;
-	string chat = 4;
+	string chat = 3;
 }
 
 message S_LOBBY_CHAT
 {
 	int32 account_id = 1;
 	string nickname = 2;
-	int64 chat_time = 3;
-	string chat = 4;
+	string chat = 3;
+}
+
+message C_LOBBY_REFRESH_ROOM
+{
+	int32 account_id = 1;
+}
+
+message S_LOBBY_REFRESH_ROOM
+{
+	repeated Room rooms = 1;
+}
+
+message C_LOBBY_CREATE_ROOM
+{
+	int32 account_id = 1;
+	string title = 2;
+}
+
+message S_LOBBY_CREATE_ROOM
+{
+	bool result = 1;
+	RoomInfo info = 2;
+}
+
+message C_LOBBY_ENTER_ROOM
+{
+	int32 account_id = 1;
+	int32 room_id = 2;
+}
+
+message S_LOBBY_ENTER_ROOM
+{
+	bool result = 1;
+	int32 room_id = 2;
+	RoomInfo info = 3;
+}
+
+message C_ROOM_LEAVE
+{
+	int32 account_id = 1;
+	int32 room_id = 2;
+}
+
+message S_ROOM_LEAVE
+{
+	bool result = 1;
+}
+
+message S_ROOM_OTHER_ENTER
+{
+	Player other = 1;
+	RoomInfo info = 2;
+}
+
+message S_ROOM_OTHER_LEAVE
+{
+	Player other = 1;
+	RoomInfo info = 2;
+}
+
+message C_ROOM_READY
+{
+	int32 account_id = 1;
+	int32 room_id = 2;
+}
+
+message S_ROOM_READY
+{
+	RoomInfo info = 2;
+}
+
+/* MATCH PROTOCOL */
+
+message S_MATCH_INIT_GENERATED_ITEMS
+{
+	repeated Item items = 1;
+}
+
+message C_MATCH_ITEM_PICKUP
+{
+	int32 player_index = 1;
+	int32 item_id = 2;
+}
+
+message S_MATCH_ITEM_PICKUP
+{
+	bool result = 1;
+	int32 player_index = 2;
+	int32 item_id = 3;
+	int32 top_left_index = 4;
+}
+
+message C_MATCH_ITEM_MOVE
+{
+	int32 player_index = 1;
+	int32 item_id = 2;
+	int32 is_item_rotated = 3;
+	int32 target_top_left_index = 4;
+}
+
+message S_MATCH_ITEM_MOVE
+{
+	bool result = 1;
+	int32 item_id = 2;
+	int32 is_item_rotated = 3;
+	int32 top_left_index = 4;
+}
+
+message C_MATCH_ITEM_DROP
+{
+	int32 player_index = 1;
+	Vector drop_item_position = 2;
+	Rotator drop_item_rotation = 3;
+	int32 item_id = 4;
+}
+
+message S_MATCH_ITEM_DROP
+{
+	int32 player_index = 1;
+	Vector drop_item_position = 2;
+	Rotator drop_item_rotation = 3;
+	int32 item_id = 4;
 }
