@@ -1,11 +1,5 @@
 #pragma once
 
-struct TickCounts
-{
-	LARGE_INTEGER lastTick_{0,};
-	LARGE_INTEGER currentTick_{0,};
-	LARGE_INTEGER frequency_{0,};
-};
 
 class TickTask : public enable_shared_from_this<TickTask>
 {
@@ -13,12 +7,13 @@ public:
 	TickTask();
 	virtual ~TickTask();
 	virtual void Tick(double deltaTime) = 0;
+	UINT64 lastTick_;
 };
 
 class TickTaskManager
 {
 public:
-	void DoTask();
+	void DoTask(UINT64 currentTick);
 	void AddTask(const shared_ptr<TickTask>& task);
 	void DeleteTask(const shared_ptr<TickTask>& task);
 
@@ -35,5 +30,4 @@ public:
 private:
 	USE_LOCK;
 	queue<weak_ptr<TickTask>> tickTaskQueue_;
-	double deltaSeconds_ = 1 / 60.0;
 };

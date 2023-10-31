@@ -2,6 +2,7 @@
 #include "TickTask.h"
 
 TickTask::TickTask()
+	: lastTick_(GetTickCount64())
 {
 }
 
@@ -9,13 +10,8 @@ TickTask::~TickTask()
 {
 }
 
-void TickTaskManager::DoTask()
+void TickTaskManager::DoTask(UINT64 currentTick)
 {
-	QueryPerformanceCounter(&LTickCounts.currentTick_);
-	QueryPerformanceFrequency(&LTickCounts.frequency_);
-	deltaSeconds_ = (LTickCounts.currentTick_.QuadPart - LTickCounts.lastTick_.QuadPart) / static_cast<double>(
-		LTickCounts.frequency_.QuadPart);
-
 	vector<weak_ptr<TickTask>> tasks;
 	{
 		WRITE_LOCK;
@@ -32,7 +28,18 @@ void TickTaskManager::DoTask()
 	{
 		if (auto taskPtr = task.lock())
 		{
-			taskPtr->Tick(deltaSeconds_);
+			UINT64 elapsedTick = currentTick - taskPtr->lastTick_;
+			if (elapsedTick > 0)
+			{
+				double deltaSeconds = elapsedTick / static_cast<double>(1000.0f);
+
+				if (deltaSeconds >= 0.01)
+				{
+					taskPtr->Tick(deltaSeconds);
+
+					taskPtr->lastTick_ = currentTick;
+				}
+			}
 		}
 	}
 
@@ -46,8 +53,6 @@ void TickTaskManager::DoTask()
 			}
 		}
 	}
-
-	LTickCounts.lastTick_ = LTickCounts.currentTick_;
 }
 
 void TickTaskManager::AddTask(const shared_ptr<TickTask>& task)
