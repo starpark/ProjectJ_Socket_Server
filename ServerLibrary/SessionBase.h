@@ -28,13 +28,12 @@ public:
 
 public: // Getter Setter
 	SOCKET GetSocket() const { return socket_; }
-	shared_ptr<class Service> GetOwnerService() const { return ownerService_.lock(); }
+	shared_ptr<class Service> GetService() const { return service_.lock(); }
 	BYTE* GetRecvBuffer() { return recvBuffer_.GetWriteBufferPos(); }
 	SOCKADDR_IN GetAddress() const { return address_; }
 	shared_ptr<SessionBase> GetSessionPtr() { return static_pointer_cast<SessionBase>(shared_from_this()); }
-	
 
-	void SetOwnerService(shared_ptr<class Service> service) { ownerService_ = service; }
+	void SetService(shared_ptr<Service> service) { service_ = service; }
 	void SetAddress(SOCKADDR_IN address) { address_ = address; }
 
 
@@ -69,7 +68,7 @@ private:
 protected:
 	USE_LOCK;
 	SOCKET socket_ = INVALID_SOCKET;
-	weak_ptr<class Service> ownerService_;
+	weak_ptr<Service> service_;
 	SOCKADDR_IN address_;
 	atomic<bool> bIsConnected_ = false;
 

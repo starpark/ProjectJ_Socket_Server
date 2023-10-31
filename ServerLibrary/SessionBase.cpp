@@ -90,7 +90,7 @@ bool SessionBase::RegisterConnect()
 		return false;
 	}
 
-	if (GetOwnerService()->GetServiceType() != ServiceType::CLIENT)
+	if (GetService()->GetServiceType() != ServiceType::CLIENT)
 	{
 		return false;
 	}
@@ -109,7 +109,7 @@ bool SessionBase::RegisterConnect()
 	connectEvent_.owner_ = shared_from_this();
 
 	DWORD numOfBytes = 0;
-	SOCKADDR_IN sockAddr = GetOwnerService()->GetNetAddress().GetSockAddr();
+	SOCKADDR_IN sockAddr = GetService()->GetNetAddress().GetSockAddr();
 	if (false == SocketUtils::ConnectEx(socket_, reinterpret_cast<SOCKADDR*>(&sockAddr), sizeof(sockAddr), nullptr, 0,
 	                                    &numOfBytes, &connectEvent_))
 	{
@@ -217,7 +217,7 @@ void SessionBase::ProcessConnect()
 		return;
 	}
 
-	GetOwnerService()->RegisterSession(GetSessionPtr());
+	GetService()->RegisterSession(GetSessionPtr());
 
 	OnConnected();
 
@@ -228,7 +228,7 @@ void SessionBase::ProcessDisconnect()
 {
 	disconnectEvent_.owner_ = nullptr;
 
-	GetOwnerService()->DeleteSession(GetSessionPtr());
+	GetService()->DeleteSession(GetSessionPtr());
 
 	OnDisconnect();
 }
