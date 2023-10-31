@@ -9,14 +9,14 @@ void Lock::WriteLock(const char* name)
 #endif
 
 	const uint32_t lockThreadId = (_lockFlag.load() & WRITE_THREAD_MASK) >> 16;
-	if (LThreadId == lockThreadId)
+	if (LThreadID == lockThreadId)
 	{
 		_writeCount++;
 		return;
 	}
 
 	const int64_t beginTick = GetTickCount64();
-	const uint32_t desired = ((LThreadId << 16) & WRITE_THREAD_MASK);
+	const uint32_t desired = ((LThreadID << 16) & WRITE_THREAD_MASK);
 	while (true)
 	{
 		for (uint32_t spinCount = 0; spinCount < MAX_SPIN_COUNT; spinCount++)
@@ -29,8 +29,10 @@ void Lock::WriteLock(const char* name)
 			}
 		}
 
+#ifndef DEBUG_
 		if (GetTickCount64() - beginTick >= ACQUIRE_TIMEOUT_TICK)
 			CRASH("LOCK_TIMEOUT");
+#endif
 
 		this_thread::yield();
 	}
@@ -57,7 +59,7 @@ void Lock::ReadLock(const char* name)
 #endif
 
 	const uint32_t lockThreadId = (_lockFlag.load() & WRITE_THREAD_MASK) >> 16;
-	if (LThreadId == lockThreadId)
+	if (LThreadID == lockThreadId)
 	{
 		_lockFlag.fetch_add(1);
 		return;
