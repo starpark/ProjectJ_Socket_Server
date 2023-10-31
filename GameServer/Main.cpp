@@ -5,24 +5,34 @@
 #include "GamePacketHandler.h"
 #include "LogHelper.h"
 #include "TickTask.h"
+#include "Inventory.h"
 
 void DoWorkThread(const shared_ptr<GameService>& service)
 {
 	static atomic<int> threadIdGen = 1;
-	LThreadId = threadIdGen.fetch_add(1);
+	LThreadID = threadIdGen.fetch_add(1);
+
 	while (true)
 	{
+		const UINT64 currentTick = GetTickCount64();
+
 		service->GetIocpMain()->WorkThread(10);
-		GTickTaskManager->DoTask();
+		GTickTaskManager->DoTask(currentTick);
 	}
 }
 
 class TestTick : public TickTask
 {
 public:
+	int count = 0;
+	double timeElapsed = 0.0f;
+
 	void Tick(double deltaTime) override
 	{
-		cout << LThreadId << ": " << deltaTime << endl;
+		count++;
+		timeElapsed += deltaTime;
+		double fps = static_cast<double>(count) / timeElapsed;
+		// cout << LThreadID << ": " << deltaTime << " " << count << " " << fps << " " << endl;
 	}
 };
 
@@ -37,7 +47,8 @@ int main()
 
 
 	GamePacketHandler::Init();
-	auto tt = TickTaskManager::MakeTask<TestTick>();
+	auto tt1 = TickTaskManager::MakeTask<TestTick>();
+	auto tt2 = TickTaskManager::MakeTask<TestTick>();
 	vector<thread> threads;
 	auto service = make_shared<GameService>(NetAddress(L"0.0.0.0", 3000),
 	                                        [=]() { return make_shared<GameSession>(); },
@@ -54,14 +65,7 @@ int main()
 		}
 	}
 
-	while (true)
-	{
-		ProjectJ::S_VERIFY_TOKEN pkt;
-		pkt.set_result(true);
-		auto sendBuffer = GamePacketHandler::MakeSendBuffer(pkt);
-		this_thread::sleep_for(1s);
-		service->Broadcast(sendBuffer);
-	}
+	DoWorkThread(service);
 
 	for (thread& t : threads)
 	{
