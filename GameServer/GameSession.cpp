@@ -2,25 +2,22 @@
 #include "GameSession.h"
 #include "GamePacketHandler.h"
 
+// GameSessionMananger GSessionManager;
+
 GameSession::GameSession()
-	: state_(SessionState::NONE)
 {
-	GLogHelper->WriteStdOut(LogCategory::Log_TEMP, L"GameSession()\n");
+	// 	GLogHelper->WriteStdOut(LogCategory::Log_TEMP, L"GameSession()\n");
 }
 
 GameSession::~GameSession()
 {
+	player_ = nullptr;
 	GLogHelper->WriteStdOut(LogCategory::Log_TEMP, L"~GameSession()\n");
-}
-
-void GameSession::ChangeState(SessionState state)
-{
-	state_ = state;
 }
 
 void GameSession::OnConnected()
 {
-	//GLogHelper->WriteStdOut(LogCategory::Log_TEMP, L"OnConnected\n");
+	GLogHelper->WriteStdOut(LogCategory::Log_TEMP, L"OnConnected\n");
 }
 
 void GameSession::OnDisconnect()
@@ -30,7 +27,7 @@ void GameSession::OnDisconnect()
 
 int GameSession::OnRecv(BYTE* buffer, int numOfBytes)
 {
-	//GLogHelper->WriteStdOut(LogCategory::Log_TEMP, L"OnRecv\n");
+	GLogHelper->WriteStdOut(LogCategory::Log_TEMP, L"OnRecv\n");
 	int processLen = 0;
 
 	while (true)
@@ -58,5 +55,43 @@ int GameSession::OnRecv(BYTE* buffer, int numOfBytes)
 
 void GameSession::OnSend(int numOfBytes)
 {
-	GLogHelper->WriteStdOut(LogCategory::Log_TEMP, L"OnSend\n");
+	// GLogHelper->WriteStdOut(LogCategory::Log_TEMP, L"OnSend\n");
 }
+
+
+/*
+void GameSessionMananger::Add(shared_ptr<GameSession> session)
+{
+	WRITE_LOCK;
+	session->SetState(SessionState::LOBBY);
+	sessions_.insert(session);
+}
+
+void GameSessionMananger::Remove(shared_ptr<GameSession> session)
+{
+	WRITE_LOCK;
+	session->SetState(SessionState::NONE);
+	sessions_.erase(session);
+}
+
+void GameSessionMananger::Broadcast(shared_ptr<SendBuffer> sendBuffer)
+{
+	WRITE_LOCK;
+	for (auto session : sessions_)
+	{
+		session->Send(sendBuffer);
+	}
+}
+
+void GameSessionMananger::Broadcast(SessionState state, shared_ptr<SendBuffer> sendBuffer)
+{
+	WRITE_LOCK;
+	for (auto session : sessions_)
+	{
+		if (session->GetState() == state)
+		{
+			session->Send(sendBuffer);
+		}
+	}
+}
+*/
