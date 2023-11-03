@@ -48,7 +48,8 @@ bool Lobby::CreateRoom(shared_ptr<GameSession> session, string title)
 {
 	static atomic<int> roomIDGenerator = 1;
 	int roomID = roomIDGenerator.fetch_add(1);
-	auto newRoom = make_shared<Room>(roomID, title.substr(0, 20), session, shared_from_this());
+	shared_ptr<Room> newRoom = ObjectPool<Room>::MakeShared(roomID, title, session, shared_from_this());
+	//auto newRoom = make_shared<Room>(roomID, title.substr(0, 20), session, shared_from_this());
 
 	WRITE_LOCK;
 	auto [iterator, result] = rooms_.insert({roomID, newRoom});
