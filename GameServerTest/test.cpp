@@ -1,8 +1,10 @@
 #include "pch.h"
 #include "../GameServer/Player.h"
 #include "../GameServer/Room.h"
+#include "../GameServer/Lobby.h"
 #include "../GameServer/Inventory.h"
 #include "../GameServer/Message.pb.h"
+#include "../GameServer/GameSession.h"
 #include <random>
 
 int main(int argc, char* argv[])
@@ -124,6 +126,15 @@ TEST(ProtobufTest, RepeatedTest)
 		ProjectJ::Room room = packet.rooms(i);
 		cout << room.id() << ": " << room.title() << " " << endl;
 	}
+}
+
+TEST(LobbyRoomMatchTest, HandleLobby)
+{
+	auto dummySession = make_shared<GameSession>();
+	auto dummyLobby = make_shared<Lobby>();
+	dummySession->SetID(1);
+	dummySession->SetNickname("dummy");
+	dummySession->SetName("dummy");
 }
 
 /*TEST(LobbyTest, HandleRoomCreateAndLeave)
