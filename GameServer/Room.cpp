@@ -3,33 +3,33 @@
 #include "GameSession.h"
 #include "Player.h"
 #include "Lobby.h"
+#include "Match.h"
 
 Room::Room(int roomNumber, string title, shared_ptr<GameSession> hostSession, shared_ptr<Lobby> lobby)
 	: roomID_(roomNumber), title_(move(title)), lobby_(lobby)
 {
 	sessionSlots_.assign(4, make_pair(nullptr, false));
-
-	sessionSlots_[0].first = hostSession;
 }
 
 Room::~Room()
 {
+	GLogHelper->Reserve(LogCategory::Log_INFO, L"~Room()\n");
 	sessionSlots_.clear();
 }
 
-vector<shared_ptr<Player>> Room::GetPlayersInfo()
+vector<pair<shared_ptr<GameSession>, bool>> Room::GetRoomInfo()
 {
-	vector<shared_ptr<Player>> players;
+	vector<pair<shared_ptr<GameSession>, bool>> roomInfo;
 
 	for (int i = 0; i < MAX_PLAYER_NUMBER; i++)
 	{
-		players.push_back(sessionSlots_[i].first->GetPlayer());
+		roomInfo.push_back({sessionSlots_[i].first, sessionSlots_[i].second});
 	}
 
-	return players;
+	return roomInfo;
 }
 
-bool Room::EnterPlayer(shared_ptr<GameSession> session)
+bool Room::EnterSession(shared_ptr<GameSession> session)
 {
 	WRITE_LOCK;
 	if (numberOfPlayers_ == MAX_PLAYER_NUMBER)
@@ -41,10 +41,11 @@ bool Room::EnterPlayer(shared_ptr<GameSession> session)
 	{
 		if (sessionSlots_[i].first == nullptr)
 		{
-			// TODO Broadcast
-
 			sessionSlots_[i].first = session;
 			sessionSlots_[i].second = false;
+
+			auto self = shared_from_this();
+			session->ProcessEnterRoom(self);
 
 			return true;
 		}
@@ -53,17 +54,17 @@ bool Room::EnterPlayer(shared_ptr<GameSession> session)
 	return false;
 }
 
-bool Room::LeavePlayer(const shared_ptr<GameSession>& session)
+bool Room::LeaveSession(const shared_ptr<GameSession>& session)
 {
 	WRITE_LOCK;
 	for (int i = 0; i < MAX_PLAYER_NUMBER; i++)
 	{
 		if (sessionSlots_[i].first == session)
 		{
-			// TODO Broadcast
-
 			sessionSlots_[i].first = nullptr;
 			sessionSlots_[i].second = false;
+
+			session->ProcessLeaveRoom();
 
 			return true;
 		}
@@ -108,4 +109,36 @@ void Room::ToggleReady(const shared_ptr<GameSession>& session)
 			sessionSlots_[i].second ^= true;
 		}
 	}
+}
+
+bool Room::StartMatch()
+{
+	for (int i = 0; i < MAX_PLAYER_NUMBER; i++)
+	{
+		if (sessionSlots_[i].first == nullptr || sessionSlots_[i].second != true)
+		{
+			return false;
+		}
+	}
+
+	state_ = RoomState::INGAME;
+
+	shared_ptr<GameSession> chaser = sessionSlots_[0].first;
+	shared_ptr<GameSession> fugitiveOne = sessionSlots_[1].first;
+	shared_ptr<GameSession> fugitiveTwo = sessionSlots_[2].first;
+	shared_ptr<GameSession> fugitiveThree = sessionSlots_[3].first;
+
+	match_ = TickTaskManager::MakeTask<Match>(
+		chaser,
+		fugitiveOne,
+		fugitiveTwo,
+		fugitiveThree,
+		shared_from_this()
+	);
+}
+
+void Room::EndMatch()
+{
+	state_ = RoomState::WAITING;
+	match_ = nullptr;
 }
