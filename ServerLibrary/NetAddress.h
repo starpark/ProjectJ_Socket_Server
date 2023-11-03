@@ -8,7 +8,8 @@ public:
 	NetAddress(wstring ip, uint16_t port);
 
 	SOCKADDR_IN& GetSockAddr() { return _sockAddr; }
-	wstring GetIpAddress();
+	wstring GetIpAddressW();
+	string GetIpAddress();
 	uint16_t GetPort() { return ntohs(_sockAddr.sin_port); }
 
 public:

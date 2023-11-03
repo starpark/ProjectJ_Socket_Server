@@ -13,11 +13,18 @@ NetAddress::NetAddress(wstring ip, uint16_t port)
 	_sockAddr.sin_port = htons(port);
 }
 
-wstring NetAddress::GetIpAddress()
+wstring NetAddress::GetIpAddressW()
 {
 	WCHAR buffer[100];
 	InetNtopW(AF_INET, &_sockAddr.sin_addr, buffer, sizeof(buffer));
 	return wstring(buffer);
+}
+
+string NetAddress::GetIpAddress()
+{
+	char buffer[100];
+	inet_ntop(AF_INET, &_sockAddr.sin_addr, buffer, sizeof(buffer));
+	return string(buffer);
 }
 
 IN_ADDR NetAddress::IpToAddress(const WCHAR* ip)
