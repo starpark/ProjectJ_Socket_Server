@@ -26,6 +26,9 @@ public:
 	shared_ptr<GameSession> GetGameSessionPtr() { return static_pointer_cast<GameSession>(shared_from_this()); }
 	SessionState GetState() { return state_; }
 	shared_ptr<Player>& GetPlayer() { return player_; }
+	int GetID() { return id_; }
+	string GetNickname() { return nickname_; }
+	string GetName() { return name_; }
 
 	shared_ptr<Lobby> TryGetLobby()
 	{
@@ -45,11 +48,25 @@ public:
 		return nullptr;
 	}
 
+	void ProcessEnterLobby(const shared_ptr<Lobby>& lobby);
+	void ProcessLeaveLobby();
+
+	void ProcessEnterRoom(const shared_ptr<Room>& room);
+	void ProcessLeaveRoom();
+
+	void ProcessEnterMatch(const shared_ptr<Match>& match, const shared_ptr<Player>& player);
+	void ProcessLeaveMatch();
+
+	void SetID(int id) { id_ = id; }
+	void SetNickname(string& nickname) { nickname_ = nickname; }
+	void SetNickname(string&& nickname) { nickname_ = std::move(nickname); }
+	void SetName(string& name) { name_ = name; }
+	void SetName(string&& name) { name_ = std::move(name); }
 	void SetState(SessionState state) { state_ = state; }
-	void SetPlayer(const shared_ptr<Player>& player) { player_ = player; }
-	void SetLobby(const shared_ptr<Lobby>& lobby) { lobby_ = lobby; }
-	void SetRoom(const shared_ptr<Room>& room) { room_ = room; }
-	void SetMatch(const shared_ptr<Match>& match) { match_ = match; }
+	void SetPlayer(shared_ptr<Player> player) { player_ = player; }
+	void SetLobby(shared_ptr<Lobby> lobby) { lobby_ = lobby; }
+	void SetRoom(shared_ptr<Room> room) { room_ = room; }
+	void SetMatch(shared_ptr<Match> match) { match_ = match; }
 
 protected:
 	void OnConnected() override;
@@ -59,7 +76,10 @@ protected:
 
 
 protected:
-	SessionState state_ = SessionState::NONE;
+	atomic<SessionState> state_ = SessionState::NONE;
+	int id_ = -1;
+	string nickname_;
+	string name_;
 	shared_ptr<Player> player_;
 	weak_ptr<Lobby> lobby_;
 	weak_ptr<Room> room_;

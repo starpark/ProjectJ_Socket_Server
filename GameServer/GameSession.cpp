@@ -1,35 +1,86 @@
 #include "pch.h"
 #include "GameSession.h"
 #include "GamePacketHandler.h"
-
-// GameSessionMananger GSessionManager;
+#include "Lobby.h"
+#include "Match.h"
+#include "Room.h"
 
 GameSession::GameSession()
 {
-	// 	GLogHelper->WriteStdOut(LogCategory::Log_TEMP, L"GameSession()\n");
+	// 	GLogHelper->WriteLog(LogCategory::Log_TEMP, L"GameSession()\n");
 }
 
 GameSession::~GameSession()
 {
 	player_ = nullptr;
-	GLogHelper->WriteStdOut(LogCategory::Log_TEMP, L"~GameSession()\n");
+
+	GLogHelper->Reserve(LogCategory::Log_INFO, L"~GameSession()\n");
+}
+
+void GameSession::ProcessEnterLobby(const shared_ptr<Lobby>& lobby)
+{
+	SetState(SessionState::LOBBY);
+	SetLobby(lobby);
+}
+
+void GameSession::ProcessLeaveLobby()
+{
+	SetState(SessionState::NONE);
+	lobby_.reset();
+}
+
+void GameSession::ProcessEnterRoom(const shared_ptr<Room>& room)
+{
+	SetState(SessionState::ROOM);
+	SetRoom(room);
+}
+
+void GameSession::ProcessLeaveRoom()
+{
+	SetState(SessionState::LOBBY);
+	room_.reset();
+}
+
+void GameSession::ProcessEnterMatch(const shared_ptr<Match>& match, const shared_ptr<Player>& player)
+{
+	SetState(SessionState::MATCH);
+	player_ = player;
+	SetMatch(match);
+}
+
+void GameSession::ProcessLeaveMatch()
+{
+	SetState(SessionState::ROOM);
+	player_ = nullptr;
+	match_.reset();
 }
 
 void GameSession::OnConnected()
 {
-	GLogHelper->WriteStdOut(LogCategory::Log_TEMP, L"OnConnected\n");
+	GLogHelper->Reserve(LogCategory::Log_SUCCESS, L"OnConnected %s\n", netAddress_.GetIpAddressW().c_str());
 }
 
 void GameSession::OnDisconnect()
 {
-	GLogHelper->WriteStdOut(LogCategory::Log_TEMP, L"OnDisconnect\n");
+	GLogHelper->Reserve(LogCategory::Log_INFO, L"OnDisconnect %s\n", netAddress_.GetIpAddressW().c_str());
+
+	if (auto lobby = lobby_.lock())
+	{
+		if (auto room = room_.lock())
+		{
+			shared_ptr<GameSession> gameSession = static_pointer_cast<GameSession>(shared_from_this());
+			lobby->LeaveRoom(gameSession, room->GetID());
+			room_.reset();
+		}
+		lobby_.reset();
+	}
 }
 
 int GameSession::OnRecv(BYTE* buffer, int numOfBytes)
 {
-	GLogHelper->WriteStdOut(LogCategory::Log_TEMP, L"OnRecv\n");
-	int processLen = 0;
+	GLogHelper->Reserve(LogCategory::Log_TEMP, L"OnRecv\n");
 
+	int processLen = 0;
 	while (true)
 	{
 		int dataSize = numOfBytes - processLen;
@@ -44,8 +95,8 @@ int GameSession::OnRecv(BYTE* buffer, int numOfBytes)
 			break;
 		}
 
-		shared_ptr<GameSession> Session = GetGameSessionPtr();
-		GamePacketHandler::HandlePacket(Session, buffer, header.size);
+		shared_ptr<SessionBase> session = GetSessionPtr();
+		GamePacketHandler::HandlePacket(session, buffer, header.size);
 
 		processLen += header.size;
 	}
@@ -55,43 +106,5 @@ int GameSession::OnRecv(BYTE* buffer, int numOfBytes)
 
 void GameSession::OnSend(int numOfBytes)
 {
-	// GLogHelper->WriteStdOut(LogCategory::Log_TEMP, L"OnSend\n");
+	// GLogHelper->WriteLog(LogCategory::Log_TEMP, L"OnSend\n");
 }
-
-
-/*
-void GameSessionMananger::Add(shared_ptr<GameSession> session)
-{
-	WRITE_LOCK;
-	session->SetState(SessionState::LOBBY);
-	sessions_.insert(session);
-}
-
-void GameSessionMananger::Remove(shared_ptr<GameSession> session)
-{
-	WRITE_LOCK;
-	session->SetState(SessionState::NONE);
-	sessions_.erase(session);
-}
-
-void GameSessionMananger::Broadcast(shared_ptr<SendBuffer> sendBuffer)
-{
-	WRITE_LOCK;
-	for (auto session : sessions_)
-	{
-		session->Send(sendBuffer);
-	}
-}
-
-void GameSessionMananger::Broadcast(SessionState state, shared_ptr<SendBuffer> sendBuffer)
-{
-	WRITE_LOCK;
-	for (auto session : sessions_)
-	{
-		if (session->GetState() == state)
-		{
-			session->Send(sendBuffer);
-		}
-	}
-}
-*/
