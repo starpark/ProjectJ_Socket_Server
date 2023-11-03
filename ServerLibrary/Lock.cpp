@@ -29,7 +29,7 @@ void Lock::WriteLock(const char* name)
 			}
 		}
 
-#ifndef DEBUG_
+#ifndef _DEBUG
 		if (GetTickCount64() - beginTick >= ACQUIRE_TIMEOUT_TICK)
 			CRASH("LOCK_TIMEOUT");
 #endif
@@ -75,9 +75,10 @@ void Lock::ReadLock(const char* name)
 				return;
 		}
 
+#ifndef _DEBUG
 		if (GetTickCount64() - beginTick >= ACQUIRE_TIMEOUT_TICK)
 			CRASH("LOCK_TIMEOUT");
-
+#endif
 		this_thread::yield();
 	}
 }
