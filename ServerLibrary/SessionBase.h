@@ -2,6 +2,7 @@
 
 #include "Iocp.h"
 #include "RecvBuffer.h"
+#include "Service.h"
 
 struct PacketHeader
 {
@@ -27,14 +28,14 @@ public:
 	void Send(shared_ptr<SendBuffer> sendBuffer);
 
 public: // Getter Setter
-	SOCKET GetSocket() const { return socket_; }
-	shared_ptr<class Service> GetService() const { return service_.lock(); }
+	SOCKET GetSocket() { return socket_; }
+	shared_ptr<Service> GetService() { return service_.lock(); }
 	BYTE* GetRecvBuffer() { return recvBuffer_.GetWriteBufferPos(); }
-	SOCKADDR_IN GetAddress() const { return address_; }
+	NetAddress GetNetAddress() { return netAddress_; }
 	shared_ptr<SessionBase> GetSessionPtr() { return static_pointer_cast<SessionBase>(shared_from_this()); }
 
 	void SetService(shared_ptr<Service> service) { service_ = service; }
-	void SetAddress(SOCKADDR_IN address) { address_ = address; }
+	void SetNetAddress(NetAddress address) { netAddress_ = address; }
 
 
 protected:
@@ -69,7 +70,7 @@ protected:
 	USE_LOCK;
 	SOCKET socket_ = INVALID_SOCKET;
 	weak_ptr<Service> service_;
-	SOCKADDR_IN address_;
+	NetAddress netAddress_ = {};
 	atomic<bool> bIsConnected_ = false;
 
 private:
