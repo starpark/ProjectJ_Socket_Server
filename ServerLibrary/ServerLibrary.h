@@ -32,3 +32,4 @@ using namespace std;
 #include "LogHelper.h"
 
 #include "SessionBase.h"
+#include "Service.h"
