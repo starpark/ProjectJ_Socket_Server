@@ -44,7 +44,7 @@ void Lobby::Broadcast(shared_ptr<SendBuffer> sendBuffer)
 	}
 }
 
-bool Lobby::CreateRoom(shared_ptr<GameSession> session, string title)
+shared_ptr<Room> Lobby::CreateRoom(shared_ptr<GameSession> session, string title)
 {
 	static atomic<int> roomIDGenerator = 1;
 	int roomID = roomIDGenerator.fetch_add(1);
@@ -54,22 +54,43 @@ bool Lobby::CreateRoom(shared_ptr<GameSession> session, string title)
 		title = title.substr(0, 60);
 	}
 
-	shared_ptr<Room> newRoom = ObjectPool<Room>::MakeShared(roomID, title, session, shared_from_this());
-	//auto newRoom = make_shared<Room>(roomID, title.substr(0, 20), session, shared_from_this());
+	// shared_ptr<Room> newRoom = ObjectPool<Room>::MakeShared(roomID, title, session, shared_from_this());
+	auto newRoom = make_shared<Room>(roomID, title.substr(0, 20), session, shared_from_this());
+	newRoom->EnterSession(session);
+
+	GLogHelper->Reserve(LogCategory::Log_INFO, "Lobby Create New Room %s %d\n", title.c_str(), roomID);
 
 	WRITE_LOCK;
-	auto [iterator, result] = rooms_.insert({roomID, newRoom});
-	return result;
+	rooms_.insert({roomID, newRoom});
+
+	return newRoom;
 }
 
-bool Lobby::EnterRoom(shared_ptr<GameSession> session, int roomID)
+shared_ptr<Room> Lobby::EnterRoom(shared_ptr<GameSession> session, int roomID)
 {
 	WRITE_LOCK;
 	if (auto room = FindRoomByNumber(roomID))
 	{
-		if (room->EnterPlayer(session))
+		if (room->EnterSession(session))
 		{
-			session->SetState(SessionState::ROOM);
+			return room;
+		}
+	}
+
+	return nullptr;
+}
+
+bool Lobby::LeaveRoom(const shared_ptr<GameSession>& session, int roomID)
+{
+	WRITE_LOCK;
+	if (auto room = FindRoomByNumber(roomID))
+	{
+		if (room->LeaveSession(session))
+		{
+			if (room->GetNumberOfPlayer() == 0)
+			{
+				DestroyRoom(roomID);
+			}
 			return true;
 		}
 	}
@@ -77,27 +98,12 @@ bool Lobby::EnterRoom(shared_ptr<GameSession> session, int roomID)
 	return false;
 }
 
-void Lobby::LeaveRoom(const shared_ptr<GameSession>& session, int roomNumber)
-{
-	WRITE_LOCK;
-	if (auto room = FindRoomByNumber(roomNumber))
-	{
-		if (room->LeavePlayer(session))
-		{
-			session->SetState(SessionState::LOBBY);
-			if (room->GetNumberOfPlayer() == 0)
-			{
-				DestroyRoom(roomNumber);
-			}
-		}
-	}
-}
-
 void Lobby::DestroyRoom(int roomNumber)
 {
 	WRITE_LOCK;
 	if (rooms_.find(roomNumber) != rooms_.end())
 	{
+		GLogHelper->Reserve(LogCategory::Log_INFO, L"Lobby Destroy Room %d\n", roomNumber);
 		rooms_.erase(roomNumber);
 	}
 }

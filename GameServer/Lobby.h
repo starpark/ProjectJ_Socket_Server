@@ -14,9 +14,9 @@ public:
 	vector<shared_ptr<Room>> GetRoomList();
 
 	void Broadcast(shared_ptr<SendBuffer> sendBuffer);
-	bool CreateRoom(shared_ptr<GameSession> session, string title);
-	bool EnterRoom(shared_ptr<GameSession> session, int roomID);
-	void LeaveRoom(const shared_ptr<GameSession>& session, int roomNumber);
+	shared_ptr<Room> CreateRoom(shared_ptr<GameSession> session, string title);
+	shared_ptr<Room> EnterRoom(shared_ptr<GameSession> session, int roomID);
+	bool LeaveRoom(const shared_ptr<GameSession>& session, int roomID);
 	void DestroyRoom(int roomNumber);
 
 private:
