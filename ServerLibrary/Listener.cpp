@@ -130,7 +130,7 @@ void Listener::ProcessAccept(AcceptEvent* acceptEvent)
 		return;
 	}
 
-	session->SetAddress(address);
+	session->SetNetAddress(address);
 	session->AcceptAndConnect();
 
 	RegisterAccept(acceptEvent);
