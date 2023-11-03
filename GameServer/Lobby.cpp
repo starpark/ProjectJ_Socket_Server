@@ -48,6 +48,12 @@ bool Lobby::CreateRoom(shared_ptr<GameSession> session, string title)
 {
 	static atomic<int> roomIDGenerator = 1;
 	int roomID = roomIDGenerator.fetch_add(1);
+
+	if (title.size() > 60)
+	{
+		title = title.substr(0, 60);
+	}
+
 	shared_ptr<Room> newRoom = ObjectPool<Room>::MakeShared(roomID, title, session, shared_from_this());
 	//auto newRoom = make_shared<Room>(roomID, title.substr(0, 20), session, shared_from_this());
 
