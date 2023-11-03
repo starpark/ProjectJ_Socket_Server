@@ -24,7 +24,7 @@ using JPacketTypes = TVariant<
 // 패킷 래핑 클래스
 // 최초 작성자: 박별
 // 수정자: 
-// 최종 수정일: 2023-10-31 자동 생성
+// 최종 수정일: 2023-11-01 자동 생성
 class PROJECTJ_API JPackets
 {
 public:

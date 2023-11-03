@@ -1,8 +1,7 @@
 ﻿#pragma once
 #include "Message.pb.h"
 
-class GameSession;
-using PacketHandlerFunc = function<bool(shared_ptr<class GameSession>&, BYTE*, int)>;
+using PacketHandlerFunc = function<bool(shared_ptr<SessionBase>&, BYTE*, int)>;
 extern PacketHandlerFunc GPacketHandler[UINT16_MAX];
 
 enum : uint16_t
@@ -12,9 +11,9 @@ enum : uint16_t
 {%- endfor %}
 };
 
-bool Handle_INVALID(shared_ptr<GameSession>& session, BYTE* bufer, int numOfBytes);
+bool Handle_INVALID(shared_ptr<SessionBase>& session, BYTE* bufer, int numOfBytes);
 {%- for pkt in parser.recv_pkt %}
-bool Handle_{{pkt.name}}(shared_ptr<GameSession>& session, ProjectJ::{{pkt.name}}& packet);
+bool Handle_{{pkt.name}}(shared_ptr<SessionBase>& session, ProjectJ::{{pkt.name}}& packet);
 {%- endfor %}
 
 
@@ -22,7 +21,7 @@ bool Handle_{{pkt.name}}(shared_ptr<GameSession>& session, ProjectJ::{{pkt.name}
 // 최초 작성자: 박별
 // 수정자: 
 // 최종 수정일: {{date}} 자동 생성
-class GamePacketHandler
+class {{output}}
 {
 public:
 	static void Init()
@@ -32,11 +31,11 @@ public:
 			GPacketHandler[i] = Handle_INVALID;
 		}
 {%- for pkt in parser.recv_pkt %}
-		GPacketHandler[PKT_{{pkt.name}}] = [](shared_ptr<GameSession> session, BYTE* buffer, int numOfBytes) {return HandlePacket<ProjectJ::{{pkt.name}}>(Handle_{{pkt.name}}, session, buffer, numOfBytes);};
+		GPacketHandler[PKT_{{pkt.name}}] = [](shared_ptr<SessionBase> session, BYTE* buffer, int numOfBytes) {return HandlePacket<ProjectJ::{{pkt.name}}>(Handle_{{pkt.name}}, session, buffer, numOfBytes);};
 {%- endfor %}
 	}
 
-	static bool HandlePacket(shared_ptr<GameSession>& session, BYTE* buffer, int numOfBytes)
+	static bool HandlePacket(shared_ptr<SessionBase>& session, BYTE* buffer, int numOfBytes)
 	{
 		auto header = reinterpret_cast<PacketHeader*>(buffer);
 		return GPacketHandler[header->type](session, buffer, numOfBytes);
@@ -48,7 +47,7 @@ public:
 
 private:
 	template <typename PacketMessage, typename ProcessFunc>
-	static bool HandlePacket(ProcessFunc func, shared_ptr<GameSession>& session, BYTE* buffer, int numOfBytes)
+	static bool HandlePacket(ProcessFunc func, shared_ptr<SessionBase>& session, BYTE* buffer, int numOfBytes)
 	{
 		PacketMessage packet;
 		if (packet.ParseFromArray(buffer + sizeof(PacketHeader), numOfBytes - sizeof(PacketHeader)) == false)

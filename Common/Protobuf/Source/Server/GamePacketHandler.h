@@ -1,8 +1,7 @@
 ﻿#pragma once
 #include "Message.pb.h"
 
-class GameSession;
-using PacketHandlerFunc = function<bool(shared_ptr<class GameSession>&, BYTE*, int)>;
+using PacketHandlerFunc = function<bool(shared_ptr<SessionBase>&, BYTE*, int)>;
 extern PacketHandlerFunc GPacketHandler[UINT16_MAX];
 
 enum : uint16_t
@@ -32,23 +31,23 @@ enum : uint16_t
 	PKT_S_MATCH_ITEM_DROP = 1022,
 };
 
-bool Handle_INVALID(shared_ptr<GameSession>& session, BYTE* bufer, int numOfBytes);
-bool Handle_C_VERIFY_TOKEN(shared_ptr<GameSession>& session, ProjectJ::C_VERIFY_TOKEN& packet);
-bool Handle_C_LOBBY_CHAT(shared_ptr<GameSession>& session, ProjectJ::C_LOBBY_CHAT& packet);
-bool Handle_C_LOBBY_REFRESH_ROOM(shared_ptr<GameSession>& session, ProjectJ::C_LOBBY_REFRESH_ROOM& packet);
-bool Handle_C_LOBBY_CREATE_ROOM(shared_ptr<GameSession>& session, ProjectJ::C_LOBBY_CREATE_ROOM& packet);
-bool Handle_C_LOBBY_ENTER_ROOM(shared_ptr<GameSession>& session, ProjectJ::C_LOBBY_ENTER_ROOM& packet);
-bool Handle_C_ROOM_LEAVE(shared_ptr<GameSession>& session, ProjectJ::C_ROOM_LEAVE& packet);
-bool Handle_C_ROOM_READY(shared_ptr<GameSession>& session, ProjectJ::C_ROOM_READY& packet);
-bool Handle_C_MATCH_ITEM_PICKUP(shared_ptr<GameSession>& session, ProjectJ::C_MATCH_ITEM_PICKUP& packet);
-bool Handle_C_MATCH_ITEM_MOVE(shared_ptr<GameSession>& session, ProjectJ::C_MATCH_ITEM_MOVE& packet);
-bool Handle_C_MATCH_ITEM_DROP(shared_ptr<GameSession>& session, ProjectJ::C_MATCH_ITEM_DROP& packet);
+bool Handle_INVALID(shared_ptr<SessionBase>& session, BYTE* bufer, int numOfBytes);
+bool Handle_C_VERIFY_TOKEN(shared_ptr<SessionBase>& session, ProjectJ::C_VERIFY_TOKEN& packet);
+bool Handle_C_LOBBY_CHAT(shared_ptr<SessionBase>& session, ProjectJ::C_LOBBY_CHAT& packet);
+bool Handle_C_LOBBY_REFRESH_ROOM(shared_ptr<SessionBase>& session, ProjectJ::C_LOBBY_REFRESH_ROOM& packet);
+bool Handle_C_LOBBY_CREATE_ROOM(shared_ptr<SessionBase>& session, ProjectJ::C_LOBBY_CREATE_ROOM& packet);
+bool Handle_C_LOBBY_ENTER_ROOM(shared_ptr<SessionBase>& session, ProjectJ::C_LOBBY_ENTER_ROOM& packet);
+bool Handle_C_ROOM_LEAVE(shared_ptr<SessionBase>& session, ProjectJ::C_ROOM_LEAVE& packet);
+bool Handle_C_ROOM_READY(shared_ptr<SessionBase>& session, ProjectJ::C_ROOM_READY& packet);
+bool Handle_C_MATCH_ITEM_PICKUP(shared_ptr<SessionBase>& session, ProjectJ::C_MATCH_ITEM_PICKUP& packet);
+bool Handle_C_MATCH_ITEM_MOVE(shared_ptr<SessionBase>& session, ProjectJ::C_MATCH_ITEM_MOVE& packet);
+bool Handle_C_MATCH_ITEM_DROP(shared_ptr<SessionBase>& session, ProjectJ::C_MATCH_ITEM_DROP& packet);
 
 
 // 소켓 수신 데이터 처리 및 송신 버퍼 생성 클래스
 // 최초 작성자: 박별
 // 수정자: 
-// 최종 수정일: 2023-10-31 자동 생성
+// 최종 수정일: 2023-11-01 자동 생성
 class GamePacketHandler
 {
 public:
@@ -58,19 +57,19 @@ public:
 		{
 			GPacketHandler[i] = Handle_INVALID;
 		}
-		GPacketHandler[PKT_C_VERIFY_TOKEN] = [](shared_ptr<GameSession> session, BYTE* buffer, int numOfBytes) {return HandlePacket<ProjectJ::C_VERIFY_TOKEN>(Handle_C_VERIFY_TOKEN, session, buffer, numOfBytes);};
-		GPacketHandler[PKT_C_LOBBY_CHAT] = [](shared_ptr<GameSession> session, BYTE* buffer, int numOfBytes) {return HandlePacket<ProjectJ::C_LOBBY_CHAT>(Handle_C_LOBBY_CHAT, session, buffer, numOfBytes);};
-		GPacketHandler[PKT_C_LOBBY_REFRESH_ROOM] = [](shared_ptr<GameSession> session, BYTE* buffer, int numOfBytes) {return HandlePacket<ProjectJ::C_LOBBY_REFRESH_ROOM>(Handle_C_LOBBY_REFRESH_ROOM, session, buffer, numOfBytes);};
-		GPacketHandler[PKT_C_LOBBY_CREATE_ROOM] = [](shared_ptr<GameSession> session, BYTE* buffer, int numOfBytes) {return HandlePacket<ProjectJ::C_LOBBY_CREATE_ROOM>(Handle_C_LOBBY_CREATE_ROOM, session, buffer, numOfBytes);};
-		GPacketHandler[PKT_C_LOBBY_ENTER_ROOM] = [](shared_ptr<GameSession> session, BYTE* buffer, int numOfBytes) {return HandlePacket<ProjectJ::C_LOBBY_ENTER_ROOM>(Handle_C_LOBBY_ENTER_ROOM, session, buffer, numOfBytes);};
-		GPacketHandler[PKT_C_ROOM_LEAVE] = [](shared_ptr<GameSession> session, BYTE* buffer, int numOfBytes) {return HandlePacket<ProjectJ::C_ROOM_LEAVE>(Handle_C_ROOM_LEAVE, session, buffer, numOfBytes);};
-		GPacketHandler[PKT_C_ROOM_READY] = [](shared_ptr<GameSession> session, BYTE* buffer, int numOfBytes) {return HandlePacket<ProjectJ::C_ROOM_READY>(Handle_C_ROOM_READY, session, buffer, numOfBytes);};
-		GPacketHandler[PKT_C_MATCH_ITEM_PICKUP] = [](shared_ptr<GameSession> session, BYTE* buffer, int numOfBytes) {return HandlePacket<ProjectJ::C_MATCH_ITEM_PICKUP>(Handle_C_MATCH_ITEM_PICKUP, session, buffer, numOfBytes);};
-		GPacketHandler[PKT_C_MATCH_ITEM_MOVE] = [](shared_ptr<GameSession> session, BYTE* buffer, int numOfBytes) {return HandlePacket<ProjectJ::C_MATCH_ITEM_MOVE>(Handle_C_MATCH_ITEM_MOVE, session, buffer, numOfBytes);};
-		GPacketHandler[PKT_C_MATCH_ITEM_DROP] = [](shared_ptr<GameSession> session, BYTE* buffer, int numOfBytes) {return HandlePacket<ProjectJ::C_MATCH_ITEM_DROP>(Handle_C_MATCH_ITEM_DROP, session, buffer, numOfBytes);};
+		GPacketHandler[PKT_C_VERIFY_TOKEN] = [](shared_ptr<SessionBase> session, BYTE* buffer, int numOfBytes) {return HandlePacket<ProjectJ::C_VERIFY_TOKEN>(Handle_C_VERIFY_TOKEN, session, buffer, numOfBytes);};
+		GPacketHandler[PKT_C_LOBBY_CHAT] = [](shared_ptr<SessionBase> session, BYTE* buffer, int numOfBytes) {return HandlePacket<ProjectJ::C_LOBBY_CHAT>(Handle_C_LOBBY_CHAT, session, buffer, numOfBytes);};
+		GPacketHandler[PKT_C_LOBBY_REFRESH_ROOM] = [](shared_ptr<SessionBase> session, BYTE* buffer, int numOfBytes) {return HandlePacket<ProjectJ::C_LOBBY_REFRESH_ROOM>(Handle_C_LOBBY_REFRESH_ROOM, session, buffer, numOfBytes);};
+		GPacketHandler[PKT_C_LOBBY_CREATE_ROOM] = [](shared_ptr<SessionBase> session, BYTE* buffer, int numOfBytes) {return HandlePacket<ProjectJ::C_LOBBY_CREATE_ROOM>(Handle_C_LOBBY_CREATE_ROOM, session, buffer, numOfBytes);};
+		GPacketHandler[PKT_C_LOBBY_ENTER_ROOM] = [](shared_ptr<SessionBase> session, BYTE* buffer, int numOfBytes) {return HandlePacket<ProjectJ::C_LOBBY_ENTER_ROOM>(Handle_C_LOBBY_ENTER_ROOM, session, buffer, numOfBytes);};
+		GPacketHandler[PKT_C_ROOM_LEAVE] = [](shared_ptr<SessionBase> session, BYTE* buffer, int numOfBytes) {return HandlePacket<ProjectJ::C_ROOM_LEAVE>(Handle_C_ROOM_LEAVE, session, buffer, numOfBytes);};
+		GPacketHandler[PKT_C_ROOM_READY] = [](shared_ptr<SessionBase> session, BYTE* buffer, int numOfBytes) {return HandlePacket<ProjectJ::C_ROOM_READY>(Handle_C_ROOM_READY, session, buffer, numOfBytes);};
+		GPacketHandler[PKT_C_MATCH_ITEM_PICKUP] = [](shared_ptr<SessionBase> session, BYTE* buffer, int numOfBytes) {return HandlePacket<ProjectJ::C_MATCH_ITEM_PICKUP>(Handle_C_MATCH_ITEM_PICKUP, session, buffer, numOfBytes);};
+		GPacketHandler[PKT_C_MATCH_ITEM_MOVE] = [](shared_ptr<SessionBase> session, BYTE* buffer, int numOfBytes) {return HandlePacket<ProjectJ::C_MATCH_ITEM_MOVE>(Handle_C_MATCH_ITEM_MOVE, session, buffer, numOfBytes);};
+		GPacketHandler[PKT_C_MATCH_ITEM_DROP] = [](shared_ptr<SessionBase> session, BYTE* buffer, int numOfBytes) {return HandlePacket<ProjectJ::C_MATCH_ITEM_DROP>(Handle_C_MATCH_ITEM_DROP, session, buffer, numOfBytes);};
 	}
 
-	static bool HandlePacket(shared_ptr<GameSession>& session, BYTE* buffer, int numOfBytes)
+	static bool HandlePacket(shared_ptr<SessionBase>& session, BYTE* buffer, int numOfBytes)
 	{
 		auto header = reinterpret_cast<PacketHeader*>(buffer);
 		return GPacketHandler[header->type](session, buffer, numOfBytes);
@@ -91,7 +90,7 @@ public:
 
 private:
 	template <typename PacketMessage, typename ProcessFunc>
-	static bool HandlePacket(ProcessFunc func, shared_ptr<GameSession>& session, BYTE* buffer, int numOfBytes)
+	static bool HandlePacket(ProcessFunc func, shared_ptr<SessionBase>& session, BYTE* buffer, int numOfBytes)
 	{
 		PacketMessage packet;
 		if (packet.ParseFromArray(buffer + sizeof(PacketHeader), numOfBytes - sizeof(PacketHeader)) == false)

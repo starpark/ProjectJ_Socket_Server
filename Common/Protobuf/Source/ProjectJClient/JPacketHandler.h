@@ -79,7 +79,7 @@ DECLARE_DELEGATE_RetVal_ThreeParams(bool, FPacket_S_MATCH_ITEM_DROP, UWorld*, Pr
 // 소켓 수신 데이터 처리 및 송신 버퍼 생성 클래스
 // 최초 작성자: 박별
 // 수정자: 
-// 최종 수정일: 2023-10-31 자동 생성
+// 최종 수정일: 2023-11-01 자동 생성
 class PROJECTJ_API UJPacketHandler : public UObject
 {
 public:
