@@ -41,9 +41,10 @@ int main()
 	if (false == GDBConnection->Connect(
 		L"Driver={ODBC Driver 17 for SQL Server}; Server=localhost; Database=ProjectJ; UID=admin; PWD=q1w2e3r4;"))
 	{
-		GLogHelper->WriteStdOut(LogCategory::Log_ERROR, L"Failed to DB Connection\n");
+		GLogHelper->Reserve(LogCategory::Log_ERROR, L"DB Connection Failure\n");
 		return 0;
 	}
+	GLogHelper->Reserve(LogCategory::Log_SUCCESS, L"DB Connection Success\n");
 
 
 	GamePacketHandler::Init();
@@ -55,7 +56,7 @@ int main()
 	                                        1000);
 	if (service->Init())
 	{
-		GLogHelper->WriteStdOut(LogCategory::Log_INFO, L"Game Server Start\n");
+		GLogHelper->Reserve(LogCategory::Log_SUCCESS, L"Successfully Start The ProjectJ Server\n");
 		for (int i = 0; i < thread::hardware_concurrency() * 2; i++)
 		{
 			threads.push_back(thread([&]()
@@ -64,8 +65,15 @@ int main()
 			}));
 		}
 	}
+	else
+	{
+		GLogHelper->Reserve(LogCategory::Log_ERROR, L"The ProjectJ Server Failed to Start\n");
+	}
 
-	DoWorkThread(service);
+	while (true)
+	{
+		GLogHelper->Write();
+	}
 
 	for (thread& t : threads)
 	{
