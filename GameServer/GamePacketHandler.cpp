@@ -8,23 +8,28 @@
 PacketHandlerFunc GPacketHandler[UINT16_MAX];
 static const string_view secretKey = "09d25e094faa6ca2556c818166b7a9563b93f7099f6f0f4caa6cf63b88e8d3e7";
 
-bool Handle_INVALID(shared_ptr<GameSession>& session, BYTE* bufer, int numOfBytes)
+bool Handle_INVALID(shared_ptr<SessionBase>& session, BYTE* bufer, int numOfBytes)
 {
 	session->Disconnect();
 	return false;
 }
 
-bool Handle_C_VERIFY_TOKEN(shared_ptr<GameSession>& session, ProjectJ::C_VERIFY_TOKEN& packet)
+bool Handle_C_VERIFY_TOKEN(shared_ptr<SessionBase>& session, ProjectJ::C_VERIFY_TOKEN& packet)
 {
 	using namespace jwt::params;
+
+	shared_ptr<GameSession> gameSession = static_pointer_cast<GameSession>(session);
 
 	error_code ec;
 	auto decodeObj = jwt::decode(packet.token(), algorithms({"HS256"}), ec, secret(secretKey),
 	                             issuer("ProjectJ API Server"), verify(true));
 
+#ifdef _DEBUG
+	GLogHelper->Reserve(LogCategory::Log_INFO, "Authentication attempts: %s\n",
+	                    gameSession->GetNetAddress().GetIpAddress().c_str());
+#endif
 
 	ProjectJ::S_VERIFY_TOKEN verifyPacket;
-	cout << packet.token() << endl;
 
 	switch (ec.value())
 	{
@@ -35,162 +40,377 @@ bool Handle_C_VERIFY_TOKEN(shared_ptr<GameSession>& session, ProjectJ::C_VERIFY_
 	default:
 		try
 		{
-			auto newPlayer = make_shared<Player>();
-
-			newPlayer->ownerSession_ = session;
 			if (decodeObj.payload().has_claim("name") == true)
 			{
-				newPlayer->name_ = decodeObj.payload().get_claim_value<string>("name");
+				gameSession->SetName(std::move(decodeObj.payload().get_claim_value<string>("name")));
 			}
 			else
 			{
-				throw;
+				throw 1;
 			}
 
 			if (decodeObj.payload().has_claim("nickname") == true)
 			{
-				newPlayer->nickname_ = decodeObj.payload().get_claim_value<string>("nickname");
+				gameSession->SetNickname(std::move(decodeObj.payload().get_claim_value<string>("nickname")));
 			}
 			else
 			{
-				throw;
+				throw 2;
 			}
 
 			if (decodeObj.payload().has_claim("player_id") == true)
 			{
-				newPlayer->id_ = decodeObj.payload().get_claim_value<int>("player_id");
+				gameSession->SetID(decodeObj.payload().get_claim_value<int>("player_id"));
 			}
 			else
 			{
-				throw;
+				throw 3;
 			}
 
-			if (auto service = static_pointer_cast<GameService>(session->GetService()))
+			if (auto service = gameSession->GetService())
 			{
-				session->SetLobby(service->GetLobby());
+				auto gameService = static_pointer_cast<GameService>(service);
+				gameSession->ProcessEnterLobby(gameService->GetLobby());
 			}
 			else
 			{
-				throw;
+				throw 4;
 			}
 
-			session->SetPlayer(newPlayer);
-			session->SetState(SessionState::LOBBY);
-
-
+			GLogHelper->Reserve(LogCategory::Log_SUCCESS, "Authentication Success: %s %s\n",
+			                    gameSession->GetNetAddress().GetIpAddress().c_str(),
+			                    gameSession->GetNickname().c_str());
 			verifyPacket.set_result(true);
 		}
 		catch (nlohmann::json::exception& e)
 		{
 			// parsing type error
-			GLogHelper->WriteStdOut(LogCategory::Log_ERROR, "%s\n", e.what());
+			GLogHelper->Reserve(LogCategory::Log_WARN, "Authentication Failure: %s\n", e.what());
+			verifyPacket.set_result(false);
+		}
+		catch (int e)
+		{
+			GLogHelper->Reserve(LogCategory::Log_WARN, "Authentication Failure: Error Number %d\n", e);
 			verifyPacket.set_result(false);
 		}
 		catch (...)
 		{
-			// claim not found
+			GLogHelper->Reserve(LogCategory::Log_WARN, "Authentication Failure: Unexpected Error\n");
 			verifyPacket.set_result(false);
 		}
 		break;
 	}
 
 	auto sendBuffer = GamePacketHandler::MakeSendBuffer(verifyPacket);
-	session->Send(sendBuffer);
+	gameSession->Send(sendBuffer);
 
 	if (verifyPacket.result() == false)
 	{
-		session->Disconnect();
+		gameSession->Disconnect();
 	}
 
 	return true;
 }
 
-bool Handle_C_LOBBY_CHAT(shared_ptr<GameSession>& session, ProjectJ::C_LOBBY_CHAT& packet)
+bool Handle_C_LOBBY_CHAT(shared_ptr<SessionBase>& session, ProjectJ::C_LOBBY_CHAT& packet)
 {
-	shared_ptr<Lobby> lobby = session->TryGetLobby();
+	shared_ptr<GameSession> gameSession = static_pointer_cast<GameSession>(session);
+
+	shared_ptr<Lobby> lobby = gameSession->TryGetLobby();
 	if (lobby)
 	{
-		cout << packet.nickname() << ": " << packet.chat() << endl;
-		shared_ptr<Player> player = session->GetPlayer();
-
-		if (player->nickname_ != packet.nickname() || player->id_ != packet.account_id())
-		{
-			session->Disconnect();
-			return false;
-		}
-
 		ProjectJ::S_LOBBY_CHAT sendPacket;
-		sendPacket.set_nickname(packet.nickname());
-		sendPacket.set_account_id(packet.account_id());
+		sendPacket.set_nickname(gameSession->GetNickname());
+		sendPacket.set_account_id(gameSession->GetID());
 		sendPacket.set_chat(packet.chat());
 
 		auto sendBuffer = GamePacketHandler::MakeSendBuffer(sendPacket);
 		lobby->Broadcast(sendBuffer);
 	}
-
-	return true;
-}
-
-bool Handle_C_LOBBY_REFRESH_ROOM(shared_ptr<GameSession>& session, ProjectJ::C_LOBBY_REFRESH_ROOM& packet)
-{
-	shared_ptr<Lobby> lobby = session->TryGetLobby();
-	if (lobby != nullptr)
+	else
 	{
-		// TEST CREATE ROOM
-		lobby->CreateRoom(session, "规力格 1");
-		lobby->CreateRoom(session, "规力格 2");
-		lobby->CreateRoom(session, "规力格 3");
-
-		auto roomList = lobby->GetRoomList();
-
-		ProjectJ::S_LOBBY_REFRESH_ROOM sendPacket;
-
-		for (auto room : roomList)
-		{
-			auto data = sendPacket.add_rooms();
-			data->set_id(room->GetID());
-			data->set_title(room->GetTitle());
-			data->set_number_of_player(room->GetNumberOfPlayer());
-		}
-
-		auto sendBuffer = GamePacketHandler::MakeSendBuffer(sendPacket);
-		session->Send(sendBuffer);
+		gameSession->Disconnect();
+		return false;
 	}
 
 	return true;
 }
 
-bool Handle_C_LOBBY_CREATE_ROOM(shared_ptr<GameSession>& session, ProjectJ::C_LOBBY_CREATE_ROOM& packet)
+bool Handle_C_LOBBY_REFRESH_ROOM(shared_ptr<SessionBase>& session, ProjectJ::C_LOBBY_REFRESH_ROOM& packet)
+{
+	shared_ptr<GameSession> gameSession = static_pointer_cast<GameSession>(session);
+	shared_ptr<Lobby> lobby = gameSession->TryGetLobby();
+
+	if (lobby)
+	{
+		ProjectJ::S_LOBBY_REFRESH_ROOM sendPacket;
+		auto roomList = lobby->GetRoomList();
+
+		for (auto room : roomList)
+		{
+			auto roomData = sendPacket.add_rooms();
+			roomData->set_id(room->GetID());
+			roomData->set_title(room->GetTitle());
+			roomData->set_number_of_player(room->GetNumberOfPlayer());
+		}
+
+		auto sendBuffer = GamePacketHandler::MakeSendBuffer(sendPacket);
+		gameSession->Send(sendBuffer);
+	}
+
+	return true;
+}
+
+bool Handle_C_LOBBY_CREATE_ROOM(shared_ptr<SessionBase>& session, ProjectJ::C_LOBBY_CREATE_ROOM& packet)
+{
+	shared_ptr<GameSession> gameSession = static_pointer_cast<GameSession>(session);
+	shared_ptr<Lobby> lobby = gameSession->TryGetLobby();
+	ProjectJ::S_LOBBY_CREATE_ROOM sendPacket;
+
+	if (lobby)
+	{
+		shared_ptr<Room> room = lobby->CreateRoom(gameSession, packet.title());
+		if (room)
+		{
+			sendPacket.set_result(true);
+
+			auto roomInfo = new ProjectJ::RoomInfo();
+
+			roomInfo->set_title(room->GetTitle());
+			roomInfo->set_room_id(room->GetID());
+
+			vector<pair<shared_ptr<GameSession>, bool>> info = room->GetRoomInfo();
+			// 0: chaser
+			{
+				auto chaser = new ProjectJ::RoomInfo_PlayerSlot();
+				chaser->set_is_ready(info[0].second);
+
+				if (info[0].first != nullptr)
+				{
+					auto player = new ProjectJ::Player();
+					player->set_account_id(info[0].first->GetID());
+					player->set_nickname(info[0].first->GetNickname());
+					chaser->set_allocated_player(player);
+				}
+
+				roomInfo->set_allocated_chaser(chaser);
+			}
+
+			// 1: fugitive one
+			{
+				auto fugitive = new ProjectJ::RoomInfo_PlayerSlot();
+				fugitive->set_is_ready(info[1].second);
+
+				if (info[1].first != nullptr)
+				{
+					auto player = new ProjectJ::Player();
+					player->set_account_id(info[1].first->GetID());
+					player->set_nickname(info[1].first->GetNickname());
+					fugitive->set_allocated_player(player);
+				}
+
+				roomInfo->set_allocated_fugitive_first(fugitive);
+			}
+
+			// 2: fugitive two
+			{
+				auto fugitive = new ProjectJ::RoomInfo_PlayerSlot();
+				fugitive->set_is_ready(info[2].second);
+
+				if (info[2].first != nullptr)
+				{
+					auto player = new ProjectJ::Player();
+					player->set_account_id(info[2].first->GetID());
+					player->set_nickname(info[2].first->GetNickname());
+					fugitive->set_allocated_player(player);
+				}
+
+				roomInfo->set_allocated_fugitive_second(fugitive);
+			}
+
+			// 3: fugitive three
+			{
+				auto fugitive = new ProjectJ::RoomInfo_PlayerSlot();
+				fugitive->set_is_ready(info[3].second);
+
+				if (info[3].first != nullptr)
+				{
+					auto player = new ProjectJ::Player();
+					player->set_account_id(info[3].first->GetID());
+					player->set_nickname(info[3].first->GetNickname());
+					fugitive->set_allocated_player(player);
+				}
+
+				roomInfo->set_allocated_fugitive_third(fugitive);
+			}
+
+			sendPacket.set_allocated_info(roomInfo);
+		}
+		else
+		{
+			sendPacket.set_result(false);
+			sendPacket.clear_info();
+		}
+	}
+	else
+	{
+		sendPacket.set_result(false);
+		sendPacket.clear_info();
+	}
+
+	auto sendBuffer = GamePacketHandler::MakeSendBuffer(sendPacket);
+	session->Send(sendBuffer);
+
+	return true;
+}
+
+bool Handle_C_LOBBY_ENTER_ROOM(shared_ptr<SessionBase>& session, ProjectJ::C_LOBBY_ENTER_ROOM& packet)
+{
+	shared_ptr<GameSession> gameSession = static_pointer_cast<GameSession>(session);
+	shared_ptr<Lobby> lobby = gameSession->TryGetLobby();
+	ProjectJ::S_LOBBY_ENTER_ROOM sendPacket;
+
+	if (lobby)
+	{
+		if (auto room = lobby->EnterRoom(gameSession, packet.room_id()))
+		{
+			sendPacket.set_result(true);
+			sendPacket.set_room_id(room->GetID());
+			auto roomInfo = new ProjectJ::RoomInfo();
+
+			roomInfo->set_title(room->GetTitle());
+			roomInfo->set_room_id(room->GetID());
+
+			vector<pair<shared_ptr<GameSession>, bool>> info = room->GetRoomInfo();
+			// 0: chaser
+			{
+				auto chaser = new ProjectJ::RoomInfo_PlayerSlot();
+				chaser->set_is_ready(info[0].second);
+
+				if (info[0].first != nullptr)
+				{
+					auto player = new ProjectJ::Player();
+					player->set_account_id(info[0].first->GetID());
+					player->set_nickname(info[0].first->GetNickname());
+					chaser->set_allocated_player(player);
+				}
+
+				roomInfo->set_allocated_chaser(chaser);
+			}
+
+			// 1: fugitive one
+			{
+				auto fugitive = new ProjectJ::RoomInfo_PlayerSlot();
+				fugitive->set_is_ready(info[1].second);
+
+				if (info[1].first != nullptr)
+				{
+					auto player = new ProjectJ::Player();
+					player->set_account_id(info[1].first->GetID());
+					player->set_nickname(info[1].first->GetNickname());
+					fugitive->set_allocated_player(player);
+				}
+
+				roomInfo->set_allocated_fugitive_first(fugitive);
+			}
+
+			// 2: fugitive two
+			{
+				auto fugitive = new ProjectJ::RoomInfo_PlayerSlot();
+				fugitive->set_is_ready(info[2].second);
+
+				if (info[2].first != nullptr)
+				{
+					auto player = new ProjectJ::Player();
+					player->set_account_id(info[2].first->GetID());
+					player->set_nickname(info[2].first->GetNickname());
+					fugitive->set_allocated_player(player);
+				}
+
+				roomInfo->set_allocated_fugitive_second(fugitive);
+			}
+
+			// 3: fugitive three
+			{
+				auto fugitive = new ProjectJ::RoomInfo_PlayerSlot();
+				fugitive->set_is_ready(info[3].second);
+
+				if (info[3].first != nullptr)
+				{
+					auto player = new ProjectJ::Player();
+					player->set_account_id(info[3].first->GetID());
+					player->set_nickname(info[3].first->GetNickname());
+					fugitive->set_allocated_player(player);
+				}
+
+				roomInfo->set_allocated_fugitive_third(fugitive);
+			}
+
+			sendPacket.set_allocated_info(roomInfo);
+		}
+		else
+		{
+			sendPacket.set_result(false);
+			sendPacket.clear_info();
+		}
+	}
+	else
+	{
+		sendPacket.set_result(false);
+		sendPacket.clear_info();
+	}
+
+	auto sendBuffer = GamePacketHandler::MakeSendBuffer(sendPacket);
+	session->Send(sendBuffer);
+
+	return true;
+}
+
+bool Handle_C_ROOM_LEAVE(shared_ptr<SessionBase>& session, ProjectJ::C_ROOM_LEAVE& packet)
+{
+	shared_ptr<GameSession> gameSession = static_pointer_cast<GameSession>(session);
+	shared_ptr<Room> room = gameSession->TryGetRoom();
+	ProjectJ::S_ROOM_LEAVE sendPacket;
+
+	if (room)
+	{
+		auto lobby = room->GetLobby();
+		if (lobby->LeaveRoom(gameSession, room->GetID()))
+		{
+			sendPacket.set_result(true);
+		}
+		else
+		{
+			sendPacket.set_result(false);
+		}
+	}
+	else
+	{
+		sendPacket.set_result(false);
+	}
+
+	auto sendBuffer = GamePacketHandler::MakeSendBuffer(sendPacket);
+	session->Send(sendBuffer);
+
+	return true;
+}
+
+bool Handle_C_ROOM_READY(shared_ptr<SessionBase>& session, ProjectJ::C_ROOM_READY& packet)
 {
 	return true;
 }
 
-bool Handle_C_LOBBY_ENTER_ROOM(shared_ptr<GameSession>& session, ProjectJ::C_LOBBY_ENTER_ROOM& packet)
+bool Handle_C_MATCH_ITEM_PICKUP(shared_ptr<SessionBase>& session, ProjectJ::C_MATCH_ITEM_PICKUP& packet)
 {
 	return true;
 }
 
-bool Handle_C_ROOM_LEAVE(shared_ptr<GameSession>& session, ProjectJ::C_ROOM_LEAVE& packet)
+bool Handle_C_MATCH_ITEM_MOVE(shared_ptr<SessionBase>& session, ProjectJ::C_MATCH_ITEM_MOVE& packet)
 {
 	return true;
 }
 
-bool Handle_C_ROOM_READY(shared_ptr<GameSession>& session, ProjectJ::C_ROOM_READY& packet)
-{
-	return true;
-}
-
-bool Handle_C_MATCH_ITEM_PICKUP(shared_ptr<GameSession>& session, ProjectJ::C_MATCH_ITEM_PICKUP& packet)
-{
-	return true;
-}
-
-bool Handle_C_MATCH_ITEM_MOVE(shared_ptr<GameSession>& session, ProjectJ::C_MATCH_ITEM_MOVE& packet)
-{
-	return true;
-}
-
-bool Handle_C_MATCH_ITEM_DROP(shared_ptr<GameSession>& session, ProjectJ::C_MATCH_ITEM_DROP& packet)
+bool Handle_C_MATCH_ITEM_DROP(shared_ptr<SessionBase>& session, ProjectJ::C_MATCH_ITEM_DROP& packet)
 {
 	return true;
 }
