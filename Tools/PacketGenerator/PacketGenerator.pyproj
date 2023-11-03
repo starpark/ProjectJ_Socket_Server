@@ -29,7 +29,7 @@
     <Folder Include="Templates\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Templates\GamePacketHandler.h" />
+    <Content Include="Templates\PacketHandler.h" />
     <Content Include="Templates\JPacketHandler.cpp" />
     <Content Include="Templates\JPackets.h" />
   </ItemGroup>
