@@ -30,7 +30,6 @@ public: // 외부 사용
 	void DeleteSession(const shared_ptr<SessionBase>& session);
 	void Broadcast(shared_ptr<SendBuffer> sendBuffer);
 
-	
 public: // Getter
 	ServiceType GetServiceType() { return serviceType_; }
 	shared_ptr<IocpMain> GetIocpMain() { return iocpMain_; }
