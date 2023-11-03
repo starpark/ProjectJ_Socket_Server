@@ -46,3 +46,15 @@ private:
 	bool bIsRotated_ = false;
 	shared_ptr<Player> owner_ = nullptr; // TODO
 };
+
+
+class ItemManager
+{
+public:
+	void GenerateItems();
+	vector<shared_ptr<Item>> GetItems();
+
+private:
+	USE_LOCK;
+	map<int, shared_ptr<Item>> items_;
+};
