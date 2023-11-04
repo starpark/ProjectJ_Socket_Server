@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 template <typename ObjectType>
 struct SlistItem : public SLIST_ENTRY
@@ -36,7 +36,8 @@ public: // 외부 사용
 	template <typename... Args>
 	static shared_ptr<ObjectType> MakeShared(Args&&... args)
 	{
-		return shared_ptr<ObjectType>{Pop(forward<Args>(args)...), ObjectDeleter};
+		shared_ptr<ObjectType> ptr = shared_ptr<ObjectType>{Pop(forward<Args>(args)...), Push};
+		return ptr;
 	}
 
 private:
@@ -56,8 +57,9 @@ private:
 		return reinterpret_cast<ObjectType*>(object);
 	}
 
-	static void ObjectDeleter(ObjectType* object)
+	static void Push(ObjectType* object)
 	{
+		object->~ObjectType();
 		PSLIST_ENTRY entry = reinterpret_cast<PSLIST_ENTRY>(object) - 1;
 		InterlockedPushEntrySList(&header_, entry);
 	}
