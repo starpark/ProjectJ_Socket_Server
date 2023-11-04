@@ -80,22 +80,22 @@ shared_ptr<Room> Lobby::EnterRoom(shared_ptr<GameSession> session, int roomID)
 	return nullptr;
 }
 
-bool Lobby::LeaveRoom(const shared_ptr<GameSession>& session, int roomID)
+int Lobby::LeaveRoom(const shared_ptr<GameSession>& session, int roomID)
 {
 	WRITE_LOCK;
 	if (auto room = FindRoomByNumber(roomID))
 	{
-		if (room->LeaveSession(session))
+		int result = room->LeaveSession(session);
+		if (result >= 0)
 		{
 			if (room->GetNumberOfPlayer() == 0)
 			{
 				DestroyRoom(roomID);
 			}
-			return true;
 		}
 	}
 
-	return false;
+	return INVALID_ROOM_SLOT;
 }
 
 void Lobby::DestroyRoom(int roomNumber)

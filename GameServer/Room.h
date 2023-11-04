@@ -27,9 +27,11 @@ public:
 	RoomState GetState() { return state_; }
 	shared_ptr<Lobby> GetLobby() { return lobby_.lock(); }
 
+
 	bool EnterSession(shared_ptr<GameSession> session);
-	bool LeaveSession(const shared_ptr<GameSession>& session);
+	int LeaveSession(const shared_ptr<GameSession>& session);
 	void BroadcastHere(shared_ptr<SendBuffer> sendBuffer);
+	void BroadcastWithoutSelf(shared_ptr<SendBuffer> sendBuffer, const shared_ptr<GameSession>& self);
 	bool ChangePlayerPosition(const shared_ptr<GameSession>& session, int currentNumber, int desireNumber);
 	void ToggleReady(const shared_ptr<GameSession>& session);
 	bool StartMatch();

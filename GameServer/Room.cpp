@@ -44,8 +44,7 @@ bool Room::EnterSession(shared_ptr<GameSession> session)
 			sessionSlots_[i].first = session;
 			sessionSlots_[i].second = false;
 
-			auto self = shared_from_this();
-			session->ProcessEnterRoom(self);
+			session->ProcessEnterRoom(shared_from_this());
 
 			return true;
 		}
@@ -54,7 +53,7 @@ bool Room::EnterSession(shared_ptr<GameSession> session)
 	return false;
 }
 
-bool Room::LeaveSession(const shared_ptr<GameSession>& session)
+int Room::LeaveSession(const shared_ptr<GameSession>& session)
 {
 	WRITE_LOCK;
 	for (int i = 0; i < MAX_PLAYER_NUMBER; i++)
@@ -66,11 +65,11 @@ bool Room::LeaveSession(const shared_ptr<GameSession>& session)
 
 			session->ProcessLeaveRoom();
 
-			return true;
+			return i;
 		}
 	}
 
-	return false;
+	return -1;
 }
 
 void Room::BroadcastHere(shared_ptr<SendBuffer> sendBuffer)
@@ -78,6 +77,23 @@ void Room::BroadcastHere(shared_ptr<SendBuffer> sendBuffer)
 	WRITE_LOCK;
 	for (auto session : sessionSlots_)
 	{
+		if (session.first == nullptr)
+		{
+			continue;
+		}
+		session.first->Send(sendBuffer);
+	}
+}
+
+void Room::BroadcastWithoutSelf(shared_ptr<SendBuffer> sendBuffer, const shared_ptr<GameSession>& self)
+{
+	WRITE_LOCK;
+	for (auto session : sessionSlots_)
+	{
+		if (session.first == self || session.first == nullptr)
+		{
+			continue;
+		}
 		session.first->Send(sendBuffer);
 	}
 }

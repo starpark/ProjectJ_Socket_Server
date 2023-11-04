@@ -1,6 +1,8 @@
 #pragma once
 #include "Room.h"
 
+#define INVALID_ROOM_SLOT -1
+
 class GameService;
 
 class Lobby : public enable_shared_from_this<Lobby>
@@ -16,7 +18,7 @@ public:
 	void Broadcast(shared_ptr<SendBuffer> sendBuffer);
 	shared_ptr<Room> CreateRoom(shared_ptr<GameSession> session, string title);
 	shared_ptr<Room> EnterRoom(shared_ptr<GameSession> session, int roomID);
-	bool LeaveRoom(const shared_ptr<GameSession>& session, int roomID);
+	int LeaveRoom(const shared_ptr<GameSession>& session, int roomID);
 	void DestroyRoom(int roomNumber);
 
 private:
