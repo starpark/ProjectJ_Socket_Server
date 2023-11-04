@@ -57,7 +57,7 @@ void GameSession::ProcessLeaveMatch()
 
 void GameSession::OnConnected()
 {
-	GLogHelper->Reserve(LogCategory::Log_INFO, L"OnConnected %s\n", netAddress_.GetIpAddressW().c_str());
+	// GLogHelper->Reserve(LogCategory::Log_INFO, L"OnConnected %s\n", netAddress_.GetIpAddressW().c_str());
 }
 
 void GameSession::OnDisconnect()
@@ -78,7 +78,7 @@ void GameSession::OnDisconnect()
 
 int GameSession::OnRecv(BYTE* buffer, int numOfBytes)
 {
-	GLogHelper->Reserve(LogCategory::Log_TEMP, L"OnRecv\n");
+	// GLogHelper->Reserve(LogCategory::Log_TEMP, L"OnRecv\n");
 
 	int processLen = 0;
 	while (true)

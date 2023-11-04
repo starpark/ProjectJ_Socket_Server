@@ -29,6 +29,7 @@ public:
 	int GetID() { return id_; }
 	string GetNickname() { return nickname_; }
 	string GetName() { return name_; }
+	bool IsVerified() { return bIsVerified; }
 
 	shared_ptr<Lobby> TryGetLobby()
 	{
@@ -67,6 +68,7 @@ public:
 	void SetLobby(shared_ptr<Lobby> lobby) { lobby_ = lobby; }
 	void SetRoom(shared_ptr<Room> room) { room_ = room; }
 	void SetMatch(shared_ptr<Match> match) { match_ = match; }
+	void SetIsVerified(bool verifying) { bIsVerified = verifying; }
 
 protected:
 	void OnConnected() override;
@@ -77,6 +79,7 @@ protected:
 
 protected:
 	atomic<SessionState> state_ = SessionState::NONE;
+	bool bIsVerified = false;
 	int id_ = -1;
 	string nickname_;
 	string name_;
