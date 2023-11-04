@@ -6,6 +6,8 @@
 LogHelper::LogHelper()
 {
 	namespace fs = std::filesystem;
+	setlocale(LC_ALL, "korean");
+	_wsetlocale(LC_ALL, L"korean");
 
 	stdOut_ = GetStdHandle(STD_OUTPUT_HANDLE);
 	UINT64 startTick = GetTickCount64();
@@ -24,8 +26,6 @@ LogHelper::~LogHelper()
 
 void LogHelper::Reserve(LogCategory category, const WCHAR* format, ...)
 {
-	WRITE_LOCK;
-
 	LogWrapper log;
 	va_list list;
 
@@ -36,17 +36,15 @@ void LogHelper::Reserve(LogCategory category, const WCHAR* format, ...)
 	vswprintf_s(buffer, BUFFER_SIZE, format, list);
 
 	wstring wideString(buffer);
-
 	log.buffer.assign(wideString.begin(), wideString.end());
+
 	va_end(list);
 
-	logQueue_.push(log);
+	logQueue_.Push(log);
 }
 
 void LogHelper::Reserve(LogCategory category, const char* format, ...)
 {
-	WRITE_LOCK;
-
 	LogWrapper log;
 	va_list list;
 
@@ -61,17 +59,14 @@ void LogHelper::Reserve(LogCategory category, const char* format, ...)
 
 	va_end(list);
 
-	logQueue_.push(log);
+	logQueue_.Push(log);
 }
 
 void LogHelper::Write()
 {
-	if (logQueue_.empty() == false)
+	if (logQueue_.IsEmpty() == false)
 	{
-		LogWrapper log;
-
-		log = logQueue_.front();
-		logQueue_.pop();
+		LogWrapper log = logQueue_.Pop();
 
 		SetColor(log.category);
 

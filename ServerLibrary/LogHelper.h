@@ -41,8 +41,7 @@ protected:
 
 
 private:
-	USE_LOCK;
 	HANDLE stdOut_;
 	ofstream logFile_;
-	queue<LogWrapper> logQueue_;
+	LockQueue<LogWrapper> logQueue_;
 };
