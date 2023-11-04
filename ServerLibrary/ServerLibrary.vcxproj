@@ -147,12 +147,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CommandTask.h" />
     <ClInclude Include="DBConnection.h" />
     <ClInclude Include="DeadLockProfiler.h" />
     <ClInclude Include="Global.h" />
     <ClInclude Include="Iocp.h" />
     <ClInclude Include="Listener.h" />
     <ClInclude Include="Lock.h" />
+    <ClInclude Include="LockQueue.h" />
     <ClInclude Include="LogHelper.h" />
     <ClInclude Include="Macro.h" />
     <ClInclude Include="NetAddress.h" />
@@ -165,15 +167,19 @@
     <ClInclude Include="SessionBase.h" />
     <ClInclude Include="SocketUtils.h" />
     <ClInclude Include="ThreadLocal.h" />
+    <ClInclude Include="ThreadManager.h" />
     <ClInclude Include="TickTask.h" />
+    <ClInclude Include="TimerTask.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CommandTask.cpp" />
     <ClCompile Include="DBConnection.cpp" />
     <ClCompile Include="DeadLockProfiler.cpp" />
     <ClCompile Include="Global.cpp" />
     <ClCompile Include="Iocp.cpp" />
     <ClCompile Include="Listener.cpp" />
     <ClCompile Include="Lock.cpp" />
+    <ClCompile Include="LockQueue.cpp" />
     <ClCompile Include="LogHelper.cpp" />
     <ClCompile Include="NetAddress.cpp" />
     <ClCompile Include="RecvBuffer.cpp" />
@@ -189,7 +195,9 @@
     <ClCompile Include="SessionBase.cpp" />
     <ClCompile Include="SocketUtils.cpp" />
     <ClCompile Include="ThreadLocal.cpp" />
+    <ClCompile Include="ThreadManager.cpp" />
     <ClCompile Include="TickTask.cpp" />
+    <ClCompile Include="TimerTask.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

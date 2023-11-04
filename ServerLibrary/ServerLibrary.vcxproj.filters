@@ -81,6 +81,18 @@
     <ClInclude Include="TickTask.h">
       <Filter>Task</Filter>
     </ClInclude>
+    <ClInclude Include="ThreadManager.h">
+      <Filter>Thread</Filter>
+    </ClInclude>
+    <ClInclude Include="LockQueue.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="CommandTask.h">
+      <Filter>Task</Filter>
+    </ClInclude>
+    <ClInclude Include="TimerTask.h">
+      <Filter>Task</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -132,6 +144,18 @@
       <Filter>Thread</Filter>
     </ClCompile>
     <ClCompile Include="TickTask.cpp">
+      <Filter>Task</Filter>
+    </ClCompile>
+    <ClCompile Include="ThreadManager.cpp">
+      <Filter>Thread</Filter>
+    </ClCompile>
+    <ClCompile Include="LockQueue.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="CommandTask.cpp">
+      <Filter>Task</Filter>
+    </ClCompile>
+    <ClCompile Include="TimerTask.cpp">
       <Filter>Task</Filter>
     </ClCompile>
   </ItemGroup>
