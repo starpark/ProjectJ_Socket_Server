@@ -29,13 +29,15 @@ enum : uint16
 	PKT_S_ROOM_OTHER_LEAVE = 1013,
 	PKT_C_ROOM_READY = 1014,
 	PKT_S_ROOM_READY = 1015,
-	PKT_S_MATCH_INIT_GENERATED_ITEMS = 1016,
-	PKT_C_MATCH_ITEM_PICKUP = 1017,
-	PKT_S_MATCH_ITEM_PICKUP = 1018,
-	PKT_C_MATCH_ITEM_MOVE = 1019,
-	PKT_S_MATCH_ITEM_MOVE = 1020,
-	PKT_C_MATCH_ITEM_DROP = 1021,
-	PKT_S_MATCH_ITEM_DROP = 1022,
+	PKT_C_ROOM_CHAT = 1016,
+	PKT_S_ROOM_CHAT = 1017,
+	PKT_S_MATCH_INIT_GENERATED_ITEMS = 1018,
+	PKT_C_MATCH_ITEM_PICKUP = 1019,
+	PKT_S_MATCH_ITEM_PICKUP = 1020,
+	PKT_C_MATCH_ITEM_MOVE = 1021,
+	PKT_S_MATCH_ITEM_MOVE = 1022,
+	PKT_C_MATCH_ITEM_DROP = 1023,
+	PKT_S_MATCH_ITEM_DROP = 1024,
 };
 
 // RecvThread 전용 패킷 가공 함수
@@ -67,6 +69,8 @@ bool Handle_S_ROOM_OTHER_LEAVE(UWorld* World, ProjectJ::S_ROOM_OTHER_LEAVE& Pack
 DECLARE_DELEGATE_RetVal_ThreeParams(bool, FPacket_S_ROOM_OTHER_LEAVE, UWorld*, ProjectJ::S_ROOM_OTHER_LEAVE&, float);
 bool Handle_S_ROOM_READY(UWorld* World, ProjectJ::S_ROOM_READY& Packet, float DeltaSeconds);
 DECLARE_DELEGATE_RetVal_ThreeParams(bool, FPacket_S_ROOM_READY, UWorld*, ProjectJ::S_ROOM_READY&, float);
+bool Handle_S_ROOM_CHAT(UWorld* World, ProjectJ::S_ROOM_CHAT& Packet, float DeltaSeconds);
+DECLARE_DELEGATE_RetVal_ThreeParams(bool, FPacket_S_ROOM_CHAT, UWorld*, ProjectJ::S_ROOM_CHAT&, float);
 bool Handle_S_MATCH_INIT_GENERATED_ITEMS(UWorld* World, ProjectJ::S_MATCH_INIT_GENERATED_ITEMS& Packet, float DeltaSeconds);
 DECLARE_DELEGATE_RetVal_ThreeParams(bool, FPacket_S_MATCH_INIT_GENERATED_ITEMS, UWorld*, ProjectJ::S_MATCH_INIT_GENERATED_ITEMS&, float);
 bool Handle_S_MATCH_ITEM_PICKUP(UWorld* World, ProjectJ::S_MATCH_ITEM_PICKUP& Packet, float DeltaSeconds);
@@ -79,7 +83,7 @@ DECLARE_DELEGATE_RetVal_ThreeParams(bool, FPacket_S_MATCH_ITEM_DROP, UWorld*, Pr
 // 소켓 수신 데이터 처리 및 송신 버퍼 생성 클래스
 // 최초 작성자: 박별
 // 수정자: 
-// 최종 수정일: 2023-11-01 자동 생성
+// 최종 수정일: 2023-11-04 자동 생성
 class PROJECTJ_API UJPacketHandler : public UObject
 {
 public:
@@ -105,6 +109,7 @@ public:
 		GPacketProcessor[PKT_S_ROOM_OTHER_ENTER] = [](UWorld* World, const TSharedPtr<JPackets>& PacketPtr, float DeltaSeconds) {return ProcessPacket<ProjectJ::S_ROOM_OTHER_ENTER>(Handle_S_ROOM_OTHER_ENTER, World, PacketPtr, DeltaSeconds);};
 		GPacketProcessor[PKT_S_ROOM_OTHER_LEAVE] = [](UWorld* World, const TSharedPtr<JPackets>& PacketPtr, float DeltaSeconds) {return ProcessPacket<ProjectJ::S_ROOM_OTHER_LEAVE>(Handle_S_ROOM_OTHER_LEAVE, World, PacketPtr, DeltaSeconds);};
 		GPacketProcessor[PKT_S_ROOM_READY] = [](UWorld* World, const TSharedPtr<JPackets>& PacketPtr, float DeltaSeconds) {return ProcessPacket<ProjectJ::S_ROOM_READY>(Handle_S_ROOM_READY, World, PacketPtr, DeltaSeconds);};
+		GPacketProcessor[PKT_S_ROOM_CHAT] = [](UWorld* World, const TSharedPtr<JPackets>& PacketPtr, float DeltaSeconds) {return ProcessPacket<ProjectJ::S_ROOM_CHAT>(Handle_S_ROOM_CHAT, World, PacketPtr, DeltaSeconds);};
 		GPacketProcessor[PKT_S_MATCH_INIT_GENERATED_ITEMS] = [](UWorld* World, const TSharedPtr<JPackets>& PacketPtr, float DeltaSeconds) {return ProcessPacket<ProjectJ::S_MATCH_INIT_GENERATED_ITEMS>(Handle_S_MATCH_INIT_GENERATED_ITEMS, World, PacketPtr, DeltaSeconds);};
 		GPacketProcessor[PKT_S_MATCH_ITEM_PICKUP] = [](UWorld* World, const TSharedPtr<JPackets>& PacketPtr, float DeltaSeconds) {return ProcessPacket<ProjectJ::S_MATCH_ITEM_PICKUP>(Handle_S_MATCH_ITEM_PICKUP, World, PacketPtr, DeltaSeconds);};
 		GPacketProcessor[PKT_S_MATCH_ITEM_MOVE] = [](UWorld* World, const TSharedPtr<JPackets>& PacketPtr, float DeltaSeconds) {return ProcessPacket<ProjectJ::S_MATCH_ITEM_MOVE>(Handle_S_MATCH_ITEM_MOVE, World, PacketPtr, DeltaSeconds);};
@@ -120,6 +125,7 @@ public:
 		GPacketHandler[PKT_S_ROOM_OTHER_ENTER] = [](uint16 TypeCode, uint8* Buffer, int32 Size) {return HandlePacket<ProjectJ::S_ROOM_OTHER_ENTER>(TypeCode, Buffer, Size);};
 		GPacketHandler[PKT_S_ROOM_OTHER_LEAVE] = [](uint16 TypeCode, uint8* Buffer, int32 Size) {return HandlePacket<ProjectJ::S_ROOM_OTHER_LEAVE>(TypeCode, Buffer, Size);};
 		GPacketHandler[PKT_S_ROOM_READY] = [](uint16 TypeCode, uint8* Buffer, int32 Size) {return HandlePacket<ProjectJ::S_ROOM_READY>(TypeCode, Buffer, Size);};
+		GPacketHandler[PKT_S_ROOM_CHAT] = [](uint16 TypeCode, uint8* Buffer, int32 Size) {return HandlePacket<ProjectJ::S_ROOM_CHAT>(TypeCode, Buffer, Size);};
 		GPacketHandler[PKT_S_MATCH_INIT_GENERATED_ITEMS] = [](uint16 TypeCode, uint8* Buffer, int32 Size) {return HandlePacket<ProjectJ::S_MATCH_INIT_GENERATED_ITEMS>(TypeCode, Buffer, Size);};
 		GPacketHandler[PKT_S_MATCH_ITEM_PICKUP] = [](uint16 TypeCode, uint8* Buffer, int32 Size) {return HandlePacket<ProjectJ::S_MATCH_ITEM_PICKUP>(TypeCode, Buffer, Size);};
 		GPacketHandler[PKT_S_MATCH_ITEM_MOVE] = [](uint16 TypeCode, uint8* Buffer, int32 Size) {return HandlePacket<ProjectJ::S_MATCH_ITEM_MOVE>(TypeCode, Buffer, Size);};
@@ -183,6 +189,10 @@ public:
 	// Packet: C_ROOM_READY 객체
 	// 생성된 FJSendBuffer 스마트포인터 반환
 	static TSharedPtr<FJSendBuffer> MakeSendBuffer(ProjectJ::C_ROOM_READY& Packet) {return MakeSendBuffer(Packet, PKT_C_ROOM_READY);}
+	// C_ROOM_CHAT를 직렬화한 FJSendBuffer 생성 함수
+	// Packet: C_ROOM_CHAT 객체
+	// 생성된 FJSendBuffer 스마트포인터 반환
+	static TSharedPtr<FJSendBuffer> MakeSendBuffer(ProjectJ::C_ROOM_CHAT& Packet) {return MakeSendBuffer(Packet, PKT_C_ROOM_CHAT);}
 	// C_MATCH_ITEM_PICKUP를 직렬화한 FJSendBuffer 생성 함수
 	// Packet: C_MATCH_ITEM_PICKUP 객체
 	// 생성된 FJSendBuffer 스마트포인터 반환
@@ -276,6 +286,7 @@ public:
 	static FPacket_S_ROOM_OTHER_ENTER Packet_S_ROOM_OTHER_ENTER_Delegate;
 	static FPacket_S_ROOM_OTHER_LEAVE Packet_S_ROOM_OTHER_LEAVE_Delegate;
 	static FPacket_S_ROOM_READY Packet_S_ROOM_READY_Delegate;
+	static FPacket_S_ROOM_CHAT Packet_S_ROOM_CHAT_Delegate;
 	static FPacket_S_MATCH_INIT_GENERATED_ITEMS Packet_S_MATCH_INIT_GENERATED_ITEMS_Delegate;
 	static FPacket_S_MATCH_ITEM_PICKUP Packet_S_MATCH_ITEM_PICKUP_Delegate;
 	static FPacket_S_MATCH_ITEM_MOVE Packet_S_MATCH_ITEM_MOVE_Delegate;

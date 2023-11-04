@@ -243,6 +243,38 @@ struct S_ROOM_READYDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 S_ROOM_READYDefaultTypeInternal _S_ROOM_READY_default_instance_;
+PROTOBUF_CONSTEXPR C_ROOM_CHAT::C_ROOM_CHAT(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.nickname_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.chat_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.account_id_)*/0
+  , /*decltype(_impl_.room_id_)*/0
+  , /*decltype(_impl_._cached_size_)*/{}} {}
+struct C_ROOM_CHATDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR C_ROOM_CHATDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~C_ROOM_CHATDefaultTypeInternal() {}
+  union {
+    C_ROOM_CHAT _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 C_ROOM_CHATDefaultTypeInternal _C_ROOM_CHAT_default_instance_;
+PROTOBUF_CONSTEXPR S_ROOM_CHAT::S_ROOM_CHAT(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.nickname_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.chat_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.account_id_)*/0
+  , /*decltype(_impl_.room_id_)*/0
+  , /*decltype(_impl_._cached_size_)*/{}} {}
+struct S_ROOM_CHATDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR S_ROOM_CHATDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~S_ROOM_CHATDefaultTypeInternal() {}
+  union {
+    S_ROOM_CHAT _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 S_ROOM_CHATDefaultTypeInternal _S_ROOM_CHAT_default_instance_;
 PROTOBUF_CONSTEXPR S_MATCH_INIT_GENERATED_ITEMS::S_MATCH_INIT_GENERATED_ITEMS(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.items_)*/{}
@@ -351,7 +383,7 @@ struct S_MATCH_ITEM_DROPDefaultTypeInternal {
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 S_MATCH_ITEM_DROPDefaultTypeInternal _S_MATCH_ITEM_DROP_default_instance_;
 }  // namespace ProjectJ
-static ::_pb::Metadata file_level_metadata_Message_2eproto[23];
+static ::_pb::Metadata file_level_metadata_Message_2eproto[25];
 static constexpr ::_pb::EnumDescriptor const** file_level_enum_descriptors_Message_2eproto = nullptr;
 static constexpr ::_pb::ServiceDescriptor const** file_level_service_descriptors_Message_2eproto = nullptr;
 
@@ -483,6 +515,26 @@ const uint32_t TableStruct_Message_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(
   ~0u,  // no _inlined_string_donated_
   PROTOBUF_FIELD_OFFSET(::ProjectJ::S_ROOM_READY, _impl_.info_),
   ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::ProjectJ::C_ROOM_CHAT, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  ~0u,  // no _inlined_string_donated_
+  PROTOBUF_FIELD_OFFSET(::ProjectJ::C_ROOM_CHAT, _impl_.account_id_),
+  PROTOBUF_FIELD_OFFSET(::ProjectJ::C_ROOM_CHAT, _impl_.nickname_),
+  PROTOBUF_FIELD_OFFSET(::ProjectJ::C_ROOM_CHAT, _impl_.room_id_),
+  PROTOBUF_FIELD_OFFSET(::ProjectJ::C_ROOM_CHAT, _impl_.chat_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::ProjectJ::S_ROOM_CHAT, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  ~0u,  // no _inlined_string_donated_
+  PROTOBUF_FIELD_OFFSET(::ProjectJ::S_ROOM_CHAT, _impl_.account_id_),
+  PROTOBUF_FIELD_OFFSET(::ProjectJ::S_ROOM_CHAT, _impl_.nickname_),
+  PROTOBUF_FIELD_OFFSET(::ProjectJ::S_ROOM_CHAT, _impl_.room_id_),
+  PROTOBUF_FIELD_OFFSET(::ProjectJ::S_ROOM_CHAT, _impl_.chat_),
+  ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::ProjectJ::S_MATCH_INIT_GENERATED_ITEMS, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
@@ -565,13 +617,15 @@ static const ::_pbi::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protode
   { 103, -1, -1, sizeof(::ProjectJ::S_ROOM_OTHER_LEAVE)},
   { 111, -1, -1, sizeof(::ProjectJ::C_ROOM_READY)},
   { 119, -1, -1, sizeof(::ProjectJ::S_ROOM_READY)},
-  { 126, -1, -1, sizeof(::ProjectJ::S_MATCH_INIT_GENERATED_ITEMS)},
-  { 133, -1, -1, sizeof(::ProjectJ::C_MATCH_ITEM_PICKUP)},
-  { 141, -1, -1, sizeof(::ProjectJ::S_MATCH_ITEM_PICKUP)},
-  { 151, -1, -1, sizeof(::ProjectJ::C_MATCH_ITEM_MOVE)},
-  { 161, -1, -1, sizeof(::ProjectJ::S_MATCH_ITEM_MOVE)},
-  { 171, -1, -1, sizeof(::ProjectJ::C_MATCH_ITEM_DROP)},
-  { 181, -1, -1, sizeof(::ProjectJ::S_MATCH_ITEM_DROP)},
+  { 126, -1, -1, sizeof(::ProjectJ::C_ROOM_CHAT)},
+  { 136, -1, -1, sizeof(::ProjectJ::S_ROOM_CHAT)},
+  { 146, -1, -1, sizeof(::ProjectJ::S_MATCH_INIT_GENERATED_ITEMS)},
+  { 153, -1, -1, sizeof(::ProjectJ::C_MATCH_ITEM_PICKUP)},
+  { 161, -1, -1, sizeof(::ProjectJ::S_MATCH_ITEM_PICKUP)},
+  { 171, -1, -1, sizeof(::ProjectJ::C_MATCH_ITEM_MOVE)},
+  { 181, -1, -1, sizeof(::ProjectJ::S_MATCH_ITEM_MOVE)},
+  { 191, -1, -1, sizeof(::ProjectJ::C_MATCH_ITEM_DROP)},
+  { 201, -1, -1, sizeof(::ProjectJ::S_MATCH_ITEM_DROP)},
 };
 
 static const ::_pb::Message* const file_default_instances[] = {
@@ -591,6 +645,8 @@ static const ::_pb::Message* const file_default_instances[] = {
   &::ProjectJ::_S_ROOM_OTHER_LEAVE_default_instance_._instance,
   &::ProjectJ::_C_ROOM_READY_default_instance_._instance,
   &::ProjectJ::_S_ROOM_READY_default_instance_._instance,
+  &::ProjectJ::_C_ROOM_CHAT_default_instance_._instance,
+  &::ProjectJ::_S_ROOM_CHAT_default_instance_._instance,
   &::ProjectJ::_S_MATCH_INIT_GENERATED_ITEMS_default_instance_._instance,
   &::ProjectJ::_C_MATCH_ITEM_PICKUP_default_instance_._instance,
   &::ProjectJ::_S_MATCH_ITEM_PICKUP_default_instance_._instance,
@@ -626,26 +682,30 @@ const char descriptor_table_protodef_Message_2eproto[] PROTOBUF_SECTION_VARIABLE
   "r\022 \n\004info\030\002 \001(\0132\022.ProjectJ.RoomInfo\"3\n\014C"
   "_ROOM_READY\022\022\n\naccount_id\030\001 \001(\005\022\017\n\007room_"
   "id\030\002 \001(\005\"0\n\014S_ROOM_READY\022 \n\004info\030\002 \001(\0132\022"
-  ".ProjectJ.RoomInfo\"=\n\034S_MATCH_INIT_GENER"
-  "ATED_ITEMS\022\035\n\005items\030\001 \003(\0132\016.ProjectJ.Ite"
-  "m\"<\n\023C_MATCH_ITEM_PICKUP\022\024\n\014player_index"
-  "\030\001 \001(\005\022\017\n\007item_id\030\002 \001(\005\"d\n\023S_MATCH_ITEM_"
-  "PICKUP\022\016\n\006result\030\001 \001(\010\022\024\n\014player_index\030\002"
-  " \001(\005\022\017\n\007item_id\030\003 \001(\005\022\026\n\016top_left_index\030"
-  "\004 \001(\005\"r\n\021C_MATCH_ITEM_MOVE\022\024\n\014player_ind"
-  "ex\030\001 \001(\005\022\017\n\007item_id\030\002 \001(\005\022\027\n\017is_item_rot"
-  "ated\030\003 \001(\005\022\035\n\025target_top_left_index\030\004 \001("
-  "\005\"e\n\021S_MATCH_ITEM_MOVE\022\016\n\006result\030\001 \001(\010\022\017"
-  "\n\007item_id\030\002 \001(\005\022\027\n\017is_item_rotated\030\003 \001(\005"
-  "\022\026\n\016top_left_index\030\004 \001(\005\"\227\001\n\021C_MATCH_ITE"
-  "M_DROP\022\024\n\014player_index\030\001 \001(\005\022,\n\022drop_ite"
-  "m_position\030\002 \001(\0132\020.ProjectJ.Vector\022-\n\022dr"
-  "op_item_rotation\030\003 \001(\0132\021.ProjectJ.Rotato"
-  "r\022\017\n\007item_id\030\004 \001(\005\"\227\001\n\021S_MATCH_ITEM_DROP"
-  "\022\024\n\014player_index\030\001 \001(\005\022,\n\022drop_item_posi"
-  "tion\030\002 \001(\0132\020.ProjectJ.Vector\022-\n\022drop_ite"
-  "m_rotation\030\003 \001(\0132\021.ProjectJ.Rotator\022\017\n\007i"
-  "tem_id\030\004 \001(\005b\006proto3"
+  ".ProjectJ.RoomInfo\"R\n\013C_ROOM_CHAT\022\022\n\nacc"
+  "ount_id\030\001 \001(\005\022\020\n\010nickname\030\002 \001(\t\022\017\n\007room_"
+  "id\030\003 \001(\005\022\014\n\004chat\030\004 \001(\t\"R\n\013S_ROOM_CHAT\022\022\n"
+  "\naccount_id\030\001 \001(\005\022\020\n\010nickname\030\002 \001(\t\022\017\n\007r"
+  "oom_id\030\003 \001(\005\022\014\n\004chat\030\004 \001(\t\"=\n\034S_MATCH_IN"
+  "IT_GENERATED_ITEMS\022\035\n\005items\030\001 \003(\0132\016.Proj"
+  "ectJ.Item\"<\n\023C_MATCH_ITEM_PICKUP\022\024\n\014play"
+  "er_index\030\001 \001(\005\022\017\n\007item_id\030\002 \001(\005\"d\n\023S_MAT"
+  "CH_ITEM_PICKUP\022\016\n\006result\030\001 \001(\010\022\024\n\014player"
+  "_index\030\002 \001(\005\022\017\n\007item_id\030\003 \001(\005\022\026\n\016top_lef"
+  "t_index\030\004 \001(\005\"r\n\021C_MATCH_ITEM_MOVE\022\024\n\014pl"
+  "ayer_index\030\001 \001(\005\022\017\n\007item_id\030\002 \001(\005\022\027\n\017is_"
+  "item_rotated\030\003 \001(\005\022\035\n\025target_top_left_in"
+  "dex\030\004 \001(\005\"e\n\021S_MATCH_ITEM_MOVE\022\016\n\006result"
+  "\030\001 \001(\010\022\017\n\007item_id\030\002 \001(\005\022\027\n\017is_item_rotat"
+  "ed\030\003 \001(\005\022\026\n\016top_left_index\030\004 \001(\005\"\227\001\n\021C_M"
+  "ATCH_ITEM_DROP\022\024\n\014player_index\030\001 \001(\005\022,\n\022"
+  "drop_item_position\030\002 \001(\0132\020.ProjectJ.Vect"
+  "or\022-\n\022drop_item_rotation\030\003 \001(\0132\021.Project"
+  "J.Rotator\022\017\n\007item_id\030\004 \001(\005\"\227\001\n\021S_MATCH_I"
+  "TEM_DROP\022\024\n\014player_index\030\001 \001(\005\022,\n\022drop_i"
+  "tem_position\030\002 \001(\0132\020.ProjectJ.Vector\022-\n\022"
+  "drop_item_rotation\030\003 \001(\0132\021.ProjectJ.Rota"
+  "tor\022\017\n\007item_id\030\004 \001(\005b\006proto3"
   ;
 static const ::_pbi::DescriptorTable* const descriptor_table_Message_2eproto_deps[2] = {
   &::descriptor_table_Enum_2eproto,
@@ -653,9 +713,9 @@ static const ::_pbi::DescriptorTable* const descriptor_table_Message_2eproto_dep
 };
 static ::_pbi::once_flag descriptor_table_Message_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_Message_2eproto = {
-    false, false, 1780, descriptor_table_protodef_Message_2eproto,
+    false, false, 1948, descriptor_table_protodef_Message_2eproto,
     "Message.proto",
-    &descriptor_table_Message_2eproto_once, descriptor_table_Message_2eproto_deps, 2, 23,
+    &descriptor_table_Message_2eproto_once, descriptor_table_Message_2eproto_deps, 2, 25,
     schemas, file_default_instances, TableStruct_Message_2eproto::offsets,
     file_level_metadata_Message_2eproto, file_level_enum_descriptors_Message_2eproto,
     file_level_service_descriptors_Message_2eproto,
@@ -4234,6 +4294,632 @@ void S_ROOM_READY::InternalSwap(S_ROOM_READY* other) {
 
 // ===================================================================
 
+class C_ROOM_CHAT::_Internal {
+ public:
+};
+
+C_ROOM_CHAT::C_ROOM_CHAT(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:ProjectJ.C_ROOM_CHAT)
+}
+C_ROOM_CHAT::C_ROOM_CHAT(const C_ROOM_CHAT& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  C_ROOM_CHAT* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.nickname_){}
+    , decltype(_impl_.chat_){}
+    , decltype(_impl_.account_id_){}
+    , decltype(_impl_.room_id_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _impl_.nickname_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.nickname_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_nickname().empty()) {
+    _this->_impl_.nickname_.Set(from._internal_nickname(), 
+      _this->GetArenaForAllocation());
+  }
+  _impl_.chat_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.chat_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_chat().empty()) {
+    _this->_impl_.chat_.Set(from._internal_chat(), 
+      _this->GetArenaForAllocation());
+  }
+  ::memcpy(&_impl_.account_id_, &from._impl_.account_id_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.room_id_) -
+    reinterpret_cast<char*>(&_impl_.account_id_)) + sizeof(_impl_.room_id_));
+  // @@protoc_insertion_point(copy_constructor:ProjectJ.C_ROOM_CHAT)
+}
+
+inline void C_ROOM_CHAT::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.nickname_){}
+    , decltype(_impl_.chat_){}
+    , decltype(_impl_.account_id_){0}
+    , decltype(_impl_.room_id_){0}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.nickname_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.nickname_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.chat_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.chat_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+}
+
+C_ROOM_CHAT::~C_ROOM_CHAT() {
+  // @@protoc_insertion_point(destructor:ProjectJ.C_ROOM_CHAT)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void C_ROOM_CHAT::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.nickname_.Destroy();
+  _impl_.chat_.Destroy();
+}
+
+void C_ROOM_CHAT::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void C_ROOM_CHAT::Clear() {
+// @@protoc_insertion_point(message_clear_start:ProjectJ.C_ROOM_CHAT)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  _impl_.nickname_.ClearToEmpty();
+  _impl_.chat_.ClearToEmpty();
+  ::memset(&_impl_.account_id_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&_impl_.room_id_) -
+      reinterpret_cast<char*>(&_impl_.account_id_)) + sizeof(_impl_.room_id_));
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* C_ROOM_CHAT::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // int32 account_id = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          _impl_.account_id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // string nickname = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          auto str = _internal_mutable_nickname();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, "ProjectJ.C_ROOM_CHAT.nickname"));
+        } else
+          goto handle_unusual;
+        continue;
+      // int32 room_id = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+          _impl_.room_id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // string chat = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
+          auto str = _internal_mutable_chat();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, "ProjectJ.C_ROOM_CHAT.chat"));
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* C_ROOM_CHAT::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:ProjectJ.C_ROOM_CHAT)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // int32 account_id = 1;
+  if (this->_internal_account_id() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(1, this->_internal_account_id(), target);
+  }
+
+  // string nickname = 2;
+  if (!this->_internal_nickname().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_nickname().data(), static_cast<int>(this->_internal_nickname().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "ProjectJ.C_ROOM_CHAT.nickname");
+    target = stream->WriteStringMaybeAliased(
+        2, this->_internal_nickname(), target);
+  }
+
+  // int32 room_id = 3;
+  if (this->_internal_room_id() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(3, this->_internal_room_id(), target);
+  }
+
+  // string chat = 4;
+  if (!this->_internal_chat().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_chat().data(), static_cast<int>(this->_internal_chat().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "ProjectJ.C_ROOM_CHAT.chat");
+    target = stream->WriteStringMaybeAliased(
+        4, this->_internal_chat(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:ProjectJ.C_ROOM_CHAT)
+  return target;
+}
+
+size_t C_ROOM_CHAT::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:ProjectJ.C_ROOM_CHAT)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // string nickname = 2;
+  if (!this->_internal_nickname().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_nickname());
+  }
+
+  // string chat = 4;
+  if (!this->_internal_chat().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_chat());
+  }
+
+  // int32 account_id = 1;
+  if (this->_internal_account_id() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_account_id());
+  }
+
+  // int32 room_id = 3;
+  if (this->_internal_room_id() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_room_id());
+  }
+
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
+}
+
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData C_ROOM_CHAT::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
+    C_ROOM_CHAT::MergeImpl
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*C_ROOM_CHAT::GetClassData() const { return &_class_data_; }
+
+
+void C_ROOM_CHAT::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<C_ROOM_CHAT*>(&to_msg);
+  auto& from = static_cast<const C_ROOM_CHAT&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:ProjectJ.C_ROOM_CHAT)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (!from._internal_nickname().empty()) {
+    _this->_internal_set_nickname(from._internal_nickname());
+  }
+  if (!from._internal_chat().empty()) {
+    _this->_internal_set_chat(from._internal_chat());
+  }
+  if (from._internal_account_id() != 0) {
+    _this->_internal_set_account_id(from._internal_account_id());
+  }
+  if (from._internal_room_id() != 0) {
+    _this->_internal_set_room_id(from._internal_room_id());
+  }
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void C_ROOM_CHAT::CopyFrom(const C_ROOM_CHAT& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:ProjectJ.C_ROOM_CHAT)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool C_ROOM_CHAT::IsInitialized() const {
+  return true;
+}
+
+void C_ROOM_CHAT::InternalSwap(C_ROOM_CHAT* other) {
+  using std::swap;
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &_impl_.nickname_, lhs_arena,
+      &other->_impl_.nickname_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &_impl_.chat_, lhs_arena,
+      &other->_impl_.chat_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(C_ROOM_CHAT, _impl_.room_id_)
+      + sizeof(C_ROOM_CHAT::_impl_.room_id_)
+      - PROTOBUF_FIELD_OFFSET(C_ROOM_CHAT, _impl_.account_id_)>(
+          reinterpret_cast<char*>(&_impl_.account_id_),
+          reinterpret_cast<char*>(&other->_impl_.account_id_));
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata C_ROOM_CHAT::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
+      &descriptor_table_Message_2eproto_getter, &descriptor_table_Message_2eproto_once,
+      file_level_metadata_Message_2eproto[16]);
+}
+
+// ===================================================================
+
+class S_ROOM_CHAT::_Internal {
+ public:
+};
+
+S_ROOM_CHAT::S_ROOM_CHAT(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:ProjectJ.S_ROOM_CHAT)
+}
+S_ROOM_CHAT::S_ROOM_CHAT(const S_ROOM_CHAT& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  S_ROOM_CHAT* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.nickname_){}
+    , decltype(_impl_.chat_){}
+    , decltype(_impl_.account_id_){}
+    , decltype(_impl_.room_id_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _impl_.nickname_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.nickname_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_nickname().empty()) {
+    _this->_impl_.nickname_.Set(from._internal_nickname(), 
+      _this->GetArenaForAllocation());
+  }
+  _impl_.chat_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.chat_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_chat().empty()) {
+    _this->_impl_.chat_.Set(from._internal_chat(), 
+      _this->GetArenaForAllocation());
+  }
+  ::memcpy(&_impl_.account_id_, &from._impl_.account_id_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.room_id_) -
+    reinterpret_cast<char*>(&_impl_.account_id_)) + sizeof(_impl_.room_id_));
+  // @@protoc_insertion_point(copy_constructor:ProjectJ.S_ROOM_CHAT)
+}
+
+inline void S_ROOM_CHAT::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.nickname_){}
+    , decltype(_impl_.chat_){}
+    , decltype(_impl_.account_id_){0}
+    , decltype(_impl_.room_id_){0}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.nickname_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.nickname_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.chat_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.chat_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+}
+
+S_ROOM_CHAT::~S_ROOM_CHAT() {
+  // @@protoc_insertion_point(destructor:ProjectJ.S_ROOM_CHAT)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void S_ROOM_CHAT::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.nickname_.Destroy();
+  _impl_.chat_.Destroy();
+}
+
+void S_ROOM_CHAT::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void S_ROOM_CHAT::Clear() {
+// @@protoc_insertion_point(message_clear_start:ProjectJ.S_ROOM_CHAT)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  _impl_.nickname_.ClearToEmpty();
+  _impl_.chat_.ClearToEmpty();
+  ::memset(&_impl_.account_id_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&_impl_.room_id_) -
+      reinterpret_cast<char*>(&_impl_.account_id_)) + sizeof(_impl_.room_id_));
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* S_ROOM_CHAT::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // int32 account_id = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          _impl_.account_id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // string nickname = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          auto str = _internal_mutable_nickname();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, "ProjectJ.S_ROOM_CHAT.nickname"));
+        } else
+          goto handle_unusual;
+        continue;
+      // int32 room_id = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+          _impl_.room_id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // string chat = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
+          auto str = _internal_mutable_chat();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, "ProjectJ.S_ROOM_CHAT.chat"));
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* S_ROOM_CHAT::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:ProjectJ.S_ROOM_CHAT)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // int32 account_id = 1;
+  if (this->_internal_account_id() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(1, this->_internal_account_id(), target);
+  }
+
+  // string nickname = 2;
+  if (!this->_internal_nickname().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_nickname().data(), static_cast<int>(this->_internal_nickname().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "ProjectJ.S_ROOM_CHAT.nickname");
+    target = stream->WriteStringMaybeAliased(
+        2, this->_internal_nickname(), target);
+  }
+
+  // int32 room_id = 3;
+  if (this->_internal_room_id() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(3, this->_internal_room_id(), target);
+  }
+
+  // string chat = 4;
+  if (!this->_internal_chat().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_chat().data(), static_cast<int>(this->_internal_chat().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "ProjectJ.S_ROOM_CHAT.chat");
+    target = stream->WriteStringMaybeAliased(
+        4, this->_internal_chat(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:ProjectJ.S_ROOM_CHAT)
+  return target;
+}
+
+size_t S_ROOM_CHAT::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:ProjectJ.S_ROOM_CHAT)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // string nickname = 2;
+  if (!this->_internal_nickname().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_nickname());
+  }
+
+  // string chat = 4;
+  if (!this->_internal_chat().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_chat());
+  }
+
+  // int32 account_id = 1;
+  if (this->_internal_account_id() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_account_id());
+  }
+
+  // int32 room_id = 3;
+  if (this->_internal_room_id() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_room_id());
+  }
+
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
+}
+
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData S_ROOM_CHAT::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
+    S_ROOM_CHAT::MergeImpl
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*S_ROOM_CHAT::GetClassData() const { return &_class_data_; }
+
+
+void S_ROOM_CHAT::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<S_ROOM_CHAT*>(&to_msg);
+  auto& from = static_cast<const S_ROOM_CHAT&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:ProjectJ.S_ROOM_CHAT)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (!from._internal_nickname().empty()) {
+    _this->_internal_set_nickname(from._internal_nickname());
+  }
+  if (!from._internal_chat().empty()) {
+    _this->_internal_set_chat(from._internal_chat());
+  }
+  if (from._internal_account_id() != 0) {
+    _this->_internal_set_account_id(from._internal_account_id());
+  }
+  if (from._internal_room_id() != 0) {
+    _this->_internal_set_room_id(from._internal_room_id());
+  }
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void S_ROOM_CHAT::CopyFrom(const S_ROOM_CHAT& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:ProjectJ.S_ROOM_CHAT)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool S_ROOM_CHAT::IsInitialized() const {
+  return true;
+}
+
+void S_ROOM_CHAT::InternalSwap(S_ROOM_CHAT* other) {
+  using std::swap;
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &_impl_.nickname_, lhs_arena,
+      &other->_impl_.nickname_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &_impl_.chat_, lhs_arena,
+      &other->_impl_.chat_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(S_ROOM_CHAT, _impl_.room_id_)
+      + sizeof(S_ROOM_CHAT::_impl_.room_id_)
+      - PROTOBUF_FIELD_OFFSET(S_ROOM_CHAT, _impl_.account_id_)>(
+          reinterpret_cast<char*>(&_impl_.account_id_),
+          reinterpret_cast<char*>(&other->_impl_.account_id_));
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata S_ROOM_CHAT::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
+      &descriptor_table_Message_2eproto_getter, &descriptor_table_Message_2eproto_once,
+      file_level_metadata_Message_2eproto[17]);
+}
+
+// ===================================================================
+
 class S_MATCH_INIT_GENERATED_ITEMS::_Internal {
  public:
 };
@@ -4417,7 +5103,7 @@ void S_MATCH_INIT_GENERATED_ITEMS::InternalSwap(S_MATCH_INIT_GENERATED_ITEMS* ot
 ::PROTOBUF_NAMESPACE_ID::Metadata S_MATCH_INIT_GENERATED_ITEMS::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2eproto_getter, &descriptor_table_Message_2eproto_once,
-      file_level_metadata_Message_2eproto[16]);
+      file_level_metadata_Message_2eproto[18]);
 }
 
 // ===================================================================
@@ -4628,7 +5314,7 @@ void C_MATCH_ITEM_PICKUP::InternalSwap(C_MATCH_ITEM_PICKUP* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata C_MATCH_ITEM_PICKUP::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2eproto_getter, &descriptor_table_Message_2eproto_once,
-      file_level_metadata_Message_2eproto[17]);
+      file_level_metadata_Message_2eproto[19]);
 }
 
 // ===================================================================
@@ -4887,7 +5573,7 @@ void S_MATCH_ITEM_PICKUP::InternalSwap(S_MATCH_ITEM_PICKUP* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata S_MATCH_ITEM_PICKUP::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2eproto_getter, &descriptor_table_Message_2eproto_once,
-      file_level_metadata_Message_2eproto[18]);
+      file_level_metadata_Message_2eproto[20]);
 }
 
 // ===================================================================
@@ -5146,7 +5832,7 @@ void C_MATCH_ITEM_MOVE::InternalSwap(C_MATCH_ITEM_MOVE* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata C_MATCH_ITEM_MOVE::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2eproto_getter, &descriptor_table_Message_2eproto_once,
-      file_level_metadata_Message_2eproto[19]);
+      file_level_metadata_Message_2eproto[21]);
 }
 
 // ===================================================================
@@ -5405,7 +6091,7 @@ void S_MATCH_ITEM_MOVE::InternalSwap(S_MATCH_ITEM_MOVE* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata S_MATCH_ITEM_MOVE::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2eproto_getter, &descriptor_table_Message_2eproto_once,
-      file_level_metadata_Message_2eproto[20]);
+      file_level_metadata_Message_2eproto[22]);
 }
 
 // ===================================================================
@@ -5710,7 +6396,7 @@ void C_MATCH_ITEM_DROP::InternalSwap(C_MATCH_ITEM_DROP* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata C_MATCH_ITEM_DROP::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2eproto_getter, &descriptor_table_Message_2eproto_once,
-      file_level_metadata_Message_2eproto[21]);
+      file_level_metadata_Message_2eproto[23]);
 }
 
 // ===================================================================
@@ -6015,7 +6701,7 @@ void S_MATCH_ITEM_DROP::InternalSwap(S_MATCH_ITEM_DROP* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata S_MATCH_ITEM_DROP::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2eproto_getter, &descriptor_table_Message_2eproto_once,
-      file_level_metadata_Message_2eproto[22]);
+      file_level_metadata_Message_2eproto[24]);
 }
 
 // @@protoc_insertion_point(namespace_scope)
@@ -6084,6 +6770,14 @@ Arena::CreateMaybeMessage< ::ProjectJ::C_ROOM_READY >(Arena* arena) {
 template<> PROTOBUF_NOINLINE ::ProjectJ::S_ROOM_READY*
 Arena::CreateMaybeMessage< ::ProjectJ::S_ROOM_READY >(Arena* arena) {
   return Arena::CreateMessageInternal< ::ProjectJ::S_ROOM_READY >(arena);
+}
+template<> PROTOBUF_NOINLINE ::ProjectJ::C_ROOM_CHAT*
+Arena::CreateMaybeMessage< ::ProjectJ::C_ROOM_CHAT >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::ProjectJ::C_ROOM_CHAT >(arena);
+}
+template<> PROTOBUF_NOINLINE ::ProjectJ::S_ROOM_CHAT*
+Arena::CreateMaybeMessage< ::ProjectJ::S_ROOM_CHAT >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::ProjectJ::S_ROOM_CHAT >(arena);
 }
 template<> PROTOBUF_NOINLINE ::ProjectJ::S_MATCH_INIT_GENERATED_ITEMS*
 Arena::CreateMaybeMessage< ::ProjectJ::S_MATCH_INIT_GENERATED_ITEMS >(Arena* arena) {

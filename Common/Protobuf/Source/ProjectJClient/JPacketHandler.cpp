@@ -13,6 +13,7 @@ FPacket_S_ROOM_LEAVE UJPacketHandler::Packet_S_ROOM_LEAVE_Delegate;
 FPacket_S_ROOM_OTHER_ENTER UJPacketHandler::Packet_S_ROOM_OTHER_ENTER_Delegate;
 FPacket_S_ROOM_OTHER_LEAVE UJPacketHandler::Packet_S_ROOM_OTHER_LEAVE_Delegate;
 FPacket_S_ROOM_READY UJPacketHandler::Packet_S_ROOM_READY_Delegate;
+FPacket_S_ROOM_CHAT UJPacketHandler::Packet_S_ROOM_CHAT_Delegate;
 FPacket_S_MATCH_INIT_GENERATED_ITEMS UJPacketHandler::Packet_S_MATCH_INIT_GENERATED_ITEMS_Delegate;
 FPacket_S_MATCH_ITEM_PICKUP UJPacketHandler::Packet_S_MATCH_ITEM_PICKUP_Delegate;
 FPacket_S_MATCH_ITEM_MOVE UJPacketHandler::Packet_S_MATCH_ITEM_MOVE_Delegate;
@@ -100,6 +101,15 @@ bool Handle_S_ROOM_READY(UWorld* World, ProjectJ::S_ROOM_READY& Packet, float De
 	if (UJPacketHandler::Packet_S_ROOM_READY_Delegate.IsBound())
 	{
 		return UJPacketHandler::Packet_S_ROOM_READY_Delegate.Execute(World, Packet, DeltaSeconds);
+	}
+
+	return false;
+}
+bool Handle_S_ROOM_CHAT(UWorld* World, ProjectJ::S_ROOM_CHAT& Packet, float DeltaSeconds)
+{
+	if (UJPacketHandler::Packet_S_ROOM_CHAT_Delegate.IsBound())
+	{
+		return UJPacketHandler::Packet_S_ROOM_CHAT_Delegate.Execute(World, Packet, DeltaSeconds);
 	}
 
 	return false;

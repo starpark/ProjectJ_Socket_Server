@@ -15,6 +15,7 @@ using JPacketTypes = TVariant<
 	ProjectJ::S_ROOM_OTHER_ENTER,
 	ProjectJ::S_ROOM_OTHER_LEAVE,
 	ProjectJ::S_ROOM_READY,
+	ProjectJ::S_ROOM_CHAT,
 	ProjectJ::S_MATCH_INIT_GENERATED_ITEMS,
 	ProjectJ::S_MATCH_ITEM_PICKUP,
 	ProjectJ::S_MATCH_ITEM_MOVE,
@@ -24,7 +25,7 @@ using JPacketTypes = TVariant<
 // 패킷 래핑 클래스
 // 최초 작성자: 박별
 // 수정자: 
-// 최종 수정일: 2023-11-01 자동 생성
+// 최종 수정일: 2023-11-04 자동 생성
 class PROJECTJ_API JPackets
 {
 public:

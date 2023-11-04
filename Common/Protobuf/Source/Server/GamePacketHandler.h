@@ -22,13 +22,15 @@ enum : uint16_t
 	PKT_S_ROOM_OTHER_LEAVE = 1013,
 	PKT_C_ROOM_READY = 1014,
 	PKT_S_ROOM_READY = 1015,
-	PKT_S_MATCH_INIT_GENERATED_ITEMS = 1016,
-	PKT_C_MATCH_ITEM_PICKUP = 1017,
-	PKT_S_MATCH_ITEM_PICKUP = 1018,
-	PKT_C_MATCH_ITEM_MOVE = 1019,
-	PKT_S_MATCH_ITEM_MOVE = 1020,
-	PKT_C_MATCH_ITEM_DROP = 1021,
-	PKT_S_MATCH_ITEM_DROP = 1022,
+	PKT_C_ROOM_CHAT = 1016,
+	PKT_S_ROOM_CHAT = 1017,
+	PKT_S_MATCH_INIT_GENERATED_ITEMS = 1018,
+	PKT_C_MATCH_ITEM_PICKUP = 1019,
+	PKT_S_MATCH_ITEM_PICKUP = 1020,
+	PKT_C_MATCH_ITEM_MOVE = 1021,
+	PKT_S_MATCH_ITEM_MOVE = 1022,
+	PKT_C_MATCH_ITEM_DROP = 1023,
+	PKT_S_MATCH_ITEM_DROP = 1024,
 };
 
 bool Handle_INVALID(shared_ptr<SessionBase>& session, BYTE* bufer, int numOfBytes);
@@ -39,6 +41,7 @@ bool Handle_C_LOBBY_CREATE_ROOM(shared_ptr<SessionBase>& session, ProjectJ::C_LO
 bool Handle_C_LOBBY_ENTER_ROOM(shared_ptr<SessionBase>& session, ProjectJ::C_LOBBY_ENTER_ROOM& packet);
 bool Handle_C_ROOM_LEAVE(shared_ptr<SessionBase>& session, ProjectJ::C_ROOM_LEAVE& packet);
 bool Handle_C_ROOM_READY(shared_ptr<SessionBase>& session, ProjectJ::C_ROOM_READY& packet);
+bool Handle_C_ROOM_CHAT(shared_ptr<SessionBase>& session, ProjectJ::C_ROOM_CHAT& packet);
 bool Handle_C_MATCH_ITEM_PICKUP(shared_ptr<SessionBase>& session, ProjectJ::C_MATCH_ITEM_PICKUP& packet);
 bool Handle_C_MATCH_ITEM_MOVE(shared_ptr<SessionBase>& session, ProjectJ::C_MATCH_ITEM_MOVE& packet);
 bool Handle_C_MATCH_ITEM_DROP(shared_ptr<SessionBase>& session, ProjectJ::C_MATCH_ITEM_DROP& packet);
@@ -47,7 +50,7 @@ bool Handle_C_MATCH_ITEM_DROP(shared_ptr<SessionBase>& session, ProjectJ::C_MATC
 // 소켓 수신 데이터 처리 및 송신 버퍼 생성 클래스
 // 최초 작성자: 박별
 // 수정자: 
-// 최종 수정일: 2023-11-01 자동 생성
+// 최종 수정일: 2023-11-04 자동 생성
 class GamePacketHandler
 {
 public:
@@ -64,6 +67,7 @@ public:
 		GPacketHandler[PKT_C_LOBBY_ENTER_ROOM] = [](shared_ptr<SessionBase> session, BYTE* buffer, int numOfBytes) {return HandlePacket<ProjectJ::C_LOBBY_ENTER_ROOM>(Handle_C_LOBBY_ENTER_ROOM, session, buffer, numOfBytes);};
 		GPacketHandler[PKT_C_ROOM_LEAVE] = [](shared_ptr<SessionBase> session, BYTE* buffer, int numOfBytes) {return HandlePacket<ProjectJ::C_ROOM_LEAVE>(Handle_C_ROOM_LEAVE, session, buffer, numOfBytes);};
 		GPacketHandler[PKT_C_ROOM_READY] = [](shared_ptr<SessionBase> session, BYTE* buffer, int numOfBytes) {return HandlePacket<ProjectJ::C_ROOM_READY>(Handle_C_ROOM_READY, session, buffer, numOfBytes);};
+		GPacketHandler[PKT_C_ROOM_CHAT] = [](shared_ptr<SessionBase> session, BYTE* buffer, int numOfBytes) {return HandlePacket<ProjectJ::C_ROOM_CHAT>(Handle_C_ROOM_CHAT, session, buffer, numOfBytes);};
 		GPacketHandler[PKT_C_MATCH_ITEM_PICKUP] = [](shared_ptr<SessionBase> session, BYTE* buffer, int numOfBytes) {return HandlePacket<ProjectJ::C_MATCH_ITEM_PICKUP>(Handle_C_MATCH_ITEM_PICKUP, session, buffer, numOfBytes);};
 		GPacketHandler[PKT_C_MATCH_ITEM_MOVE] = [](shared_ptr<SessionBase> session, BYTE* buffer, int numOfBytes) {return HandlePacket<ProjectJ::C_MATCH_ITEM_MOVE>(Handle_C_MATCH_ITEM_MOVE, session, buffer, numOfBytes);};
 		GPacketHandler[PKT_C_MATCH_ITEM_DROP] = [](shared_ptr<SessionBase> session, BYTE* buffer, int numOfBytes) {return HandlePacket<ProjectJ::C_MATCH_ITEM_DROP>(Handle_C_MATCH_ITEM_DROP, session, buffer, numOfBytes);};
@@ -83,6 +87,7 @@ public:
 	static shared_ptr<SendBuffer> MakeSendBuffer(ProjectJ::S_ROOM_OTHER_ENTER& packet) {return MakeSendBuffer(packet, PKT_S_ROOM_OTHER_ENTER);}
 	static shared_ptr<SendBuffer> MakeSendBuffer(ProjectJ::S_ROOM_OTHER_LEAVE& packet) {return MakeSendBuffer(packet, PKT_S_ROOM_OTHER_LEAVE);}
 	static shared_ptr<SendBuffer> MakeSendBuffer(ProjectJ::S_ROOM_READY& packet) {return MakeSendBuffer(packet, PKT_S_ROOM_READY);}
+	static shared_ptr<SendBuffer> MakeSendBuffer(ProjectJ::S_ROOM_CHAT& packet) {return MakeSendBuffer(packet, PKT_S_ROOM_CHAT);}
 	static shared_ptr<SendBuffer> MakeSendBuffer(ProjectJ::S_MATCH_INIT_GENERATED_ITEMS& packet) {return MakeSendBuffer(packet, PKT_S_MATCH_INIT_GENERATED_ITEMS);}
 	static shared_ptr<SendBuffer> MakeSendBuffer(ProjectJ::S_MATCH_ITEM_PICKUP& packet) {return MakeSendBuffer(packet, PKT_S_MATCH_ITEM_PICKUP);}
 	static shared_ptr<SendBuffer> MakeSendBuffer(ProjectJ::S_MATCH_ITEM_MOVE& packet) {return MakeSendBuffer(packet, PKT_S_MATCH_ITEM_MOVE);}

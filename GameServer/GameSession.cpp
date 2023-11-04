@@ -57,7 +57,7 @@ void GameSession::ProcessLeaveMatch()
 
 void GameSession::OnConnected()
 {
-	GLogHelper->Reserve(LogCategory::Log_SUCCESS, L"OnConnected %s\n", netAddress_.GetIpAddressW().c_str());
+	GLogHelper->Reserve(LogCategory::Log_INFO, L"OnConnected %s\n", netAddress_.GetIpAddressW().c_str());
 }
 
 void GameSession::OnDisconnect()

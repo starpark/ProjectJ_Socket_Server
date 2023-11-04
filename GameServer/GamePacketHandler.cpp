@@ -400,6 +400,11 @@ bool Handle_C_ROOM_READY(shared_ptr<SessionBase>& session, ProjectJ::C_ROOM_READ
 	return true;
 }
 
+bool Handle_C_ROOM_CHAT(shared_ptr<SessionBase>& session, ProjectJ::C_ROOM_CHAT& packet)
+{
+	return true;
+}
+
 bool Handle_C_MATCH_ITEM_PICKUP(shared_ptr<SessionBase>& session, ProjectJ::C_MATCH_ITEM_PICKUP& packet)
 {
 	return true;

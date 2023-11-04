@@ -100,6 +100,22 @@ message S_ROOM_READY
 	RoomInfo info = 2;
 }
 
+message C_ROOM_CHAT
+{
+	int32 account_id = 1;
+	string nickname = 2;
+	int32 room_id = 3;
+	string chat = 4;
+}
+
+message S_ROOM_CHAT
+{
+	int32 account_id = 1;
+	string nickname = 2;
+	int32 room_id = 3;
+	string chat = 4;
+}
+
 /* MATCH PROTOCOL */
 
 message S_MATCH_INIT_GENERATED_ITEMS

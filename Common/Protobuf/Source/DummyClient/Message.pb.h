@@ -69,6 +69,9 @@ extern C_MATCH_ITEM_MOVEDefaultTypeInternal _C_MATCH_ITEM_MOVE_default_instance_
 class C_MATCH_ITEM_PICKUP;
 struct C_MATCH_ITEM_PICKUPDefaultTypeInternal;
 extern C_MATCH_ITEM_PICKUPDefaultTypeInternal _C_MATCH_ITEM_PICKUP_default_instance_;
+class C_ROOM_CHAT;
+struct C_ROOM_CHATDefaultTypeInternal;
+extern C_ROOM_CHATDefaultTypeInternal _C_ROOM_CHAT_default_instance_;
 class C_ROOM_LEAVE;
 struct C_ROOM_LEAVEDefaultTypeInternal;
 extern C_ROOM_LEAVEDefaultTypeInternal _C_ROOM_LEAVE_default_instance_;
@@ -102,6 +105,9 @@ extern S_MATCH_ITEM_MOVEDefaultTypeInternal _S_MATCH_ITEM_MOVE_default_instance_
 class S_MATCH_ITEM_PICKUP;
 struct S_MATCH_ITEM_PICKUPDefaultTypeInternal;
 extern S_MATCH_ITEM_PICKUPDefaultTypeInternal _S_MATCH_ITEM_PICKUP_default_instance_;
+class S_ROOM_CHAT;
+struct S_ROOM_CHATDefaultTypeInternal;
+extern S_ROOM_CHATDefaultTypeInternal _S_ROOM_CHAT_default_instance_;
 class S_ROOM_LEAVE;
 struct S_ROOM_LEAVEDefaultTypeInternal;
 extern S_ROOM_LEAVEDefaultTypeInternal _S_ROOM_LEAVE_default_instance_;
@@ -126,6 +132,7 @@ template<> ::ProjectJ::C_LOBBY_REFRESH_ROOM* Arena::CreateMaybeMessage<::Project
 template<> ::ProjectJ::C_MATCH_ITEM_DROP* Arena::CreateMaybeMessage<::ProjectJ::C_MATCH_ITEM_DROP>(Arena*);
 template<> ::ProjectJ::C_MATCH_ITEM_MOVE* Arena::CreateMaybeMessage<::ProjectJ::C_MATCH_ITEM_MOVE>(Arena*);
 template<> ::ProjectJ::C_MATCH_ITEM_PICKUP* Arena::CreateMaybeMessage<::ProjectJ::C_MATCH_ITEM_PICKUP>(Arena*);
+template<> ::ProjectJ::C_ROOM_CHAT* Arena::CreateMaybeMessage<::ProjectJ::C_ROOM_CHAT>(Arena*);
 template<> ::ProjectJ::C_ROOM_LEAVE* Arena::CreateMaybeMessage<::ProjectJ::C_ROOM_LEAVE>(Arena*);
 template<> ::ProjectJ::C_ROOM_READY* Arena::CreateMaybeMessage<::ProjectJ::C_ROOM_READY>(Arena*);
 template<> ::ProjectJ::C_VERIFY_TOKEN* Arena::CreateMaybeMessage<::ProjectJ::C_VERIFY_TOKEN>(Arena*);
@@ -137,6 +144,7 @@ template<> ::ProjectJ::S_MATCH_INIT_GENERATED_ITEMS* Arena::CreateMaybeMessage<:
 template<> ::ProjectJ::S_MATCH_ITEM_DROP* Arena::CreateMaybeMessage<::ProjectJ::S_MATCH_ITEM_DROP>(Arena*);
 template<> ::ProjectJ::S_MATCH_ITEM_MOVE* Arena::CreateMaybeMessage<::ProjectJ::S_MATCH_ITEM_MOVE>(Arena*);
 template<> ::ProjectJ::S_MATCH_ITEM_PICKUP* Arena::CreateMaybeMessage<::ProjectJ::S_MATCH_ITEM_PICKUP>(Arena*);
+template<> ::ProjectJ::S_ROOM_CHAT* Arena::CreateMaybeMessage<::ProjectJ::S_ROOM_CHAT>(Arena*);
 template<> ::ProjectJ::S_ROOM_LEAVE* Arena::CreateMaybeMessage<::ProjectJ::S_ROOM_LEAVE>(Arena*);
 template<> ::ProjectJ::S_ROOM_OTHER_ENTER* Arena::CreateMaybeMessage<::ProjectJ::S_ROOM_OTHER_ENTER>(Arena*);
 template<> ::ProjectJ::S_ROOM_OTHER_LEAVE* Arena::CreateMaybeMessage<::ProjectJ::S_ROOM_OTHER_LEAVE>(Arena*);
@@ -2771,6 +2779,388 @@ class S_ROOM_READY final :
 };
 // -------------------------------------------------------------------
 
+class C_ROOM_CHAT final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:ProjectJ.C_ROOM_CHAT) */ {
+ public:
+  inline C_ROOM_CHAT() : C_ROOM_CHAT(nullptr) {}
+  ~C_ROOM_CHAT() override;
+  explicit PROTOBUF_CONSTEXPR C_ROOM_CHAT(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  C_ROOM_CHAT(const C_ROOM_CHAT& from);
+  C_ROOM_CHAT(C_ROOM_CHAT&& from) noexcept
+    : C_ROOM_CHAT() {
+    *this = ::std::move(from);
+  }
+
+  inline C_ROOM_CHAT& operator=(const C_ROOM_CHAT& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline C_ROOM_CHAT& operator=(C_ROOM_CHAT&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const C_ROOM_CHAT& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const C_ROOM_CHAT* internal_default_instance() {
+    return reinterpret_cast<const C_ROOM_CHAT*>(
+               &_C_ROOM_CHAT_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    16;
+
+  friend void swap(C_ROOM_CHAT& a, C_ROOM_CHAT& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(C_ROOM_CHAT* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(C_ROOM_CHAT* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  C_ROOM_CHAT* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<C_ROOM_CHAT>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const C_ROOM_CHAT& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom( const C_ROOM_CHAT& from) {
+    C_ROOM_CHAT::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(C_ROOM_CHAT* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "ProjectJ.C_ROOM_CHAT";
+  }
+  protected:
+  explicit C_ROOM_CHAT(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kNicknameFieldNumber = 2,
+    kChatFieldNumber = 4,
+    kAccountIdFieldNumber = 1,
+    kRoomIdFieldNumber = 3,
+  };
+  // string nickname = 2;
+  void clear_nickname();
+  const std::string& nickname() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_nickname(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_nickname();
+  PROTOBUF_NODISCARD std::string* release_nickname();
+  void set_allocated_nickname(std::string* nickname);
+  private:
+  const std::string& _internal_nickname() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_nickname(const std::string& value);
+  std::string* _internal_mutable_nickname();
+  public:
+
+  // string chat = 4;
+  void clear_chat();
+  const std::string& chat() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_chat(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_chat();
+  PROTOBUF_NODISCARD std::string* release_chat();
+  void set_allocated_chat(std::string* chat);
+  private:
+  const std::string& _internal_chat() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_chat(const std::string& value);
+  std::string* _internal_mutable_chat();
+  public:
+
+  // int32 account_id = 1;
+  void clear_account_id();
+  int32_t account_id() const;
+  void set_account_id(int32_t value);
+  private:
+  int32_t _internal_account_id() const;
+  void _internal_set_account_id(int32_t value);
+  public:
+
+  // int32 room_id = 3;
+  void clear_room_id();
+  int32_t room_id() const;
+  void set_room_id(int32_t value);
+  private:
+  int32_t _internal_room_id() const;
+  void _internal_set_room_id(int32_t value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:ProjectJ.C_ROOM_CHAT)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr nickname_;
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr chat_;
+    int32_t account_id_;
+    int32_t room_id_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_Message_2eproto;
+};
+// -------------------------------------------------------------------
+
+class S_ROOM_CHAT final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:ProjectJ.S_ROOM_CHAT) */ {
+ public:
+  inline S_ROOM_CHAT() : S_ROOM_CHAT(nullptr) {}
+  ~S_ROOM_CHAT() override;
+  explicit PROTOBUF_CONSTEXPR S_ROOM_CHAT(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  S_ROOM_CHAT(const S_ROOM_CHAT& from);
+  S_ROOM_CHAT(S_ROOM_CHAT&& from) noexcept
+    : S_ROOM_CHAT() {
+    *this = ::std::move(from);
+  }
+
+  inline S_ROOM_CHAT& operator=(const S_ROOM_CHAT& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline S_ROOM_CHAT& operator=(S_ROOM_CHAT&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const S_ROOM_CHAT& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const S_ROOM_CHAT* internal_default_instance() {
+    return reinterpret_cast<const S_ROOM_CHAT*>(
+               &_S_ROOM_CHAT_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    17;
+
+  friend void swap(S_ROOM_CHAT& a, S_ROOM_CHAT& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(S_ROOM_CHAT* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(S_ROOM_CHAT* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  S_ROOM_CHAT* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<S_ROOM_CHAT>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const S_ROOM_CHAT& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom( const S_ROOM_CHAT& from) {
+    S_ROOM_CHAT::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(S_ROOM_CHAT* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "ProjectJ.S_ROOM_CHAT";
+  }
+  protected:
+  explicit S_ROOM_CHAT(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kNicknameFieldNumber = 2,
+    kChatFieldNumber = 4,
+    kAccountIdFieldNumber = 1,
+    kRoomIdFieldNumber = 3,
+  };
+  // string nickname = 2;
+  void clear_nickname();
+  const std::string& nickname() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_nickname(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_nickname();
+  PROTOBUF_NODISCARD std::string* release_nickname();
+  void set_allocated_nickname(std::string* nickname);
+  private:
+  const std::string& _internal_nickname() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_nickname(const std::string& value);
+  std::string* _internal_mutable_nickname();
+  public:
+
+  // string chat = 4;
+  void clear_chat();
+  const std::string& chat() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_chat(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_chat();
+  PROTOBUF_NODISCARD std::string* release_chat();
+  void set_allocated_chat(std::string* chat);
+  private:
+  const std::string& _internal_chat() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_chat(const std::string& value);
+  std::string* _internal_mutable_chat();
+  public:
+
+  // int32 account_id = 1;
+  void clear_account_id();
+  int32_t account_id() const;
+  void set_account_id(int32_t value);
+  private:
+  int32_t _internal_account_id() const;
+  void _internal_set_account_id(int32_t value);
+  public:
+
+  // int32 room_id = 3;
+  void clear_room_id();
+  int32_t room_id() const;
+  void set_room_id(int32_t value);
+  private:
+  int32_t _internal_room_id() const;
+  void _internal_set_room_id(int32_t value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:ProjectJ.S_ROOM_CHAT)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr nickname_;
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr chat_;
+    int32_t account_id_;
+    int32_t room_id_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_Message_2eproto;
+};
+// -------------------------------------------------------------------
+
 class S_MATCH_INIT_GENERATED_ITEMS final :
     public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:ProjectJ.S_MATCH_INIT_GENERATED_ITEMS) */ {
  public:
@@ -2819,7 +3209,7 @@ class S_MATCH_INIT_GENERATED_ITEMS final :
                &_S_MATCH_INIT_GENERATED_ITEMS_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    16;
+    18;
 
   friend void swap(S_MATCH_INIT_GENERATED_ITEMS& a, S_MATCH_INIT_GENERATED_ITEMS& b) {
     a.Swap(&b);
@@ -2976,7 +3366,7 @@ class C_MATCH_ITEM_PICKUP final :
                &_C_MATCH_ITEM_PICKUP_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    17;
+    19;
 
   friend void swap(C_MATCH_ITEM_PICKUP& a, C_MATCH_ITEM_PICKUP& b) {
     a.Swap(&b);
@@ -3135,7 +3525,7 @@ class S_MATCH_ITEM_PICKUP final :
                &_S_MATCH_ITEM_PICKUP_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    18;
+    20;
 
   friend void swap(S_MATCH_ITEM_PICKUP& a, S_MATCH_ITEM_PICKUP& b) {
     a.Swap(&b);
@@ -3316,7 +3706,7 @@ class C_MATCH_ITEM_MOVE final :
                &_C_MATCH_ITEM_MOVE_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    19;
+    21;
 
   friend void swap(C_MATCH_ITEM_MOVE& a, C_MATCH_ITEM_MOVE& b) {
     a.Swap(&b);
@@ -3497,7 +3887,7 @@ class S_MATCH_ITEM_MOVE final :
                &_S_MATCH_ITEM_MOVE_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    20;
+    22;
 
   friend void swap(S_MATCH_ITEM_MOVE& a, S_MATCH_ITEM_MOVE& b) {
     a.Swap(&b);
@@ -3678,7 +4068,7 @@ class C_MATCH_ITEM_DROP final :
                &_C_MATCH_ITEM_DROP_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    21;
+    23;
 
   friend void swap(C_MATCH_ITEM_DROP& a, C_MATCH_ITEM_DROP& b) {
     a.Swap(&b);
@@ -3877,7 +4267,7 @@ class S_MATCH_ITEM_DROP final :
                &_S_MATCH_ITEM_DROP_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    22;
+    24;
 
   friend void swap(S_MATCH_ITEM_DROP& a, S_MATCH_ITEM_DROP& b) {
     a.Swap(&b);
@@ -5351,6 +5741,294 @@ inline void S_ROOM_READY::set_allocated_info(::ProjectJ::RoomInfo* info) {
 
 // -------------------------------------------------------------------
 
+// C_ROOM_CHAT
+
+// int32 account_id = 1;
+inline void C_ROOM_CHAT::clear_account_id() {
+  _impl_.account_id_ = 0;
+}
+inline int32_t C_ROOM_CHAT::_internal_account_id() const {
+  return _impl_.account_id_;
+}
+inline int32_t C_ROOM_CHAT::account_id() const {
+  // @@protoc_insertion_point(field_get:ProjectJ.C_ROOM_CHAT.account_id)
+  return _internal_account_id();
+}
+inline void C_ROOM_CHAT::_internal_set_account_id(int32_t value) {
+  
+  _impl_.account_id_ = value;
+}
+inline void C_ROOM_CHAT::set_account_id(int32_t value) {
+  _internal_set_account_id(value);
+  // @@protoc_insertion_point(field_set:ProjectJ.C_ROOM_CHAT.account_id)
+}
+
+// string nickname = 2;
+inline void C_ROOM_CHAT::clear_nickname() {
+  _impl_.nickname_.ClearToEmpty();
+}
+inline const std::string& C_ROOM_CHAT::nickname() const {
+  // @@protoc_insertion_point(field_get:ProjectJ.C_ROOM_CHAT.nickname)
+  return _internal_nickname();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void C_ROOM_CHAT::set_nickname(ArgT0&& arg0, ArgT... args) {
+ 
+ _impl_.nickname_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:ProjectJ.C_ROOM_CHAT.nickname)
+}
+inline std::string* C_ROOM_CHAT::mutable_nickname() {
+  std::string* _s = _internal_mutable_nickname();
+  // @@protoc_insertion_point(field_mutable:ProjectJ.C_ROOM_CHAT.nickname)
+  return _s;
+}
+inline const std::string& C_ROOM_CHAT::_internal_nickname() const {
+  return _impl_.nickname_.Get();
+}
+inline void C_ROOM_CHAT::_internal_set_nickname(const std::string& value) {
+  
+  _impl_.nickname_.Set(value, GetArenaForAllocation());
+}
+inline std::string* C_ROOM_CHAT::_internal_mutable_nickname() {
+  
+  return _impl_.nickname_.Mutable(GetArenaForAllocation());
+}
+inline std::string* C_ROOM_CHAT::release_nickname() {
+  // @@protoc_insertion_point(field_release:ProjectJ.C_ROOM_CHAT.nickname)
+  return _impl_.nickname_.Release();
+}
+inline void C_ROOM_CHAT::set_allocated_nickname(std::string* nickname) {
+  if (nickname != nullptr) {
+    
+  } else {
+    
+  }
+  _impl_.nickname_.SetAllocated(nickname, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.nickname_.IsDefault()) {
+    _impl_.nickname_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:ProjectJ.C_ROOM_CHAT.nickname)
+}
+
+// int32 room_id = 3;
+inline void C_ROOM_CHAT::clear_room_id() {
+  _impl_.room_id_ = 0;
+}
+inline int32_t C_ROOM_CHAT::_internal_room_id() const {
+  return _impl_.room_id_;
+}
+inline int32_t C_ROOM_CHAT::room_id() const {
+  // @@protoc_insertion_point(field_get:ProjectJ.C_ROOM_CHAT.room_id)
+  return _internal_room_id();
+}
+inline void C_ROOM_CHAT::_internal_set_room_id(int32_t value) {
+  
+  _impl_.room_id_ = value;
+}
+inline void C_ROOM_CHAT::set_room_id(int32_t value) {
+  _internal_set_room_id(value);
+  // @@protoc_insertion_point(field_set:ProjectJ.C_ROOM_CHAT.room_id)
+}
+
+// string chat = 4;
+inline void C_ROOM_CHAT::clear_chat() {
+  _impl_.chat_.ClearToEmpty();
+}
+inline const std::string& C_ROOM_CHAT::chat() const {
+  // @@protoc_insertion_point(field_get:ProjectJ.C_ROOM_CHAT.chat)
+  return _internal_chat();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void C_ROOM_CHAT::set_chat(ArgT0&& arg0, ArgT... args) {
+ 
+ _impl_.chat_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:ProjectJ.C_ROOM_CHAT.chat)
+}
+inline std::string* C_ROOM_CHAT::mutable_chat() {
+  std::string* _s = _internal_mutable_chat();
+  // @@protoc_insertion_point(field_mutable:ProjectJ.C_ROOM_CHAT.chat)
+  return _s;
+}
+inline const std::string& C_ROOM_CHAT::_internal_chat() const {
+  return _impl_.chat_.Get();
+}
+inline void C_ROOM_CHAT::_internal_set_chat(const std::string& value) {
+  
+  _impl_.chat_.Set(value, GetArenaForAllocation());
+}
+inline std::string* C_ROOM_CHAT::_internal_mutable_chat() {
+  
+  return _impl_.chat_.Mutable(GetArenaForAllocation());
+}
+inline std::string* C_ROOM_CHAT::release_chat() {
+  // @@protoc_insertion_point(field_release:ProjectJ.C_ROOM_CHAT.chat)
+  return _impl_.chat_.Release();
+}
+inline void C_ROOM_CHAT::set_allocated_chat(std::string* chat) {
+  if (chat != nullptr) {
+    
+  } else {
+    
+  }
+  _impl_.chat_.SetAllocated(chat, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.chat_.IsDefault()) {
+    _impl_.chat_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:ProjectJ.C_ROOM_CHAT.chat)
+}
+
+// -------------------------------------------------------------------
+
+// S_ROOM_CHAT
+
+// int32 account_id = 1;
+inline void S_ROOM_CHAT::clear_account_id() {
+  _impl_.account_id_ = 0;
+}
+inline int32_t S_ROOM_CHAT::_internal_account_id() const {
+  return _impl_.account_id_;
+}
+inline int32_t S_ROOM_CHAT::account_id() const {
+  // @@protoc_insertion_point(field_get:ProjectJ.S_ROOM_CHAT.account_id)
+  return _internal_account_id();
+}
+inline void S_ROOM_CHAT::_internal_set_account_id(int32_t value) {
+  
+  _impl_.account_id_ = value;
+}
+inline void S_ROOM_CHAT::set_account_id(int32_t value) {
+  _internal_set_account_id(value);
+  // @@protoc_insertion_point(field_set:ProjectJ.S_ROOM_CHAT.account_id)
+}
+
+// string nickname = 2;
+inline void S_ROOM_CHAT::clear_nickname() {
+  _impl_.nickname_.ClearToEmpty();
+}
+inline const std::string& S_ROOM_CHAT::nickname() const {
+  // @@protoc_insertion_point(field_get:ProjectJ.S_ROOM_CHAT.nickname)
+  return _internal_nickname();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void S_ROOM_CHAT::set_nickname(ArgT0&& arg0, ArgT... args) {
+ 
+ _impl_.nickname_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:ProjectJ.S_ROOM_CHAT.nickname)
+}
+inline std::string* S_ROOM_CHAT::mutable_nickname() {
+  std::string* _s = _internal_mutable_nickname();
+  // @@protoc_insertion_point(field_mutable:ProjectJ.S_ROOM_CHAT.nickname)
+  return _s;
+}
+inline const std::string& S_ROOM_CHAT::_internal_nickname() const {
+  return _impl_.nickname_.Get();
+}
+inline void S_ROOM_CHAT::_internal_set_nickname(const std::string& value) {
+  
+  _impl_.nickname_.Set(value, GetArenaForAllocation());
+}
+inline std::string* S_ROOM_CHAT::_internal_mutable_nickname() {
+  
+  return _impl_.nickname_.Mutable(GetArenaForAllocation());
+}
+inline std::string* S_ROOM_CHAT::release_nickname() {
+  // @@protoc_insertion_point(field_release:ProjectJ.S_ROOM_CHAT.nickname)
+  return _impl_.nickname_.Release();
+}
+inline void S_ROOM_CHAT::set_allocated_nickname(std::string* nickname) {
+  if (nickname != nullptr) {
+    
+  } else {
+    
+  }
+  _impl_.nickname_.SetAllocated(nickname, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.nickname_.IsDefault()) {
+    _impl_.nickname_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:ProjectJ.S_ROOM_CHAT.nickname)
+}
+
+// int32 room_id = 3;
+inline void S_ROOM_CHAT::clear_room_id() {
+  _impl_.room_id_ = 0;
+}
+inline int32_t S_ROOM_CHAT::_internal_room_id() const {
+  return _impl_.room_id_;
+}
+inline int32_t S_ROOM_CHAT::room_id() const {
+  // @@protoc_insertion_point(field_get:ProjectJ.S_ROOM_CHAT.room_id)
+  return _internal_room_id();
+}
+inline void S_ROOM_CHAT::_internal_set_room_id(int32_t value) {
+  
+  _impl_.room_id_ = value;
+}
+inline void S_ROOM_CHAT::set_room_id(int32_t value) {
+  _internal_set_room_id(value);
+  // @@protoc_insertion_point(field_set:ProjectJ.S_ROOM_CHAT.room_id)
+}
+
+// string chat = 4;
+inline void S_ROOM_CHAT::clear_chat() {
+  _impl_.chat_.ClearToEmpty();
+}
+inline const std::string& S_ROOM_CHAT::chat() const {
+  // @@protoc_insertion_point(field_get:ProjectJ.S_ROOM_CHAT.chat)
+  return _internal_chat();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void S_ROOM_CHAT::set_chat(ArgT0&& arg0, ArgT... args) {
+ 
+ _impl_.chat_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:ProjectJ.S_ROOM_CHAT.chat)
+}
+inline std::string* S_ROOM_CHAT::mutable_chat() {
+  std::string* _s = _internal_mutable_chat();
+  // @@protoc_insertion_point(field_mutable:ProjectJ.S_ROOM_CHAT.chat)
+  return _s;
+}
+inline const std::string& S_ROOM_CHAT::_internal_chat() const {
+  return _impl_.chat_.Get();
+}
+inline void S_ROOM_CHAT::_internal_set_chat(const std::string& value) {
+  
+  _impl_.chat_.Set(value, GetArenaForAllocation());
+}
+inline std::string* S_ROOM_CHAT::_internal_mutable_chat() {
+  
+  return _impl_.chat_.Mutable(GetArenaForAllocation());
+}
+inline std::string* S_ROOM_CHAT::release_chat() {
+  // @@protoc_insertion_point(field_release:ProjectJ.S_ROOM_CHAT.chat)
+  return _impl_.chat_.Release();
+}
+inline void S_ROOM_CHAT::set_allocated_chat(std::string* chat) {
+  if (chat != nullptr) {
+    
+  } else {
+    
+  }
+  _impl_.chat_.SetAllocated(chat, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.chat_.IsDefault()) {
+    _impl_.chat_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:ProjectJ.S_ROOM_CHAT.chat)
+}
+
+// -------------------------------------------------------------------
+
 // S_MATCH_INIT_GENERATED_ITEMS
 
 // repeated .ProjectJ.Item items = 1;
@@ -6117,6 +6795,10 @@ inline void S_MATCH_ITEM_DROP::set_item_id(int32_t value) {
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------
