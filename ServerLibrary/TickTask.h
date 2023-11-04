@@ -7,27 +7,47 @@ public:
 	TickTask();
 	virtual ~TickTask();
 	virtual void Tick(double deltaTime) = 0;
+};
+
+struct TickItem
+{
+	bool operator<(const TickItem& other) const
+	{
+		return executeTick_ > other.executeTick_;
+	}
+
 	UINT64 lastTick_;
+	UINT64 executeTick_;
+	weak_ptr<TickTask> task_;
 };
 
 class TickTaskManager
 {
+	enum
+	{
+		NEXT_TICK = 10
+	};
+
 public:
 	void DoTask(UINT64 currentTick);
 	void AddTask(const shared_ptr<TickTask>& task);
-	void DeleteTask(const shared_ptr<TickTask>& task);
+	void RemoveTask(const shared_ptr<TickTask>& task);
 
 	template <typename TaskType, typename ...Args>
 	static shared_ptr<TaskType> MakeTask(Args&&... args)
 	{
-		static_assert(is_base_of<TickTask, TaskType>::value, "");
-		shared_ptr<TaskType> task = make_shared<TaskType>(forward<Args>(args)...);
+		static_assert(is_base_of_v<TickTask, TaskType>, "");
+		shared_ptr<TaskType> task = ObjectPool<TaskType>::MakeShared(forward<Args>(args)...);
 		GTickTaskManager->AddTask(task);
 
 		return task;
 	}
 
 private:
+	bool FindPendingRemove(shared_ptr<TickTask> task);
+
+private:
 	USE_LOCK;
-	queue<weak_ptr<TickTask>> tickTaskQueue_;
+	priority_queue<TickItem> tickTaskQueue_;
+	set<shared_ptr<TickTask>> pendingRemove_;
 };

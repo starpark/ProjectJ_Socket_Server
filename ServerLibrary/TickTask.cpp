@@ -1,8 +1,8 @@
 #include "pch.h"
 #include "TickTask.h"
+#include "CommandTask.h"
 
 TickTask::TickTask()
-	: lastTick_(GetTickCount64())
 {
 }
 
@@ -12,44 +12,46 @@ TickTask::~TickTask()
 
 void TickTaskManager::DoTask(UINT64 currentTick)
 {
-	vector<weak_ptr<TickTask>> tasks;
+	vector<TickItem> items;
 	{
 		WRITE_LOCK;
-		while (!tickTaskQueue_.empty())
+		while (tickTaskQueue_.empty() == false)
 		{
-			auto weakPtr = tickTaskQueue_.front();
-			tickTaskQueue_.pop();
+			const TickItem& tickItem = tickTaskQueue_.top();
+			if (tickItem.executeTick_ > currentTick)
+			{
+				break;
+			}
 
-			tasks.push_back(weakPtr);
+			items.push_back(tickItem);
+			tickTaskQueue_.pop();
 		}
 	}
 
-	for (auto task : tasks)
+	for (auto item : items)
 	{
-		if (auto taskPtr = task.lock())
+		if (auto taskPtr = item.task_.lock())
 		{
-			UINT64 elapsedTick = currentTick - taskPtr->lastTick_;
+			if (FindPendingRemove(taskPtr))
+			{
+				continue;
+			}
+
+			UINT64 nowTick = GetTickCount64();
+			UINT64 elapsedTick = nowTick - item.lastTick_;
+
 			if (elapsedTick > 0)
 			{
-				double deltaSeconds = elapsedTick / static_cast<double>(1000.0f);
+				double deltaSeconds = static_cast<double>(elapsedTick) / 1000;
+				taskPtr->Tick(deltaSeconds);
 
-				if (deltaSeconds >= 0.01)
-				{
-					taskPtr->Tick(deltaSeconds);
-
-					taskPtr->lastTick_ = currentTick;
-				}
+				WRITE_LOCK;
+				tickTaskQueue_.push(TickItem{nowTick, nowTick + NEXT_TICK, taskPtr});
 			}
-		}
-	}
-
-	{
-		WRITE_LOCK;
-		for (auto task : tasks)
-		{
-			if (task.expired() == false)
+			else
 			{
-				tickTaskQueue_.push(task);
+				WRITE_LOCK;
+				tickTaskQueue_.push(item);
 			}
 		}
 	}
@@ -57,6 +59,27 @@ void TickTaskManager::DoTask(UINT64 currentTick)
 
 void TickTaskManager::AddTask(const shared_ptr<TickTask>& task)
 {
+	const UINT64 lastTick = GetTickCount64();
+	const UINT64 executeTick = lastTick + NEXT_TICK;
+
 	WRITE_LOCK;
-	tickTaskQueue_.push(task);
+	tickTaskQueue_.push(TickItem{lastTick, executeTick, task});
+}
+
+void TickTaskManager::RemoveTask(const shared_ptr<TickTask>& task)
+{
+	WRITE_LOCK;
+	pendingRemove_.insert(task);
+}
+
+bool TickTaskManager::FindPendingRemove(shared_ptr<TickTask> task)
+{
+	WRITE_LOCK;
+	if (pendingRemove_.find(task) != pendingRemove_.end())
+	{
+		pendingRemove_.erase(task);
+		return true;
+	}
+
+	return false;
 }
