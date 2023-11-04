@@ -94,6 +94,11 @@ bool Handle_S_ROOM_READY(shared_ptr<SessionBase>& session, ProjectJ::S_ROOM_READ
 	return true;
 }
 
+bool Handle_S_ROOM_CHAT(shared_ptr<SessionBase>& session, ProjectJ::S_ROOM_CHAT& packet)
+{
+	return true;
+}
+
 bool Handle_S_MATCH_INIT_GENERATED_ITEMS(shared_ptr<SessionBase>& session,
                                          ProjectJ::S_MATCH_INIT_GENERATED_ITEMS& packet)
 {

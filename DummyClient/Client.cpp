@@ -3,15 +3,12 @@
 
 void ClientSession::TestCreateRoom()
 {
-	if (isRoom == false)
-	{
-		cout << "TEST CREATE ROOM" << endl;
-		ProjectJ::C_LOBBY_CREATE_ROOM packet;
-		packet.set_account_id(accountID);
-		packet.set_title("test room");
-		auto sendBuffer = ServerPacketHandler::MakeSendBuffer(packet);
-		Send(sendBuffer);
-	}
+	cout << "TEST CREATE ROOM" << endl;
+	ProjectJ::C_LOBBY_CREATE_ROOM packet;
+	packet.set_account_id(accountID);
+	packet.set_title("test room");
+	auto sendBuffer = ServerPacketHandler::MakeSendBuffer(packet);
+	Send(sendBuffer);
 }
 
 void ClientSession::TestLeaveRoom()

@@ -27,7 +27,9 @@
     <ClCompile Include="ServerPacketHandler.cpp">
       <Filter>Main</Filter>
     </ClCompile>
-    <ClCompile Include="Client.cpp" />
+    <ClCompile Include="Client.cpp">
+      <Filter>Main</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -45,6 +47,8 @@
     <ClInclude Include="Enum.pb.h">
       <Filter>Protocols</Filter>
     </ClInclude>
-    <ClInclude Include="Client.h" />
+    <ClInclude Include="Client.h">
+      <Filter>Main</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
