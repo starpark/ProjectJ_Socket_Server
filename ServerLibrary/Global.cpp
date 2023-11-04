@@ -6,12 +6,18 @@
 #include "LogHelper.h"
 #include "DeadLockProfiler.h"
 #include "TickTask.h"
+#include "ThreadManager.h"
+#include "CommandTask.h"
+#include "TimerTask.h"
 
 SendBufferManager* GSendBufferManager = nullptr;
 DBConnection* GDBConnection = nullptr;
 LogHelper* GLogHelper = nullptr;
 DeadLockProfiler* GDeadLockProfiler = nullptr;
 TickTaskManager* GTickTaskManager = nullptr;
+ThreadManager* GThreadManager = nullptr;
+CommandTaskManager* GCommandTaskManager = nullptr;
+TimerTaskManager* GTimerTaskManager = nullptr;
 
 class Global
 {
@@ -23,6 +29,10 @@ public:
 		GLogHelper = new LogHelper();
 		GDeadLockProfiler = new DeadLockProfiler();
 		GTickTaskManager = new TickTaskManager();
+		GThreadManager = new ThreadManager();
+		GCommandTaskManager = new CommandTaskManager();
+		GTimerTaskManager = new TimerTaskManager();
+
 		SocketUtils::Init();
 	}
 
@@ -33,6 +43,10 @@ public:
 		delete GLogHelper;
 		delete GDeadLockProfiler;
 		delete GTickTaskManager;
+		delete GThreadManager;
+		delete GCommandTaskManager;
+		delete GTimerTaskManager;
+
 		SocketUtils::Clear();
 	}
 } Global;
