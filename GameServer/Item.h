@@ -1,5 +1,9 @@
 #pragma once
 #include "Struct.pb.h"
+#include <fstream>
+#include "nlohmann/json.hpp"
+
+using json = nlohmann::json;
 
 class Player;
 
@@ -47,14 +51,42 @@ private:
 	shared_ptr<Player> owner_ = nullptr; // TODO
 };
 
+struct ItemData
+{
+	ItemData(json id, json category, json height, json width, json max, json min)
+	{
+		if (id.is_string() == false) throw "ItemData ItemId is not string";
+		if (category.is_string() == false) throw "ItemData Category is not string";
+		if (height.is_number_integer() == false) throw "ItemData Size Height is not integer";
+		if (width.is_number_integer() == false) throw "ItemData Size Width is not intger";
+		if (max.is_number_integer() == false) throw "ItemData Weight Max is not intger";
+		if (min.is_number_integer() == false) throw "ItemData Weight Min is not intger";
+
+		id_ = id;
+		category_ = category_;
+		sizeHeight_ = height;
+		sizeWidth_ = width;
+		weightMax_ = max;
+		weightMin_ = min;
+	}
+
+	string id_;
+	string category_;
+	int sizeHeight_;
+	int sizeWidth_;
+	int weightMax_;
+	int weightMin_;
+};
 
 class ItemManager
 {
 public:
-	void GenerateItems();
-	vector<shared_ptr<Item>> GetItems();
+	static bool Init();
+	static int GetItemsSize() { return itemData_.size(); }
+	static shared_ptr<Item> GenerateItem();
 
 private:
-	USE_LOCK;
-	map<int, shared_ptr<Item>> items_;
+	static string version_;
+	static string updatedDate_;
+	static vector<ItemData> itemData_;
 };
