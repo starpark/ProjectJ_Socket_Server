@@ -48,30 +48,62 @@ PROTOBUF_NAMESPACE_OPEN
 PROTOBUF_NAMESPACE_CLOSE
 namespace ProjectJ {
 
-enum TestEnum : int {
-  one = 0,
-  two = 1,
-  TestEnum_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
-  TestEnum_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
+enum MatchPlayerState : int {
+  NONE = 0,
+  LOADING = 1,
+  ALIVE = 2,
+  ALIVE_DAMAGED = 3,
+  ALIVE_CRITICAL = 4,
+  ALIVE_MORIBUND = 5,
+  ESCAPED = 6,
+  MURDERED = 7,
+  DISCONNECTED = 8,
+  MatchPlayerState_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
+  MatchPlayerState_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
 };
-bool TestEnum_IsValid(int value);
-constexpr TestEnum TestEnum_MIN = one;
-constexpr TestEnum TestEnum_MAX = two;
-constexpr int TestEnum_ARRAYSIZE = TestEnum_MAX + 1;
+bool MatchPlayerState_IsValid(int value);
+constexpr MatchPlayerState MatchPlayerState_MIN = NONE;
+constexpr MatchPlayerState MatchPlayerState_MAX = DISCONNECTED;
+constexpr int MatchPlayerState_ARRAYSIZE = MatchPlayerState_MAX + 1;
 
-const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* TestEnum_descriptor();
+const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* MatchPlayerState_descriptor();
 template<typename T>
-inline const std::string& TestEnum_Name(T enum_t_value) {
-  static_assert(::std::is_same<T, TestEnum>::value ||
+inline const std::string& MatchPlayerState_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, MatchPlayerState>::value ||
     ::std::is_integral<T>::value,
-    "Incorrect type passed to function TestEnum_Name.");
+    "Incorrect type passed to function MatchPlayerState_Name.");
   return ::PROTOBUF_NAMESPACE_ID::internal::NameOfEnum(
-    TestEnum_descriptor(), enum_t_value);
+    MatchPlayerState_descriptor(), enum_t_value);
 }
-inline bool TestEnum_Parse(
-    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, TestEnum* value) {
-  return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<TestEnum>(
-    TestEnum_descriptor(), name, value);
+inline bool MatchPlayerState_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, MatchPlayerState* value) {
+  return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<MatchPlayerState>(
+    MatchPlayerState_descriptor(), name, value);
+}
+enum RoomState : int {
+  WAITING = 0,
+  INGAME = 1,
+  RoomState_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
+  RoomState_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
+};
+bool RoomState_IsValid(int value);
+constexpr RoomState RoomState_MIN = WAITING;
+constexpr RoomState RoomState_MAX = INGAME;
+constexpr int RoomState_ARRAYSIZE = RoomState_MAX + 1;
+
+const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* RoomState_descriptor();
+template<typename T>
+inline const std::string& RoomState_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, RoomState>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function RoomState_Name.");
+  return ::PROTOBUF_NAMESPACE_ID::internal::NameOfEnum(
+    RoomState_descriptor(), enum_t_value);
+}
+inline bool RoomState_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, RoomState* value) {
+  return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<RoomState>(
+    RoomState_descriptor(), name, value);
 }
 // ===================================================================
 
@@ -95,10 +127,15 @@ inline bool TestEnum_Parse(
 
 PROTOBUF_NAMESPACE_OPEN
 
-template <> struct is_proto_enum< ::ProjectJ::TestEnum> : ::std::true_type {};
+template <> struct is_proto_enum< ::ProjectJ::MatchPlayerState> : ::std::true_type {};
 template <>
-inline const EnumDescriptor* GetEnumDescriptor< ::ProjectJ::TestEnum>() {
-  return ::ProjectJ::TestEnum_descriptor();
+inline const EnumDescriptor* GetEnumDescriptor< ::ProjectJ::MatchPlayerState>() {
+  return ::ProjectJ::MatchPlayerState_descriptor();
+}
+template <> struct is_proto_enum< ::ProjectJ::RoomState> : ::std::true_type {};
+template <>
+inline const EnumDescriptor* GetEnumDescriptor< ::ProjectJ::RoomState>() {
+  return ::ProjectJ::RoomState_descriptor();
 }
 
 PROTOBUF_NAMESPACE_CLOSE

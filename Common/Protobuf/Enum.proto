@@ -1,8 +1,21 @@
 syntax = "proto3";
 package ProjectJ;
 
-enum TestEnum
+enum MatchPlayerState
 {
-	one = 0;
-	two = 1;
+	NONE = 0;
+	LOADING = 1;
+	ALIVE = 2;
+	ALIVE_DAMAGED = 3;
+	ALIVE_CRITICAL = 4;
+	ALIVE_MORIBUND = 5;
+	ESCAPED = 6;
+	MURDERED = 7;
+	DISCONNECTED = 8;
+}
+
+enum RoomState
+{
+	WAITING = 0;
+	INGAME = 1;
 }

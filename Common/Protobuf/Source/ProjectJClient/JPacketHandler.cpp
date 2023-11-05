@@ -14,7 +14,14 @@ FPacket_S_ROOM_OTHER_ENTER UJPacketHandler::Packet_S_ROOM_OTHER_ENTER_Delegate;
 FPacket_S_ROOM_OTHER_LEAVE UJPacketHandler::Packet_S_ROOM_OTHER_LEAVE_Delegate;
 FPacket_S_ROOM_READY UJPacketHandler::Packet_S_ROOM_READY_Delegate;
 FPacket_S_ROOM_CHAT UJPacketHandler::Packet_S_ROOM_CHAT_Delegate;
-FPacket_S_MATCH_INIT_GENERATED_ITEMS UJPacketHandler::Packet_S_MATCH_INIT_GENERATED_ITEMS_Delegate;
+FPacket_S_ROOM_STANDBY_MATCH UJPacketHandler::Packet_S_ROOM_STANDBY_MATCH_Delegate;
+FPacket_S_ROOM_START_MATCH UJPacketHandler::Packet_S_ROOM_START_MATCH_Delegate;
+FPacket_S_MATCH_INIT_PLAYER_INDEX UJPacketHandler::Packet_S_MATCH_INIT_PLAYER_INDEX_Delegate;
+FPacket_S_MATCH_INIT_ITEMS UJPacketHandler::Packet_S_MATCH_INIT_ITEMS_Delegate;
+FPacket_S_MATCH_ALL_LOADING_COMPLETE UJPacketHandler::Packet_S_MATCH_ALL_LOADING_COMPLETE_Delegate;
+FPacket_S_MATCH_START UJPacketHandler::Packet_S_MATCH_START_Delegate;
+FPacket_S_MATCH_INFO UJPacketHandler::Packet_S_MATCH_INFO_Delegate;
+FPacket_S_MATCH_END UJPacketHandler::Packet_S_MATCH_END_Delegate;
 FPacket_S_MATCH_ITEM_PICKUP UJPacketHandler::Packet_S_MATCH_ITEM_PICKUP_Delegate;
 FPacket_S_MATCH_ITEM_MOVE UJPacketHandler::Packet_S_MATCH_ITEM_MOVE_Delegate;
 FPacket_S_MATCH_ITEM_DROP UJPacketHandler::Packet_S_MATCH_ITEM_DROP_Delegate;
@@ -114,11 +121,74 @@ bool Handle_S_ROOM_CHAT(UWorld* World, ProjectJ::S_ROOM_CHAT& Packet, float Delt
 
 	return false;
 }
-bool Handle_S_MATCH_INIT_GENERATED_ITEMS(UWorld* World, ProjectJ::S_MATCH_INIT_GENERATED_ITEMS& Packet, float DeltaSeconds)
+bool Handle_S_ROOM_STANDBY_MATCH(UWorld* World, ProjectJ::S_ROOM_STANDBY_MATCH& Packet, float DeltaSeconds)
 {
-	if (UJPacketHandler::Packet_S_MATCH_INIT_GENERATED_ITEMS_Delegate.IsBound())
+	if (UJPacketHandler::Packet_S_ROOM_STANDBY_MATCH_Delegate.IsBound())
 	{
-		return UJPacketHandler::Packet_S_MATCH_INIT_GENERATED_ITEMS_Delegate.Execute(World, Packet, DeltaSeconds);
+		return UJPacketHandler::Packet_S_ROOM_STANDBY_MATCH_Delegate.Execute(World, Packet, DeltaSeconds);
+	}
+
+	return false;
+}
+bool Handle_S_ROOM_START_MATCH(UWorld* World, ProjectJ::S_ROOM_START_MATCH& Packet, float DeltaSeconds)
+{
+	if (UJPacketHandler::Packet_S_ROOM_START_MATCH_Delegate.IsBound())
+	{
+		return UJPacketHandler::Packet_S_ROOM_START_MATCH_Delegate.Execute(World, Packet, DeltaSeconds);
+	}
+
+	return false;
+}
+bool Handle_S_MATCH_INIT_PLAYER_INDEX(UWorld* World, ProjectJ::S_MATCH_INIT_PLAYER_INDEX& Packet, float DeltaSeconds)
+{
+	if (UJPacketHandler::Packet_S_MATCH_INIT_PLAYER_INDEX_Delegate.IsBound())
+	{
+		return UJPacketHandler::Packet_S_MATCH_INIT_PLAYER_INDEX_Delegate.Execute(World, Packet, DeltaSeconds);
+	}
+
+	return false;
+}
+bool Handle_S_MATCH_INIT_ITEMS(UWorld* World, ProjectJ::S_MATCH_INIT_ITEMS& Packet, float DeltaSeconds)
+{
+	if (UJPacketHandler::Packet_S_MATCH_INIT_ITEMS_Delegate.IsBound())
+	{
+		return UJPacketHandler::Packet_S_MATCH_INIT_ITEMS_Delegate.Execute(World, Packet, DeltaSeconds);
+	}
+
+	return false;
+}
+bool Handle_S_MATCH_ALL_LOADING_COMPLETE(UWorld* World, ProjectJ::S_MATCH_ALL_LOADING_COMPLETE& Packet, float DeltaSeconds)
+{
+	if (UJPacketHandler::Packet_S_MATCH_ALL_LOADING_COMPLETE_Delegate.IsBound())
+	{
+		return UJPacketHandler::Packet_S_MATCH_ALL_LOADING_COMPLETE_Delegate.Execute(World, Packet, DeltaSeconds);
+	}
+
+	return false;
+}
+bool Handle_S_MATCH_START(UWorld* World, ProjectJ::S_MATCH_START& Packet, float DeltaSeconds)
+{
+	if (UJPacketHandler::Packet_S_MATCH_START_Delegate.IsBound())
+	{
+		return UJPacketHandler::Packet_S_MATCH_START_Delegate.Execute(World, Packet, DeltaSeconds);
+	}
+
+	return false;
+}
+bool Handle_S_MATCH_INFO(UWorld* World, ProjectJ::S_MATCH_INFO& Packet, float DeltaSeconds)
+{
+	if (UJPacketHandler::Packet_S_MATCH_INFO_Delegate.IsBound())
+	{
+		return UJPacketHandler::Packet_S_MATCH_INFO_Delegate.Execute(World, Packet, DeltaSeconds);
+	}
+
+	return false;
+}
+bool Handle_S_MATCH_END(UWorld* World, ProjectJ::S_MATCH_END& Packet, float DeltaSeconds)
+{
+	if (UJPacketHandler::Packet_S_MATCH_END_Delegate.IsBound())
+	{
+		return UJPacketHandler::Packet_S_MATCH_END_Delegate.Execute(World, Packet, DeltaSeconds);
 	}
 
 	return false;

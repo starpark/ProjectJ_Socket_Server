@@ -22,19 +22,23 @@ namespace _pbi = _pb::internal;
 
 namespace ProjectJ {
 }  // namespace ProjectJ
-static const ::_pb::EnumDescriptor* file_level_enum_descriptors_Enum_2eproto[1];
+static const ::_pb::EnumDescriptor* file_level_enum_descriptors_Enum_2eproto[2];
 static constexpr ::_pb::ServiceDescriptor const** file_level_service_descriptors_Enum_2eproto = nullptr;
 const uint32_t TableStruct_Enum_2eproto::offsets[1] = {};
 static constexpr ::_pbi::MigrationSchema* schemas = nullptr;
 static constexpr ::_pb::Message* const* file_default_instances = nullptr;
 
 const char descriptor_table_protodef_Enum_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
-  "\n\nEnum.proto\022\010ProjectJ*\034\n\010TestEnum\022\007\n\003on"
-  "e\020\000\022\007\n\003two\020\001b\006proto3"
+  "\n\nEnum.proto\022\010ProjectJ*\234\001\n\020MatchPlayerSt"
+  "ate\022\010\n\004NONE\020\000\022\013\n\007LOADING\020\001\022\t\n\005ALIVE\020\002\022\021\n"
+  "\rALIVE_DAMAGED\020\003\022\022\n\016ALIVE_CRITICAL\020\004\022\022\n\016"
+  "ALIVE_MORIBUND\020\005\022\013\n\007ESCAPED\020\006\022\014\n\010MURDERE"
+  "D\020\007\022\020\n\014DISCONNECTED\020\010*$\n\tRoomState\022\013\n\007WA"
+  "ITING\020\000\022\n\n\006INGAME\020\001b\006proto3"
   ;
 static ::_pbi::once_flag descriptor_table_Enum_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_Enum_2eproto = {
-    false, false, 60, descriptor_table_protodef_Enum_2eproto,
+    false, false, 227, descriptor_table_protodef_Enum_2eproto,
     "Enum.proto",
     &descriptor_table_Enum_2eproto_once, nullptr, 0, 0,
     schemas, file_default_instances, TableStruct_Enum_2eproto::offsets,
@@ -48,11 +52,32 @@ PROTOBUF_ATTRIBUTE_WEAK const ::_pbi::DescriptorTable* descriptor_table_Enum_2ep
 // Force running AddDescriptors() at dynamic initialization time.
 PROTOBUF_ATTRIBUTE_INIT_PRIORITY2 static ::_pbi::AddDescriptorsRunner dynamic_init_dummy_Enum_2eproto(&descriptor_table_Enum_2eproto);
 namespace ProjectJ {
-const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* TestEnum_descriptor() {
+const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* MatchPlayerState_descriptor() {
   ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_Enum_2eproto);
   return file_level_enum_descriptors_Enum_2eproto[0];
 }
-bool TestEnum_IsValid(int value) {
+bool MatchPlayerState_IsValid(int value) {
+  switch (value) {
+    case 0:
+    case 1:
+    case 2:
+    case 3:
+    case 4:
+    case 5:
+    case 6:
+    case 7:
+    case 8:
+      return true;
+    default:
+      return false;
+  }
+}
+
+const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* RoomState_descriptor() {
+  ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_Enum_2eproto);
+  return file_level_enum_descriptors_Enum_2eproto[1];
+}
+bool RoomState_IsValid(int value) {
   switch (value) {
     case 0:
     case 1:

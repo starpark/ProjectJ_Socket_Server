@@ -97,7 +97,7 @@ message C_ROOM_READY
 
 message S_ROOM_READY
 {
-	RoomInfo info = 2;
+	RoomInfo info = 1;
 }
 
 message C_ROOM_CHAT
@@ -116,11 +116,56 @@ message S_ROOM_CHAT
 	string chat = 4;
 }
 
+message S_ROOM_STANDBY_MATCH
+{
+	uint32 count = 1;
+}
+
+message S_ROOM_START_MATCH
+{
+	bool start = 1;
+}
+
 /* MATCH PROTOCOL */
 
-message S_MATCH_INIT_GENERATED_ITEMS
+message S_MATCH_INIT_PLAYER_INDEX
+{
+	int32 player_index = 1;
+}
+
+message S_MATCH_INIT_ITEMS
 {
 	repeated Item items = 1;
+}
+
+message C_MATCH_LOADING_COMPLETE
+{
+	int32 player_index = 1;
+}
+
+message S_MATCH_ALL_LOADING_COMPLETE
+{
+	MatchInfo info = 1;
+}
+
+message S_MATCH_START
+{
+	uint64 end_tick = 1;
+	uint64 current_tick = 2;
+}
+
+message S_MATCH_INFO
+{
+	uint64 current_tick = 1;
+	MatchInfo info = 2;
+}
+
+message S_MATCH_END
+{
+	int32 chaser_score = 1;
+	int32 fugitivie_first_score = 2;
+	int32 fugitivie_second_score = 3;
+	int32 fugitivie_third_score = 4;
 }
 
 message C_MATCH_ITEM_PICKUP

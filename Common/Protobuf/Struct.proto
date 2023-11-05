@@ -21,7 +21,8 @@ message Room
 {
 	int32 id = 1;
 	string title = 2;
-	int32 number_of_player = 3;
+	RoomState state = 3;
+	int32 number_of_player = 4;
 }
 
 message Player
@@ -56,5 +57,22 @@ message Item
 	Vector world_position = 7;
 	Rotator world_rotation = 8;
 	int32 onwer_player_index = 9;
-	int32 is_rotated = 10;
+	bool is_rotated = 10;
+}
+
+message MatchInfo
+{
+	message PlayerInfo
+	{
+		MatchPlayerState state = 1;
+		int32 player_index = 2;
+		Player player = 3;
+		Vector position = 4;
+		Rotator rotation = 5;
+	}
+
+	PlayerInfo chaser = 1;
+	PlayerInfo fugitive_first = 2;
+	PlayerInfo fugitive_second = 3;
+	PlayerInfo fugitive_third = 4;
 }
