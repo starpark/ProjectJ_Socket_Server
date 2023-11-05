@@ -64,20 +64,23 @@ void TickTaskManager::AddTask(const shared_ptr<TickTask>& task)
 
 	WRITE_LOCK;
 	tickTaskQueue_.push(TickItem{lastTick, executeTick, task});
+	workingTasks_.insert(task);
 }
 
 void TickTaskManager::RemoveTask(const shared_ptr<TickTask>& task)
 {
 	WRITE_LOCK;
-	pendingRemove_.insert(task);
+	if (workingTasks_.find(task) != workingTasks_.end())
+	{
+		workingTasks_.erase(task);
+	}
 }
 
 bool TickTaskManager::FindPendingRemove(shared_ptr<TickTask> task)
 {
 	WRITE_LOCK;
-	if (pendingRemove_.find(task) != pendingRemove_.end())
+	if (workingTasks_.find(task) == workingTasks_.end())
 	{
-		pendingRemove_.erase(task);
 		return true;
 	}
 

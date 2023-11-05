@@ -49,5 +49,5 @@ private:
 private:
 	USE_LOCK;
 	priority_queue<TickItem> tickTaskQueue_;
-	set<shared_ptr<TickTask>> pendingRemove_;
+	set<shared_ptr<TickTask>> workingTasks_;
 };
