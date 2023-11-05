@@ -27,6 +27,8 @@ public:
 	RoomState GetState() { return state_; }
 	shared_ptr<Lobby> GetLobby() { return lobby_.lock(); }
 
+	void SetState(RoomState state) { state_ = state; }
+
 
 	bool EnterSession(shared_ptr<GameSession> session);
 	int LeaveSession(const shared_ptr<GameSession>& session);
@@ -34,17 +36,21 @@ public:
 	void BroadcastWithoutSelf(shared_ptr<SendBuffer> sendBuffer, const shared_ptr<GameSession>& self);
 	bool ChangePlayerPosition(const shared_ptr<GameSession>& session, int currentNumber, int desireNumber);
 	void ToggleReady(const shared_ptr<GameSession>& session);
-	bool StartMatch();
+	bool CheckAllReady();
+	void StandByMatch(UINT count);
+	void StartMatch();
 	void EndMatch();
+	void DestroyMatch();
 
 private:
 	USE_LOCK;
-	int roomID_ = -1;
-	string title_;
-	// 0: Chaser, 1-3: Fugitive
-	vector<pair<shared_ptr<GameSession>, bool>> sessionSlots_;
-	int numberOfPlayers_ = 0;
+	atomic<bool> standby_ = false;
 	RoomState state_ = RoomState::WAITING;
+	int roomID_ = -1;
+	int numberOfPlayers_ = 0;
+	string title_;
 	weak_ptr<Lobby> lobby_;
 	shared_ptr<Match> match_;
+	// 0: Chaser, 1-3: Fugitive
+	vector<pair<shared_ptr<GameSession>, bool>> sessionSlots_;
 };
