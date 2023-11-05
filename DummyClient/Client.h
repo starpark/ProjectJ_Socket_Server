@@ -1,12 +1,6 @@
 #pragma once
 #include "ServerPacketHandler.h"
 
-const int accountID = 6;
-const string nickname = "test100";
-const string name = "test100";
-const string token =
-	"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJQcm9qZWN0SiBBUEkgU2VydmVyIiwiZXhwIjoxNzAxNDI1MDA2LCJwbGF5ZXJfaWQiOjYsIm5hbWUiOiJ0ZXN0MTAwIiwibmlja25hbWUiOiJ0ZXN0MTAwIn0.nJQz6rK5yVfvYcKT3PxfmBojsSvcAxdugVzeUDgNLl8";
-
 class ClientService;
 
 class ClientSession : public SessionBase
@@ -19,17 +13,10 @@ public:
 
 	void OnConnected() override
 	{
-		//cout << "OnConnected()" << endl;
-		ProjectJ::C_VERIFY_TOKEN packet;
-		packet.set_account_id(accountID);
-		packet.set_token(token);
-		auto sendBuffer = ServerPacketHandler::MakeSendBuffer(packet);
-		Send(sendBuffer);
 	}
 
 	int OnRecv(BYTE* buffer, int numOfBytes) override
 	{
-		//GLogHelper->WriteStdOut(LogCategory::Log_TEMP, L"OnRecv\n");
 		int processLen = 0;
 
 		while (true)
@@ -41,13 +28,17 @@ public:
 			}
 
 			PacketHeader header = *(reinterpret_cast<PacketHeader*>(&buffer[processLen]));
+			if (header.type == PKT_S_ROOM_START_MATCH)
+			{
+				cout << 1 << endl;
+			}
 			if (dataSize < header.size)
 			{
 				break;
 			}
 
 			shared_ptr<SessionBase> Session = GetSessionPtr();
-			ServerPacketHandler::HandlePacket(Session, buffer, header.size);
+			ServerPacketHandler::HandlePacket(Session, &buffer[processLen], header.size);
 
 			processLen += header.size;
 		}
@@ -65,14 +56,27 @@ public:
 		//cout << "OnDisconnect()" << endl;
 	}
 
-	void TestCreateRoom();
+	void TestCreateAccount(string prefix, int index);
+	void TestLoginHttp(string prefix, int index);
+	void TestVerifyToken();
+	void TestCreateRoom(string title);
 	void TestLeaveRoom();
 	void TestEnterRoom(int roomID);
 	void TestRefreshRoomList();
+	void TestRoomReady();
+
+	void PrintNickname()
+	{
+		cout << nickname << " ";
+	}
 
 	int roomID = -1;
 	bool isRoom = false;
 	vector<int> roomList;
+	string nickname;
+	string name;
+	string token;
+	int id;
 };
 
 class ClientService : public Service

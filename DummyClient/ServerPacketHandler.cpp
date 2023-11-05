@@ -1,6 +1,7 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "ServerPacketHandler.h"
 #include "Client.h"
+#include "Menu.h"
 
 PacketHandlerFunc GPacketHandler[UINT16_MAX];
 
@@ -11,6 +12,13 @@ bool Handle_INVALID(shared_ptr<SessionBase>& session, BYTE* bufer, int numOfByte
 
 bool Handle_S_VERIFY_TOKEN(shared_ptr<SessionBase>& session, ProjectJ::S_VERIFY_TOKEN& packet)
 {
+	auto clientSession = static_pointer_cast<ClientSession>(session);
+
+	if (packet.result())
+	{
+		cout << clientSession->nickname << " í† í° ì¸ì¦ ì„±ê³µ" << endl;
+	}
+
 	return true;
 }
 
@@ -23,12 +31,8 @@ bool Handle_S_LOBBY_REFRESH_ROOM(shared_ptr<SessionBase>& session, ProjectJ::S_L
 {
 	auto clientSession = static_pointer_cast<ClientSession>(session);
 
-	clientSession->roomList.clear();
-
 	for (auto room : packet.rooms())
 	{
-		cout << room.id() << "¹ø ¹æ È®ÀÎµÊ" << endl;
-		clientSession->roomList.push_back(room.id());
 	}
 
 	return true;
@@ -37,16 +41,11 @@ bool Handle_S_LOBBY_REFRESH_ROOM(shared_ptr<SessionBase>& session, ProjectJ::S_L
 bool Handle_S_LOBBY_CREATE_ROOM(shared_ptr<SessionBase>& session, ProjectJ::S_LOBBY_CREATE_ROOM& packet)
 {
 	auto clientSession = static_pointer_cast<ClientSession>(session);
-	cout << "¹æ »ý¼º: " << packet.result() << endl;
 	if (packet.result())
 	{
-		clientSession->isRoom = true;
+		clientSession->PrintNickname();
+		cout << "ë°© ìƒì„± ì„±ê³µ/ ë°© ë²ˆí˜¸: " << packet.info().room_id() << endl;
 		clientSession->roomID = packet.info().room_id();
-		cout << "¹æ Á¤º¸: " << packet.info().room_id() << ", " << packet.info().title() << endl;
-		cout << "1¹ø À¯Àú: " << packet.info().chaser().player().nickname() << endl;
-		cout << "2¹ø À¯Àú: " << packet.info().fugitive_first().player().nickname() << endl;
-		cout << "3¹ø À¯Àú: " << packet.info().fugitive_second().player().nickname() << endl;
-		cout << "4¹ø À¯Àú: " << packet.info().fugitive_third().player().nickname() << endl;
 	}
 	return true;
 }
@@ -54,16 +53,12 @@ bool Handle_S_LOBBY_CREATE_ROOM(shared_ptr<SessionBase>& session, ProjectJ::S_LO
 bool Handle_S_LOBBY_ENTER_ROOM(shared_ptr<SessionBase>& session, ProjectJ::S_LOBBY_ENTER_ROOM& packet)
 {
 	auto clientSession = static_pointer_cast<ClientSession>(session);
-	cout << "¹æ ÀÔÀå: " << packet.result() << endl;
+
 	if (packet.result())
 	{
-		clientSession->isRoom = true;
+		clientSession->PrintNickname();
+		cout << packet.info().room_id() << "ë²ˆ ë°© ìž…ìž¥ ì„±ê³µ " << endl;
 		clientSession->roomID = packet.info().room_id();
-		cout << "¹æ Á¤º¸: " << packet.info().room_id() << ", " << packet.info().title() << endl;
-		cout << "1¹ø À¯Àú: " << packet.info().chaser().player().nickname() << endl;
-		cout << "2¹ø À¯Àú: " << packet.info().fugitive_first().player().nickname() << endl;
-		cout << "3¹ø À¯Àú: " << packet.info().fugitive_second().player().nickname() << endl;
-		cout << "4¹ø À¯Àú: " << packet.info().fugitive_third().player().nickname() << endl;
 	}
 	return true;
 }
@@ -71,10 +66,8 @@ bool Handle_S_LOBBY_ENTER_ROOM(shared_ptr<SessionBase>& session, ProjectJ::S_LOB
 bool Handle_S_ROOM_LEAVE(shared_ptr<SessionBase>& session, ProjectJ::S_ROOM_LEAVE& packet)
 {
 	auto clientSession = static_pointer_cast<ClientSession>(session);
-	cout << "¹æ ÅðÀå: " << packet.result() << endl;
 	if (packet.result())
 	{
-		clientSession->isRoom = false;
 	}
 	return true;
 }
@@ -99,8 +92,49 @@ bool Handle_S_ROOM_CHAT(shared_ptr<SessionBase>& session, ProjectJ::S_ROOM_CHAT&
 	return true;
 }
 
-bool Handle_S_MATCH_INIT_GENERATED_ITEMS(shared_ptr<SessionBase>& session,
-                                         ProjectJ::S_MATCH_INIT_GENERATED_ITEMS& packet)
+bool Handle_S_ROOM_STANDBY_MATCH(shared_ptr<SessionBase>& session, ProjectJ::S_ROOM_STANDBY_MATCH& packet)
+{
+	auto clientSession = static_pointer_cast<ClientSession>(session);
+	clientSession->PrintNickname();
+	cout << clientSession->roomID << "ë²ˆ ë°© ìŠ¤íƒ ë°”ì´ " << packet.count() << endl;
+	return true;
+}
+
+bool Handle_S_ROOM_START_MATCH(shared_ptr<SessionBase>& session, ProjectJ::S_ROOM_START_MATCH& packet)
+{
+	auto clientSession = static_pointer_cast<ClientSession>(session);
+	clientSession->PrintNickname();
+	cout << clientSession->roomID << "ë²ˆ ë°© ê²Œìž„ ì‹œìž‘ " << endl;
+	return true;
+}
+
+bool Handle_S_MATCH_INIT_PLAYER_INDEX(shared_ptr<SessionBase>& session, ProjectJ::S_MATCH_INIT_PLAYER_INDEX& packet)
+{
+	return true;
+}
+
+bool Handle_S_MATCH_INIT_ITEMS(shared_ptr<SessionBase>& session, ProjectJ::S_MATCH_INIT_ITEMS& packet)
+{
+	return true;
+}
+
+bool Handle_S_MATCH_ALL_LOADING_COMPLETE(shared_ptr<SessionBase>& session,
+                                         ProjectJ::S_MATCH_ALL_LOADING_COMPLETE& packet)
+{
+	return true;
+}
+
+bool Handle_S_MATCH_START(shared_ptr<SessionBase>& session, ProjectJ::S_MATCH_START& packet)
+{
+	return true;
+}
+
+bool Handle_S_MATCH_INFO(shared_ptr<SessionBase>& session, ProjectJ::S_MATCH_INFO& packet)
+{
+	return true;
+}
+
+bool Handle_S_MATCH_END(shared_ptr<SessionBase>& session, ProjectJ::S_MATCH_END& packet)
 {
 	return true;
 }
