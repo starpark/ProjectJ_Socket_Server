@@ -64,10 +64,10 @@ public:
 	void SetName(string& name) { name_ = name; }
 	void SetName(string&& name) { name_ = std::move(name); }
 	void SetState(SessionState state) { state_ = state; }
-	void SetPlayer(shared_ptr<Player> player) { player_ = player; }
-	void SetLobby(shared_ptr<Lobby> lobby) { lobby_ = lobby; }
-	void SetRoom(shared_ptr<Room> room) { room_ = room; }
-	void SetMatch(shared_ptr<Match> match) { match_ = match; }
+	void SetPlayer(const shared_ptr<Player>& player) { player_ = player; }
+	void SetLobby(const shared_ptr<Lobby>& lobby) { lobby_ = lobby; }
+	void SetRoom(const shared_ptr<Room>& room) { room_ = room; }
+	void SetMatch(const shared_ptr<Match>& match) { match_ = match; }
 	void SetIsVerified(bool verifying) { bIsVerified = verifying; }
 
 protected:

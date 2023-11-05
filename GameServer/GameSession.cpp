@@ -12,37 +12,45 @@ GameSession::GameSession()
 
 GameSession::~GameSession()
 {
-	player_ = nullptr;
-
 	GLogHelper->Reserve(LogCategory::Log_INFO, L"~GameSession()\n");
+
+	player_.reset();
+	lobby_.reset();
+	room_.reset();
+	match_.reset();
 }
 
 void GameSession::ProcessEnterLobby(const shared_ptr<Lobby>& lobby)
 {
+	WRITE_LOCK;
 	SetState(SessionState::LOBBY);
 	SetLobby(lobby);
 }
 
 void GameSession::ProcessLeaveLobby()
 {
+	WRITE_LOCK;
 	SetState(SessionState::NONE);
 	lobby_.reset();
 }
 
 void GameSession::ProcessEnterRoom(const shared_ptr<Room>& room)
 {
+	WRITE_LOCK;
 	SetState(SessionState::ROOM);
 	SetRoom(room);
 }
 
 void GameSession::ProcessLeaveRoom()
 {
+	WRITE_LOCK;
 	SetState(SessionState::LOBBY);
 	room_.reset();
 }
 
 void GameSession::ProcessEnterMatch(const shared_ptr<Match>& match, const shared_ptr<Player>& player)
 {
+	WRITE_LOCK;
 	SetState(SessionState::MATCH);
 	player_ = player;
 	SetMatch(match);
@@ -50,6 +58,7 @@ void GameSession::ProcessEnterMatch(const shared_ptr<Match>& match, const shared
 
 void GameSession::ProcessLeaveMatch()
 {
+	WRITE_LOCK;
 	SetState(SessionState::ROOM);
 	player_ = nullptr;
 	match_.reset();
@@ -63,16 +72,21 @@ void GameSession::OnConnected()
 void GameSession::OnDisconnect()
 {
 	GLogHelper->Reserve(LogCategory::Log_INFO, L"OnDisconnect %s\n", netAddress_.GetIpAddressW().c_str());
+	shared_ptr<GameSession> gameSession = static_pointer_cast<GameSession>(shared_from_this());
+
+	if (auto match = match_.lock())
+	{
+		match->PlayerDisconnected(gameSession);
+		match_.reset();
+	}
 
 	if (auto lobby = lobby_.lock())
 	{
 		if (auto room = room_.lock())
 		{
-			shared_ptr<GameSession> gameSession = static_pointer_cast<GameSession>(shared_from_this());
 			lobby->LeaveRoom(gameSession, room->GetID());
-			room_.reset();
 		}
-		lobby_.reset();
+		ProcessLeaveLobby();
 	}
 }
 
@@ -96,7 +110,7 @@ int GameSession::OnRecv(BYTE* buffer, int numOfBytes)
 		}
 
 		shared_ptr<SessionBase> session = GetSessionPtr();
-		GamePacketHandler::HandlePacket(session, buffer, header.size);
+		GamePacketHandler::HandlePacket(session, &buffer[processLen], header.size);
 
 		processLen += header.size;
 	}
