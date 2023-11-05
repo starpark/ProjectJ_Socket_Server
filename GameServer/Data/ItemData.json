@@ -4,8 +4,8 @@
   "Items": [
     {
       "ItemID": "Item0000",
-      "ItemName": "테스트 아이템",
-      "Description": "테스트용 아이템",
+      "ItemName": "테스트 아이템1",
+      "Description": "테스트용 아이템1",
       "Category": "Test",
       "Size": {
         "Height": 2,
@@ -14,6 +14,20 @@
       "Weight": {
         "Min": 1000,
         "Max": 2000
+      }
+    },
+    {
+      "ItemID": "Item0001",
+      "ItemName": "테스트 아이템2",
+      "Description": "테스트용 아이템2",
+      "Category": "Test",
+      "Size": {
+        "Height": 3,
+        "Width": 3
+      },
+      "Weight": {
+        "Min": 2000,
+        "Max": 3000
       }
     }
   ]
