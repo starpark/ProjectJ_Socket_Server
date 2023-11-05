@@ -5,26 +5,53 @@
 class GameSession;
 class Room;
 
+enum class PlayerState
+{
+	NONE = 0,
+	LOADING = 1,
+	ALIVE = 2,
+	ALIVE_DAMAGED = 3,
+	ALIVE_CRITICAL = 4,
+	ALIVE_MORIBUND = 5,
+	ESCAPED = 6,
+	MURDERED = 7,
+	DISCONNECTED = 8
+};
+
 class Match : public TickTask
 {
+	enum : UINT64
+	{
+		MATCH_END_TICK = 15 * 60 * 1000
+	};
+
 public:
-	Match(shared_ptr<GameSession> chaser, shared_ptr<GameSession> fugitiveOne, shared_ptr<GameSession> fugitiveTwo,
-	      shared_ptr<GameSession> fugitiveThree, shared_ptr<Room> owner);
+	Match(shared_ptr<Room> owner);
 	~Match() override;
 
 	void Tick(double deltaTime) override;
+	void Broadcast(shared_ptr<SendBuffer> sendBuffer);
 
-	void MatchInit();
-	void MatchStart();
-	void MatchEnd();
+	void Init(shared_ptr<GameSession> chaser, shared_ptr<GameSession> fugitiveFirst,
+	          shared_ptr<GameSession> fugitiveSecond,
+	          shared_ptr<GameSession> fugitiveThird);
+	void Start();
+	void End();
+	bool CheckEndCondition();
+	bool CheckPlayers();
+	void PlayerStateChanged(shared_ptr<GameSession> player, PlayerState state);
+	void PlayerDisconnected(const shared_ptr<GameSession>& session);
 
-	void PlayerDisconnected(const shared_ptr<Player>& disconnectedPlayer);
-	void BroadcastMatchInfo();
+
+private:
+	void GenerateItems();
+	void PlayerBackToRoom();
 
 private:
 	USE_LOCK;
-	// first player ptr, second is connected
-	vector<pair<shared_ptr<Player>, bool>> players_;
-	shared_ptr<ItemManager> itemManager_;
+	atomic<bool> matchStated_ = false;
+	UINT64 matchEndTick_ = 0;
 	shared_ptr<Room> ownerRoom_;
+	vector<pair<shared_ptr<Player>, PlayerState>> players_;
+	map<int, shared_ptr<Item>> items_;
 };
