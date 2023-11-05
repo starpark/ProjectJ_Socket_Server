@@ -11,6 +11,8 @@ Player::Player(const shared_ptr<Match>& match)
 
 Player::~Player()
 {
+	GLogHelper->Reserve(LogCategory::Log_INFO, "~Player()\n");
+	match_ = nullptr;
 	inventory_ = nullptr;
 }
 
