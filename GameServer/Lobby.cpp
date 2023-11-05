@@ -58,7 +58,7 @@ shared_ptr<Room> Lobby::CreateRoom(shared_ptr<GameSession> session, string title
 	auto newRoom = make_shared<Room>(roomID, title.substr(0, 20), session, shared_from_this());
 	newRoom->EnterSession(session);
 
-	GLogHelper->Reserve(LogCategory::Log_INFO, "Lobby Create New Room %s %d\n", title.c_str(), roomID);
+	GLogHelper->Reserve(LogCategory::Log_INFO, "Lobby Create New Room Title:%s ID: %d\n", title.c_str(), roomID);
 
 	WRITE_LOCK;
 	rooms_.insert({roomID, newRoom});
@@ -101,9 +101,12 @@ int Lobby::LeaveRoom(const shared_ptr<GameSession>& session, int roomID)
 void Lobby::DestroyRoom(int roomNumber)
 {
 	WRITE_LOCK;
-	if (rooms_.find(roomNumber) != rooms_.end())
+	auto roomIter = rooms_.find(roomNumber);
+	if (roomIter != rooms_.end())
 	{
 		GLogHelper->Reserve(LogCategory::Log_INFO, L"Lobby Destroy Room %d\n", roomNumber);
+		shared_ptr<Room> room = roomIter->second;
+
 		rooms_.erase(roomNumber);
 	}
 }
