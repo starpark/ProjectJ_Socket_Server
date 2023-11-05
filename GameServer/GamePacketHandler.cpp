@@ -247,6 +247,9 @@ bool Handle_C_LOBBY_REFRESH_ROOM(shared_ptr<SessionBase>& session, ProjectJ::C_L
 			auto roomData = sendPacket.add_rooms();
 			roomData->set_id(room->GetID());
 			roomData->set_title(room->GetTitle());
+			roomData->set_state(room->GetState() == RoomState::WAITING
+				                    ? ProjectJ::RoomState::WAITING
+				                    : ProjectJ::RoomState::INGAME);
 			roomData->set_number_of_player(room->GetNumberOfPlayer());
 		}
 
@@ -376,6 +379,24 @@ bool Handle_C_ROOM_LEAVE(shared_ptr<SessionBase>& session, ProjectJ::C_ROOM_LEAV
 
 bool Handle_C_ROOM_READY(shared_ptr<SessionBase>& session, ProjectJ::C_ROOM_READY& packet)
 {
+	shared_ptr<GameSession> gameSession = static_pointer_cast<GameSession>(session);
+	shared_ptr<Room> room = gameSession->TryGetRoom();
+
+	if (room)
+	{
+		ProjectJ::S_ROOM_READY sendPacket;
+		room->ToggleReady(gameSession);
+
+		sendPacket.set_allocated_info(MakeRoomInfo(room));
+		auto sendBuffer = GamePacketHandler::MakeSendBuffer(sendPacket);
+		room->BroadcastHere(sendBuffer);
+
+		if (room->CheckAllReady())
+		{
+			room->StandByMatch(5);
+		}
+	}
+
 	return true;
 }
 
@@ -399,6 +420,11 @@ bool Handle_C_ROOM_CHAT(shared_ptr<SessionBase>& session, ProjectJ::C_ROOM_CHAT&
 }
 
 /* MATCH PROTOCOLS */
+
+bool Handle_C_MATCH_LOADING_COMPLETE(shared_ptr<SessionBase>& session, ProjectJ::C_MATCH_LOADING_COMPLETE& packet)
+{
+	return true;
+}
 
 bool Handle_C_MATCH_ITEM_PICKUP(shared_ptr<SessionBase>& session, ProjectJ::C_MATCH_ITEM_PICKUP& packet)
 {
