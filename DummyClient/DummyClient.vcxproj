@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClInclude Include="Client.h" />
     <ClInclude Include="Enum.pb.h" />
+    <ClInclude Include="httplib.h" />
     <ClInclude Include="Message.pb.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="ServerPacketHandler.h" />

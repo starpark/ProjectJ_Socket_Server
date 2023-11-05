@@ -50,5 +50,8 @@
     <ClInclude Include="Client.h">
       <Filter>Main</Filter>
     </ClInclude>
+    <ClInclude Include="httplib.h">
+      <Filter>Main</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
