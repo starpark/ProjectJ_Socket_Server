@@ -180,6 +180,7 @@ message S_MATCH_ITEM_PICKUP
 	int32 player_index = 2;
 	int32 item_id = 3;
 	int32 top_left_index = 4;
+	bool is_item_rotated = 5;
 }
 
 message C_MATCH_ITEM_MOVE

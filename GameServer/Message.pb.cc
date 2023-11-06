@@ -413,9 +413,10 @@ struct C_MATCH_ITEM_PICKUPDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 C_MATCH_ITEM_PICKUPDefaultTypeInternal _C_MATCH_ITEM_PICKUP_default_instance_;
 PROTOBUF_CONSTEXPR S_MATCH_ITEM_PICKUP::S_MATCH_ITEM_PICKUP(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.result_)*/false
-  , /*decltype(_impl_.player_index_)*/0
+    /*decltype(_impl_.player_index_)*/0
   , /*decltype(_impl_.item_id_)*/0
+  , /*decltype(_impl_.result_)*/false
+  , /*decltype(_impl_.is_item_rotated_)*/false
   , /*decltype(_impl_.top_left_index_)*/0
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct S_MATCH_ITEM_PICKUPDefaultTypeInternal {
@@ -729,6 +730,7 @@ const uint32_t TableStruct_Message_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(
   PROTOBUF_FIELD_OFFSET(::ProjectJ::S_MATCH_ITEM_PICKUP, _impl_.player_index_),
   PROTOBUF_FIELD_OFFSET(::ProjectJ::S_MATCH_ITEM_PICKUP, _impl_.item_id_),
   PROTOBUF_FIELD_OFFSET(::ProjectJ::S_MATCH_ITEM_PICKUP, _impl_.top_left_index_),
+  PROTOBUF_FIELD_OFFSET(::ProjectJ::S_MATCH_ITEM_PICKUP, _impl_.is_item_rotated_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::ProjectJ::C_MATCH_ITEM_MOVE, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -800,10 +802,10 @@ static const ::_pbi::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protode
   { 204, -1, -1, sizeof(::ProjectJ::S_MATCH_END)},
   { 214, -1, -1, sizeof(::ProjectJ::C_MATCH_ITEM_PICKUP)},
   { 222, -1, -1, sizeof(::ProjectJ::S_MATCH_ITEM_PICKUP)},
-  { 232, -1, -1, sizeof(::ProjectJ::C_MATCH_ITEM_MOVE)},
-  { 242, -1, -1, sizeof(::ProjectJ::S_MATCH_ITEM_MOVE)},
-  { 252, -1, -1, sizeof(::ProjectJ::C_MATCH_ITEM_DROP)},
-  { 262, -1, -1, sizeof(::ProjectJ::S_MATCH_ITEM_DROP)},
+  { 233, -1, -1, sizeof(::ProjectJ::C_MATCH_ITEM_MOVE)},
+  { 243, -1, -1, sizeof(::ProjectJ::S_MATCH_ITEM_MOVE)},
+  { 253, -1, -1, sizeof(::ProjectJ::C_MATCH_ITEM_DROP)},
+  { 263, -1, -1, sizeof(::ProjectJ::S_MATCH_ITEM_DROP)},
 };
 
 static const ::_pb::Message* const file_default_instances[] = {
@@ -888,23 +890,23 @@ const char descriptor_table_protodef_Message_2eproto[] PROTOBUF_SECTION_VARIABLE
   "(\005\022\036\n\026fugitivie_second_score\030\003 \001(\005\022\035\n\025fu"
   "gitivie_third_score\030\004 \001(\005\"<\n\023C_MATCH_ITE"
   "M_PICKUP\022\024\n\014player_index\030\001 \001(\005\022\017\n\007item_i"
-  "d\030\002 \001(\005\"d\n\023S_MATCH_ITEM_PICKUP\022\016\n\006result"
+  "d\030\002 \001(\005\"}\n\023S_MATCH_ITEM_PICKUP\022\016\n\006result"
   "\030\001 \001(\010\022\024\n\014player_index\030\002 \001(\005\022\017\n\007item_id\030"
-  "\003 \001(\005\022\026\n\016top_left_index\030\004 \001(\005\"r\n\021C_MATCH"
-  "_ITEM_MOVE\022\024\n\014player_index\030\001 \001(\005\022\017\n\007item"
-  "_id\030\002 \001(\005\022\027\n\017is_item_rotated\030\003 \001(\005\022\035\n\025ta"
-  "rget_top_left_index\030\004 \001(\005\"e\n\021S_MATCH_ITE"
-  "M_MOVE\022\016\n\006result\030\001 \001(\010\022\017\n\007item_id\030\002 \001(\005\022"
-  "\027\n\017is_item_rotated\030\003 \001(\005\022\026\n\016top_left_ind"
-  "ex\030\004 \001(\005\"\227\001\n\021C_MATCH_ITEM_DROP\022\024\n\014player"
-  "_index\030\001 \001(\005\022,\n\022drop_item_position\030\002 \001(\013"
-  "2\020.ProjectJ.Vector\022-\n\022drop_item_rotation"
-  "\030\003 \001(\0132\021.ProjectJ.Rotator\022\017\n\007item_id\030\004 \001"
-  "(\005\"\227\001\n\021S_MATCH_ITEM_DROP\022\024\n\014player_index"
-  "\030\001 \001(\005\022,\n\022drop_item_position\030\002 \001(\0132\020.Pro"
-  "jectJ.Vector\022-\n\022drop_item_rotation\030\003 \001(\013"
-  "2\021.ProjectJ.Rotator\022\017\n\007item_id\030\004 \001(\005b\006pr"
-  "oto3"
+  "\003 \001(\005\022\026\n\016top_left_index\030\004 \001(\005\022\027\n\017is_item"
+  "_rotated\030\005 \001(\010\"r\n\021C_MATCH_ITEM_MOVE\022\024\n\014p"
+  "layer_index\030\001 \001(\005\022\017\n\007item_id\030\002 \001(\005\022\027\n\017is"
+  "_item_rotated\030\003 \001(\005\022\035\n\025target_top_left_i"
+  "ndex\030\004 \001(\005\"e\n\021S_MATCH_ITEM_MOVE\022\016\n\006resul"
+  "t\030\001 \001(\010\022\017\n\007item_id\030\002 \001(\005\022\027\n\017is_item_rota"
+  "ted\030\003 \001(\005\022\026\n\016top_left_index\030\004 \001(\005\"\227\001\n\021C_"
+  "MATCH_ITEM_DROP\022\024\n\014player_index\030\001 \001(\005\022,\n"
+  "\022drop_item_position\030\002 \001(\0132\020.ProjectJ.Vec"
+  "tor\022-\n\022drop_item_rotation\030\003 \001(\0132\021.Projec"
+  "tJ.Rotator\022\017\n\007item_id\030\004 \001(\005\"\227\001\n\021S_MATCH_"
+  "ITEM_DROP\022\024\n\014player_index\030\001 \001(\005\022,\n\022drop_"
+  "item_position\030\002 \001(\0132\020.ProjectJ.Vector\022-\n"
+  "\022drop_item_rotation\030\003 \001(\0132\021.ProjectJ.Rot"
+  "ator\022\017\n\007item_id\030\004 \001(\005b\006proto3"
   ;
 static const ::_pbi::DescriptorTable* const descriptor_table_Message_2eproto_deps[2] = {
   &::descriptor_table_Enum_2eproto,
@@ -912,7 +914,7 @@ static const ::_pbi::DescriptorTable* const descriptor_table_Message_2eproto_dep
 };
 static ::_pbi::once_flag descriptor_table_Message_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_Message_2eproto = {
-    false, false, 2444, descriptor_table_protodef_Message_2eproto,
+    false, false, 2469, descriptor_table_protodef_Message_2eproto,
     "Message.proto",
     &descriptor_table_Message_2eproto_once, descriptor_table_Message_2eproto_deps, 2, 33,
     schemas, file_default_instances, TableStruct_Message_2eproto::offsets,
@@ -7143,16 +7145,17 @@ S_MATCH_ITEM_PICKUP::S_MATCH_ITEM_PICKUP(const S_MATCH_ITEM_PICKUP& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
   S_MATCH_ITEM_PICKUP* const _this = this; (void)_this;
   new (&_impl_) Impl_{
-      decltype(_impl_.result_){}
-    , decltype(_impl_.player_index_){}
+      decltype(_impl_.player_index_){}
     , decltype(_impl_.item_id_){}
+    , decltype(_impl_.result_){}
+    , decltype(_impl_.is_item_rotated_){}
     , decltype(_impl_.top_left_index_){}
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  ::memcpy(&_impl_.result_, &from._impl_.result_,
+  ::memcpy(&_impl_.player_index_, &from._impl_.player_index_,
     static_cast<size_t>(reinterpret_cast<char*>(&_impl_.top_left_index_) -
-    reinterpret_cast<char*>(&_impl_.result_)) + sizeof(_impl_.top_left_index_));
+    reinterpret_cast<char*>(&_impl_.player_index_)) + sizeof(_impl_.top_left_index_));
   // @@protoc_insertion_point(copy_constructor:ProjectJ.S_MATCH_ITEM_PICKUP)
 }
 
@@ -7161,9 +7164,10 @@ inline void S_MATCH_ITEM_PICKUP::SharedCtor(
   (void)arena;
   (void)is_message_owned;
   new (&_impl_) Impl_{
-      decltype(_impl_.result_){false}
-    , decltype(_impl_.player_index_){0}
+      decltype(_impl_.player_index_){0}
     , decltype(_impl_.item_id_){0}
+    , decltype(_impl_.result_){false}
+    , decltype(_impl_.is_item_rotated_){false}
     , decltype(_impl_.top_left_index_){0}
     , /*decltype(_impl_._cached_size_)*/{}
   };
@@ -7192,9 +7196,9 @@ void S_MATCH_ITEM_PICKUP::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  ::memset(&_impl_.result_, 0, static_cast<size_t>(
+  ::memset(&_impl_.player_index_, 0, static_cast<size_t>(
       reinterpret_cast<char*>(&_impl_.top_left_index_) -
-      reinterpret_cast<char*>(&_impl_.result_)) + sizeof(_impl_.top_left_index_));
+      reinterpret_cast<char*>(&_impl_.player_index_)) + sizeof(_impl_.top_left_index_));
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -7232,6 +7236,14 @@ const char* S_MATCH_ITEM_PICKUP::_InternalParse(const char* ptr, ::_pbi::ParseCo
       case 4:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
           _impl_.top_left_index_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // bool is_item_rotated = 5;
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 40)) {
+          _impl_.is_item_rotated_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -7289,6 +7301,12 @@ uint8_t* S_MATCH_ITEM_PICKUP::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteInt32ToArray(4, this->_internal_top_left_index(), target);
   }
 
+  // bool is_item_rotated = 5;
+  if (this->_internal_is_item_rotated() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(5, this->_internal_is_item_rotated(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
@@ -7305,11 +7323,6 @@ size_t S_MATCH_ITEM_PICKUP::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // bool result = 1;
-  if (this->_internal_result() != 0) {
-    total_size += 1 + 1;
-  }
-
   // int32 player_index = 2;
   if (this->_internal_player_index() != 0) {
     total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_player_index());
@@ -7318,6 +7331,16 @@ size_t S_MATCH_ITEM_PICKUP::ByteSizeLong() const {
   // int32 item_id = 3;
   if (this->_internal_item_id() != 0) {
     total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_item_id());
+  }
+
+  // bool result = 1;
+  if (this->_internal_result() != 0) {
+    total_size += 1 + 1;
+  }
+
+  // bool is_item_rotated = 5;
+  if (this->_internal_is_item_rotated() != 0) {
+    total_size += 1 + 1;
   }
 
   // int32 top_left_index = 4;
@@ -7343,14 +7366,17 @@ void S_MATCH_ITEM_PICKUP::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, co
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from._internal_result() != 0) {
-    _this->_internal_set_result(from._internal_result());
-  }
   if (from._internal_player_index() != 0) {
     _this->_internal_set_player_index(from._internal_player_index());
   }
   if (from._internal_item_id() != 0) {
     _this->_internal_set_item_id(from._internal_item_id());
+  }
+  if (from._internal_result() != 0) {
+    _this->_internal_set_result(from._internal_result());
+  }
+  if (from._internal_is_item_rotated() != 0) {
+    _this->_internal_set_is_item_rotated(from._internal_is_item_rotated());
   }
   if (from._internal_top_left_index() != 0) {
     _this->_internal_set_top_left_index(from._internal_top_left_index());
@@ -7375,9 +7401,9 @@ void S_MATCH_ITEM_PICKUP::InternalSwap(S_MATCH_ITEM_PICKUP* other) {
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(S_MATCH_ITEM_PICKUP, _impl_.top_left_index_)
       + sizeof(S_MATCH_ITEM_PICKUP::_impl_.top_left_index_)
-      - PROTOBUF_FIELD_OFFSET(S_MATCH_ITEM_PICKUP, _impl_.result_)>(
-          reinterpret_cast<char*>(&_impl_.result_),
-          reinterpret_cast<char*>(&other->_impl_.result_));
+      - PROTOBUF_FIELD_OFFSET(S_MATCH_ITEM_PICKUP, _impl_.player_index_)>(
+          reinterpret_cast<char*>(&_impl_.player_index_),
+          reinterpret_cast<char*>(&other->_impl_.player_index_));
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata S_MATCH_ITEM_PICKUP::GetMetadata() const {

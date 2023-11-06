@@ -68,7 +68,7 @@ bool Handle_S_MATCH_ITEM_DROP(shared_ptr<SessionBase>& session, ProjectJ::S_MATC
 // 소켓 수신 데이터 처리 및 송신 버퍼 생성 클래스
 // 최초 작성자: 박별
 // 수정자: 
-// 최종 수정일: 2023-11-05 자동 생성
+// 최종 수정일: 2023-11-06 자동 생성
 class ServerPacketHandler
 {
 public:

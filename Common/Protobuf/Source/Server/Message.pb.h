@@ -4887,20 +4887,12 @@ class S_MATCH_ITEM_PICKUP final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kResultFieldNumber = 1,
     kPlayerIndexFieldNumber = 2,
     kItemIdFieldNumber = 3,
+    kResultFieldNumber = 1,
+    kIsItemRotatedFieldNumber = 5,
     kTopLeftIndexFieldNumber = 4,
   };
-  // bool result = 1;
-  void clear_result();
-  bool result() const;
-  void set_result(bool value);
-  private:
-  bool _internal_result() const;
-  void _internal_set_result(bool value);
-  public:
-
   // int32 player_index = 2;
   void clear_player_index();
   int32_t player_index() const;
@@ -4917,6 +4909,24 @@ class S_MATCH_ITEM_PICKUP final :
   private:
   int32_t _internal_item_id() const;
   void _internal_set_item_id(int32_t value);
+  public:
+
+  // bool result = 1;
+  void clear_result();
+  bool result() const;
+  void set_result(bool value);
+  private:
+  bool _internal_result() const;
+  void _internal_set_result(bool value);
+  public:
+
+  // bool is_item_rotated = 5;
+  void clear_is_item_rotated();
+  bool is_item_rotated() const;
+  void set_is_item_rotated(bool value);
+  private:
+  bool _internal_is_item_rotated() const;
+  void _internal_set_is_item_rotated(bool value);
   public:
 
   // int32 top_left_index = 4;
@@ -4936,9 +4946,10 @@ class S_MATCH_ITEM_PICKUP final :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   struct Impl_ {
-    bool result_;
     int32_t player_index_;
     int32_t item_id_;
+    bool result_;
+    bool is_item_rotated_;
     int32_t top_left_index_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
@@ -7905,6 +7916,26 @@ inline void S_MATCH_ITEM_PICKUP::_internal_set_top_left_index(int32_t value) {
 inline void S_MATCH_ITEM_PICKUP::set_top_left_index(int32_t value) {
   _internal_set_top_left_index(value);
   // @@protoc_insertion_point(field_set:ProjectJ.S_MATCH_ITEM_PICKUP.top_left_index)
+}
+
+// bool is_item_rotated = 5;
+inline void S_MATCH_ITEM_PICKUP::clear_is_item_rotated() {
+  _impl_.is_item_rotated_ = false;
+}
+inline bool S_MATCH_ITEM_PICKUP::_internal_is_item_rotated() const {
+  return _impl_.is_item_rotated_;
+}
+inline bool S_MATCH_ITEM_PICKUP::is_item_rotated() const {
+  // @@protoc_insertion_point(field_get:ProjectJ.S_MATCH_ITEM_PICKUP.is_item_rotated)
+  return _internal_is_item_rotated();
+}
+inline void S_MATCH_ITEM_PICKUP::_internal_set_is_item_rotated(bool value) {
+  
+  _impl_.is_item_rotated_ = value;
+}
+inline void S_MATCH_ITEM_PICKUP::set_is_item_rotated(bool value) {
+  _internal_set_is_item_rotated(value);
+  // @@protoc_insertion_point(field_set:ProjectJ.S_MATCH_ITEM_PICKUP.is_item_rotated)
 }
 
 // -------------------------------------------------------------------
