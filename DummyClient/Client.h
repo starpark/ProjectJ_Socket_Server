@@ -62,8 +62,10 @@ public:
 	void TestCreateRoom(string title);
 	void TestLeaveRoom();
 	void TestEnterRoom(int roomID);
+	void TestLobbyChat(string msg);
 	void TestRefreshRoomList();
 	void TestRoomReady();
+	void TestRoomChat(string msg);
 
 	void PrintNickname()
 	{
@@ -77,6 +79,7 @@ public:
 	string name;
 	string token;
 	int id;
+	bool isVerified = false;
 };
 
 class ClientService : public Service
@@ -106,4 +109,5 @@ public:
 	}
 
 	vector<shared_ptr<ClientSession>> GetSessions();
+	set<shared_ptr<SessionBase>>& GetSessionsRef() { return sessions_; }
 };

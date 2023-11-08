@@ -12,15 +12,6 @@ void ClientSession::TestCreateAccount(string prefix, int index)
 		"\"}";
 
 	auto res = cli.Post("/api/users/create", raw, "application/json");
-
-	if (res->status == 201)
-	{
-		cout << param + " 회원가입 성공" << endl;
-	}
-	else
-	{
-		cout << param + " 회원가입 실패" << endl;
-	}
 }
 
 void ClientSession::TestLoginHttp(string prefix, int index)
@@ -34,17 +25,12 @@ void ClientSession::TestLoginHttp(string prefix, int index)
 
 	if (res->status == 200)
 	{
-		cout << param + " 로그인 성공" << endl;
 		nlohmann::json j = nlohmann::json::parse(res->body);
 
 		name = j["name"];
 		nickname = j["nickname"];
 		token = j["token"];
 		id = j["player_id"];
-	}
-	else
-	{
-		cout << param + " 로그인 실패" << endl;
 	}
 }
 
@@ -59,7 +45,6 @@ void ClientSession::TestVerifyToken()
 
 void ClientSession::TestCreateRoom(string title)
 {
-	cout << "TEST CREATE ROOM" << endl;
 	ProjectJ::C_LOBBY_CREATE_ROOM packet;
 	packet.set_account_id(id);
 	packet.set_title(title);
@@ -69,7 +54,6 @@ void ClientSession::TestCreateRoom(string title)
 
 void ClientSession::TestLeaveRoom()
 {
-	cout << "TEST LEAVE ROOM" << endl;
 	ProjectJ::C_ROOM_LEAVE packet;
 	packet.set_account_id(id);
 	packet.set_room_id(roomID);
@@ -79,7 +63,6 @@ void ClientSession::TestLeaveRoom()
 
 void ClientSession::TestEnterRoom(int roomID)
 {
-	cout << "TEST ENTER ROOM" << endl;
 	cout << roomID << "번 방 입장 시도" << endl;
 	ProjectJ::C_LOBBY_ENTER_ROOM packet;
 	packet.set_account_id(id);
@@ -88,9 +71,18 @@ void ClientSession::TestEnterRoom(int roomID)
 	Send(sendBuffer);
 }
 
+void ClientSession::TestLobbyChat(string msg)
+{
+	ProjectJ::C_LOBBY_CHAT packet;
+	packet.set_account_id(id);
+	packet.set_nickname(nickname);
+	packet.set_chat(msg);
+	auto sendBuffer = ServerPacketHandler::MakeSendBuffer(packet);
+	Send(sendBuffer);
+}
+
 void ClientSession::TestRefreshRoomList()
 {
-	cout << "TEST REFRESH ROOM LIST" << endl;
 	ProjectJ::C_LOBBY_REFRESH_ROOM packet;
 	packet.set_account_id(id);
 	auto sendBuffer = ServerPacketHandler::MakeSendBuffer(packet);
@@ -104,6 +96,15 @@ void ClientSession::TestRoomReady()
 	packet.set_room_id(roomID);
 	auto sendBuffer = ServerPacketHandler::MakeSendBuffer(packet);
 	Send(sendBuffer);
+}
+
+void ClientSession::TestRoomChat(string msg)
+{
+	ProjectJ::C_ROOM_CHAT packet;
+	packet.set_account_id(id);
+	packet.set_room_id(roomID);
+	packet.set_nickname(nickname);
+	packet.set_chat(msg);
 }
 
 
