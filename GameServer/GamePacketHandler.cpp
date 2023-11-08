@@ -8,105 +8,15 @@
 PacketHandlerFunc GPacketHandler[UINT16_MAX];
 static constexpr string_view secretKey = "09d25e094faa6ca2556c818166b7a9563b93f7099f6f0f4caa6cf63b88e8d3e7";
 
-/* HELPER FUNCTIONS */
-
-ProjectJ::RoomInfo* MakeRoomInfo(shared_ptr<Room> room)
-{
-	auto roomInfo = new ProjectJ::RoomInfo();
-
-	roomInfo->set_title(room->GetTitle());
-	roomInfo->set_room_id(room->GetID());
-
-	vector<pair<shared_ptr<GameSession>, bool>> info = room->GetRoomInfo();
-	// 0: chaser
-	{
-		auto chaser = new ProjectJ::RoomInfo_PlayerSlot();
-		chaser->set_is_ready(info[0].second);
-
-		if (info[0].first != nullptr)
-		{
-			auto player = new ProjectJ::Player();
-			player->set_account_id(info[0].first->GetID());
-			player->set_nickname(info[0].first->GetNickname());
-			chaser->set_allocated_player(player);
-		}
-
-		roomInfo->set_allocated_chaser(chaser);
-	}
-
-	// 1: fugitive one
-	{
-		auto fugitive = new ProjectJ::RoomInfo_PlayerSlot();
-		fugitive->set_is_ready(info[1].second);
-
-		if (info[1].first != nullptr)
-		{
-			auto player = new ProjectJ::Player();
-			player->set_account_id(info[1].first->GetID());
-			player->set_nickname(info[1].first->GetNickname());
-			fugitive->set_allocated_player(player);
-		}
-
-		roomInfo->set_allocated_fugitive_first(fugitive);
-	}
-
-	// 2: fugitive two
-	{
-		auto fugitive = new ProjectJ::RoomInfo_PlayerSlot();
-		fugitive->set_is_ready(info[2].second);
-
-		if (info[2].first != nullptr)
-		{
-			auto player = new ProjectJ::Player();
-			player->set_account_id(info[2].first->GetID());
-			player->set_nickname(info[2].first->GetNickname());
-			fugitive->set_allocated_player(player);
-		}
-
-		roomInfo->set_allocated_fugitive_second(fugitive);
-	}
-
-	// 3: fugitive three
-	{
-		auto fugitive = new ProjectJ::RoomInfo_PlayerSlot();
-		fugitive->set_is_ready(info[3].second);
-
-		if (info[3].first != nullptr)
-		{
-			auto player = new ProjectJ::Player();
-			player->set_account_id(info[3].first->GetID());
-			player->set_nickname(info[3].first->GetNickname());
-			fugitive->set_allocated_player(player);
-		}
-
-		roomInfo->set_allocated_fugitive_third(fugitive);
-	}
-
-	return roomInfo;
-}
-
-ProjectJ::Player* MakePlayer(shared_ptr<GameSession> session)
-{
-	if (session->IsVerified() == false)
-	{
-		return nullptr;
-	}
-
-	auto player = new ProjectJ::Player();
-	player->set_account_id(session->GetID());
-	player->set_nickname(session->GetNickname());
-	return player;
-}
-
 /* LOBBY ROOM PROTOCOLS */
 
-bool Handle_INVALID(shared_ptr<SessionBase>& session, BYTE* bufer, int numOfBytes)
+bool Handle_INVALID(const shared_ptr<SessionBase>& session, BYTE* bufer, int numOfBytes)
 {
 	session->Disconnect();
 	return false;
 }
 
-bool Handle_C_VERIFY_TOKEN(shared_ptr<SessionBase>& session, ProjectJ::C_VERIFY_TOKEN& packet)
+bool Handle_C_VERIFY_TOKEN(const shared_ptr<SessionBase>& session, ProjectJ::C_VERIFY_TOKEN& packet)
 {
 	using namespace jwt::params;
 
@@ -205,20 +115,32 @@ bool Handle_C_VERIFY_TOKEN(shared_ptr<SessionBase>& session, ProjectJ::C_VERIFY_
 	return true;
 }
 
-bool Handle_C_LOBBY_CHAT(shared_ptr<SessionBase>& session, ProjectJ::C_LOBBY_CHAT& packet)
+bool Handle_C_LOBBY_CHAT(const shared_ptr<SessionBase>& session, ProjectJ::C_LOBBY_CHAT& packet)
 {
 	shared_ptr<GameSession> gameSession = static_pointer_cast<GameSession>(session);
-
 	shared_ptr<Lobby> lobby = gameSession->TryGetLobby();
+
+	if (!gameSession && gameSession->IsVerified() == false)
+	{
+		gameSession->Disconnect();
+		return false;
+	}
+
 	if (lobby)
 	{
-		ProjectJ::S_LOBBY_CHAT sendPacket;
-		sendPacket.set_nickname(gameSession->GetNickname());
-		sendPacket.set_account_id(gameSession->GetID());
-		sendPacket.set_chat(packet.chat());
+		GLogHelper->Reserve(LogCategory::Log_INFO, "%s Chatted: %s\n", gameSession->GetNickname().c_str(),
+		                    packet.chat().c_str());
 
-		auto sendBuffer = GamePacketHandler::MakeSendBuffer(sendPacket);
-		lobby->Broadcast(sendBuffer);
+		lobby->DoTaskAsync([&lobby, &gameSession, &packet]()
+		{
+			ProjectJ::S_LOBBY_CHAT sendPacket;
+			sendPacket.set_nickname(gameSession->GetNickname());
+			sendPacket.set_account_id(gameSession->GetID());
+			sendPacket.set_chat(packet.chat());
+
+			auto sendBuffer = GamePacketHandler::MakeSendBuffer(sendPacket);
+			lobby->Broadcast(sendBuffer);
+		});
 	}
 	else
 	{
@@ -229,191 +151,222 @@ bool Handle_C_LOBBY_CHAT(shared_ptr<SessionBase>& session, ProjectJ::C_LOBBY_CHA
 	return true;
 }
 
-bool Handle_C_LOBBY_REFRESH_ROOM(shared_ptr<SessionBase>& session, ProjectJ::C_LOBBY_REFRESH_ROOM& packet)
+bool Handle_C_LOBBY_REFRESH_ROOM(const shared_ptr<SessionBase>& session, ProjectJ::C_LOBBY_REFRESH_ROOM& packet)
 {
 	shared_ptr<GameSession> gameSession = static_pointer_cast<GameSession>(session);
 	shared_ptr<Lobby> lobby = gameSession->TryGetLobby();
 
+	if (!gameSession && gameSession->IsVerified() == false)
+	{
+		gameSession->Disconnect();
+		return false;
+	}
+
 	if (lobby)
 	{
-		GLogHelper->Reserve(LogCategory::Log_INFO, "Session %d %s Refresh Room\n", gameSession->GetID(),
+		GLogHelper->Reserve(LogCategory::Log_INFO, "%s Has Refreshed Room List\n", gameSession->GetID(),
 		                    gameSession->GetNickname().c_str());
 
-		ProjectJ::S_LOBBY_REFRESH_ROOM sendPacket;
-		auto roomList = lobby->GetRoomList();
 
-		for (auto room : roomList)
+		auto callback = [&gameSession](shared_ptr<Lobby> lobby,
+		                               vector<shared_ptr<Room>> rooms)
 		{
-			auto roomData = sendPacket.add_rooms();
-			roomData->set_id(room->GetID());
-			roomData->set_title(room->GetTitle());
-			roomData->set_state(room->GetState() == RoomState::WAITING
-				                    ? ProjectJ::RoomState::WAITING
-				                    : ProjectJ::RoomState::INGAME);
-			roomData->set_number_of_player(room->GetNumberOfPlayer());
-		}
+			ProjectJ::S_LOBBY_REFRESH_ROOM sendPacket;
+			for (auto room : rooms)
+			{
+				auto roomData = sendPacket.add_rooms();
+				roomData->set_id(room->GetID());
+				roomData->set_title(room->GetTitle());
+				roomData->set_state(room->GetState() == RoomState::WAITING
+					                    ? ProjectJ::RoomState::WAITING
+					                    : ProjectJ::RoomState::INGAME);
+				roomData->set_number_of_player(room->GetNumberOfPlayer());
+			}
 
-		auto sendBuffer = GamePacketHandler::MakeSendBuffer(sendPacket);
-		gameSession->Send(sendBuffer);
+			auto sendBuffer = GamePacketHandler::MakeSendBuffer(sendPacket);
+			gameSession->Send(sendBuffer);
+		};
+
+		lobby->DoTaskCallback(&Lobby::GetRoomList, move(callback));
 	}
 
 	return true;
 }
 
-bool Handle_C_LOBBY_CREATE_ROOM(shared_ptr<SessionBase>& session, ProjectJ::C_LOBBY_CREATE_ROOM& packet)
+bool Handle_C_LOBBY_CREATE_ROOM(const shared_ptr<SessionBase>& session, ProjectJ::C_LOBBY_CREATE_ROOM& packet)
 {
 	shared_ptr<GameSession> gameSession = static_pointer_cast<GameSession>(session);
 	shared_ptr<Lobby> lobby = gameSession->TryGetLobby();
 	ProjectJ::S_LOBBY_CREATE_ROOM sendPacket;
 
+	if (!gameSession && gameSession->IsVerified() == false)
+	{
+		gameSession->Disconnect();
+		return false;
+	}
+
 	if (lobby)
 	{
-		shared_ptr<Room> room = lobby->CreateRoom(gameSession, packet.title());
-		if (room)
+		shared_ptr<Room> newRoom = lobby->DoTaskSync(&Lobby::CreateRoom, gameSession, packet.title());
+		newRoom->DoTaskAsync([&]()
 		{
-			sendPacket.set_result(true);
-
-			auto roomInfo = MakeRoomInfo(room);
-
-			sendPacket.set_allocated_info(roomInfo);
-		}
-		else
-		{
-			sendPacket.set_result(false);
-			sendPacket.clear_info();
-		}
+			if (newRoom->Enter(gameSession))
+			{
+				sendPacket.set_result(true);
+				sendPacket.set_allocated_info(newRoom->MakeRoomInfo());
+			}
+			else
+			{
+				sendPacket.set_result(false);
+				sendPacket.clear_info();
+			}
+			auto sendBuffer = GamePacketHandler::MakeSendBuffer(sendPacket);
+			session->Send(sendBuffer);
+		});
 	}
 	else
 	{
 		sendPacket.set_result(false);
 		sendPacket.clear_info();
+		auto sendBuffer = GamePacketHandler::MakeSendBuffer(sendPacket);
+		session->Send(sendBuffer);
 	}
 
-	auto sendBuffer = GamePacketHandler::MakeSendBuffer(sendPacket);
-	session->Send(sendBuffer);
 
 	return true;
 }
 
-bool Handle_C_LOBBY_ENTER_ROOM(shared_ptr<SessionBase>& session, ProjectJ::C_LOBBY_ENTER_ROOM& packet)
+bool Handle_C_LOBBY_ENTER_ROOM(const shared_ptr<SessionBase>& session, ProjectJ::C_LOBBY_ENTER_ROOM& packet)
 {
 	shared_ptr<GameSession> gameSession = static_pointer_cast<GameSession>(session);
 	shared_ptr<Lobby> lobby = gameSession->TryGetLobby();
-	ProjectJ::S_LOBBY_ENTER_ROOM sendPacket;
+
+
+	if (!gameSession && gameSession->IsVerified() == false)
+	{
+		gameSession->Disconnect();
+		return false;
+	}
+
+	auto failToEnter = [=]()
+	{
+		ProjectJ::S_LOBBY_ENTER_ROOM sendPacket;
+		sendPacket.set_result(false);
+		sendPacket.clear_info();
+		auto sendBuffer = GamePacketHandler::MakeSendBuffer(sendPacket);
+		session->Send(sendBuffer);
+	};
 
 	if (lobby)
 	{
-		if (auto room = lobby->EnterRoom(gameSession, packet.room_id()))
+		lobby->DoTaskCallback(&Lobby::FindRoom, [=](shared_ptr<Lobby> lobby, shared_ptr<Room> room)
 		{
-			GLogHelper->Reserve(LogCategory::Log_INFO, "Session %d %s Enter Room %d\n", gameSession->GetID(),
-			                    gameSession->GetNickname().c_str(), room->GetID());
-			sendPacket.set_result(true);
-			sendPacket.set_room_id(room->GetID());
-			sendPacket.set_allocated_info(MakeRoomInfo(room));
-
+			if (room)
 			{
-				ProjectJ::S_ROOM_OTHER_ENTER enterPacket;
-				enterPacket.set_allocated_other(MakePlayer(gameSession));
-				enterPacket.set_allocated_info(MakeRoomInfo(room));
-
-				auto sendBuffer = GamePacketHandler::MakeSendBuffer(enterPacket);
-				room->BroadcastWithoutSelf(sendBuffer, gameSession);
+				room->DoTaskAsync(&Room::Enter, gameSession);
 			}
-		}
-		else
-		{
-			sendPacket.set_result(false);
-			sendPacket.clear_info();
-		}
+			else
+			{
+				failToEnter();
+			}
+		}, gameSession, packet.room_id());
 	}
 	else
 	{
-		sendPacket.set_result(false);
-		sendPacket.clear_info();
+		failToEnter();
 	}
-
-	auto sendBuffer = GamePacketHandler::MakeSendBuffer(sendPacket);
-	session->Send(sendBuffer);
 
 	return true;
 }
 
-bool Handle_C_ROOM_LEAVE(shared_ptr<SessionBase>& session, ProjectJ::C_ROOM_LEAVE& packet)
+bool Handle_C_ROOM_LEAVE(const shared_ptr<SessionBase>& session, ProjectJ::C_ROOM_LEAVE& packet)
 {
 	shared_ptr<GameSession> gameSession = static_pointer_cast<GameSession>(session);
 	shared_ptr<Room> room = gameSession->TryGetRoom();
-	ProjectJ::S_ROOM_LEAVE sendPacket;
+
+	if (!gameSession && gameSession->IsVerified() == false)
+	{
+		gameSession->Disconnect();
+		return false;
+	}
 
 	if (room)
 	{
-		auto lobby = room->GetLobby();
-		auto slotIdx = lobby->LeaveRoom(gameSession, room->GetID());
-		if (slotIdx != INVALID_ROOM_SLOT)
+		if (room->GetID() != packet.room_id())
 		{
-			sendPacket.set_result(true);
-
-			{
-				ProjectJ::S_ROOM_OTHER_LEAVE leavePacket;
-				leavePacket.set_allocated_info(MakeRoomInfo(room));
-				leavePacket.set_allocated_other(MakePlayer(gameSession));
-
-				auto sendBuffer = GamePacketHandler::MakeSendBuffer(leavePacket);
-				room->BroadcastHere(sendBuffer);
-			}
+			session->Disconnect();
+			return false;
 		}
-		else
+
+		room->DoTaskCallback(&Room::Leave, [=](shared_ptr<Room> object, int index)
 		{
-			sendPacket.set_result(false);
-		}
+			ProjectJ::S_ROOM_LEAVE sendPacket;
+			sendPacket.set_result(index > INVALID_ROOM_SLOT ? true : false);
+			auto sendBuffer = GamePacketHandler::MakeSendBuffer(sendPacket);
+			session->Send(sendBuffer);
+		}, gameSession);
 	}
 	else
 	{
-		sendPacket.set_result(false);
+		session->Disconnect();
+		return false;
 	}
-
-	auto sendBuffer = GamePacketHandler::MakeSendBuffer(sendPacket);
-	session->Send(sendBuffer);
 
 	return true;
 }
 
-bool Handle_C_ROOM_READY(shared_ptr<SessionBase>& session, ProjectJ::C_ROOM_READY& packet)
+bool Handle_C_ROOM_READY(const shared_ptr<SessionBase>& session, ProjectJ::C_ROOM_READY& packet)
 {
 	shared_ptr<GameSession> gameSession = static_pointer_cast<GameSession>(session);
 	shared_ptr<Room> room = gameSession->TryGetRoom();
 
+	if (!gameSession && gameSession->IsVerified() == false)
+	{
+		gameSession->Disconnect();
+		return false;
+	}
+
 	if (room)
 	{
-		ProjectJ::S_ROOM_READY sendPacket;
-		room->ToggleReady(gameSession);
-
-		sendPacket.set_allocated_info(MakeRoomInfo(room));
-		auto sendBuffer = GamePacketHandler::MakeSendBuffer(sendPacket);
-		room->BroadcastHere(sendBuffer);
-
-		if (room->CheckAllReady())
+		auto callback = [](shared_ptr<Room> room)
 		{
+			ProjectJ::S_ROOM_READY sendPacket;
+
+			sendPacket.set_allocated_info(room->MakeRoomInfo());
+			auto sendBuffer = GamePacketHandler::MakeSendBuffer(sendPacket);
+			room->BroadcastHere(sendBuffer);
 			room->StandByMatch(5);
-		}
+		};
+		room->DoTaskCallback(&Room::ToggleReady, move(callback), gameSession);
 	}
 
 	return true;
 }
 
-bool Handle_C_ROOM_CHAT(shared_ptr<SessionBase>& session, ProjectJ::C_ROOM_CHAT& packet)
+bool Handle_C_ROOM_CHAT(const shared_ptr<SessionBase>& session, ProjectJ::C_ROOM_CHAT& packet)
 {
 	shared_ptr<GameSession> gameSession = static_pointer_cast<GameSession>(session);
+	auto room = gameSession->TryGetRoom();
 
-	if (auto room = gameSession->TryGetRoom())
+	if (!gameSession && gameSession->IsVerified() == false)
 	{
-		ProjectJ::S_ROOM_CHAT sendPacket;
-		sendPacket.set_account_id(gameSession->GetID());
-		sendPacket.set_nickname(gameSession->GetNickname());
-		sendPacket.set_room_id(room->GetID());
-		sendPacket.set_chat(packet.chat());
+		gameSession->Disconnect();
+		return false;
+	}
 
-		auto sendBuffer = GamePacketHandler::MakeSendBuffer(sendPacket);
-		room->BroadcastHere(sendBuffer);
+	if (room)
+	{
+		room->DoTaskAsync([&room, &gameSession, &packet]()
+		{
+			ProjectJ::S_ROOM_CHAT sendPacket;
+			sendPacket.set_account_id(gameSession->GetID());
+			sendPacket.set_nickname(gameSession->GetNickname());
+			sendPacket.set_room_id(room->GetID());
+			sendPacket.set_chat(packet.chat());
+
+			auto sendBuffer = GamePacketHandler::MakeSendBuffer(sendPacket);
+			room->BroadcastHere(sendBuffer);
+		});
 	}
 
 	return true;
@@ -421,22 +374,22 @@ bool Handle_C_ROOM_CHAT(shared_ptr<SessionBase>& session, ProjectJ::C_ROOM_CHAT&
 
 /* MATCH PROTOCOLS */
 
-bool Handle_C_MATCH_LOADING_COMPLETE(shared_ptr<SessionBase>& session, ProjectJ::C_MATCH_LOADING_COMPLETE& packet)
+bool Handle_C_MATCH_LOADING_COMPLETE(const shared_ptr<SessionBase>& session, ProjectJ::C_MATCH_LOADING_COMPLETE& packet)
 {
 	return true;
 }
 
-bool Handle_C_MATCH_ITEM_PICKUP(shared_ptr<SessionBase>& session, ProjectJ::C_MATCH_ITEM_PICKUP& packet)
+bool Handle_C_MATCH_ITEM_PICKUP(const shared_ptr<SessionBase>& session, ProjectJ::C_MATCH_ITEM_PICKUP& packet)
 {
 	return true;
 }
 
-bool Handle_C_MATCH_ITEM_MOVE(shared_ptr<SessionBase>& session, ProjectJ::C_MATCH_ITEM_MOVE& packet)
+bool Handle_C_MATCH_ITEM_MOVE(const shared_ptr<SessionBase>& session, ProjectJ::C_MATCH_ITEM_MOVE& packet)
 {
 	return true;
 }
 
-bool Handle_C_MATCH_ITEM_DROP(shared_ptr<SessionBase>& session, ProjectJ::C_MATCH_ITEM_DROP& packet)
+bool Handle_C_MATCH_ITEM_DROP(const shared_ptr<SessionBase>& session, ProjectJ::C_MATCH_ITEM_DROP& packet)
 {
 	return true;
 }

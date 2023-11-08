@@ -1,33 +1,33 @@
 ﻿#include "pch.h"
 #include "ServerPacketHandler.h"
 #include "Client.h"
-#include "Menu.h"
 
 PacketHandlerFunc GPacketHandler[UINT16_MAX];
 
-bool Handle_INVALID(shared_ptr<SessionBase>& session, BYTE* bufer, int numOfBytes)
+bool Handle_INVALID(const shared_ptr<SessionBase>& session, BYTE* bufer, int numOfBytes)
 {
 	return true;
 }
 
-bool Handle_S_VERIFY_TOKEN(shared_ptr<SessionBase>& session, ProjectJ::S_VERIFY_TOKEN& packet)
+bool Handle_S_VERIFY_TOKEN(const shared_ptr<SessionBase>& session, ProjectJ::S_VERIFY_TOKEN& packet)
 {
 	auto clientSession = static_pointer_cast<ClientSession>(session);
 
 	if (packet.result())
 	{
 		cout << clientSession->nickname << " 토큰 인증 성공" << endl;
+		clientSession->isVerified = true;
 	}
 
 	return true;
 }
 
-bool Handle_S_LOBBY_CHAT(shared_ptr<SessionBase>& session, ProjectJ::S_LOBBY_CHAT& packet)
+bool Handle_S_LOBBY_CHAT(const shared_ptr<SessionBase>& session, ProjectJ::S_LOBBY_CHAT& packet)
 {
 	return true;
 }
 
-bool Handle_S_LOBBY_REFRESH_ROOM(shared_ptr<SessionBase>& session, ProjectJ::S_LOBBY_REFRESH_ROOM& packet)
+bool Handle_S_LOBBY_REFRESH_ROOM(const shared_ptr<SessionBase>& session, ProjectJ::S_LOBBY_REFRESH_ROOM& packet)
 {
 	auto clientSession = static_pointer_cast<ClientSession>(session);
 
@@ -38,7 +38,7 @@ bool Handle_S_LOBBY_REFRESH_ROOM(shared_ptr<SessionBase>& session, ProjectJ::S_L
 	return true;
 }
 
-bool Handle_S_LOBBY_CREATE_ROOM(shared_ptr<SessionBase>& session, ProjectJ::S_LOBBY_CREATE_ROOM& packet)
+bool Handle_S_LOBBY_CREATE_ROOM(const shared_ptr<SessionBase>& session, ProjectJ::S_LOBBY_CREATE_ROOM& packet)
 {
 	auto clientSession = static_pointer_cast<ClientSession>(session);
 	if (packet.result())
@@ -50,7 +50,7 @@ bool Handle_S_LOBBY_CREATE_ROOM(shared_ptr<SessionBase>& session, ProjectJ::S_LO
 	return true;
 }
 
-bool Handle_S_LOBBY_ENTER_ROOM(shared_ptr<SessionBase>& session, ProjectJ::S_LOBBY_ENTER_ROOM& packet)
+bool Handle_S_LOBBY_ENTER_ROOM(const shared_ptr<SessionBase>& session, ProjectJ::S_LOBBY_ENTER_ROOM& packet)
 {
 	auto clientSession = static_pointer_cast<ClientSession>(session);
 
@@ -63,7 +63,7 @@ bool Handle_S_LOBBY_ENTER_ROOM(shared_ptr<SessionBase>& session, ProjectJ::S_LOB
 	return true;
 }
 
-bool Handle_S_ROOM_LEAVE(shared_ptr<SessionBase>& session, ProjectJ::S_ROOM_LEAVE& packet)
+bool Handle_S_ROOM_LEAVE(const shared_ptr<SessionBase>& session, ProjectJ::S_ROOM_LEAVE& packet)
 {
 	auto clientSession = static_pointer_cast<ClientSession>(session);
 	if (packet.result())
@@ -72,27 +72,27 @@ bool Handle_S_ROOM_LEAVE(shared_ptr<SessionBase>& session, ProjectJ::S_ROOM_LEAV
 	return true;
 }
 
-bool Handle_S_ROOM_OTHER_ENTER(shared_ptr<SessionBase>& session, ProjectJ::S_ROOM_OTHER_ENTER& packet)
+bool Handle_S_ROOM_OTHER_ENTER(const shared_ptr<SessionBase>& session, ProjectJ::S_ROOM_OTHER_ENTER& packet)
 {
 	return true;
 }
 
-bool Handle_S_ROOM_OTHER_LEAVE(shared_ptr<SessionBase>& session, ProjectJ::S_ROOM_OTHER_LEAVE& packet)
+bool Handle_S_ROOM_OTHER_LEAVE(const shared_ptr<SessionBase>& session, ProjectJ::S_ROOM_OTHER_LEAVE& packet)
 {
 	return true;
 }
 
-bool Handle_S_ROOM_READY(shared_ptr<SessionBase>& session, ProjectJ::S_ROOM_READY& packet)
+bool Handle_S_ROOM_READY(const shared_ptr<SessionBase>& session, ProjectJ::S_ROOM_READY& packet)
 {
 	return true;
 }
 
-bool Handle_S_ROOM_CHAT(shared_ptr<SessionBase>& session, ProjectJ::S_ROOM_CHAT& packet)
+bool Handle_S_ROOM_CHAT(const shared_ptr<SessionBase>& session, ProjectJ::S_ROOM_CHAT& packet)
 {
 	return true;
 }
 
-bool Handle_S_ROOM_STANDBY_MATCH(shared_ptr<SessionBase>& session, ProjectJ::S_ROOM_STANDBY_MATCH& packet)
+bool Handle_S_ROOM_STANDBY_MATCH(const shared_ptr<SessionBase>& session, ProjectJ::S_ROOM_STANDBY_MATCH& packet)
 {
 	auto clientSession = static_pointer_cast<ClientSession>(session);
 	clientSession->PrintNickname();
@@ -100,7 +100,7 @@ bool Handle_S_ROOM_STANDBY_MATCH(shared_ptr<SessionBase>& session, ProjectJ::S_R
 	return true;
 }
 
-bool Handle_S_ROOM_START_MATCH(shared_ptr<SessionBase>& session, ProjectJ::S_ROOM_START_MATCH& packet)
+bool Handle_S_ROOM_START_MATCH(const shared_ptr<SessionBase>& session, ProjectJ::S_ROOM_START_MATCH& packet)
 {
 	auto clientSession = static_pointer_cast<ClientSession>(session);
 	clientSession->PrintNickname();
@@ -108,48 +108,49 @@ bool Handle_S_ROOM_START_MATCH(shared_ptr<SessionBase>& session, ProjectJ::S_ROO
 	return true;
 }
 
-bool Handle_S_MATCH_INIT_PLAYER_INDEX(shared_ptr<SessionBase>& session, ProjectJ::S_MATCH_INIT_PLAYER_INDEX& packet)
+bool Handle_S_MATCH_INIT_PLAYER_INDEX(const shared_ptr<SessionBase>& session,
+                                      ProjectJ::S_MATCH_INIT_PLAYER_INDEX& packet)
 {
 	return true;
 }
 
-bool Handle_S_MATCH_INIT_ITEMS(shared_ptr<SessionBase>& session, ProjectJ::S_MATCH_INIT_ITEMS& packet)
+bool Handle_S_MATCH_INIT_ITEMS(const shared_ptr<SessionBase>& session, ProjectJ::S_MATCH_INIT_ITEMS& packet)
 {
 	return true;
 }
 
-bool Handle_S_MATCH_ALL_LOADING_COMPLETE(shared_ptr<SessionBase>& session,
+bool Handle_S_MATCH_ALL_LOADING_COMPLETE(const shared_ptr<SessionBase>& session,
                                          ProjectJ::S_MATCH_ALL_LOADING_COMPLETE& packet)
 {
 	return true;
 }
 
-bool Handle_S_MATCH_START(shared_ptr<SessionBase>& session, ProjectJ::S_MATCH_START& packet)
+bool Handle_S_MATCH_START(const shared_ptr<SessionBase>& session, ProjectJ::S_MATCH_START& packet)
 {
 	return true;
 }
 
-bool Handle_S_MATCH_INFO(shared_ptr<SessionBase>& session, ProjectJ::S_MATCH_INFO& packet)
+bool Handle_S_MATCH_INFO(const shared_ptr<SessionBase>& session, ProjectJ::S_MATCH_INFO& packet)
 {
 	return true;
 }
 
-bool Handle_S_MATCH_END(shared_ptr<SessionBase>& session, ProjectJ::S_MATCH_END& packet)
+bool Handle_S_MATCH_END(const shared_ptr<SessionBase>& session, ProjectJ::S_MATCH_END& packet)
 {
 	return true;
 }
 
-bool Handle_S_MATCH_ITEM_PICKUP(shared_ptr<SessionBase>& session, ProjectJ::S_MATCH_ITEM_PICKUP& packet)
+bool Handle_S_MATCH_ITEM_PICKUP(const shared_ptr<SessionBase>& session, ProjectJ::S_MATCH_ITEM_PICKUP& packet)
 {
 	return true;
 }
 
-bool Handle_S_MATCH_ITEM_MOVE(shared_ptr<SessionBase>& session, ProjectJ::S_MATCH_ITEM_MOVE& packet)
+bool Handle_S_MATCH_ITEM_MOVE(const shared_ptr<SessionBase>& session, ProjectJ::S_MATCH_ITEM_MOVE& packet)
 {
 	return true;
 }
 
-bool Handle_S_MATCH_ITEM_DROP(shared_ptr<SessionBase>& session, ProjectJ::S_MATCH_ITEM_DROP& packet)
+bool Handle_S_MATCH_ITEM_DROP(const shared_ptr<SessionBase>& session, ProjectJ::S_MATCH_ITEM_DROP& packet)
 {
 	return true;
 }

@@ -11,9 +11,9 @@ enum : uint16_t
 {%- endfor %}
 };
 
-bool Handle_INVALID(shared_ptr<SessionBase>& session, BYTE* bufer, int numOfBytes);
+bool Handle_INVALID(const shared_ptr<SessionBase>& session, BYTE* bufer, int numOfBytes);
 {%- for pkt in parser.recv_pkt %}
-bool Handle_{{pkt.name}}(shared_ptr<SessionBase>& session, ProjectJ::{{pkt.name}}& packet);
+bool Handle_{{pkt.name}}(const shared_ptr<SessionBase>& session, ProjectJ::{{pkt.name}}& packet);
 {%- endfor %}
 
 

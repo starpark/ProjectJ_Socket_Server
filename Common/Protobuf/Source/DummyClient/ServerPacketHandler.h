@@ -41,34 +41,34 @@ enum : uint16_t
 	PKT_S_MATCH_ITEM_DROP = 1032,
 };
 
-bool Handle_INVALID(shared_ptr<SessionBase>& session, BYTE* bufer, int numOfBytes);
-bool Handle_S_VERIFY_TOKEN(shared_ptr<SessionBase>& session, ProjectJ::S_VERIFY_TOKEN& packet);
-bool Handle_S_LOBBY_CHAT(shared_ptr<SessionBase>& session, ProjectJ::S_LOBBY_CHAT& packet);
-bool Handle_S_LOBBY_REFRESH_ROOM(shared_ptr<SessionBase>& session, ProjectJ::S_LOBBY_REFRESH_ROOM& packet);
-bool Handle_S_LOBBY_CREATE_ROOM(shared_ptr<SessionBase>& session, ProjectJ::S_LOBBY_CREATE_ROOM& packet);
-bool Handle_S_LOBBY_ENTER_ROOM(shared_ptr<SessionBase>& session, ProjectJ::S_LOBBY_ENTER_ROOM& packet);
-bool Handle_S_ROOM_LEAVE(shared_ptr<SessionBase>& session, ProjectJ::S_ROOM_LEAVE& packet);
-bool Handle_S_ROOM_OTHER_ENTER(shared_ptr<SessionBase>& session, ProjectJ::S_ROOM_OTHER_ENTER& packet);
-bool Handle_S_ROOM_OTHER_LEAVE(shared_ptr<SessionBase>& session, ProjectJ::S_ROOM_OTHER_LEAVE& packet);
-bool Handle_S_ROOM_READY(shared_ptr<SessionBase>& session, ProjectJ::S_ROOM_READY& packet);
-bool Handle_S_ROOM_CHAT(shared_ptr<SessionBase>& session, ProjectJ::S_ROOM_CHAT& packet);
-bool Handle_S_ROOM_STANDBY_MATCH(shared_ptr<SessionBase>& session, ProjectJ::S_ROOM_STANDBY_MATCH& packet);
-bool Handle_S_ROOM_START_MATCH(shared_ptr<SessionBase>& session, ProjectJ::S_ROOM_START_MATCH& packet);
-bool Handle_S_MATCH_INIT_PLAYER_INDEX(shared_ptr<SessionBase>& session, ProjectJ::S_MATCH_INIT_PLAYER_INDEX& packet);
-bool Handle_S_MATCH_INIT_ITEMS(shared_ptr<SessionBase>& session, ProjectJ::S_MATCH_INIT_ITEMS& packet);
-bool Handle_S_MATCH_ALL_LOADING_COMPLETE(shared_ptr<SessionBase>& session, ProjectJ::S_MATCH_ALL_LOADING_COMPLETE& packet);
-bool Handle_S_MATCH_START(shared_ptr<SessionBase>& session, ProjectJ::S_MATCH_START& packet);
-bool Handle_S_MATCH_INFO(shared_ptr<SessionBase>& session, ProjectJ::S_MATCH_INFO& packet);
-bool Handle_S_MATCH_END(shared_ptr<SessionBase>& session, ProjectJ::S_MATCH_END& packet);
-bool Handle_S_MATCH_ITEM_PICKUP(shared_ptr<SessionBase>& session, ProjectJ::S_MATCH_ITEM_PICKUP& packet);
-bool Handle_S_MATCH_ITEM_MOVE(shared_ptr<SessionBase>& session, ProjectJ::S_MATCH_ITEM_MOVE& packet);
-bool Handle_S_MATCH_ITEM_DROP(shared_ptr<SessionBase>& session, ProjectJ::S_MATCH_ITEM_DROP& packet);
+bool Handle_INVALID(const shared_ptr<SessionBase>& session, BYTE* bufer, int numOfBytes);
+bool Handle_S_VERIFY_TOKEN(const shared_ptr<SessionBase>& session, ProjectJ::S_VERIFY_TOKEN& packet);
+bool Handle_S_LOBBY_CHAT(const shared_ptr<SessionBase>& session, ProjectJ::S_LOBBY_CHAT& packet);
+bool Handle_S_LOBBY_REFRESH_ROOM(const shared_ptr<SessionBase>& session, ProjectJ::S_LOBBY_REFRESH_ROOM& packet);
+bool Handle_S_LOBBY_CREATE_ROOM(const shared_ptr<SessionBase>& session, ProjectJ::S_LOBBY_CREATE_ROOM& packet);
+bool Handle_S_LOBBY_ENTER_ROOM(const shared_ptr<SessionBase>& session, ProjectJ::S_LOBBY_ENTER_ROOM& packet);
+bool Handle_S_ROOM_LEAVE(const shared_ptr<SessionBase>& session, ProjectJ::S_ROOM_LEAVE& packet);
+bool Handle_S_ROOM_OTHER_ENTER(const shared_ptr<SessionBase>& session, ProjectJ::S_ROOM_OTHER_ENTER& packet);
+bool Handle_S_ROOM_OTHER_LEAVE(const shared_ptr<SessionBase>& session, ProjectJ::S_ROOM_OTHER_LEAVE& packet);
+bool Handle_S_ROOM_READY(const shared_ptr<SessionBase>& session, ProjectJ::S_ROOM_READY& packet);
+bool Handle_S_ROOM_CHAT(const shared_ptr<SessionBase>& session, ProjectJ::S_ROOM_CHAT& packet);
+bool Handle_S_ROOM_STANDBY_MATCH(const shared_ptr<SessionBase>& session, ProjectJ::S_ROOM_STANDBY_MATCH& packet);
+bool Handle_S_ROOM_START_MATCH(const shared_ptr<SessionBase>& session, ProjectJ::S_ROOM_START_MATCH& packet);
+bool Handle_S_MATCH_INIT_PLAYER_INDEX(const shared_ptr<SessionBase>& session, ProjectJ::S_MATCH_INIT_PLAYER_INDEX& packet);
+bool Handle_S_MATCH_INIT_ITEMS(const shared_ptr<SessionBase>& session, ProjectJ::S_MATCH_INIT_ITEMS& packet);
+bool Handle_S_MATCH_ALL_LOADING_COMPLETE(const shared_ptr<SessionBase>& session, ProjectJ::S_MATCH_ALL_LOADING_COMPLETE& packet);
+bool Handle_S_MATCH_START(const shared_ptr<SessionBase>& session, ProjectJ::S_MATCH_START& packet);
+bool Handle_S_MATCH_INFO(const shared_ptr<SessionBase>& session, ProjectJ::S_MATCH_INFO& packet);
+bool Handle_S_MATCH_END(const shared_ptr<SessionBase>& session, ProjectJ::S_MATCH_END& packet);
+bool Handle_S_MATCH_ITEM_PICKUP(const shared_ptr<SessionBase>& session, ProjectJ::S_MATCH_ITEM_PICKUP& packet);
+bool Handle_S_MATCH_ITEM_MOVE(const shared_ptr<SessionBase>& session, ProjectJ::S_MATCH_ITEM_MOVE& packet);
+bool Handle_S_MATCH_ITEM_DROP(const shared_ptr<SessionBase>& session, ProjectJ::S_MATCH_ITEM_DROP& packet);
 
 
 // 소켓 수신 데이터 처리 및 송신 버퍼 생성 클래스
 // 최초 작성자: 박별
 // 수정자: 
-// 최종 수정일: 2023-11-06 자동 생성
+// 최종 수정일: 2023-11-08 자동 생성
 class ServerPacketHandler
 {
 public:
