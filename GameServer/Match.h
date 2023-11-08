@@ -18,7 +18,7 @@ enum class PlayerState
 	DISCONNECTED = 8
 };
 
-class Match : public TickTask
+class Match : public CommandTaskObject
 {
 	enum : UINT64
 	{
@@ -29,7 +29,7 @@ public:
 	Match(shared_ptr<Room> owner);
 	~Match() override;
 
-	void Tick(double deltaTime) override;
+	void Tick(double deltaTime);
 	void Broadcast(shared_ptr<SendBuffer> sendBuffer);
 
 	void Init(shared_ptr<GameSession> chaser, shared_ptr<GameSession> fugitiveFirst,
@@ -42,6 +42,7 @@ public:
 	void PlayerStateChanged(shared_ptr<GameSession> player, PlayerState state);
 	void PlayerDisconnected(const shared_ptr<GameSession>& session);
 
+	shared_ptr<Match> GetMatchPtr() { return static_pointer_cast<Match>(shared_from_this()); }
 
 private:
 	void GenerateItems();

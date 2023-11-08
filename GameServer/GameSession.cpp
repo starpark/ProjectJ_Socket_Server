@@ -64,9 +64,22 @@ void GameSession::ProcessLeaveMatch()
 	match_.reset();
 }
 
+ProjectJ::Player* GameSession::MakePlayer()
+{
+	if (IsVerified() == false)
+	{
+		return nullptr;
+	}
+
+	auto player = new ProjectJ::Player();
+	player->set_account_id(GetID());
+	player->set_nickname(GetNickname());
+	return player;
+}
+
 void GameSession::OnConnected()
 {
-	// GLogHelper->Reserve(LogCategory::Log_INFO, L"OnConnected %s\n", netAddress_.GetIpAddressW().c_str());
+	// GLogHelper->SetTimer(LogCategory::Log_INFO, L"OnConnected %s\n", netAddress_.GetIpAddressW().c_str());
 }
 
 void GameSession::OnDisconnect()
@@ -84,7 +97,7 @@ void GameSession::OnDisconnect()
 	{
 		if (auto room = room_.lock())
 		{
-			lobby->LeaveRoom(gameSession, room->GetID());
+			room->DoTaskAsync(&Room::Leave, gameSession);
 		}
 		ProcessLeaveLobby();
 	}
@@ -92,13 +105,13 @@ void GameSession::OnDisconnect()
 
 int GameSession::OnRecv(BYTE* buffer, int numOfBytes)
 {
-	// GLogHelper->Reserve(LogCategory::Log_TEMP, L"OnRecv\n");
+	// GLogHelper->SetTimer(LogCategory::Log_TEMP, L"OnRecv\n");
 
 	int processLen = 0;
 	while (true)
 	{
 		int dataSize = numOfBytes - processLen;
-		if (dataSize <= sizeof(PacketHeader))
+		if (dataSize < sizeof(PacketHeader))
 		{
 			break;
 		}

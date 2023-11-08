@@ -25,7 +25,6 @@ public:
 	~Player();
 
 	shared_ptr<GameSession> GetOwnerSession() { return ownerSession_.lock(); }
-
 	void SetSession(const shared_ptr<GameSession>& session) { ownerSession_ = session; }
 	void SetInfo(ProjectJ::Vector position, ProjectJ::Rotator rotation);
 	void ResetMatch() { match_.reset(); }

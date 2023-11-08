@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Message.pb.h"
+
 class Player;
 class GameSession;
 class Lobby;
@@ -13,11 +15,11 @@ enum class RoomState : uint8_t
 	INGAME = 1,
 };
 
-class Room : public enable_shared_from_this<Room>
+class Room : public CommandTaskObject
 {
 public:
 	Room(int roomNumber, string title, shared_ptr<GameSession> hostSession, shared_ptr<Lobby> lobby);
-	~Room();
+	~Room() override;
 
 public:
 	int GetID() { return roomID_; }
@@ -26,24 +28,25 @@ public:
 	vector<pair<shared_ptr<GameSession>, bool>> GetRoomInfo();
 	RoomState GetState() { return state_; }
 	shared_ptr<Lobby> GetLobby() { return lobby_.lock(); }
+	shared_ptr<Room> GetRoomPtr() { return static_pointer_cast<Room>(shared_from_this()); }
 
 	void SetState(RoomState state) { state_ = state; }
 
 
-	bool EnterSession(shared_ptr<GameSession> session);
-	int LeaveSession(const shared_ptr<GameSession>& session);
+	bool Enter(shared_ptr<GameSession> session);
+	int Leave(shared_ptr<GameSession> session);
+	ProjectJ::RoomInfo* MakeRoomInfo();
 	void BroadcastHere(shared_ptr<SendBuffer> sendBuffer);
-	void BroadcastWithoutSelf(shared_ptr<SendBuffer> sendBuffer, const shared_ptr<GameSession>& self);
-	bool ChangePlayerPosition(const shared_ptr<GameSession>& session, int currentNumber, int desireNumber);
-	void ToggleReady(const shared_ptr<GameSession>& session);
+	void BroadcastWithoutSelf(shared_ptr<SendBuffer> sendBuffer, shared_ptr<GameSession> self);
+	bool ChangePlayerPosition(shared_ptr<GameSession> session, int currentNumber, int desireNumber);
+	void ToggleReady(shared_ptr<GameSession> session);
 	bool CheckAllReady();
-	void StandByMatch(UINT count);
+	void StandByMatch(int count);
 	void StartMatch();
 	void EndMatch();
 	void DestroyMatch();
 
 private:
-	USE_LOCK;
 	atomic<bool> standby_ = false;
 	RoomState state_ = RoomState::WAITING;
 	int roomID_ = -1;

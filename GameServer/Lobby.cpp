@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "Lobby.h"
 #include "GameService.h"
+#include "Message.pb.h"
 
 Lobby::Lobby(shared_ptr<GameService> service)
 	: service_(service)
@@ -15,7 +16,6 @@ Lobby::~Lobby()
 
 shared_ptr<Room> Lobby::FindRoomByNumber(int roomNumber)
 {
-	READ_LOCK;
 	if (rooms_.find(roomNumber) != rooms_.end())
 	{
 		return rooms_[roomNumber];
@@ -26,7 +26,6 @@ shared_ptr<Room> Lobby::FindRoomByNumber(int roomNumber)
 
 vector<shared_ptr<Room>> Lobby::GetRoomList()
 {
-	READ_LOCK;
 	vector<shared_ptr<Room>> list;
 	for (auto room : rooms_)
 	{
@@ -54,53 +53,29 @@ shared_ptr<Room> Lobby::CreateRoom(shared_ptr<GameSession> session, string title
 		title = title.substr(0, 60);
 	}
 
-	// shared_ptr<Room> newRoom = ObjectPool<Room>::MakeShared(roomID, title, session, shared_from_this());
-	auto newRoom = make_shared<Room>(roomID, title.substr(0, 20), session, shared_from_this());
-	newRoom->EnterSession(session);
+	shared_ptr<Room> newRoom = ObjectPool<Room>::MakeShared(roomID, title, session, GetLobbyPtr());
+	//auto newRoom = make_shared<Room>(roomID, title.substr(0, 20), session, GetLobbyPtr());
 
 	GLogHelper->Reserve(LogCategory::Log_INFO, "Lobby Create New Room Title:%s ID: %d\n", title.c_str(), roomID);
 
-	WRITE_LOCK;
 	rooms_.insert({roomID, newRoom});
 
 	return newRoom;
 }
 
-shared_ptr<Room> Lobby::EnterRoom(shared_ptr<GameSession> session, int roomID)
+shared_ptr<Room> Lobby::FindRoom(shared_ptr<GameSession> session, int roomID)
 {
-	WRITE_LOCK;
 	if (auto room = FindRoomByNumber(roomID))
 	{
-		if (room->EnterSession(session))
-		{
-			return room;
-		}
+		return room;
 	}
 
 	return nullptr;
 }
 
-int Lobby::LeaveRoom(const shared_ptr<GameSession>& session, int roomID)
-{
-	WRITE_LOCK;
-	if (auto room = FindRoomByNumber(roomID))
-	{
-		int result = room->LeaveSession(session);
-		if (result >= 0)
-		{
-			if (room->GetNumberOfPlayer() == 0)
-			{
-				DestroyRoom(roomID);
-			}
-		}
-	}
-
-	return INVALID_ROOM_SLOT;
-}
 
 void Lobby::DestroyRoom(int roomNumber)
 {
-	WRITE_LOCK;
 	auto roomIter = rooms_.find(roomNumber);
 	if (roomIter != rooms_.end())
 	{

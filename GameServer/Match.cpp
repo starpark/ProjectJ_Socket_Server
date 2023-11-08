@@ -19,7 +19,7 @@ Match::~Match()
 
 void Match::Tick(double deltaTime)
 {
-	// GLogHelper->Reserve(LogCategory::Log_INFO, "Room#%d Match Tick \n", ownerRoom_->GetID());
+	// GLogHelper->SetTimer(LogCategory::Log_INFO, "Room#%d Match Tick \n", ownerRoom_->GetID());
 	if (CheckEndCondition())
 	{
 		End();
@@ -86,7 +86,7 @@ void Match::Start()
 	const UINT64 currentTick = GetTickCount64();
 	matchEndTick_ = currentTick + MATCH_END_TICK;
 
-	GTickTaskManager->AddTask(shared_from_this());
+	// TODO TICK
 }
 
 void Match::End()
@@ -95,7 +95,6 @@ void Match::End()
 	// TODO Score Calculation
 	if (matchStated_.load() == true)
 	{
-		GTickTaskManager->RemoveTask(shared_from_this());
 		matchStated_.store(false);
 	}
 

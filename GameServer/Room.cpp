@@ -1,6 +1,5 @@
 #include "pch.h"
 #include "Room.h"
-
 #include "GamePacketHandler.h"
 #include "GameSession.h"
 #include "Lobby.h"
@@ -10,6 +9,7 @@
 Room::Room(int roomNumber, string title, shared_ptr<GameSession> hostSession, shared_ptr<Lobby> lobby)
 	: roomID_(roomNumber), title_(move(title)), lobby_(lobby)
 {
+	GLogHelper->Reserve(LogCategory::Log_INFO, L"Room()#%d\n", roomID_);
 	sessionSlots_.assign(4, make_pair(nullptr, false));
 }
 
@@ -32,9 +32,8 @@ vector<pair<shared_ptr<GameSession>, bool>> Room::GetRoomInfo()
 	return roomInfo;
 }
 
-bool Room::EnterSession(shared_ptr<GameSession> session)
+bool Room::Enter(shared_ptr<GameSession> session)
 {
-	WRITE_LOCK;
 	if (numberOfPlayers_ == MAX_PLAYER_NUMBER || state_ == RoomState::INGAME)
 	{
 		return false;
@@ -47,20 +46,50 @@ bool Room::EnterSession(shared_ptr<GameSession> session)
 			sessionSlots_[i].first = session;
 			sessionSlots_[i].second = false;
 
-			session->ProcessEnterRoom(shared_from_this());
+			session->ProcessEnterRoom(GetRoomPtr());
 
 			numberOfPlayers_++;
+
+			GLogHelper->Reserve(LogCategory::Log_INFO, "%s Entered Room#%d\n", session->GetNickname().c_str(), roomID_);
+
+			{
+				ProjectJ::S_LOBBY_ENTER_ROOM sendPacket;
+				sendPacket.set_result(true);
+				sendPacket.set_allocated_info(MakeRoomInfo());
+				sendPacket.set_room_id(roomID_);
+
+				auto sendBuffer = GamePacketHandler::MakeSendBuffer(sendPacket);
+				session->Send(sendBuffer);
+			}
+
+			{
+				ProjectJ::S_ROOM_OTHER_ENTER sendPacket;
+				sendPacket.set_allocated_info(MakeRoomInfo());
+				sendPacket.set_allocated_other(session->MakePlayer());
+
+				auto sendBuffer = GamePacketHandler::MakeSendBuffer(sendPacket);
+				BroadcastWithoutSelf(sendBuffer, session);
+			}
 
 			return true;
 		}
 	}
 
+	{
+		ProjectJ::S_LOBBY_ENTER_ROOM sendPacket;
+		sendPacket.set_result(false);
+		sendPacket.clear_info();
+		sendPacket.clear_room_id();
+
+		auto sendBuffer = GamePacketHandler::MakeSendBuffer(sendPacket);
+		BroadcastHere(sendBuffer);
+	}
+
 	return false;
 }
 
-int Room::LeaveSession(const shared_ptr<GameSession>& session)
+int Room::Leave(shared_ptr<GameSession> session)
 {
-	WRITE_LOCK;
 	for (int i = 0; i < MAX_PLAYER_NUMBER; i++)
 	{
 		if (sessionSlots_[i].first == session)
@@ -72,6 +101,25 @@ int Room::LeaveSession(const shared_ptr<GameSession>& session)
 
 			numberOfPlayers_--;
 
+			GLogHelper->Reserve(LogCategory::Log_INFO, "%s Leaved Room#%d\n", session->GetNickname().c_str(), roomID_);
+
+			if (numberOfPlayers_ == 0)
+			{
+				if (auto lobby = GetLobby())
+				{
+					lobby->DoTaskAsync(&Lobby::DestroyRoom, roomID_);
+				}
+			}
+			else
+			{
+				ProjectJ::S_ROOM_OTHER_LEAVE leavePacket;
+				leavePacket.set_allocated_other(session->MakePlayer());
+				leavePacket.set_allocated_info(MakeRoomInfo());
+
+				auto sendBuffer = GamePacketHandler::MakeSendBuffer(leavePacket);
+				BroadcastHere(sendBuffer);
+			}
+
 			return i;
 		}
 	}
@@ -79,9 +127,101 @@ int Room::LeaveSession(const shared_ptr<GameSession>& session)
 	return -1;
 }
 
+ProjectJ::RoomInfo* Room::MakeRoomInfo()
+{
+	auto roomInfo = new ProjectJ::RoomInfo();
+
+	roomInfo->set_title(title_);
+	roomInfo->set_room_id(roomID_);
+
+	vector<pair<shared_ptr<GameSession>, bool>>& info = sessionSlots_;
+	// 0: chaser
+	{
+		auto chaser = new ProjectJ::RoomInfo_PlayerSlot();
+
+		if (info[0].first != nullptr)
+		{
+			auto player = new ProjectJ::Player();
+			player->set_account_id(info[0].first->GetID());
+			player->set_nickname(info[0].first->GetNickname());
+			chaser->set_allocated_player(player);
+			chaser->set_is_ready(info[0].second);
+		}
+		else
+		{
+			chaser->clear_player();
+			chaser->clear_is_ready();
+		}
+
+		roomInfo->set_allocated_chaser(chaser);
+	}
+
+	// 1: fugitive one
+	{
+		auto fugitive = new ProjectJ::RoomInfo_PlayerSlot();
+
+		if (info[1].first != nullptr)
+		{
+			auto player = new ProjectJ::Player();
+			player->set_account_id(info[1].first->GetID());
+			player->set_nickname(info[1].first->GetNickname());
+			fugitive->set_allocated_player(player);
+			fugitive->set_is_ready(info[1].second);
+		}
+		else
+		{
+			fugitive->clear_player();
+			fugitive->clear_is_ready();
+		}
+
+		roomInfo->set_allocated_fugitive_first(fugitive);
+	}
+
+	// 2: fugitive two
+	{
+		auto fugitive = new ProjectJ::RoomInfo_PlayerSlot();
+
+		if (info[2].first != nullptr)
+		{
+			auto player = new ProjectJ::Player();
+			player->set_account_id(info[2].first->GetID());
+			player->set_nickname(info[2].first->GetNickname());
+			fugitive->set_allocated_player(player);
+		}
+		else
+		{
+			fugitive->clear_player();
+			fugitive->clear_is_ready();
+		}
+
+		roomInfo->set_allocated_fugitive_second(fugitive);
+	}
+
+	// 3: fugitive three
+	{
+		auto fugitive = new ProjectJ::RoomInfo_PlayerSlot();
+
+		if (info[3].first != nullptr)
+		{
+			auto player = new ProjectJ::Player();
+			player->set_account_id(info[3].first->GetID());
+			player->set_nickname(info[3].first->GetNickname());
+			fugitive->set_allocated_player(player);
+		}
+		else
+		{
+			fugitive->clear_player();
+			fugitive->clear_is_ready();
+		}
+
+		roomInfo->set_allocated_fugitive_third(fugitive);
+	}
+
+	return roomInfo;
+}
+
 void Room::BroadcastHere(shared_ptr<SendBuffer> sendBuffer)
 {
-	WRITE_LOCK;
 	for (auto session : sessionSlots_)
 	{
 		if (session.first == nullptr)
@@ -92,9 +232,8 @@ void Room::BroadcastHere(shared_ptr<SendBuffer> sendBuffer)
 	}
 }
 
-void Room::BroadcastWithoutSelf(shared_ptr<SendBuffer> sendBuffer, const shared_ptr<GameSession>& self)
+void Room::BroadcastWithoutSelf(shared_ptr<SendBuffer> sendBuffer, shared_ptr<GameSession> self)
 {
-	WRITE_LOCK;
 	for (auto session : sessionSlots_)
 	{
 		if (session.first == self || session.first == nullptr)
@@ -105,14 +244,13 @@ void Room::BroadcastWithoutSelf(shared_ptr<SendBuffer> sendBuffer, const shared_
 	}
 }
 
-bool Room::ChangePlayerPosition(const shared_ptr<GameSession>& session, int currentNumber, int desireNumber)
+bool Room::ChangePlayerPosition(shared_ptr<GameSession> session, int currentNumber, int desireNumber)
 {
 	if (currentNumber < 0 || currentNumber > 4 || desireNumber < 0 || desireNumber > 4)
 	{
 		return false;
 	}
 
-	WRITE_LOCK;
 	if (sessionSlots_[desireNumber].first == nullptr && sessionSlots_[currentNumber].first == session)
 	{
 		sessionSlots_[currentNumber].second = false;
@@ -124,9 +262,8 @@ bool Room::ChangePlayerPosition(const shared_ptr<GameSession>& session, int curr
 	return true;
 }
 
-void Room::ToggleReady(const shared_ptr<GameSession>& session)
+void Room::ToggleReady(shared_ptr<GameSession> session)
 {
-	WRITE_LOCK;
 	for (int i = 0; i < MAX_PLAYER_NUMBER; i++)
 	{
 		if (sessionSlots_[i].first == session)
@@ -138,7 +275,6 @@ void Room::ToggleReady(const shared_ptr<GameSession>& session)
 
 bool Room::CheckAllReady()
 {
-	READ_LOCK;
 	for (int i = 0; i < MAX_PLAYER_NUMBER; i++)
 	{
 		if (sessionSlots_[i].first == nullptr || sessionSlots_[i].second == false)
@@ -150,35 +286,26 @@ bool Room::CheckAllReady()
 	return true;
 }
 
-void Room::StandByMatch(UINT count)
+void Room::StandByMatch(int count)
 {
-	if (count == 5 && standby_.exchange(true) == true)
-	{
-		return;
-	}
-
-	if (count < 5 && standby_.load() != true)
-	{
-		return;
-	}
-
-	{
-		ProjectJ::S_ROOM_STANDBY_MATCH sendPacket;
-		sendPacket.set_count(count);
-
-		auto sendBuffer = GamePacketHandler::MakeSendBuffer(sendPacket);
-		BroadcastHere(sendBuffer);
-	}
-
 	if (CheckAllReady())
 	{
+		{
+			ProjectJ::S_ROOM_STANDBY_MATCH sendPacket;
+			sendPacket.set_count(count);
+
+			auto sendBuffer = GamePacketHandler::MakeSendBuffer(sendPacket);
+			BroadcastHere(sendBuffer);
+		}
+
 		if (count == 0)
 		{
-			StartMatch();
+			DoTaskAsync(&Room::StartMatch);
 		}
 		else
 		{
-			GTimerTaskManager->Reserve(1000, shared_from_this(), &Room::StandByMatch, count - 1);
+			shared_ptr<Room> room = static_pointer_cast<Room>(shared_from_this());
+			GTimerTaskManager->AddTimer(1000, false, room, &Room::StandByMatch, count - 1);
 		}
 	}
 	else
@@ -196,7 +323,7 @@ void Room::StartMatch()
 	shared_ptr<GameSession> fugitiveSecond = sessionSlots_[2].first;
 	shared_ptr<GameSession> fugitiveThird = sessionSlots_[3].first;
 
-	match_ = make_shared<Match>(shared_from_this());
+	match_ = make_shared<Match>(GetRoomPtr());
 	match_->Init(chaser, fugitiveFirst, fugitiveSecond, fugitiveThird);
 
 	{

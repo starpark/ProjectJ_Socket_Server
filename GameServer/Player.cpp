@@ -16,6 +16,7 @@ Player::~Player()
 	inventory_ = nullptr;
 }
 
+
 void Player::SetInfo(ProjectJ::Vector position, ProjectJ::Rotator rotation)
 {
 	WRITE_LOCK;

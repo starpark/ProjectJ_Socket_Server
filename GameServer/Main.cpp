@@ -20,27 +20,10 @@ void DoWorkThread(const shared_ptr<GameService>& service)
 		service->GetIocpMain()->WorkThread(10);
 
 		// Tasks
-		GTickTaskManager->DoTask(currentTick);
-		GCommandTaskManager->Execute();
-		GTimerTaskManager->Execute();
+		GTimerTaskManager->Distribute();
+		GCommandTaskManager->ExecuteTask();
 	}
 }
-
-class TestTick : public TickTask
-{
-public:
-	int count = 0;
-	double timeElapsed = 0.0f;
-
-	void Tick(double deltaTime) override
-	{
-		count++;
-		timeElapsed += deltaTime;
-		double fps = static_cast<double>(count) / timeElapsed;
-		GLogHelper->Reserve(LogCategory::Log_WARN, "%d: %d %lf\n", LThreadID, count, fps);
-	}
-};
-
 
 int main()
 {

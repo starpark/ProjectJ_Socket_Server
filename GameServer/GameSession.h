@@ -70,6 +70,8 @@ public:
 	void SetMatch(const shared_ptr<Match>& match) { match_ = match; }
 	void SetIsVerified(bool verifying) { bIsVerified = verifying; }
 
+	ProjectJ::Player* MakePlayer();
+
 protected:
 	void OnConnected() override;
 	void OnDisconnect() override;
