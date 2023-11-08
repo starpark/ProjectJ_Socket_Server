@@ -9,7 +9,8 @@ RecvBuffer::RecvBuffer()
 
 void RecvBuffer::CleanupBuffer()
 {
-	if (writePos_ == readPos_)
+	int dataSize = GetDataSize();
+	if (dataSize == 0)
 	{
 		writePos_ = readPos_ = 0;
 	}
@@ -17,7 +18,6 @@ void RecvBuffer::CleanupBuffer()
 	{
 		if (GetFreeSize() <= MIN_BUFFER_SIZE)
 		{
-			const unsigned int dataSize = GetDataSize();
 			memcpy(&buffer_[0], GetWriteBufferPos(), dataSize);
 			readPos_ = 0;
 			writePos_ = dataSize;

@@ -29,6 +29,7 @@ using namespace std;
 #include "Lock.h"
 #include "LockQueue.h"
 #include "ObjectPool.h"
+#include "SendBuffer.h"
 #include "ThreadLocal.h"
 #include "LogHelper.h"
 #include "ThreadManager.h"

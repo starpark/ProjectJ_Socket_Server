@@ -250,7 +250,7 @@ void SessionBase::ProcessRecv(unsigned int numOfBytes)
 		return;
 	}
 
-	const int dataSize = recvBuffer_.GetDataSize();
+	int dataSize = recvBuffer_.GetDataSize();
 	int processSize = OnRecv(recvBuffer_.GetReadBufferPos(), dataSize);
 	if (processSize < 0 || dataSize < processSize || recvBuffer_.ReadData(processSize) == false)
 	{

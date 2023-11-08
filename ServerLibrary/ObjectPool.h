@@ -40,7 +40,6 @@ public: // 외부 사용
 		return ptr;
 	}
 
-private:
 	template <typename... Args>
 	static ObjectType* Pop(Args&&... args)
 	{

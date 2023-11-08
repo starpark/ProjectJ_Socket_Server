@@ -42,10 +42,6 @@ void ThreadManager::DestroyTLS()
 {
 }
 
-void ThreadManager::DoGlobalQueueWork()
-{
-}
-
 void ThreadManager::DistributeReservedJobs()
 {
 }
