@@ -56,18 +56,19 @@ shared_ptr<Room> Lobby::CreateRoom(shared_ptr<GameSession> session, string title
 	shared_ptr<Room> newRoom = ObjectPool<Room>::MakeShared(roomID, title, session, GetLobbyPtr());
 	//auto newRoom = make_shared<Room>(roomID, title.substr(0, 20), session, GetLobbyPtr());
 
-	GLogHelper->Reserve(LogCategory::Log_INFO, "Lobby Create New Room Title:%s ID: %d\n", title.c_str(), roomID);
+	GLogHelper->Print(LogCategory::Log_INFO, L"%s Created Room#%d Title: %s\n", UTF8_TO_WCHAR(session->GetNickname().c_str()), roomID,
+	                  UTF8_TO_WCHAR(title.c_str()));
 
 	rooms_.insert({roomID, newRoom});
 
 	return newRoom;
 }
 
-shared_ptr<Room> Lobby::FindRoom(shared_ptr<GameSession> session, int roomID)
+shared_ptr<Room> Lobby::FindRoom(int roomID)
 {
-	if (auto room = FindRoomByNumber(roomID))
+	if (rooms_.find(roomID) != rooms_.end())
 	{
-		return room;
+		return rooms_[roomID];
 	}
 
 	return nullptr;
@@ -79,7 +80,7 @@ void Lobby::DestroyRoom(int roomNumber)
 	auto roomIter = rooms_.find(roomNumber);
 	if (roomIter != rooms_.end())
 	{
-		GLogHelper->Reserve(LogCategory::Log_INFO, L"Lobby Destroy Room %d\n", roomNumber);
+		GLogHelper->Print(LogCategory::Log_INFO, L"Lobby Destroy Room %d\n", roomNumber);
 		shared_ptr<Room> room = roomIter->second;
 
 		rooms_.erase(roomNumber);

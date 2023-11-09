@@ -1,8 +1,6 @@
 #pragma once
 #include "Room.h"
 
-#define INVALID_ROOM_SLOT -1
-
 class GameService;
 
 class Lobby : public CommandTaskObject
@@ -18,7 +16,7 @@ public:
 
 	void Broadcast(shared_ptr<SendBuffer> sendBuffer);
 	shared_ptr<Room> CreateRoom(shared_ptr<GameSession> session, string title);
-	shared_ptr<Room> FindRoom(shared_ptr<GameSession> session, int roomID);
+	shared_ptr<Room> FindRoom(int roomID);
 	void DestroyRoom(int roomNumber);
 
 private:
