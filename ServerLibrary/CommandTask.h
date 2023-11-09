@@ -34,13 +34,13 @@ public:
 			{
 				(object.get()->*memberFunc)(args...);
 
-				(callback)(object);
+				(callback)();
 			}
 			else
 			{
 				RetValType retVal = (object.get()->*memberFunc)(args...);
 
-				(callback)(object, retVal);
+				(callback)(retVal);
 			}
 		};
 	}
