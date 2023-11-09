@@ -1,7 +1,7 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "Client.h"
 
-#define SESSION_COUNT 50
+#define SESSION_COUNT 10
 
 int main(int argc, char* argv[])
 {
@@ -29,13 +29,20 @@ int main(int argc, char* argv[])
 			}));
 		}
 	}
+	else
+	{
+		return 0;
+	}
 
 	this_thread::sleep_for(5s);
 
 	auto sessions = service->GetSessionsRef();
 	vector<shared_ptr<ClientSession>> cSessions;
-
-	int index = strtol(argv[1], NULL, 10);
+	int index = 1;
+	if (argc > 1)
+	{
+		index = strtol(argv[1], NULL, 10);
+	}
 	for (auto session : sessions)
 	{
 		auto cSession = static_pointer_cast<ClientSession>(session);
@@ -55,19 +62,25 @@ int main(int argc, char* argv[])
 
 	while (true)
 	{
-		for (int i = 0; i < cSessions.size() / 4; i++)
+		int clientPerTest = 3;
+		for (int i = 0; i < cSessions.size() / clientPerTest; i++)
 		{
-			cSessions[i * 4]->TestCreateRoom("Test Room" + to_string(i));
+			cSessions[i * clientPerTest]->TestCreateRoom(u8"한글 테스트 방" + to_string(i));
 			this_thread::sleep_for(3s);
-			int roomId = cSessions[i * 4]->roomID;
-			cSessions[i * 4 + 1]->TestEnterRoom(roomId);
-			cSessions[i * 4 + 2]->TestEnterRoom(roomId);
-			cSessions[i * 4 + 3]->TestEnterRoom(roomId);
+			int roomId = cSessions[i * clientPerTest]->roomID;
+			cSessions[i * clientPerTest + 1]->TestEnterRoom(roomId);
+			cSessions[i * clientPerTest + 2]->TestEnterRoom(roomId);
 
 			this_thread::sleep_for(3s);
-			cSessions[i * 4]->TestRoomReady();
-			cSessions[i * 4 + 1]->TestRoomReady();
-			cSessions[i * 4 + 3]->TestRoomReady();
+			cSessions[i * clientPerTest]->TestRoomReady();
+			cSessions[i * clientPerTest + 1]->TestRoomReady();
+			cSessions[i * clientPerTest + 2]->TestRoomReady();
+
+			this_thread::sleep_for(3s);
+			cSessions[i * clientPerTest]->TestRoomChat("Hi Room" + to_string(roomId) + " I am " + to_string(cSessions[i * clientPerTest]->id));
+			cSessions[i * clientPerTest + 1]->
+				TestRoomChat("Hi Room" + to_string(roomId) + " I am " + to_string(cSessions[i * clientPerTest + 1]->id));
+			cSessions[i * clientPerTest + 2]->TestRoomChat(u8"하이요" + to_string(roomId) + u8" 난 " + to_string(cSessions[i * clientPerTest + 2]->id));
 
 			this_thread::sleep_for(5s);
 		}
@@ -77,6 +90,13 @@ int main(int argc, char* argv[])
 		for (int i = 0; i < cSessions.size(); i++)
 		{
 			cSessions[i]->TestLeaveRoom();
+
+			this_thread::sleep_for(50ms);
+		}
+
+		for (int i = 0; i < cSessions.size(); i++)
+		{
+			cSessions[i]->TestLobbyChat(u8"한글 채팅 테스트");
 
 			this_thread::sleep_for(50ms);
 		}
@@ -125,7 +145,7 @@ int main(int argc, char* argv[])
 			int size = 35;
 			for (int i = 5; i < size / 3; i++)
 			{
-				sessions[i * 3]->TestCreateRoom(((i * 3) % 2 == 0 ? u8"�׽�Ʈ�� �� " : "Test Room ") + to_string(i + 1));
+				sessions[i * 3]->TestCreateRoom(((i * 3) % 2 == 0 ? u8"테스트용 방 " : "Test Room ") + to_string(i + 1));
 				this_thread::sleep_for(2s);
 				int roomId = sessions[i * 3]->roomID;
 				sessions[i * 3 + 1]->TestEnterRoom(roomId);
@@ -139,7 +159,7 @@ int main(int argc, char* argv[])
 				for (int j = 0; j < 10; j++)
 				{
 					static int count = 0;
-					string message = (count & 1) == 0 ? u8"�׽�Ʈ �޽��� " : u8"test message " + sessions[i]->nickname;
+					string message = (count & 1) == 0 ? u8"테스트 메시지 " : u8"test message " + sessions[i]->nickname;
 					sessions[i]->TestRoomChat(message + to_string(count));
 					this_thread::sleep_for(1s);
 				}
@@ -169,7 +189,7 @@ int main(int argc, char* argv[])
 	/*
 	for (int i = 0; i < size / 3; i++)
 	{
-		sessions[i * 3]->TestCreateRoom(((i * 3) % 2 == 0 ? u8"�׽�Ʈ�� �� " : "Test Room ") + to_string(i + 1));
+		sessions[i * 3]->TestCreateRoom(((i * 3) % 2 == 0 ? u8"테스트용 방 " : "Test Room ") + to_string(i + 1));
 		this_thread::sleep_for(2s);
 		int roomId = sessions[i * 3]->roomID;
 		sessions[i * 3 + 1]->TestEnterRoom(roomId);
@@ -186,7 +206,7 @@ int main(int argc, char* argv[])
 	{
 		for (int i = 0; i < size; i++)
 		{
-			string message = (count & 1) == 0 ? u8"�׽�Ʈ �޽���" : u8"test message";
+			string message = (count & 1) == 0 ? u8"테스트 메시지" : u8"test message";
 			sessions[i]->TestRoomChat(message + to_string(count));
 		}
 		count++;

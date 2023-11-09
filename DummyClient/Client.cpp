@@ -104,7 +104,9 @@ void ClientSession::TestRoomChat(string msg)
 	packet.set_account_id(id);
 	packet.set_room_id(roomID);
 	packet.set_nickname(nickname);
-	packet.set_chat(msg);
+	packet.set_chat(msg.c_str());
+	auto sendBuffer = ServerPacketHandler::MakeSendBuffer(packet);
+	Send(sendBuffer);
 }
 
 

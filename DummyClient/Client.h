@@ -22,20 +22,12 @@ public:
 		while (true)
 		{
 			int dataSize = numOfBytes - processLen;
-			if (dataSize <= sizeof(PacketHeader))
+			if (dataSize < sizeof(PacketHeader))
 			{
 				break;
 			}
 
 			PacketHeader header = *(reinterpret_cast<PacketHeader*>(&buffer[processLen]));
-			if (header.type == PKT_S_ROOM_START_MATCH)
-			{
-				cout << 1 << endl;
-			}
-			if (dataSize < header.size)
-			{
-				break;
-			}
 
 			shared_ptr<SessionBase> Session = GetSessionPtr();
 			ServerPacketHandler::HandlePacket(Session, &buffer[processLen], header.size);

@@ -60,6 +60,11 @@ bool Handle_S_LOBBY_ENTER_ROOM(const shared_ptr<SessionBase>& session, ProjectJ:
 		cout << packet.info().room_id() << "번 방 입장 성공 " << endl;
 		clientSession->roomID = packet.info().room_id();
 	}
+	else
+	{
+		clientSession->PrintNickname();
+		cout << packet.info().room_id() << "번 방 입장 실패 " << endl;
+	}
 	return true;
 }
 
@@ -89,6 +94,10 @@ bool Handle_S_ROOM_READY(const shared_ptr<SessionBase>& session, ProjectJ::S_ROO
 
 bool Handle_S_ROOM_CHAT(const shared_ptr<SessionBase>& session, ProjectJ::S_ROOM_CHAT& packet)
 {
+	auto clientSession = static_pointer_cast<ClientSession>(session);
+	{
+		cout << packet.room_id() << "번 방의 채팅 " << packet.nickname() << ": " << packet.chat() << endl;
+	}
 	return true;
 }
 
