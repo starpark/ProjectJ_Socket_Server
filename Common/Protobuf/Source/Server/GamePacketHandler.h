@@ -59,7 +59,7 @@ bool Handle_C_MATCH_ITEM_DROP(const shared_ptr<SessionBase>& session, ProjectJ::
 // 소켓 수신 데이터 처리 및 송신 버퍼 생성 클래스
 // 최초 작성자: 박별
 // 수정자: 
-// 최종 수정일: 2023-11-08 자동 생성
+// 최종 수정일: 2023-11-09 자동 생성
 class GamePacketHandler
 {
 public:
