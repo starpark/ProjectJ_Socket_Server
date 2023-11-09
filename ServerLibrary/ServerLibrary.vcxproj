@@ -166,6 +166,7 @@
     <ClInclude Include="Service.h" />
     <ClInclude Include="SessionBase.h" />
     <ClInclude Include="SocketUtils.h" />
+    <ClInclude Include="StringConvertor.h" />
     <ClInclude Include="ThreadLocal.h" />
     <ClInclude Include="ThreadManager.h" />
     <ClInclude Include="TickTask.h" />
@@ -194,6 +195,7 @@
     <ClCompile Include="Service.cpp" />
     <ClCompile Include="SessionBase.cpp" />
     <ClCompile Include="SocketUtils.cpp" />
+    <ClCompile Include="StringConvertor.cpp" />
     <ClCompile Include="ThreadLocal.cpp" />
     <ClCompile Include="ThreadManager.cpp" />
     <ClCompile Include="TickTask.cpp" />

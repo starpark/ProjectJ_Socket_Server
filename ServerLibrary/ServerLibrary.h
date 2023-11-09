@@ -28,6 +28,7 @@ using namespace std;
 
 #include "Lock.h"
 #include "LockQueue.h"
+#include "StringConvertor.h"
 #include "ObjectPool.h"
 #include "SendBuffer.h"
 #include "ThreadLocal.h"

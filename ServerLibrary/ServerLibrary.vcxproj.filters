@@ -93,6 +93,9 @@
     <ClInclude Include="TimerTask.h">
       <Filter>Task</Filter>
     </ClInclude>
+    <ClInclude Include="StringConvertor.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -157,6 +160,9 @@
     </ClCompile>
     <ClCompile Include="TimerTask.cpp">
       <Filter>Task</Filter>
+    </ClCompile>
+    <ClCompile Include="StringConvertor.cpp">
+      <Filter>Utils</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
