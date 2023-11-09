@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "DBConnection.h"
 #include "GameService.h"
 #include "GameSession.h"
@@ -30,10 +30,10 @@ int main()
 	if (false == GDBConnection->Connect(
 		L"Driver={ODBC Driver 17 for SQL Server}; Server=localhost; Database=ProjectJ; UID=admin; PWD=q1w2e3r4;"))
 	{
-		GLogHelper->Reserve(LogCategory::Log_ERROR, L"DB Connection Failure\n");
+		GLogHelper->Print(LogCategory::Log_ERROR, L"DB Connection Failure\n");
 		return 0;
 	}
-	GLogHelper->Reserve(LogCategory::Log_SUCCESS, L"DB Connection Success\n");
+	GLogHelper->Print(LogCategory::Log_SUCCESS, L"DB Connection Success\n");
 
 	ItemManager::Init();
 	GamePacketHandler::Init();

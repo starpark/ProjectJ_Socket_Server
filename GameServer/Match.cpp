@@ -11,7 +11,7 @@ Match::Match(shared_ptr<Room> owner)
 
 Match::~Match()
 {
-	GLogHelper->Reserve(LogCategory::Log_INFO, "~Match()\n");
+	GLogHelper->Print(LogCategory::Log_INFO, L"~Match()\n");
 	ownerRoom_ = nullptr;
 	players_.clear();
 	items_.clear();
@@ -30,7 +30,7 @@ void Match::Init(shared_ptr<GameSession> chaser, shared_ptr<GameSession> fugitiv
                  shared_ptr<GameSession> fugitiveSecond,
                  shared_ptr<GameSession> fugitiveThird)
 {
-	GLogHelper->Reserve(LogCategory::Log_INFO, "Room#%d Init Match \n", ownerRoom_->GetID());
+	GLogHelper->Print(LogCategory::Log_INFO, L"Room#%d Init Match \n", ownerRoom_->GetID());
 	shared_ptr<Match> thisPtr = static_pointer_cast<Match>(shared_from_this());
 
 	{
@@ -82,7 +82,7 @@ void Match::Start()
 		return;
 	}
 
-	GLogHelper->Reserve(LogCategory::Log_INFO, "Room#%d Match Start \n", ownerRoom_->GetID());
+	GLogHelper->Print(LogCategory::Log_INFO, L"Room#%d Match Start \n", ownerRoom_->GetID());
 	const UINT64 currentTick = GetTickCount64();
 	matchEndTick_ = currentTick + MATCH_END_TICK;
 
@@ -91,7 +91,7 @@ void Match::Start()
 
 void Match::End()
 {
-	GLogHelper->Reserve(LogCategory::Log_INFO, L"Room#%d Match End\n", ownerRoom_->GetID());
+	GLogHelper->Print(LogCategory::Log_INFO, L"Room#%d Match End\n", ownerRoom_->GetID());
 	// TODO Score Calculation
 	if (matchStated_.load() == true)
 	{

@@ -52,7 +52,7 @@ bool ItemManager::Init()
 			}
 			else
 			{
-				throw "Version is not string";
+				throw L"Version is not string";
 			}
 
 			if (data["Date"].is_string())
@@ -61,7 +61,7 @@ bool ItemManager::Init()
 			}
 			else
 			{
-				throw "Date is not string";
+				throw L"Date is not string";
 			}
 
 			if (data["Items"].is_array())
@@ -76,24 +76,26 @@ bool ItemManager::Init()
 				}
 			}
 
-			GLogHelper->Reserve(LogCategory::Log_SUCCESS, "ItemManager Version: %s Date: %s Total: %d items\n",
-			                    version_.c_str(),
-			                    updatedDate_.c_str(), itemData_.size());
+			GLogHelper->Print(LogCategory::Log_SUCCESS,
+			                  L"ItemManager Version: %s Date: %s Total: %d items\n",
+			                  UTF8_TO_WCHAR(version_.c_str()),UTF8_TO_WCHAR(updatedDate_.c_str()), itemData_.size());
 
 			return true;
 		}
 		catch (const std::exception& e)
 		{
-			GLogHelper->Reserve(LogCategory::Log_ERROR, "ItemManager Init Failure: %s\n", e.what());
+			GLogHelper->Print(LogCategory::Log_ERROR,
+			                  L"ItemManager Init Failure: %s\n",
+			                  UTF8_TO_WCHAR(e.what()));
 			return false;
 		}
-		catch (const char* e)
+		catch (const wchar_t* e)
 		{
-			GLogHelper->Reserve(LogCategory::Log_ERROR, "ItemManager Init Failure: %s\n", e);
+			GLogHelper->Print(LogCategory::Log_ERROR, L"ItemManager Init Failure: %s\n", e);
 			return false;
 		}
 	}
-	GLogHelper->Reserve(LogCategory::Log_ERROR, "ItemManager Init Failure: File Open\n");
+	GLogHelper->Print(LogCategory::Log_ERROR, L"ItemManager Init Failure: File Open\n");
 	return false;
 }
 

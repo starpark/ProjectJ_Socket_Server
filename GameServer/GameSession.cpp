@@ -12,7 +12,7 @@ GameSession::GameSession()
 
 GameSession::~GameSession()
 {
-	GLogHelper->Reserve(LogCategory::Log_INFO, L"~GameSession()\n");
+	GLogHelper->Print(LogCategory::Log_INFO, L"~GameSession()\n");
 
 	player_.reset();
 	lobby_.reset();
@@ -84,7 +84,7 @@ void GameSession::OnConnected()
 
 void GameSession::OnDisconnect()
 {
-	GLogHelper->Reserve(LogCategory::Log_INFO, L"OnDisconnect %s\n", netAddress_.GetIpAddressW().c_str());
+	GLogHelper->Print(LogCategory::Log_INFO, L"OnDisconnect %s\n", netAddress_.GetIpAddressW().c_str());
 	shared_ptr<GameSession> gameSession = static_pointer_cast<GameSession>(shared_from_this());
 
 	if (auto match = match_.lock())

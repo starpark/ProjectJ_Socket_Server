@@ -14,13 +14,13 @@ enum class LogCategory : uint8_t
 
 enum
 {
-	BUFFER_SIZE = 512
+	BUFFER_SIZE = 4096
 };
 
 struct LogWrapper
 {
 	LogCategory category = LogCategory::Log_TEMP;
-	string buffer;
+	wstring buffer;
 };
 
 class LogHelper
@@ -30,10 +30,8 @@ public:
 	~LogHelper();
 
 public:
-	void Reserve(LogCategory category, const WCHAR* format, ...);
-	void Reserve(LogCategory category, const char* format, ...);
+	void Print(LogCategory category, const WCHAR* format, ...);
 	void WriteStdOut(LogCategory category, const WCHAR* format, ...);
-	void WriteStdOut(LogCategory category, const char* format, ...);
 	void Write();
 
 protected:
@@ -42,6 +40,6 @@ protected:
 
 private:
 	HANDLE stdOut_;
-	ofstream logFile_;
+	wofstream logFile_;
 	LockQueue<LogWrapper> logQueue_;
 };

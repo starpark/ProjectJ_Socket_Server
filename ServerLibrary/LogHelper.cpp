@@ -6,8 +6,8 @@
 LogHelper::LogHelper()
 {
 	namespace fs = std::filesystem;
-	setlocale(LC_ALL, "korean");
 	_wsetlocale(LC_ALL, L"korean");
+	logFile_.imbue(locale("Korean"));
 
 	stdOut_ = GetStdHandle(STD_OUTPUT_HANDLE);
 	UINT64 startTick = GetTickCount64();
@@ -24,7 +24,7 @@ LogHelper::~LogHelper()
 	logFile_.close();
 }
 
-void LogHelper::Reserve(LogCategory category, const WCHAR* format, ...)
+void LogHelper::Print(LogCategory category, const WCHAR* format, ...)
 {
 	LogWrapper log;
 	va_list list;
@@ -32,30 +32,10 @@ void LogHelper::Reserve(LogCategory category, const WCHAR* format, ...)
 	va_start(list, format);
 	log.category = category;
 
-	WCHAR buffer[BUFFER_SIZE];
+	WCHAR buffer[BUFFER_SIZE]{0,};
 	vswprintf_s(buffer, BUFFER_SIZE, format, list);
 
-	wstring wideString(buffer);
-	log.buffer.assign(wideString.begin(), wideString.end());
-
-	va_end(list);
-
-	logQueue_.Push(log);
-}
-
-void LogHelper::Reserve(LogCategory category, const char* format, ...)
-{
-	LogWrapper log;
-	va_list list;
-
-	va_start(list, format);
-
-	log.category = category;
-
-	char buffer[BUFFER_SIZE];
-	vsprintf_s(buffer, BUFFER_SIZE, format, list);
-
-	log.buffer = string(buffer);
+	log.buffer = buffer;
 
 	va_end(list);
 
@@ -70,40 +50,40 @@ void LogHelper::Write()
 
 		SetColor(log.category);
 
-		string logString = "";
+		wstring logString = L"";
 
 		time_t now = time(NULL);
 		tm tm;
 		localtime_s(&tm, &now);
 
-		char date[64];
-		strftime(date, 64, "[%Y-%m-%d %H:%M:%S]", &tm);
+		wchar_t date[64];
+		wcsftime(date, 64, L"[%Y-%m-%d %H:%M:%S]", &tm);
 
 		logString += date;
 
 		switch (log.category)
 		{
 		case LogCategory::Log_INFO:
-			logString += "[Info] ";
+			logString += L"[Info] ";
 			break;
 		case LogCategory::Log_TEMP:
-			logString += "[Temp] ";
+			logString += L"[Temp] ";
 			break;
 		case LogCategory::Log_ERROR:
-			logString += "[Error] ";
+			logString += L"[Error] ";
 			break;
 		case LogCategory::Log_WARN:
-			logString += "[Warn] ";
+			logString += L"[Warn] ";
 			break;
 		case LogCategory::Log_SUCCESS:
-			logString += "[Success] ";
+			logString += L"[Success] ";
 			break;
 		}
 
 		logString += log.buffer;
 
 #ifdef _DEBUG
-		fprintf_s(stdout, logString.c_str());
+		fwprintf_s(stdout, logString.c_str());
 		fflush(stdout);
 #endif
 
@@ -126,23 +106,6 @@ void LogHelper::WriteStdOut(LogCategory category, const WCHAR* format, ...)
 	va_list ap;
 	va_start(ap, format);
 	vwprintf_s(format, ap);
-	va_end(ap);
-
-	fflush(stdout);
-
-	SetColor(LogCategory::Log_INFO);
-}
-
-void LogHelper::WriteStdOut(LogCategory category, const char* format, ...)
-{
-	if (format == nullptr)
-		return;
-
-	SetColor(category);
-
-	va_list ap;
-	va_start(ap, format);
-	vprintf_s(format, ap);
 	va_end(ap);
 
 	fflush(stdout);
