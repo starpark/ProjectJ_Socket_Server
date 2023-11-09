@@ -8,15 +8,22 @@ class Lobby;
 class Match;
 
 #define MAX_PLAYER_NUMBER 4
+#define INVALID_ROOM -1
+#define INVALID_ROOM_SLOT -1
 
 enum class RoomState : uint8_t
 {
-	WAITING = 0,
-	INGAME = 1,
+	WAITING = 1,
+	INGAME = 2,
 };
 
 class Room : public CommandTaskObject
 {
+	enum
+	{
+		STANDBY_COUNT = 5
+	};
+
 public:
 	Room(int roomNumber, string title, shared_ptr<GameSession> hostSession, shared_ptr<Lobby> lobby);
 	~Room() override;
@@ -31,7 +38,6 @@ public:
 	shared_ptr<Room> GetRoomPtr() { return static_pointer_cast<Room>(shared_from_this()); }
 
 	void SetState(RoomState state) { state_ = state; }
-
 
 	bool Enter(shared_ptr<GameSession> session);
 	int Leave(shared_ptr<GameSession> session);
