@@ -8,12 +8,11 @@ Item::Item(int id, int weight, Point size, ProjectJ::Vector vector, ProjectJ::Ro
 
 Item::~Item()
 {
-	owner_ = nullptr;
+
 }
 
 void Item::DroppedToWorld(ProjectJ::Vector vector, ProjectJ::Rotator rotation)
 {
-	owner_ = nullptr;
 	vector_ = vector;
 	rotation_ = rotation;
 	topLeftIndex_ = -1;
@@ -21,7 +20,6 @@ void Item::DroppedToWorld(ProjectJ::Vector vector, ProjectJ::Rotator rotation)
 
 void Item::PickedUpByPlayer(shared_ptr<Player> player, int topLeftIndex, bool rotated)
 {
-	owner_ = player;
 	topLeftIndex_ = topLeftIndex;
 	bIsRotated_ = rotated;
 }

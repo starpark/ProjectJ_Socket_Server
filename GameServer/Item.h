@@ -3,6 +3,9 @@
 #include <fstream>
 #include "nlohmann/json.hpp"
 
+#define INVALID_ITEM_OWNER_ID -1
+#define INVALID_TOP_LEFT_INDEX -1
+
 using json = nlohmann::json;
 
 class Player;
@@ -21,7 +24,6 @@ public:
 	~Item();
 
 public:
-	mutex& GetLock() { return lock_; }
 	int GetItemID() const { return itemID_; }
 	int GetWeight() const { return weight_; }
 	int GetTopLeftIndex() const { return topLeftIndex_; }
@@ -30,7 +32,7 @@ public:
 	ProjectJ::Vector GetVector() const { return vector_; }
 	ProjectJ::Rotator GetRotation() const { return rotation_; }
 	Point GetSize() const { return size_; }
-	shared_ptr<Player> GetOwner() const { return owner_; }
+	int GetOwnerID() const { return ownerID_; }
 
 public:
 	void DroppedToWorld(ProjectJ::Vector vector, ProjectJ::Rotator rotation);
@@ -38,7 +40,6 @@ public:
 	void RelocatedInInventory(int topLeftIndex, bool rotated);
 
 private:
-	mutex lock_;
 	int itemID_;
 	int weight_;
 	Point size_;
@@ -46,9 +47,10 @@ private:
 	ProjectJ::Vector vector_;
 	ProjectJ::Rotator rotation_;
 
-	int topLeftIndex_ = -1;
+	int topLeftIndex_ = INVALID_TOP_LEFT_INDEX;
 	bool bIsRotated_ = false;
-	shared_ptr<Player> owner_ = nullptr; // TODO
+	// 0: chaser, 1~3: fugitive, 4-7: scale
+	int ownerID_ = INVALID_ITEM_OWNER_ID;
 };
 
 struct ItemData

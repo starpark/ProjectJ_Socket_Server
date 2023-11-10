@@ -13,43 +13,34 @@ Inventory::~Inventory()
 
 bool Inventory::TryAddItem(shared_ptr<Item> item, shared_ptr<Player> player)
 {
-	unique_lock<mutex> guard(item->GetLock(), defer_lock);
-
-	// 아이템 소유권 획득
-	if (guard.try_lock())
+	if (owningItems_.find(item->GetItemID()) != owningItems_.end() || item->GetOwnerID() != INVALID_ITEM_OWNER_ID)
 	{
-		// 인벤토리 소유권 획득
-		WRITE_LOCK;
+		return false;
+	}
 
-		if (owningItems_.find(item->GetItemID()) != owningItems_.end() || item->GetOwner() != nullptr)
+	if (CheckWeightLimit(item->GetWeight()) == false)
+	{
+		return false;
+	}
+
+	for (int slotIndex = 0; slotIndex < MAX_ROW * MAX_COLUMN; slotIndex++)
+	{
+		if (CheckValidSlot(item, slotIndex, false))
 		{
-			return false;
+			item->PickedUpByPlayer(player, slotIndex, false);
+			AddItemAt(item, slotIndex);
+			AcquireItem(item);
+
+			return true;
 		}
 
-		if (CheckWeightLimit(item->GetWeight()) == false)
+		if (CheckValidSlot(item, slotIndex, true))
 		{
-			return false;
-		}
+			item->PickedUpByPlayer(player, slotIndex, true);
+			AddItemAt(item, slotIndex);
+			AcquireItem(item);
 
-		for (int slotIndex = 0; slotIndex < MAX_ROW * MAX_COLUMN; slotIndex++)
-		{
-			if (CheckValidSlot(item, slotIndex, false))
-			{
-				item->PickedUpByPlayer(player, slotIndex, false);
-				AddItemAt(item, slotIndex);
-				AcquireItem(item);
-
-				return true;
-			}
-
-			if (CheckValidSlot(item, slotIndex, true))
-			{
-				item->PickedUpByPlayer(player, slotIndex, true);
-				AddItemAt(item, slotIndex);
-				AcquireItem(item);
-
-				return true;
-			}
+			return true;
 		}
 	}
 
@@ -58,8 +49,6 @@ bool Inventory::TryAddItem(shared_ptr<Item> item, shared_ptr<Player> player)
 
 bool Inventory::RelocateItem(shared_ptr<Item> item, int slotIndex, bool isRotated)
 {
-	WRITE_LOCK;
-
 	if (owningItems_.find(item->GetItemID()) == owningItems_.end() /* TODO Onwer Check*/)
 	{
 		return false;
@@ -82,8 +71,6 @@ bool Inventory::RelocateItem(shared_ptr<Item> item, int slotIndex, bool isRotate
 
 bool Inventory::DropItem(shared_ptr<Item> item, ProjectJ::Vector vector, ProjectJ::Rotator rotate)
 {
-	WRITE_LOCK;
-
 	if (owningItems_.find(item->GetItemID()) == owningItems_.end())
 	{
 		return false;
@@ -157,6 +144,10 @@ bool Inventory::CheckValidPoint(int column, int row)
 	}
 
 	return true;
+}
+
+void Inventory::RelocateItemAt(const shared_ptr<Item>& item, int slotIndex)
+{
 }
 
 void Inventory::AddItemAt(const shared_ptr<Item>& item, int slotIndex)

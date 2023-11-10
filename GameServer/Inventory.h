@@ -34,7 +34,6 @@ private:
 	void ReleaseItem(const shared_ptr<Item>& item);
 
 private:
-	USE_LOCK;
 	weak_ptr<Player> ownerPlayer;
 	int currentWeight_ = 0;
 	vector<int> inventorySlots_;
