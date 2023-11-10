@@ -66,6 +66,9 @@
     <ClCompile Include="Lobby.cpp">
       <Filter>Contents</Filter>
     </ClCompile>
+    <ClCompile Include="Scale.cpp">
+      <Filter>Contents</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -105,6 +108,9 @@
       <Filter>Contents</Filter>
     </ClInclude>
     <ClInclude Include="Lobby.h">
+      <Filter>Contents</Filter>
+    </ClInclude>
+    <ClInclude Include="Scale.h">
       <Filter>Contents</Filter>
     </ClInclude>
   </ItemGroup>
