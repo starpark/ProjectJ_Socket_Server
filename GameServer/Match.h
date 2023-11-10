@@ -4,6 +4,7 @@
 
 class GameSession;
 class Room;
+class Scale;
 
 enum class PlayerState
 {
@@ -42,7 +43,13 @@ public:
 	void PlayerStateChanged(shared_ptr<GameSession> player, PlayerState state);
 	void PlayerDisconnected(const shared_ptr<GameSession>& session);
 
+	
+
+public:
 	shared_ptr<Match> GetMatchPtr() { return static_pointer_cast<Match>(shared_from_this()); }
+
+public:
+
 
 private:
 	void GenerateItems();
@@ -54,5 +61,6 @@ private:
 	UINT64 matchEndTick_ = 0;
 	shared_ptr<Room> ownerRoom_;
 	vector<pair<shared_ptr<Player>, PlayerState>> players_;
+	vector<shared_ptr<Scale>> scales_;
 	map<int, shared_ptr<Item>> items_;
 };
