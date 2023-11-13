@@ -1,30 +1,31 @@
 #pragma once
 #include "Item.h"
 
-class Inventory
+class Inventory : public enable_shared_from_this<Inventory>
 {
 	enum
 	{
 		EMPTY_ITEM_ID = 0,
-		MAX_COLUMN = 6,
-		MAX_ROW = 15,
-		MAX_WEIGHT = 50000
 	};
 
 public:
-	Inventory();
-	~Inventory();
+	Inventory(int row, int column, int maxWeight);
+	virtual ~Inventory();
 
 public:
-	bool TryAddItem(shared_ptr<Item> item, shared_ptr<Player> player);
-	bool RelocateItem(shared_ptr<Item> item, int slotIndex, bool isRotated);
-	bool DropItem(shared_ptr<Item> item, ProjectJ::Vector vector, ProjectJ::Rotator rotate);
+	shared_ptr<Inventory> GetInventory() { return shared_from_this(); }
+	int GetCurrentWeight() const { return currentWeight_; }
+	int GetMaxWeight() const { return maxWeight_; }
 	void PrintTest();
 
-private:
-	Point IndexToPoint(int index) { return {index % MAX_COLUMN, index / MAX_COLUMN}; }
-	int PointToIndex(Point tile) { return tile.X + tile.Y * MAX_COLUMN; }
-	bool CheckWeightLimit(int weight) { return weight + currentWeight_ <= MAX_WEIGHT; }
+	bool TryAddItem(const shared_ptr<Item>& item);
+	bool RelocateItem(const shared_ptr<Inventory>& to, const shared_ptr<Item>& item, int slotIndex, bool isRotated);
+	bool DropItem(const shared_ptr<Item>& item, ProjectJ::Vector vector, ProjectJ::Rotator rotate);
+
+protected:
+	Point IndexToPoint(int index) { return {index % column_, index / column_}; }
+	int PointToIndex(Point tile) { return tile.X + tile.Y * column_; }
+	bool CheckWeightLimit(int weight) { return weight + currentWeight_ <= maxWeight_; }
 	bool CheckValidSlot(const shared_ptr<Item>& item, int slotIndex, bool isRotated);
 	bool CheckValidPoint(int column, int row);
 	void RelocateItemAt(const shared_ptr<Item>& item, int slotIndex);
@@ -33,9 +34,12 @@ private:
 	void AcquireItem(const shared_ptr<Item>& item);
 	void ReleaseItem(const shared_ptr<Item>& item);
 
-private:
+protected:
+	int row_;
+	int column_;
+	int currentWeight_;
+	int maxWeight_;
 	weak_ptr<Player> ownerPlayer;
-	int currentWeight_ = 0;
 	vector<int> inventorySlots_;
 	map<int, shared_ptr<Item>> owningItems_;
 };

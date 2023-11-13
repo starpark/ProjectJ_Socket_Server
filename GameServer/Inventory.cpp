@@ -1,9 +1,10 @@
 ﻿#include "pch.h"
 #include "Inventory.h"
 
-Inventory::Inventory()
+Inventory::Inventory(int row, int column, int maxWeight)
+	: row_(row), column_(column), currentWeight_(0), maxWeight_(maxWeight)
 {
-	inventorySlots_.assign(MAX_COLUMN * MAX_ROW, EMPTY_ITEM_ID);
+	inventorySlots_.assign(column * row, EMPTY_ITEM_ID);
 }
 
 Inventory::~Inventory()
@@ -11,34 +12,36 @@ Inventory::~Inventory()
 	owningItems_.clear();
 }
 
-bool Inventory::TryAddItem(shared_ptr<Item> item, shared_ptr<Player> player)
+bool Inventory::TryAddItem(const shared_ptr<Item>& item)
 {
-	if (owningItems_.find(item->GetItemID()) != owningItems_.end() || item->GetOwnerID() != INVALID_ITEM_OWNER_ID)
+	if (owningItems_.find(item->index_) != owningItems_.end() || item->ownerID_.load() != Item::EMPTY_OWNER_ID)
 	{
 		return false;
 	}
 
-	if (CheckWeightLimit(item->GetWeight()) == false)
+	if (CheckWeightLimit(item->weight_) == false)
 	{
 		return false;
 	}
 
-	for (int slotIndex = 0; slotIndex < MAX_ROW * MAX_COLUMN; slotIndex++)
+	for (int slotIndex = 0; slotIndex < row_ * column_; slotIndex++)
 	{
 		if (CheckValidSlot(item, slotIndex, false))
 		{
-			item->PickedUpByPlayer(player, slotIndex, false);
+			item->topLeftIndex_ = slotIndex;
+			item->bIsRotated_ = false;
+
 			AddItemAt(item, slotIndex);
-			AcquireItem(item);
 
 			return true;
 		}
 
 		if (CheckValidSlot(item, slotIndex, true))
 		{
-			item->PickedUpByPlayer(player, slotIndex, true);
+			item->topLeftIndex_ = slotIndex;
+			item->bIsRotated_ = true;
+
 			AddItemAt(item, slotIndex);
-			AcquireItem(item);
 
 			return true;
 		}
@@ -47,47 +50,47 @@ bool Inventory::TryAddItem(shared_ptr<Item> item, shared_ptr<Player> player)
 	return false;
 }
 
-bool Inventory::RelocateItem(shared_ptr<Item> item, int slotIndex, bool isRotated)
+bool Inventory::RelocateItem(const shared_ptr<Inventory>& to, const shared_ptr<Item>& item, int slotIndex, bool isRotated)
 {
-	if (owningItems_.find(item->GetItemID()) == owningItems_.end() /* TODO Onwer Check*/)
+	if (owningItems_.find(item->index_) == owningItems_.end())
 	{
 		return false;
 	}
 
 	PickUpItem(item);
 
-	if (CheckValidSlot(item, slotIndex, isRotated))
+	if (to->CheckValidSlot(item, slotIndex, isRotated) && to->CheckWeightLimit(item->weight_))
 	{
-		item->RelocatedInInventory(slotIndex, isRotated);
-		AddItemAt(item, slotIndex);
+		item->topLeftIndex_ = slotIndex;
+		item->bIsRotated_ = isRotated;
+
+		to->AddItemAt(item, slotIndex);
 
 		return true;
 	}
 
-	AddItemAt(item, item->GetTopLeftIndex());
+	AddItemAt(item, item->topLeftIndex_);
 
 	return false;
 }
 
-bool Inventory::DropItem(shared_ptr<Item> item, ProjectJ::Vector vector, ProjectJ::Rotator rotate)
+bool Inventory::DropItem(const shared_ptr<Item>& item, ProjectJ::Vector vector, ProjectJ::Rotator rotate)
 {
-	if (owningItems_.find(item->GetItemID()) == owningItems_.end())
+	if (owningItems_.find(item->index_) == owningItems_.end())
 	{
 		return false;
 	}
 
 	PickUpItem(item);
-	ReleaseItem(item);
-	item->DroppedToWorld(vector, rotate);
 
 	return true;
 }
 
 void Inventory::PrintTest()
 {
-	for (int rowIndex = 0; rowIndex < MAX_ROW; rowIndex++)
+	for (int rowIndex = 0; rowIndex < row_; rowIndex++)
 	{
-		for (int columnIndex = 0; columnIndex < MAX_COLUMN; columnIndex++)
+		for (int columnIndex = 0; columnIndex < column_; columnIndex++)
 		{
 			int slotIndex = PointToIndex({columnIndex, rowIndex});
 			cout << inventorySlots_[slotIndex] << " ";
@@ -103,14 +106,14 @@ void Inventory::PrintTest()
 	}
 	cout << endl;
 
-	cout << "현재 무게/최대 무게: " << currentWeight_ << "/" << MAX_WEIGHT << endl;
+	cout << "현재 무게/최대 무게: " << currentWeight_ << "/" << maxWeight_ << endl;
 }
 
 
 bool Inventory::CheckValidSlot(const shared_ptr<Item>& item, int slotIndex, bool isRotated)
 {
 	Point tile = IndexToPoint(slotIndex);
-	Point size = item->GetSize();
+	Point size = item->size_;
 	if (isRotated)
 	{
 		swap(size.X, size.Y);
@@ -132,7 +135,7 @@ bool Inventory::CheckValidSlot(const shared_ptr<Item>& item, int slotIndex, bool
 
 bool Inventory::CheckValidPoint(int column, int row)
 {
-	if (column < 0 || row < 0 || column >= MAX_COLUMN || row >= MAX_ROW)
+	if (column < 0 || row < 0 || column >= column_ || row >= row_)
 	{
 		return false;
 	}
@@ -153,9 +156,9 @@ void Inventory::RelocateItemAt(const shared_ptr<Item>& item, int slotIndex)
 void Inventory::AddItemAt(const shared_ptr<Item>& item, int slotIndex)
 {
 	Point tile = IndexToPoint(slotIndex);
-	Point size = item->GetSize();
+	Point size = item->size_;
 
-	if (item->GetIsRotated())
+	if (item->bIsRotated_)
 	{
 		swap(size.X, size.Y);
 	}
@@ -164,17 +167,19 @@ void Inventory::AddItemAt(const shared_ptr<Item>& item, int slotIndex)
 	{
 		for (int columnIndex = 0; columnIndex < size.X; columnIndex++)
 		{
-			inventorySlots_[PointToIndex({tile.X + columnIndex, tile.Y + rowIndex})] = item->GetItemID();
+			inventorySlots_[PointToIndex({tile.X + columnIndex, tile.Y + rowIndex})] = item->id_;
 		}
 	}
+
+	AcquireItem(item);
 }
 
 void Inventory::PickUpItem(shared_ptr<Item> item)
 {
-	Point tile = IndexToPoint(item->GetTopLeftIndex());
-	Point size = item->GetSize();
+	Point tile = IndexToPoint(item->topLeftIndex_);
+	Point size = item->size_;
 
-	if (item->GetIsRotated())
+	if (item->bIsRotated_)
 	{
 		swap(size.X, size.Y);
 	}
@@ -184,7 +189,7 @@ void Inventory::PickUpItem(shared_ptr<Item> item)
 		for (int columnIndex = 0; columnIndex < size.X; columnIndex++)
 		{
 			int slotIndex = PointToIndex({tile.X + columnIndex, tile.Y + rowIndex});
-			if (inventorySlots_[slotIndex] != item->GetItemID())
+			if (inventorySlots_[slotIndex] != item->id_)
 			{
 				// TODO ERROR
 			}
@@ -192,16 +197,18 @@ void Inventory::PickUpItem(shared_ptr<Item> item)
 			inventorySlots_[slotIndex] = EMPTY_ITEM_ID;
 		}
 	}
+
+	ReleaseItem(item);
 }
 
 void Inventory::AcquireItem(const shared_ptr<Item>& item)
 {
-	owningItems_.insert({item->GetItemID(), item});
-	currentWeight_ += item->GetWeight();
+	owningItems_.insert({item->index_, item});
+	currentWeight_ += item->weight_;
 }
 
 void Inventory::ReleaseItem(const shared_ptr<Item>& item)
 {
-	owningItems_.erase(item->GetItemID());
-	currentWeight_ -= item->GetWeight();
+	owningItems_.erase(item->index_);
+	currentWeight_ -= item->weight_;
 }
