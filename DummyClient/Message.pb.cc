@@ -301,48 +301,23 @@ struct S_ROOM_START_MATCHDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 S_ROOM_START_MATCHDefaultTypeInternal _S_ROOM_START_MATCH_default_instance_;
-PROTOBUF_CONSTEXPR S_MATCH_INIT_PLAYER_INDEX::S_MATCH_INIT_PLAYER_INDEX(
+PROTOBUF_CONSTEXPR C_MATCH_READY_TO_RECEIVE::C_MATCH_READY_TO_RECEIVE(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.player_index_)*/0
+    /*decltype(_impl_.account_id_)*/0
   , /*decltype(_impl_._cached_size_)*/{}} {}
-struct S_MATCH_INIT_PLAYER_INDEXDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR S_MATCH_INIT_PLAYER_INDEXDefaultTypeInternal()
+struct C_MATCH_READY_TO_RECEIVEDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR C_MATCH_READY_TO_RECEIVEDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
-  ~S_MATCH_INIT_PLAYER_INDEXDefaultTypeInternal() {}
+  ~C_MATCH_READY_TO_RECEIVEDefaultTypeInternal() {}
   union {
-    S_MATCH_INIT_PLAYER_INDEX _instance;
+    C_MATCH_READY_TO_RECEIVE _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 S_MATCH_INIT_PLAYER_INDEXDefaultTypeInternal _S_MATCH_INIT_PLAYER_INDEX_default_instance_;
-PROTOBUF_CONSTEXPR S_MATCH_INIT_ITEMS::S_MATCH_INIT_ITEMS(
-    ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.items_)*/{}
-  , /*decltype(_impl_._cached_size_)*/{}} {}
-struct S_MATCH_INIT_ITEMSDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR S_MATCH_INIT_ITEMSDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
-  ~S_MATCH_INIT_ITEMSDefaultTypeInternal() {}
-  union {
-    S_MATCH_INIT_ITEMS _instance;
-  };
-};
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 S_MATCH_INIT_ITEMSDefaultTypeInternal _S_MATCH_INIT_ITEMS_default_instance_;
-PROTOBUF_CONSTEXPR C_MATCH_LOADING_COMPLETE::C_MATCH_LOADING_COMPLETE(
-    ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.player_index_)*/0
-  , /*decltype(_impl_._cached_size_)*/{}} {}
-struct C_MATCH_LOADING_COMPLETEDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR C_MATCH_LOADING_COMPLETEDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
-  ~C_MATCH_LOADING_COMPLETEDefaultTypeInternal() {}
-  union {
-    C_MATCH_LOADING_COMPLETE _instance;
-  };
-};
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 C_MATCH_LOADING_COMPLETEDefaultTypeInternal _C_MATCH_LOADING_COMPLETE_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 C_MATCH_READY_TO_RECEIVEDefaultTypeInternal _C_MATCH_READY_TO_RECEIVE_default_instance_;
 PROTOBUF_CONSTEXPR S_MATCH_ALL_LOADING_COMPLETE::S_MATCH_ALL_LOADING_COMPLETE(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.info_)*/nullptr
+  , /*decltype(_impl_.your_player_index_)*/0
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct S_MATCH_ALL_LOADING_COMPLETEDefaultTypeInternal {
   PROTOBUF_CONSTEXPR S_MATCH_ALL_LOADING_COMPLETEDefaultTypeInternal()
@@ -367,6 +342,34 @@ struct S_MATCH_STARTDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 S_MATCH_STARTDefaultTypeInternal _S_MATCH_START_default_instance_;
+PROTOBUF_CONSTEXPR C_MATCH_INFO_MyInfo::C_MATCH_INFO_MyInfo(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.position_)*/nullptr
+  , /*decltype(_impl_.rotation_)*/nullptr
+  , /*decltype(_impl_._cached_size_)*/{}} {}
+struct C_MATCH_INFO_MyInfoDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR C_MATCH_INFO_MyInfoDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~C_MATCH_INFO_MyInfoDefaultTypeInternal() {}
+  union {
+    C_MATCH_INFO_MyInfo _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 C_MATCH_INFO_MyInfoDefaultTypeInternal _C_MATCH_INFO_MyInfo_default_instance_;
+PROTOBUF_CONSTEXPR C_MATCH_INFO::C_MATCH_INFO(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.info_)*/nullptr
+  , /*decltype(_impl_.player_index_)*/0
+  , /*decltype(_impl_._cached_size_)*/{}} {}
+struct C_MATCH_INFODefaultTypeInternal {
+  PROTOBUF_CONSTEXPR C_MATCH_INFODefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~C_MATCH_INFODefaultTypeInternal() {}
+  union {
+    C_MATCH_INFO _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 C_MATCH_INFODefaultTypeInternal _C_MATCH_INFO_default_instance_;
 PROTOBUF_CONSTEXPR S_MATCH_INFO::S_MATCH_INFO(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.info_)*/nullptr
@@ -400,7 +403,7 @@ PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORIT
 PROTOBUF_CONSTEXPR C_MATCH_ITEM_PICKUP::C_MATCH_ITEM_PICKUP(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.player_index_)*/0
-  , /*decltype(_impl_.item_id_)*/0
+  , /*decltype(_impl_.item_index_)*/0
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct C_MATCH_ITEM_PICKUPDefaultTypeInternal {
   PROTOBUF_CONSTEXPR C_MATCH_ITEM_PICKUPDefaultTypeInternal()
@@ -411,29 +414,14 @@ struct C_MATCH_ITEM_PICKUPDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 C_MATCH_ITEM_PICKUPDefaultTypeInternal _C_MATCH_ITEM_PICKUP_default_instance_;
-PROTOBUF_CONSTEXPR S_MATCH_ITEM_PICKUP::S_MATCH_ITEM_PICKUP(
-    ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.player_index_)*/0
-  , /*decltype(_impl_.item_id_)*/0
-  , /*decltype(_impl_.result_)*/false
-  , /*decltype(_impl_.is_item_rotated_)*/false
-  , /*decltype(_impl_.top_left_index_)*/0
-  , /*decltype(_impl_._cached_size_)*/{}} {}
-struct S_MATCH_ITEM_PICKUPDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR S_MATCH_ITEM_PICKUPDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
-  ~S_MATCH_ITEM_PICKUPDefaultTypeInternal() {}
-  union {
-    S_MATCH_ITEM_PICKUP _instance;
-  };
-};
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 S_MATCH_ITEM_PICKUPDefaultTypeInternal _S_MATCH_ITEM_PICKUP_default_instance_;
 PROTOBUF_CONSTEXPR C_MATCH_ITEM_MOVE::C_MATCH_ITEM_MOVE(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.player_index_)*/0
-  , /*decltype(_impl_.item_id_)*/0
-  , /*decltype(_impl_.is_item_rotated_)*/0
+  , /*decltype(_impl_.from_index_)*/0
+  , /*decltype(_impl_.to_index_)*/0
+  , /*decltype(_impl_.item_index_)*/0
   , /*decltype(_impl_.target_top_left_index_)*/0
+  , /*decltype(_impl_.is_item_rotated_)*/false
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct C_MATCH_ITEM_MOVEDefaultTypeInternal {
   PROTOBUF_CONSTEXPR C_MATCH_ITEM_MOVEDefaultTypeInternal()
@@ -444,28 +432,12 @@ struct C_MATCH_ITEM_MOVEDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 C_MATCH_ITEM_MOVEDefaultTypeInternal _C_MATCH_ITEM_MOVE_default_instance_;
-PROTOBUF_CONSTEXPR S_MATCH_ITEM_MOVE::S_MATCH_ITEM_MOVE(
-    ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.result_)*/false
-  , /*decltype(_impl_.item_id_)*/0
-  , /*decltype(_impl_.is_item_rotated_)*/0
-  , /*decltype(_impl_.top_left_index_)*/0
-  , /*decltype(_impl_._cached_size_)*/{}} {}
-struct S_MATCH_ITEM_MOVEDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR S_MATCH_ITEM_MOVEDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
-  ~S_MATCH_ITEM_MOVEDefaultTypeInternal() {}
-  union {
-    S_MATCH_ITEM_MOVE _instance;
-  };
-};
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 S_MATCH_ITEM_MOVEDefaultTypeInternal _S_MATCH_ITEM_MOVE_default_instance_;
 PROTOBUF_CONSTEXPR C_MATCH_ITEM_DROP::C_MATCH_ITEM_DROP(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.drop_item_position_)*/nullptr
   , /*decltype(_impl_.drop_item_rotation_)*/nullptr
   , /*decltype(_impl_.player_index_)*/0
-  , /*decltype(_impl_.item_id_)*/0
+  , /*decltype(_impl_.item_index_)*/0
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct C_MATCH_ITEM_DROPDefaultTypeInternal {
   PROTOBUF_CONSTEXPR C_MATCH_ITEM_DROPDefaultTypeInternal()
@@ -476,22 +448,56 @@ struct C_MATCH_ITEM_DROPDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 C_MATCH_ITEM_DROPDefaultTypeInternal _C_MATCH_ITEM_DROP_default_instance_;
-PROTOBUF_CONSTEXPR S_MATCH_ITEM_DROP::S_MATCH_ITEM_DROP(
+PROTOBUF_CONSTEXPR S_MATCH_ITEM_SOMEONE_PICKUP::S_MATCH_ITEM_SOMEONE_PICKUP(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.player_index_)*/0
+  , /*decltype(_impl_.item_index_)*/0
+  , /*decltype(_impl_.top_left_index_)*/0
+  , /*decltype(_impl_.is_item_rotated_)*/false
+  , /*decltype(_impl_._cached_size_)*/{}} {}
+struct S_MATCH_ITEM_SOMEONE_PICKUPDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR S_MATCH_ITEM_SOMEONE_PICKUPDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~S_MATCH_ITEM_SOMEONE_PICKUPDefaultTypeInternal() {}
+  union {
+    S_MATCH_ITEM_SOMEONE_PICKUP _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 S_MATCH_ITEM_SOMEONE_PICKUPDefaultTypeInternal _S_MATCH_ITEM_SOMEONE_PICKUP_default_instance_;
+PROTOBUF_CONSTEXPR S_MATCH_ITEM_SOMEONE_MOVE::S_MATCH_ITEM_SOMEONE_MOVE(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.player_index_)*/0
+  , /*decltype(_impl_.from_index_)*/0
+  , /*decltype(_impl_.to_index_)*/0
+  , /*decltype(_impl_.item_index_)*/0
+  , /*decltype(_impl_.top_left_index_)*/0
+  , /*decltype(_impl_.is_item_rotated_)*/false
+  , /*decltype(_impl_._cached_size_)*/{}} {}
+struct S_MATCH_ITEM_SOMEONE_MOVEDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR S_MATCH_ITEM_SOMEONE_MOVEDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~S_MATCH_ITEM_SOMEONE_MOVEDefaultTypeInternal() {}
+  union {
+    S_MATCH_ITEM_SOMEONE_MOVE _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 S_MATCH_ITEM_SOMEONE_MOVEDefaultTypeInternal _S_MATCH_ITEM_SOMEONE_MOVE_default_instance_;
+PROTOBUF_CONSTEXPR S_MATCH_ITEM_SOMEONE_DROP::S_MATCH_ITEM_SOMEONE_DROP(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.drop_item_position_)*/nullptr
   , /*decltype(_impl_.drop_item_rotation_)*/nullptr
   , /*decltype(_impl_.player_index_)*/0
-  , /*decltype(_impl_.item_id_)*/0
+  , /*decltype(_impl_.item_index_)*/0
   , /*decltype(_impl_._cached_size_)*/{}} {}
-struct S_MATCH_ITEM_DROPDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR S_MATCH_ITEM_DROPDefaultTypeInternal()
+struct S_MATCH_ITEM_SOMEONE_DROPDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR S_MATCH_ITEM_SOMEONE_DROPDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
-  ~S_MATCH_ITEM_DROPDefaultTypeInternal() {}
+  ~S_MATCH_ITEM_SOMEONE_DROPDefaultTypeInternal() {}
   union {
-    S_MATCH_ITEM_DROP _instance;
+    S_MATCH_ITEM_SOMEONE_DROP _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 S_MATCH_ITEM_DROPDefaultTypeInternal _S_MATCH_ITEM_DROP_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 S_MATCH_ITEM_SOMEONE_DROPDefaultTypeInternal _S_MATCH_ITEM_SOMEONE_DROP_default_instance_;
 }  // namespace ProjectJ
 static ::_pb::Metadata file_level_metadata_Message_2eproto[33];
 static constexpr ::_pb::EnumDescriptor const** file_level_enum_descriptors_Message_2eproto = nullptr;
@@ -659,32 +665,19 @@ const uint32_t TableStruct_Message_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(
   ~0u,  // no _inlined_string_donated_
   PROTOBUF_FIELD_OFFSET(::ProjectJ::S_ROOM_START_MATCH, _impl_.start_),
   ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::ProjectJ::S_MATCH_INIT_PLAYER_INDEX, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::ProjectJ::C_MATCH_READY_TO_RECEIVE, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::ProjectJ::S_MATCH_INIT_PLAYER_INDEX, _impl_.player_index_),
-  ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::ProjectJ::S_MATCH_INIT_ITEMS, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::ProjectJ::S_MATCH_INIT_ITEMS, _impl_.items_),
-  ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::ProjectJ::C_MATCH_LOADING_COMPLETE, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::ProjectJ::C_MATCH_LOADING_COMPLETE, _impl_.player_index_),
+  PROTOBUF_FIELD_OFFSET(::ProjectJ::C_MATCH_READY_TO_RECEIVE, _impl_.account_id_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::ProjectJ::S_MATCH_ALL_LOADING_COMPLETE, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
+  PROTOBUF_FIELD_OFFSET(::ProjectJ::S_MATCH_ALL_LOADING_COMPLETE, _impl_.your_player_index_),
   PROTOBUF_FIELD_OFFSET(::ProjectJ::S_MATCH_ALL_LOADING_COMPLETE, _impl_.info_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::ProjectJ::S_MATCH_START, _internal_metadata_),
@@ -694,6 +687,22 @@ const uint32_t TableStruct_Message_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(
   ~0u,  // no _inlined_string_donated_
   PROTOBUF_FIELD_OFFSET(::ProjectJ::S_MATCH_START, _impl_.end_tick_),
   PROTOBUF_FIELD_OFFSET(::ProjectJ::S_MATCH_START, _impl_.current_tick_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::ProjectJ::C_MATCH_INFO_MyInfo, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  ~0u,  // no _inlined_string_donated_
+  PROTOBUF_FIELD_OFFSET(::ProjectJ::C_MATCH_INFO_MyInfo, _impl_.position_),
+  PROTOBUF_FIELD_OFFSET(::ProjectJ::C_MATCH_INFO_MyInfo, _impl_.rotation_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::ProjectJ::C_MATCH_INFO, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  ~0u,  // no _inlined_string_donated_
+  PROTOBUF_FIELD_OFFSET(::ProjectJ::C_MATCH_INFO, _impl_.player_index_),
+  PROTOBUF_FIELD_OFFSET(::ProjectJ::C_MATCH_INFO, _impl_.info_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::ProjectJ::S_MATCH_INFO, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -719,18 +728,7 @@ const uint32_t TableStruct_Message_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
   PROTOBUF_FIELD_OFFSET(::ProjectJ::C_MATCH_ITEM_PICKUP, _impl_.player_index_),
-  PROTOBUF_FIELD_OFFSET(::ProjectJ::C_MATCH_ITEM_PICKUP, _impl_.item_id_),
-  ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::ProjectJ::S_MATCH_ITEM_PICKUP, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::ProjectJ::S_MATCH_ITEM_PICKUP, _impl_.result_),
-  PROTOBUF_FIELD_OFFSET(::ProjectJ::S_MATCH_ITEM_PICKUP, _impl_.player_index_),
-  PROTOBUF_FIELD_OFFSET(::ProjectJ::S_MATCH_ITEM_PICKUP, _impl_.item_id_),
-  PROTOBUF_FIELD_OFFSET(::ProjectJ::S_MATCH_ITEM_PICKUP, _impl_.top_left_index_),
-  PROTOBUF_FIELD_OFFSET(::ProjectJ::S_MATCH_ITEM_PICKUP, _impl_.is_item_rotated_),
+  PROTOBUF_FIELD_OFFSET(::ProjectJ::C_MATCH_ITEM_PICKUP, _impl_.item_index_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::ProjectJ::C_MATCH_ITEM_MOVE, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -738,19 +736,11 @@ const uint32_t TableStruct_Message_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
   PROTOBUF_FIELD_OFFSET(::ProjectJ::C_MATCH_ITEM_MOVE, _impl_.player_index_),
-  PROTOBUF_FIELD_OFFSET(::ProjectJ::C_MATCH_ITEM_MOVE, _impl_.item_id_),
-  PROTOBUF_FIELD_OFFSET(::ProjectJ::C_MATCH_ITEM_MOVE, _impl_.is_item_rotated_),
+  PROTOBUF_FIELD_OFFSET(::ProjectJ::C_MATCH_ITEM_MOVE, _impl_.from_index_),
+  PROTOBUF_FIELD_OFFSET(::ProjectJ::C_MATCH_ITEM_MOVE, _impl_.to_index_),
+  PROTOBUF_FIELD_OFFSET(::ProjectJ::C_MATCH_ITEM_MOVE, _impl_.item_index_),
   PROTOBUF_FIELD_OFFSET(::ProjectJ::C_MATCH_ITEM_MOVE, _impl_.target_top_left_index_),
-  ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::ProjectJ::S_MATCH_ITEM_MOVE, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::ProjectJ::S_MATCH_ITEM_MOVE, _impl_.result_),
-  PROTOBUF_FIELD_OFFSET(::ProjectJ::S_MATCH_ITEM_MOVE, _impl_.item_id_),
-  PROTOBUF_FIELD_OFFSET(::ProjectJ::S_MATCH_ITEM_MOVE, _impl_.is_item_rotated_),
-  PROTOBUF_FIELD_OFFSET(::ProjectJ::S_MATCH_ITEM_MOVE, _impl_.top_left_index_),
+  PROTOBUF_FIELD_OFFSET(::ProjectJ::C_MATCH_ITEM_MOVE, _impl_.is_item_rotated_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::ProjectJ::C_MATCH_ITEM_DROP, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -758,19 +748,41 @@ const uint32_t TableStruct_Message_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
   PROTOBUF_FIELD_OFFSET(::ProjectJ::C_MATCH_ITEM_DROP, _impl_.player_index_),
+  PROTOBUF_FIELD_OFFSET(::ProjectJ::C_MATCH_ITEM_DROP, _impl_.item_index_),
   PROTOBUF_FIELD_OFFSET(::ProjectJ::C_MATCH_ITEM_DROP, _impl_.drop_item_position_),
   PROTOBUF_FIELD_OFFSET(::ProjectJ::C_MATCH_ITEM_DROP, _impl_.drop_item_rotation_),
-  PROTOBUF_FIELD_OFFSET(::ProjectJ::C_MATCH_ITEM_DROP, _impl_.item_id_),
   ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::ProjectJ::S_MATCH_ITEM_DROP, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::ProjectJ::S_MATCH_ITEM_SOMEONE_PICKUP, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::ProjectJ::S_MATCH_ITEM_DROP, _impl_.player_index_),
-  PROTOBUF_FIELD_OFFSET(::ProjectJ::S_MATCH_ITEM_DROP, _impl_.drop_item_position_),
-  PROTOBUF_FIELD_OFFSET(::ProjectJ::S_MATCH_ITEM_DROP, _impl_.drop_item_rotation_),
-  PROTOBUF_FIELD_OFFSET(::ProjectJ::S_MATCH_ITEM_DROP, _impl_.item_id_),
+  PROTOBUF_FIELD_OFFSET(::ProjectJ::S_MATCH_ITEM_SOMEONE_PICKUP, _impl_.player_index_),
+  PROTOBUF_FIELD_OFFSET(::ProjectJ::S_MATCH_ITEM_SOMEONE_PICKUP, _impl_.item_index_),
+  PROTOBUF_FIELD_OFFSET(::ProjectJ::S_MATCH_ITEM_SOMEONE_PICKUP, _impl_.top_left_index_),
+  PROTOBUF_FIELD_OFFSET(::ProjectJ::S_MATCH_ITEM_SOMEONE_PICKUP, _impl_.is_item_rotated_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::ProjectJ::S_MATCH_ITEM_SOMEONE_MOVE, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  ~0u,  // no _inlined_string_donated_
+  PROTOBUF_FIELD_OFFSET(::ProjectJ::S_MATCH_ITEM_SOMEONE_MOVE, _impl_.player_index_),
+  PROTOBUF_FIELD_OFFSET(::ProjectJ::S_MATCH_ITEM_SOMEONE_MOVE, _impl_.from_index_),
+  PROTOBUF_FIELD_OFFSET(::ProjectJ::S_MATCH_ITEM_SOMEONE_MOVE, _impl_.to_index_),
+  PROTOBUF_FIELD_OFFSET(::ProjectJ::S_MATCH_ITEM_SOMEONE_MOVE, _impl_.item_index_),
+  PROTOBUF_FIELD_OFFSET(::ProjectJ::S_MATCH_ITEM_SOMEONE_MOVE, _impl_.top_left_index_),
+  PROTOBUF_FIELD_OFFSET(::ProjectJ::S_MATCH_ITEM_SOMEONE_MOVE, _impl_.is_item_rotated_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::ProjectJ::S_MATCH_ITEM_SOMEONE_DROP, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  ~0u,  // no _inlined_string_donated_
+  PROTOBUF_FIELD_OFFSET(::ProjectJ::S_MATCH_ITEM_SOMEONE_DROP, _impl_.player_index_),
+  PROTOBUF_FIELD_OFFSET(::ProjectJ::S_MATCH_ITEM_SOMEONE_DROP, _impl_.item_index_),
+  PROTOBUF_FIELD_OFFSET(::ProjectJ::S_MATCH_ITEM_SOMEONE_DROP, _impl_.drop_item_position_),
+  PROTOBUF_FIELD_OFFSET(::ProjectJ::S_MATCH_ITEM_SOMEONE_DROP, _impl_.drop_item_rotation_),
 };
 static const ::_pbi::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, -1, sizeof(::ProjectJ::C_VERIFY_TOKEN)},
@@ -793,19 +805,19 @@ static const ::_pbi::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protode
   { 136, -1, -1, sizeof(::ProjectJ::S_ROOM_CHAT)},
   { 146, -1, -1, sizeof(::ProjectJ::S_ROOM_STANDBY_MATCH)},
   { 153, -1, -1, sizeof(::ProjectJ::S_ROOM_START_MATCH)},
-  { 160, -1, -1, sizeof(::ProjectJ::S_MATCH_INIT_PLAYER_INDEX)},
-  { 167, -1, -1, sizeof(::ProjectJ::S_MATCH_INIT_ITEMS)},
-  { 174, -1, -1, sizeof(::ProjectJ::C_MATCH_LOADING_COMPLETE)},
-  { 181, -1, -1, sizeof(::ProjectJ::S_MATCH_ALL_LOADING_COMPLETE)},
-  { 188, -1, -1, sizeof(::ProjectJ::S_MATCH_START)},
-  { 196, -1, -1, sizeof(::ProjectJ::S_MATCH_INFO)},
-  { 204, -1, -1, sizeof(::ProjectJ::S_MATCH_END)},
-  { 214, -1, -1, sizeof(::ProjectJ::C_MATCH_ITEM_PICKUP)},
-  { 222, -1, -1, sizeof(::ProjectJ::S_MATCH_ITEM_PICKUP)},
-  { 233, -1, -1, sizeof(::ProjectJ::C_MATCH_ITEM_MOVE)},
-  { 243, -1, -1, sizeof(::ProjectJ::S_MATCH_ITEM_MOVE)},
-  { 253, -1, -1, sizeof(::ProjectJ::C_MATCH_ITEM_DROP)},
-  { 263, -1, -1, sizeof(::ProjectJ::S_MATCH_ITEM_DROP)},
+  { 160, -1, -1, sizeof(::ProjectJ::C_MATCH_READY_TO_RECEIVE)},
+  { 167, -1, -1, sizeof(::ProjectJ::S_MATCH_ALL_LOADING_COMPLETE)},
+  { 175, -1, -1, sizeof(::ProjectJ::S_MATCH_START)},
+  { 183, -1, -1, sizeof(::ProjectJ::C_MATCH_INFO_MyInfo)},
+  { 191, -1, -1, sizeof(::ProjectJ::C_MATCH_INFO)},
+  { 199, -1, -1, sizeof(::ProjectJ::S_MATCH_INFO)},
+  { 207, -1, -1, sizeof(::ProjectJ::S_MATCH_END)},
+  { 217, -1, -1, sizeof(::ProjectJ::C_MATCH_ITEM_PICKUP)},
+  { 225, -1, -1, sizeof(::ProjectJ::C_MATCH_ITEM_MOVE)},
+  { 237, -1, -1, sizeof(::ProjectJ::C_MATCH_ITEM_DROP)},
+  { 247, -1, -1, sizeof(::ProjectJ::S_MATCH_ITEM_SOMEONE_PICKUP)},
+  { 257, -1, -1, sizeof(::ProjectJ::S_MATCH_ITEM_SOMEONE_MOVE)},
+  { 269, -1, -1, sizeof(::ProjectJ::S_MATCH_ITEM_SOMEONE_DROP)},
 };
 
 static const ::_pb::Message* const file_default_instances[] = {
@@ -829,19 +841,19 @@ static const ::_pb::Message* const file_default_instances[] = {
   &::ProjectJ::_S_ROOM_CHAT_default_instance_._instance,
   &::ProjectJ::_S_ROOM_STANDBY_MATCH_default_instance_._instance,
   &::ProjectJ::_S_ROOM_START_MATCH_default_instance_._instance,
-  &::ProjectJ::_S_MATCH_INIT_PLAYER_INDEX_default_instance_._instance,
-  &::ProjectJ::_S_MATCH_INIT_ITEMS_default_instance_._instance,
-  &::ProjectJ::_C_MATCH_LOADING_COMPLETE_default_instance_._instance,
+  &::ProjectJ::_C_MATCH_READY_TO_RECEIVE_default_instance_._instance,
   &::ProjectJ::_S_MATCH_ALL_LOADING_COMPLETE_default_instance_._instance,
   &::ProjectJ::_S_MATCH_START_default_instance_._instance,
+  &::ProjectJ::_C_MATCH_INFO_MyInfo_default_instance_._instance,
+  &::ProjectJ::_C_MATCH_INFO_default_instance_._instance,
   &::ProjectJ::_S_MATCH_INFO_default_instance_._instance,
   &::ProjectJ::_S_MATCH_END_default_instance_._instance,
   &::ProjectJ::_C_MATCH_ITEM_PICKUP_default_instance_._instance,
-  &::ProjectJ::_S_MATCH_ITEM_PICKUP_default_instance_._instance,
   &::ProjectJ::_C_MATCH_ITEM_MOVE_default_instance_._instance,
-  &::ProjectJ::_S_MATCH_ITEM_MOVE_default_instance_._instance,
   &::ProjectJ::_C_MATCH_ITEM_DROP_default_instance_._instance,
-  &::ProjectJ::_S_MATCH_ITEM_DROP_default_instance_._instance,
+  &::ProjectJ::_S_MATCH_ITEM_SOMEONE_PICKUP_default_instance_._instance,
+  &::ProjectJ::_S_MATCH_ITEM_SOMEONE_MOVE_default_instance_._instance,
+  &::ProjectJ::_S_MATCH_ITEM_SOMEONE_DROP_default_instance_._instance,
 };
 
 const char descriptor_table_protodef_Message_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
@@ -876,37 +888,42 @@ const char descriptor_table_protodef_Message_2eproto[] PROTOBUF_SECTION_VARIABLE
   "\naccount_id\030\001 \001(\005\022\020\n\010nickname\030\002 \001(\t\022\017\n\007r"
   "oom_id\030\003 \001(\005\022\014\n\004chat\030\004 \001(\t\"%\n\024S_ROOM_STA"
   "NDBY_MATCH\022\r\n\005count\030\001 \001(\r\"#\n\022S_ROOM_STAR"
-  "T_MATCH\022\r\n\005start\030\001 \001(\010\"1\n\031S_MATCH_INIT_P"
-  "LAYER_INDEX\022\024\n\014player_index\030\001 \001(\005\"3\n\022S_M"
-  "ATCH_INIT_ITEMS\022\035\n\005items\030\001 \003(\0132\016.Project"
-  "J.Item\"0\n\030C_MATCH_LOADING_COMPLETE\022\024\n\014pl"
-  "ayer_index\030\001 \001(\005\"A\n\034S_MATCH_ALL_LOADING_"
-  "COMPLETE\022!\n\004info\030\001 \001(\0132\023.ProjectJ.MatchI"
-  "nfo\"7\n\rS_MATCH_START\022\020\n\010end_tick\030\001 \001(\004\022\024"
-  "\n\014current_tick\030\002 \001(\004\"G\n\014S_MATCH_INFO\022\024\n\014"
-  "current_tick\030\001 \001(\004\022!\n\004info\030\002 \001(\0132\023.Proje"
-  "ctJ.MatchInfo\"\201\001\n\013S_MATCH_END\022\024\n\014chaser_"
-  "score\030\001 \001(\005\022\035\n\025fugitivie_first_score\030\002 \001"
-  "(\005\022\036\n\026fugitivie_second_score\030\003 \001(\005\022\035\n\025fu"
-  "gitivie_third_score\030\004 \001(\005\"<\n\023C_MATCH_ITE"
-  "M_PICKUP\022\024\n\014player_index\030\001 \001(\005\022\017\n\007item_i"
-  "d\030\002 \001(\005\"}\n\023S_MATCH_ITEM_PICKUP\022\016\n\006result"
-  "\030\001 \001(\010\022\024\n\014player_index\030\002 \001(\005\022\017\n\007item_id\030"
-  "\003 \001(\005\022\026\n\016top_left_index\030\004 \001(\005\022\027\n\017is_item"
-  "_rotated\030\005 \001(\010\"r\n\021C_MATCH_ITEM_MOVE\022\024\n\014p"
-  "layer_index\030\001 \001(\005\022\017\n\007item_id\030\002 \001(\005\022\027\n\017is"
-  "_item_rotated\030\003 \001(\005\022\035\n\025target_top_left_i"
-  "ndex\030\004 \001(\005\"e\n\021S_MATCH_ITEM_MOVE\022\016\n\006resul"
-  "t\030\001 \001(\010\022\017\n\007item_id\030\002 \001(\005\022\027\n\017is_item_rota"
-  "ted\030\003 \001(\005\022\026\n\016top_left_index\030\004 \001(\005\"\227\001\n\021C_"
-  "MATCH_ITEM_DROP\022\024\n\014player_index\030\001 \001(\005\022,\n"
-  "\022drop_item_position\030\002 \001(\0132\020.ProjectJ.Vec"
-  "tor\022-\n\022drop_item_rotation\030\003 \001(\0132\021.Projec"
-  "tJ.Rotator\022\017\n\007item_id\030\004 \001(\005\"\227\001\n\021S_MATCH_"
-  "ITEM_DROP\022\024\n\014player_index\030\001 \001(\005\022,\n\022drop_"
-  "item_position\030\002 \001(\0132\020.ProjectJ.Vector\022-\n"
-  "\022drop_item_rotation\030\003 \001(\0132\021.ProjectJ.Rot"
-  "ator\022\017\n\007item_id\030\004 \001(\005b\006proto3"
+  "T_MATCH\022\r\n\005start\030\001 \001(\010\".\n\030C_MATCH_READY_"
+  "TO_RECEIVE\022\022\n\naccount_id\030\001 \001(\005\"`\n\034S_MATC"
+  "H_ALL_LOADING_COMPLETE\022\031\n\021your_player_in"
+  "dex\030\001 \001(\005\022%\n\004info\030\002 \001(\0132\027.ProjectJ.Match"
+  "InitInfo\"7\n\rS_MATCH_START\022\020\n\010end_tick\030\001 "
+  "\001(\004\022\024\n\014current_tick\030\002 \001(\004\"\244\001\n\014C_MATCH_IN"
+  "FO\022\024\n\014player_index\030\001 \001(\005\022+\n\004info\030\002 \001(\0132\035"
+  ".ProjectJ.C_MATCH_INFO.MyInfo\032Q\n\006MyInfo\022"
+  "\"\n\010position\030\001 \001(\0132\020.ProjectJ.Vector\022#\n\010r"
+  "otation\030\002 \001(\0132\021.ProjectJ.Rotator\"G\n\014S_MA"
+  "TCH_INFO\022\024\n\014current_tick\030\001 \001(\004\022!\n\004info\030\002"
+  " \001(\0132\023.ProjectJ.MatchInfo\"\201\001\n\013S_MATCH_EN"
+  "D\022\024\n\014chaser_score\030\001 \001(\005\022\035\n\025fugitivie_fir"
+  "st_score\030\002 \001(\005\022\036\n\026fugitivie_second_score"
+  "\030\003 \001(\005\022\035\n\025fugitivie_third_score\030\004 \001(\005\"\?\n"
+  "\023C_MATCH_ITEM_PICKUP\022\024\n\014player_index\030\001 \001"
+  "(\005\022\022\n\nitem_index\030\002 \001(\005\"\233\001\n\021C_MATCH_ITEM_"
+  "MOVE\022\024\n\014player_index\030\001 \001(\005\022\022\n\nfrom_index"
+  "\030\002 \001(\005\022\020\n\010to_index\030\003 \001(\005\022\022\n\nitem_index\030\004"
+  " \001(\005\022\035\n\025target_top_left_index\030\005 \001(\005\022\027\n\017i"
+  "s_item_rotated\030\006 \001(\010\"\232\001\n\021C_MATCH_ITEM_DR"
+  "OP\022\024\n\014player_index\030\001 \001(\005\022\022\n\nitem_index\030\002"
+  " \001(\005\022,\n\022drop_item_position\030\003 \001(\0132\020.Proje"
+  "ctJ.Vector\022-\n\022drop_item_rotation\030\004 \001(\0132\021"
+  ".ProjectJ.Rotator\"x\n\033S_MATCH_ITEM_SOMEON"
+  "E_PICKUP\022\024\n\014player_index\030\001 \001(\005\022\022\n\nitem_i"
+  "ndex\030\002 \001(\005\022\026\n\016top_left_index\030\003 \001(\005\022\027\n\017is"
+  "_item_rotated\030\004 \001(\010\"\234\001\n\031S_MATCH_ITEM_SOM"
+  "EONE_MOVE\022\024\n\014player_index\030\001 \001(\005\022\022\n\nfrom_"
+  "index\030\002 \001(\005\022\020\n\010to_index\030\003 \001(\005\022\022\n\nitem_in"
+  "dex\030\004 \001(\005\022\026\n\016top_left_index\030\005 \001(\005\022\027\n\017is_"
+  "item_rotated\030\006 \001(\010\"\242\001\n\031S_MATCH_ITEM_SOME"
+  "ONE_DROP\022\024\n\014player_index\030\001 \001(\005\022\022\n\nitem_i"
+  "ndex\030\002 \001(\005\022,\n\022drop_item_position\030\003 \001(\0132\020"
+  ".ProjectJ.Vector\022-\n\022drop_item_rotation\030\004"
+  " \001(\0132\021.ProjectJ.Rotatorb\006proto3"
   ;
 static const ::_pbi::DescriptorTable* const descriptor_table_Message_2eproto_deps[2] = {
   &::descriptor_table_Enum_2eproto,
@@ -914,7 +931,7 @@ static const ::_pbi::DescriptorTable* const descriptor_table_Message_2eproto_dep
 };
 static ::_pbi::once_flag descriptor_table_Message_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_Message_2eproto = {
-    false, false, 2469, descriptor_table_protodef_Message_2eproto,
+    false, false, 2671, descriptor_table_protodef_Message_2eproto,
     "Message.proto",
     &descriptor_table_Message_2eproto_once, descriptor_table_Message_2eproto_deps, 2, 33,
     schemas, file_default_instances, TableStruct_Message_2eproto::offsets,
@@ -5477,40 +5494,40 @@ void S_ROOM_START_MATCH::InternalSwap(S_ROOM_START_MATCH* other) {
 
 // ===================================================================
 
-class S_MATCH_INIT_PLAYER_INDEX::_Internal {
+class C_MATCH_READY_TO_RECEIVE::_Internal {
  public:
 };
 
-S_MATCH_INIT_PLAYER_INDEX::S_MATCH_INIT_PLAYER_INDEX(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+C_MATCH_READY_TO_RECEIVE::C_MATCH_READY_TO_RECEIVE(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
   SharedCtor(arena, is_message_owned);
-  // @@protoc_insertion_point(arena_constructor:ProjectJ.S_MATCH_INIT_PLAYER_INDEX)
+  // @@protoc_insertion_point(arena_constructor:ProjectJ.C_MATCH_READY_TO_RECEIVE)
 }
-S_MATCH_INIT_PLAYER_INDEX::S_MATCH_INIT_PLAYER_INDEX(const S_MATCH_INIT_PLAYER_INDEX& from)
+C_MATCH_READY_TO_RECEIVE::C_MATCH_READY_TO_RECEIVE(const C_MATCH_READY_TO_RECEIVE& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
-  S_MATCH_INIT_PLAYER_INDEX* const _this = this; (void)_this;
+  C_MATCH_READY_TO_RECEIVE* const _this = this; (void)_this;
   new (&_impl_) Impl_{
-      decltype(_impl_.player_index_){}
+      decltype(_impl_.account_id_){}
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  _this->_impl_.player_index_ = from._impl_.player_index_;
-  // @@protoc_insertion_point(copy_constructor:ProjectJ.S_MATCH_INIT_PLAYER_INDEX)
+  _this->_impl_.account_id_ = from._impl_.account_id_;
+  // @@protoc_insertion_point(copy_constructor:ProjectJ.C_MATCH_READY_TO_RECEIVE)
 }
 
-inline void S_MATCH_INIT_PLAYER_INDEX::SharedCtor(
+inline void C_MATCH_READY_TO_RECEIVE::SharedCtor(
     ::_pb::Arena* arena, bool is_message_owned) {
   (void)arena;
   (void)is_message_owned;
   new (&_impl_) Impl_{
-      decltype(_impl_.player_index_){0}
+      decltype(_impl_.account_id_){0}
     , /*decltype(_impl_._cached_size_)*/{}
   };
 }
 
-S_MATCH_INIT_PLAYER_INDEX::~S_MATCH_INIT_PLAYER_INDEX() {
-  // @@protoc_insertion_point(destructor:ProjectJ.S_MATCH_INIT_PLAYER_INDEX)
+C_MATCH_READY_TO_RECEIVE::~C_MATCH_READY_TO_RECEIVE() {
+  // @@protoc_insertion_point(destructor:ProjectJ.C_MATCH_READY_TO_RECEIVE)
   if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
   (void)arena;
     return;
@@ -5518,34 +5535,34 @@ S_MATCH_INIT_PLAYER_INDEX::~S_MATCH_INIT_PLAYER_INDEX() {
   SharedDtor();
 }
 
-inline void S_MATCH_INIT_PLAYER_INDEX::SharedDtor() {
+inline void C_MATCH_READY_TO_RECEIVE::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
-void S_MATCH_INIT_PLAYER_INDEX::SetCachedSize(int size) const {
+void C_MATCH_READY_TO_RECEIVE::SetCachedSize(int size) const {
   _impl_._cached_size_.Set(size);
 }
 
-void S_MATCH_INIT_PLAYER_INDEX::Clear() {
-// @@protoc_insertion_point(message_clear_start:ProjectJ.S_MATCH_INIT_PLAYER_INDEX)
+void C_MATCH_READY_TO_RECEIVE::Clear() {
+// @@protoc_insertion_point(message_clear_start:ProjectJ.C_MATCH_READY_TO_RECEIVE)
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  _impl_.player_index_ = 0;
+  _impl_.account_id_ = 0;
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* S_MATCH_INIT_PLAYER_INDEX::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+const char* C_MATCH_READY_TO_RECEIVE::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // int32 player_index = 1;
+      // int32 account_id = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
-          _impl_.player_index_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.account_id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -5573,81 +5590,81 @@ failure:
 #undef CHK_
 }
 
-uint8_t* S_MATCH_INIT_PLAYER_INDEX::_InternalSerialize(
+uint8_t* C_MATCH_READY_TO_RECEIVE::_InternalSerialize(
     uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:ProjectJ.S_MATCH_INIT_PLAYER_INDEX)
+  // @@protoc_insertion_point(serialize_to_array_start:ProjectJ.C_MATCH_READY_TO_RECEIVE)
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // int32 player_index = 1;
-  if (this->_internal_player_index() != 0) {
+  // int32 account_id = 1;
+  if (this->_internal_account_id() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(1, this->_internal_player_index(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(1, this->_internal_account_id(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:ProjectJ.S_MATCH_INIT_PLAYER_INDEX)
+  // @@protoc_insertion_point(serialize_to_array_end:ProjectJ.C_MATCH_READY_TO_RECEIVE)
   return target;
 }
 
-size_t S_MATCH_INIT_PLAYER_INDEX::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:ProjectJ.S_MATCH_INIT_PLAYER_INDEX)
+size_t C_MATCH_READY_TO_RECEIVE::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:ProjectJ.C_MATCH_READY_TO_RECEIVE)
   size_t total_size = 0;
 
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // int32 player_index = 1;
-  if (this->_internal_player_index() != 0) {
-    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_player_index());
+  // int32 account_id = 1;
+  if (this->_internal_account_id() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_account_id());
   }
 
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData S_MATCH_INIT_PLAYER_INDEX::_class_data_ = {
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData C_MATCH_READY_TO_RECEIVE::_class_data_ = {
     ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
-    S_MATCH_INIT_PLAYER_INDEX::MergeImpl
+    C_MATCH_READY_TO_RECEIVE::MergeImpl
 };
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*S_MATCH_INIT_PLAYER_INDEX::GetClassData() const { return &_class_data_; }
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*C_MATCH_READY_TO_RECEIVE::GetClassData() const { return &_class_data_; }
 
 
-void S_MATCH_INIT_PLAYER_INDEX::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
-  auto* const _this = static_cast<S_MATCH_INIT_PLAYER_INDEX*>(&to_msg);
-  auto& from = static_cast<const S_MATCH_INIT_PLAYER_INDEX&>(from_msg);
-  // @@protoc_insertion_point(class_specific_merge_from_start:ProjectJ.S_MATCH_INIT_PLAYER_INDEX)
+void C_MATCH_READY_TO_RECEIVE::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<C_MATCH_READY_TO_RECEIVE*>(&to_msg);
+  auto& from = static_cast<const C_MATCH_READY_TO_RECEIVE&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:ProjectJ.C_MATCH_READY_TO_RECEIVE)
   GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from._internal_player_index() != 0) {
-    _this->_internal_set_player_index(from._internal_player_index());
+  if (from._internal_account_id() != 0) {
+    _this->_internal_set_account_id(from._internal_account_id());
   }
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
-void S_MATCH_INIT_PLAYER_INDEX::CopyFrom(const S_MATCH_INIT_PLAYER_INDEX& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:ProjectJ.S_MATCH_INIT_PLAYER_INDEX)
+void C_MATCH_READY_TO_RECEIVE::CopyFrom(const C_MATCH_READY_TO_RECEIVE& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:ProjectJ.C_MATCH_READY_TO_RECEIVE)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool S_MATCH_INIT_PLAYER_INDEX::IsInitialized() const {
+bool C_MATCH_READY_TO_RECEIVE::IsInitialized() const {
   return true;
 }
 
-void S_MATCH_INIT_PLAYER_INDEX::InternalSwap(S_MATCH_INIT_PLAYER_INDEX* other) {
+void C_MATCH_READY_TO_RECEIVE::InternalSwap(C_MATCH_READY_TO_RECEIVE* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_impl_.player_index_, other->_impl_.player_index_);
+  swap(_impl_.account_id_, other->_impl_.account_id_);
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata S_MATCH_INIT_PLAYER_INDEX::GetMetadata() const {
+::PROTOBUF_NAMESPACE_ID::Metadata C_MATCH_READY_TO_RECEIVE::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2eproto_getter, &descriptor_table_Message_2eproto_once,
       file_level_metadata_Message_2eproto[20]);
@@ -5655,378 +5672,12 @@ void S_MATCH_INIT_PLAYER_INDEX::InternalSwap(S_MATCH_INIT_PLAYER_INDEX* other) {
 
 // ===================================================================
 
-class S_MATCH_INIT_ITEMS::_Internal {
- public:
-};
-
-void S_MATCH_INIT_ITEMS::clear_items() {
-  _impl_.items_.Clear();
-}
-S_MATCH_INIT_ITEMS::S_MATCH_INIT_ITEMS(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
-  // @@protoc_insertion_point(arena_constructor:ProjectJ.S_MATCH_INIT_ITEMS)
-}
-S_MATCH_INIT_ITEMS::S_MATCH_INIT_ITEMS(const S_MATCH_INIT_ITEMS& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message() {
-  S_MATCH_INIT_ITEMS* const _this = this; (void)_this;
-  new (&_impl_) Impl_{
-      decltype(_impl_.items_){from._impl_.items_}
-    , /*decltype(_impl_._cached_size_)*/{}};
-
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  // @@protoc_insertion_point(copy_constructor:ProjectJ.S_MATCH_INIT_ITEMS)
-}
-
-inline void S_MATCH_INIT_ITEMS::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
-  (void)arena;
-  (void)is_message_owned;
-  new (&_impl_) Impl_{
-      decltype(_impl_.items_){arena}
-    , /*decltype(_impl_._cached_size_)*/{}
-  };
-}
-
-S_MATCH_INIT_ITEMS::~S_MATCH_INIT_ITEMS() {
-  // @@protoc_insertion_point(destructor:ProjectJ.S_MATCH_INIT_ITEMS)
-  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
-  (void)arena;
-    return;
-  }
-  SharedDtor();
-}
-
-inline void S_MATCH_INIT_ITEMS::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  _impl_.items_.~RepeatedPtrField();
-}
-
-void S_MATCH_INIT_ITEMS::SetCachedSize(int size) const {
-  _impl_._cached_size_.Set(size);
-}
-
-void S_MATCH_INIT_ITEMS::Clear() {
-// @@protoc_insertion_point(message_clear_start:ProjectJ.S_MATCH_INIT_ITEMS)
-  uint32_t cached_has_bits = 0;
-  // Prevent compiler warnings about cached_has_bits being unused
-  (void) cached_has_bits;
-
-  _impl_.items_.Clear();
-  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
-}
-
-const char* S_MATCH_INIT_ITEMS::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
-#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
-  while (!ctx->Done(&ptr)) {
-    uint32_t tag;
-    ptr = ::_pbi::ReadTag(ptr, &tag);
-    switch (tag >> 3) {
-      // repeated .ProjectJ.Item items = 1;
-      case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
-          ptr -= 1;
-          do {
-            ptr += 1;
-            ptr = ctx->ParseMessage(_internal_add_items(), ptr);
-            CHK_(ptr);
-            if (!ctx->DataAvailable(ptr)) break;
-          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<10>(ptr));
-        } else
-          goto handle_unusual;
-        continue;
-      default:
-        goto handle_unusual;
-    }  // switch
-  handle_unusual:
-    if ((tag == 0) || ((tag & 7) == 4)) {
-      CHK_(ptr);
-      ctx->SetLastTag(tag);
-      goto message_done;
-    }
-    ptr = UnknownFieldParse(
-        tag,
-        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
-        ptr, ctx);
-    CHK_(ptr != nullptr);
-  }  // while
-message_done:
-  return ptr;
-failure:
-  ptr = nullptr;
-  goto message_done;
-#undef CHK_
-}
-
-uint8_t* S_MATCH_INIT_ITEMS::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:ProjectJ.S_MATCH_INIT_ITEMS)
-  uint32_t cached_has_bits = 0;
-  (void) cached_has_bits;
-
-  // repeated .ProjectJ.Item items = 1;
-  for (unsigned i = 0,
-      n = static_cast<unsigned>(this->_internal_items_size()); i < n; i++) {
-    const auto& repfield = this->_internal_items(i);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-        InternalWriteMessage(1, repfield, repfield.GetCachedSize(), target, stream);
-  }
-
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
-        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
-  }
-  // @@protoc_insertion_point(serialize_to_array_end:ProjectJ.S_MATCH_INIT_ITEMS)
-  return target;
-}
-
-size_t S_MATCH_INIT_ITEMS::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:ProjectJ.S_MATCH_INIT_ITEMS)
-  size_t total_size = 0;
-
-  uint32_t cached_has_bits = 0;
-  // Prevent compiler warnings about cached_has_bits being unused
-  (void) cached_has_bits;
-
-  // repeated .ProjectJ.Item items = 1;
-  total_size += 1UL * this->_internal_items_size();
-  for (const auto& msg : this->_impl_.items_) {
-    total_size +=
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
-  }
-
-  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
-}
-
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData S_MATCH_INIT_ITEMS::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
-    S_MATCH_INIT_ITEMS::MergeImpl
-};
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*S_MATCH_INIT_ITEMS::GetClassData() const { return &_class_data_; }
-
-
-void S_MATCH_INIT_ITEMS::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
-  auto* const _this = static_cast<S_MATCH_INIT_ITEMS*>(&to_msg);
-  auto& from = static_cast<const S_MATCH_INIT_ITEMS&>(from_msg);
-  // @@protoc_insertion_point(class_specific_merge_from_start:ProjectJ.S_MATCH_INIT_ITEMS)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
-  (void) cached_has_bits;
-
-  _this->_impl_.items_.MergeFrom(from._impl_.items_);
-  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-}
-
-void S_MATCH_INIT_ITEMS::CopyFrom(const S_MATCH_INIT_ITEMS& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:ProjectJ.S_MATCH_INIT_ITEMS)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-bool S_MATCH_INIT_ITEMS::IsInitialized() const {
-  return true;
-}
-
-void S_MATCH_INIT_ITEMS::InternalSwap(S_MATCH_INIT_ITEMS* other) {
-  using std::swap;
-  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  _impl_.items_.InternalSwap(&other->_impl_.items_);
-}
-
-::PROTOBUF_NAMESPACE_ID::Metadata S_MATCH_INIT_ITEMS::GetMetadata() const {
-  return ::_pbi::AssignDescriptors(
-      &descriptor_table_Message_2eproto_getter, &descriptor_table_Message_2eproto_once,
-      file_level_metadata_Message_2eproto[21]);
-}
-
-// ===================================================================
-
-class C_MATCH_LOADING_COMPLETE::_Internal {
- public:
-};
-
-C_MATCH_LOADING_COMPLETE::C_MATCH_LOADING_COMPLETE(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
-  // @@protoc_insertion_point(arena_constructor:ProjectJ.C_MATCH_LOADING_COMPLETE)
-}
-C_MATCH_LOADING_COMPLETE::C_MATCH_LOADING_COMPLETE(const C_MATCH_LOADING_COMPLETE& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message() {
-  C_MATCH_LOADING_COMPLETE* const _this = this; (void)_this;
-  new (&_impl_) Impl_{
-      decltype(_impl_.player_index_){}
-    , /*decltype(_impl_._cached_size_)*/{}};
-
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  _this->_impl_.player_index_ = from._impl_.player_index_;
-  // @@protoc_insertion_point(copy_constructor:ProjectJ.C_MATCH_LOADING_COMPLETE)
-}
-
-inline void C_MATCH_LOADING_COMPLETE::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
-  (void)arena;
-  (void)is_message_owned;
-  new (&_impl_) Impl_{
-      decltype(_impl_.player_index_){0}
-    , /*decltype(_impl_._cached_size_)*/{}
-  };
-}
-
-C_MATCH_LOADING_COMPLETE::~C_MATCH_LOADING_COMPLETE() {
-  // @@protoc_insertion_point(destructor:ProjectJ.C_MATCH_LOADING_COMPLETE)
-  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
-  (void)arena;
-    return;
-  }
-  SharedDtor();
-}
-
-inline void C_MATCH_LOADING_COMPLETE::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-}
-
-void C_MATCH_LOADING_COMPLETE::SetCachedSize(int size) const {
-  _impl_._cached_size_.Set(size);
-}
-
-void C_MATCH_LOADING_COMPLETE::Clear() {
-// @@protoc_insertion_point(message_clear_start:ProjectJ.C_MATCH_LOADING_COMPLETE)
-  uint32_t cached_has_bits = 0;
-  // Prevent compiler warnings about cached_has_bits being unused
-  (void) cached_has_bits;
-
-  _impl_.player_index_ = 0;
-  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
-}
-
-const char* C_MATCH_LOADING_COMPLETE::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
-#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
-  while (!ctx->Done(&ptr)) {
-    uint32_t tag;
-    ptr = ::_pbi::ReadTag(ptr, &tag);
-    switch (tag >> 3) {
-      // int32 player_index = 1;
-      case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
-          _impl_.player_index_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      default:
-        goto handle_unusual;
-    }  // switch
-  handle_unusual:
-    if ((tag == 0) || ((tag & 7) == 4)) {
-      CHK_(ptr);
-      ctx->SetLastTag(tag);
-      goto message_done;
-    }
-    ptr = UnknownFieldParse(
-        tag,
-        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
-        ptr, ctx);
-    CHK_(ptr != nullptr);
-  }  // while
-message_done:
-  return ptr;
-failure:
-  ptr = nullptr;
-  goto message_done;
-#undef CHK_
-}
-
-uint8_t* C_MATCH_LOADING_COMPLETE::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:ProjectJ.C_MATCH_LOADING_COMPLETE)
-  uint32_t cached_has_bits = 0;
-  (void) cached_has_bits;
-
-  // int32 player_index = 1;
-  if (this->_internal_player_index() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(1, this->_internal_player_index(), target);
-  }
-
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
-        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
-  }
-  // @@protoc_insertion_point(serialize_to_array_end:ProjectJ.C_MATCH_LOADING_COMPLETE)
-  return target;
-}
-
-size_t C_MATCH_LOADING_COMPLETE::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:ProjectJ.C_MATCH_LOADING_COMPLETE)
-  size_t total_size = 0;
-
-  uint32_t cached_has_bits = 0;
-  // Prevent compiler warnings about cached_has_bits being unused
-  (void) cached_has_bits;
-
-  // int32 player_index = 1;
-  if (this->_internal_player_index() != 0) {
-    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_player_index());
-  }
-
-  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
-}
-
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData C_MATCH_LOADING_COMPLETE::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
-    C_MATCH_LOADING_COMPLETE::MergeImpl
-};
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*C_MATCH_LOADING_COMPLETE::GetClassData() const { return &_class_data_; }
-
-
-void C_MATCH_LOADING_COMPLETE::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
-  auto* const _this = static_cast<C_MATCH_LOADING_COMPLETE*>(&to_msg);
-  auto& from = static_cast<const C_MATCH_LOADING_COMPLETE&>(from_msg);
-  // @@protoc_insertion_point(class_specific_merge_from_start:ProjectJ.C_MATCH_LOADING_COMPLETE)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
-  (void) cached_has_bits;
-
-  if (from._internal_player_index() != 0) {
-    _this->_internal_set_player_index(from._internal_player_index());
-  }
-  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-}
-
-void C_MATCH_LOADING_COMPLETE::CopyFrom(const C_MATCH_LOADING_COMPLETE& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:ProjectJ.C_MATCH_LOADING_COMPLETE)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-bool C_MATCH_LOADING_COMPLETE::IsInitialized() const {
-  return true;
-}
-
-void C_MATCH_LOADING_COMPLETE::InternalSwap(C_MATCH_LOADING_COMPLETE* other) {
-  using std::swap;
-  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_impl_.player_index_, other->_impl_.player_index_);
-}
-
-::PROTOBUF_NAMESPACE_ID::Metadata C_MATCH_LOADING_COMPLETE::GetMetadata() const {
-  return ::_pbi::AssignDescriptors(
-      &descriptor_table_Message_2eproto_getter, &descriptor_table_Message_2eproto_once,
-      file_level_metadata_Message_2eproto[22]);
-}
-
-// ===================================================================
-
 class S_MATCH_ALL_LOADING_COMPLETE::_Internal {
  public:
-  static const ::ProjectJ::MatchInfo& info(const S_MATCH_ALL_LOADING_COMPLETE* msg);
+  static const ::ProjectJ::MatchInitInfo& info(const S_MATCH_ALL_LOADING_COMPLETE* msg);
 };
 
-const ::ProjectJ::MatchInfo&
+const ::ProjectJ::MatchInitInfo&
 S_MATCH_ALL_LOADING_COMPLETE::_Internal::info(const S_MATCH_ALL_LOADING_COMPLETE* msg) {
   return *msg->_impl_.info_;
 }
@@ -6047,12 +5698,14 @@ S_MATCH_ALL_LOADING_COMPLETE::S_MATCH_ALL_LOADING_COMPLETE(const S_MATCH_ALL_LOA
   S_MATCH_ALL_LOADING_COMPLETE* const _this = this; (void)_this;
   new (&_impl_) Impl_{
       decltype(_impl_.info_){nullptr}
+    , decltype(_impl_.your_player_index_){}
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   if (from._internal_has_info()) {
-    _this->_impl_.info_ = new ::ProjectJ::MatchInfo(*from._impl_.info_);
+    _this->_impl_.info_ = new ::ProjectJ::MatchInitInfo(*from._impl_.info_);
   }
+  _this->_impl_.your_player_index_ = from._impl_.your_player_index_;
   // @@protoc_insertion_point(copy_constructor:ProjectJ.S_MATCH_ALL_LOADING_COMPLETE)
 }
 
@@ -6062,6 +5715,7 @@ inline void S_MATCH_ALL_LOADING_COMPLETE::SharedCtor(
   (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_.info_){nullptr}
+    , decltype(_impl_.your_player_index_){0}
     , /*decltype(_impl_._cached_size_)*/{}
   };
 }
@@ -6094,6 +5748,7 @@ void S_MATCH_ALL_LOADING_COMPLETE::Clear() {
     delete _impl_.info_;
   }
   _impl_.info_ = nullptr;
+  _impl_.your_player_index_ = 0;
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -6103,9 +5758,17 @@ const char* S_MATCH_ALL_LOADING_COMPLETE::_InternalParse(const char* ptr, ::_pbi
     uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // .ProjectJ.MatchInfo info = 1;
+      // int32 your_player_index = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          _impl_.your_player_index_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // .ProjectJ.MatchInitInfo info = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
           ptr = ctx->ParseMessage(_internal_mutable_info(), ptr);
           CHK_(ptr);
         } else
@@ -6140,10 +5803,16 @@ uint8_t* S_MATCH_ALL_LOADING_COMPLETE::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // .ProjectJ.MatchInfo info = 1;
+  // int32 your_player_index = 1;
+  if (this->_internal_your_player_index() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(1, this->_internal_your_player_index(), target);
+  }
+
+  // .ProjectJ.MatchInitInfo info = 2;
   if (this->_internal_has_info()) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(1, _Internal::info(this),
+      InternalWriteMessage(2, _Internal::info(this),
         _Internal::info(this).GetCachedSize(), target, stream);
   }
 
@@ -6163,11 +5832,16 @@ size_t S_MATCH_ALL_LOADING_COMPLETE::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // .ProjectJ.MatchInfo info = 1;
+  // .ProjectJ.MatchInitInfo info = 2;
   if (this->_internal_has_info()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
         *_impl_.info_);
+  }
+
+  // int32 your_player_index = 1;
+  if (this->_internal_your_player_index() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_your_player_index());
   }
 
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
@@ -6189,8 +5863,11 @@ void S_MATCH_ALL_LOADING_COMPLETE::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& t
   (void) cached_has_bits;
 
   if (from._internal_has_info()) {
-    _this->_internal_mutable_info()->::ProjectJ::MatchInfo::MergeFrom(
+    _this->_internal_mutable_info()->::ProjectJ::MatchInitInfo::MergeFrom(
         from._internal_info());
+  }
+  if (from._internal_your_player_index() != 0) {
+    _this->_internal_set_your_player_index(from._internal_your_player_index());
   }
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
@@ -6209,13 +5886,18 @@ bool S_MATCH_ALL_LOADING_COMPLETE::IsInitialized() const {
 void S_MATCH_ALL_LOADING_COMPLETE::InternalSwap(S_MATCH_ALL_LOADING_COMPLETE* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_impl_.info_, other->_impl_.info_);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(S_MATCH_ALL_LOADING_COMPLETE, _impl_.your_player_index_)
+      + sizeof(S_MATCH_ALL_LOADING_COMPLETE::_impl_.your_player_index_)
+      - PROTOBUF_FIELD_OFFSET(S_MATCH_ALL_LOADING_COMPLETE, _impl_.info_)>(
+          reinterpret_cast<char*>(&_impl_.info_),
+          reinterpret_cast<char*>(&other->_impl_.info_));
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata S_MATCH_ALL_LOADING_COMPLETE::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2eproto_getter, &descriptor_table_Message_2eproto_once,
-      file_level_metadata_Message_2eproto[23]);
+      file_level_metadata_Message_2eproto[21]);
 }
 
 // ===================================================================
@@ -6424,6 +6106,481 @@ void S_MATCH_START::InternalSwap(S_MATCH_START* other) {
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata S_MATCH_START::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
+      &descriptor_table_Message_2eproto_getter, &descriptor_table_Message_2eproto_once,
+      file_level_metadata_Message_2eproto[22]);
+}
+
+// ===================================================================
+
+class C_MATCH_INFO_MyInfo::_Internal {
+ public:
+  static const ::ProjectJ::Vector& position(const C_MATCH_INFO_MyInfo* msg);
+  static const ::ProjectJ::Rotator& rotation(const C_MATCH_INFO_MyInfo* msg);
+};
+
+const ::ProjectJ::Vector&
+C_MATCH_INFO_MyInfo::_Internal::position(const C_MATCH_INFO_MyInfo* msg) {
+  return *msg->_impl_.position_;
+}
+const ::ProjectJ::Rotator&
+C_MATCH_INFO_MyInfo::_Internal::rotation(const C_MATCH_INFO_MyInfo* msg) {
+  return *msg->_impl_.rotation_;
+}
+void C_MATCH_INFO_MyInfo::clear_position() {
+  if (GetArenaForAllocation() == nullptr && _impl_.position_ != nullptr) {
+    delete _impl_.position_;
+  }
+  _impl_.position_ = nullptr;
+}
+void C_MATCH_INFO_MyInfo::clear_rotation() {
+  if (GetArenaForAllocation() == nullptr && _impl_.rotation_ != nullptr) {
+    delete _impl_.rotation_;
+  }
+  _impl_.rotation_ = nullptr;
+}
+C_MATCH_INFO_MyInfo::C_MATCH_INFO_MyInfo(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:ProjectJ.C_MATCH_INFO.MyInfo)
+}
+C_MATCH_INFO_MyInfo::C_MATCH_INFO_MyInfo(const C_MATCH_INFO_MyInfo& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  C_MATCH_INFO_MyInfo* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.position_){nullptr}
+    , decltype(_impl_.rotation_){nullptr}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  if (from._internal_has_position()) {
+    _this->_impl_.position_ = new ::ProjectJ::Vector(*from._impl_.position_);
+  }
+  if (from._internal_has_rotation()) {
+    _this->_impl_.rotation_ = new ::ProjectJ::Rotator(*from._impl_.rotation_);
+  }
+  // @@protoc_insertion_point(copy_constructor:ProjectJ.C_MATCH_INFO.MyInfo)
+}
+
+inline void C_MATCH_INFO_MyInfo::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.position_){nullptr}
+    , decltype(_impl_.rotation_){nullptr}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+}
+
+C_MATCH_INFO_MyInfo::~C_MATCH_INFO_MyInfo() {
+  // @@protoc_insertion_point(destructor:ProjectJ.C_MATCH_INFO.MyInfo)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void C_MATCH_INFO_MyInfo::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  if (this != internal_default_instance()) delete _impl_.position_;
+  if (this != internal_default_instance()) delete _impl_.rotation_;
+}
+
+void C_MATCH_INFO_MyInfo::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void C_MATCH_INFO_MyInfo::Clear() {
+// @@protoc_insertion_point(message_clear_start:ProjectJ.C_MATCH_INFO.MyInfo)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  if (GetArenaForAllocation() == nullptr && _impl_.position_ != nullptr) {
+    delete _impl_.position_;
+  }
+  _impl_.position_ = nullptr;
+  if (GetArenaForAllocation() == nullptr && _impl_.rotation_ != nullptr) {
+    delete _impl_.rotation_;
+  }
+  _impl_.rotation_ = nullptr;
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* C_MATCH_INFO_MyInfo::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // .ProjectJ.Vector position = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          ptr = ctx->ParseMessage(_internal_mutable_position(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // .ProjectJ.Rotator rotation = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          ptr = ctx->ParseMessage(_internal_mutable_rotation(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* C_MATCH_INFO_MyInfo::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:ProjectJ.C_MATCH_INFO.MyInfo)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // .ProjectJ.Vector position = 1;
+  if (this->_internal_has_position()) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(1, _Internal::position(this),
+        _Internal::position(this).GetCachedSize(), target, stream);
+  }
+
+  // .ProjectJ.Rotator rotation = 2;
+  if (this->_internal_has_rotation()) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(2, _Internal::rotation(this),
+        _Internal::rotation(this).GetCachedSize(), target, stream);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:ProjectJ.C_MATCH_INFO.MyInfo)
+  return target;
+}
+
+size_t C_MATCH_INFO_MyInfo::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:ProjectJ.C_MATCH_INFO.MyInfo)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // .ProjectJ.Vector position = 1;
+  if (this->_internal_has_position()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *_impl_.position_);
+  }
+
+  // .ProjectJ.Rotator rotation = 2;
+  if (this->_internal_has_rotation()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *_impl_.rotation_);
+  }
+
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
+}
+
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData C_MATCH_INFO_MyInfo::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
+    C_MATCH_INFO_MyInfo::MergeImpl
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*C_MATCH_INFO_MyInfo::GetClassData() const { return &_class_data_; }
+
+
+void C_MATCH_INFO_MyInfo::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<C_MATCH_INFO_MyInfo*>(&to_msg);
+  auto& from = static_cast<const C_MATCH_INFO_MyInfo&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:ProjectJ.C_MATCH_INFO.MyInfo)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_has_position()) {
+    _this->_internal_mutable_position()->::ProjectJ::Vector::MergeFrom(
+        from._internal_position());
+  }
+  if (from._internal_has_rotation()) {
+    _this->_internal_mutable_rotation()->::ProjectJ::Rotator::MergeFrom(
+        from._internal_rotation());
+  }
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void C_MATCH_INFO_MyInfo::CopyFrom(const C_MATCH_INFO_MyInfo& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:ProjectJ.C_MATCH_INFO.MyInfo)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool C_MATCH_INFO_MyInfo::IsInitialized() const {
+  return true;
+}
+
+void C_MATCH_INFO_MyInfo::InternalSwap(C_MATCH_INFO_MyInfo* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(C_MATCH_INFO_MyInfo, _impl_.rotation_)
+      + sizeof(C_MATCH_INFO_MyInfo::_impl_.rotation_)
+      - PROTOBUF_FIELD_OFFSET(C_MATCH_INFO_MyInfo, _impl_.position_)>(
+          reinterpret_cast<char*>(&_impl_.position_),
+          reinterpret_cast<char*>(&other->_impl_.position_));
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata C_MATCH_INFO_MyInfo::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
+      &descriptor_table_Message_2eproto_getter, &descriptor_table_Message_2eproto_once,
+      file_level_metadata_Message_2eproto[23]);
+}
+
+// ===================================================================
+
+class C_MATCH_INFO::_Internal {
+ public:
+  static const ::ProjectJ::C_MATCH_INFO_MyInfo& info(const C_MATCH_INFO* msg);
+};
+
+const ::ProjectJ::C_MATCH_INFO_MyInfo&
+C_MATCH_INFO::_Internal::info(const C_MATCH_INFO* msg) {
+  return *msg->_impl_.info_;
+}
+C_MATCH_INFO::C_MATCH_INFO(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:ProjectJ.C_MATCH_INFO)
+}
+C_MATCH_INFO::C_MATCH_INFO(const C_MATCH_INFO& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  C_MATCH_INFO* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.info_){nullptr}
+    , decltype(_impl_.player_index_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  if (from._internal_has_info()) {
+    _this->_impl_.info_ = new ::ProjectJ::C_MATCH_INFO_MyInfo(*from._impl_.info_);
+  }
+  _this->_impl_.player_index_ = from._impl_.player_index_;
+  // @@protoc_insertion_point(copy_constructor:ProjectJ.C_MATCH_INFO)
+}
+
+inline void C_MATCH_INFO::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.info_){nullptr}
+    , decltype(_impl_.player_index_){0}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+}
+
+C_MATCH_INFO::~C_MATCH_INFO() {
+  // @@protoc_insertion_point(destructor:ProjectJ.C_MATCH_INFO)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void C_MATCH_INFO::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  if (this != internal_default_instance()) delete _impl_.info_;
+}
+
+void C_MATCH_INFO::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void C_MATCH_INFO::Clear() {
+// @@protoc_insertion_point(message_clear_start:ProjectJ.C_MATCH_INFO)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  if (GetArenaForAllocation() == nullptr && _impl_.info_ != nullptr) {
+    delete _impl_.info_;
+  }
+  _impl_.info_ = nullptr;
+  _impl_.player_index_ = 0;
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* C_MATCH_INFO::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // int32 player_index = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          _impl_.player_index_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // .ProjectJ.C_MATCH_INFO.MyInfo info = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          ptr = ctx->ParseMessage(_internal_mutable_info(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* C_MATCH_INFO::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:ProjectJ.C_MATCH_INFO)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // int32 player_index = 1;
+  if (this->_internal_player_index() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(1, this->_internal_player_index(), target);
+  }
+
+  // .ProjectJ.C_MATCH_INFO.MyInfo info = 2;
+  if (this->_internal_has_info()) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(2, _Internal::info(this),
+        _Internal::info(this).GetCachedSize(), target, stream);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:ProjectJ.C_MATCH_INFO)
+  return target;
+}
+
+size_t C_MATCH_INFO::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:ProjectJ.C_MATCH_INFO)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // .ProjectJ.C_MATCH_INFO.MyInfo info = 2;
+  if (this->_internal_has_info()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *_impl_.info_);
+  }
+
+  // int32 player_index = 1;
+  if (this->_internal_player_index() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_player_index());
+  }
+
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
+}
+
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData C_MATCH_INFO::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
+    C_MATCH_INFO::MergeImpl
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*C_MATCH_INFO::GetClassData() const { return &_class_data_; }
+
+
+void C_MATCH_INFO::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<C_MATCH_INFO*>(&to_msg);
+  auto& from = static_cast<const C_MATCH_INFO&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:ProjectJ.C_MATCH_INFO)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_has_info()) {
+    _this->_internal_mutable_info()->::ProjectJ::C_MATCH_INFO_MyInfo::MergeFrom(
+        from._internal_info());
+  }
+  if (from._internal_player_index() != 0) {
+    _this->_internal_set_player_index(from._internal_player_index());
+  }
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void C_MATCH_INFO::CopyFrom(const C_MATCH_INFO& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:ProjectJ.C_MATCH_INFO)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool C_MATCH_INFO::IsInitialized() const {
+  return true;
+}
+
+void C_MATCH_INFO::InternalSwap(C_MATCH_INFO* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(C_MATCH_INFO, _impl_.player_index_)
+      + sizeof(C_MATCH_INFO::_impl_.player_index_)
+      - PROTOBUF_FIELD_OFFSET(C_MATCH_INFO, _impl_.info_)>(
+          reinterpret_cast<char*>(&_impl_.info_),
+          reinterpret_cast<char*>(&other->_impl_.info_));
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata C_MATCH_INFO::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2eproto_getter, &descriptor_table_Message_2eproto_once,
       file_level_metadata_Message_2eproto[24]);
@@ -6935,13 +7092,13 @@ C_MATCH_ITEM_PICKUP::C_MATCH_ITEM_PICKUP(const C_MATCH_ITEM_PICKUP& from)
   C_MATCH_ITEM_PICKUP* const _this = this; (void)_this;
   new (&_impl_) Impl_{
       decltype(_impl_.player_index_){}
-    , decltype(_impl_.item_id_){}
+    , decltype(_impl_.item_index_){}
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   ::memcpy(&_impl_.player_index_, &from._impl_.player_index_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.item_id_) -
-    reinterpret_cast<char*>(&_impl_.player_index_)) + sizeof(_impl_.item_id_));
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.item_index_) -
+    reinterpret_cast<char*>(&_impl_.player_index_)) + sizeof(_impl_.item_index_));
   // @@protoc_insertion_point(copy_constructor:ProjectJ.C_MATCH_ITEM_PICKUP)
 }
 
@@ -6951,7 +7108,7 @@ inline void C_MATCH_ITEM_PICKUP::SharedCtor(
   (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_.player_index_){0}
-    , decltype(_impl_.item_id_){0}
+    , decltype(_impl_.item_index_){0}
     , /*decltype(_impl_._cached_size_)*/{}
   };
 }
@@ -6980,8 +7137,8 @@ void C_MATCH_ITEM_PICKUP::Clear() {
   (void) cached_has_bits;
 
   ::memset(&_impl_.player_index_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&_impl_.item_id_) -
-      reinterpret_cast<char*>(&_impl_.player_index_)) + sizeof(_impl_.item_id_));
+      reinterpret_cast<char*>(&_impl_.item_index_) -
+      reinterpret_cast<char*>(&_impl_.player_index_)) + sizeof(_impl_.item_index_));
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -6999,10 +7156,10 @@ const char* C_MATCH_ITEM_PICKUP::_InternalParse(const char* ptr, ::_pbi::ParseCo
         } else
           goto handle_unusual;
         continue;
-      // int32 item_id = 2;
+      // int32 item_index = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
-          _impl_.item_id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.item_index_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -7042,10 +7199,10 @@ uint8_t* C_MATCH_ITEM_PICKUP::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteInt32ToArray(1, this->_internal_player_index(), target);
   }
 
-  // int32 item_id = 2;
-  if (this->_internal_item_id() != 0) {
+  // int32 item_index = 2;
+  if (this->_internal_item_index() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(2, this->_internal_item_id(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(2, this->_internal_item_index(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -7069,9 +7226,9 @@ size_t C_MATCH_ITEM_PICKUP::ByteSizeLong() const {
     total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_player_index());
   }
 
-  // int32 item_id = 2;
-  if (this->_internal_item_id() != 0) {
-    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_item_id());
+  // int32 item_index = 2;
+  if (this->_internal_item_index() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_item_index());
   }
 
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
@@ -7095,8 +7252,8 @@ void C_MATCH_ITEM_PICKUP::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, co
   if (from._internal_player_index() != 0) {
     _this->_internal_set_player_index(from._internal_player_index());
   }
-  if (from._internal_item_id() != 0) {
-    _this->_internal_set_item_id(from._internal_item_id());
+  if (from._internal_item_index() != 0) {
+    _this->_internal_set_item_index(from._internal_item_index());
   }
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
@@ -7116,8 +7273,8 @@ void C_MATCH_ITEM_PICKUP::InternalSwap(C_MATCH_ITEM_PICKUP* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(C_MATCH_ITEM_PICKUP, _impl_.item_id_)
-      + sizeof(C_MATCH_ITEM_PICKUP::_impl_.item_id_)
+      PROTOBUF_FIELD_OFFSET(C_MATCH_ITEM_PICKUP, _impl_.item_index_)
+      + sizeof(C_MATCH_ITEM_PICKUP::_impl_.item_index_)
       - PROTOBUF_FIELD_OFFSET(C_MATCH_ITEM_PICKUP, _impl_.player_index_)>(
           reinterpret_cast<char*>(&_impl_.player_index_),
           reinterpret_cast<char*>(&other->_impl_.player_index_));
@@ -7127,289 +7284,6 @@ void C_MATCH_ITEM_PICKUP::InternalSwap(C_MATCH_ITEM_PICKUP* other) {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2eproto_getter, &descriptor_table_Message_2eproto_once,
       file_level_metadata_Message_2eproto[27]);
-}
-
-// ===================================================================
-
-class S_MATCH_ITEM_PICKUP::_Internal {
- public:
-};
-
-S_MATCH_ITEM_PICKUP::S_MATCH_ITEM_PICKUP(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
-  // @@protoc_insertion_point(arena_constructor:ProjectJ.S_MATCH_ITEM_PICKUP)
-}
-S_MATCH_ITEM_PICKUP::S_MATCH_ITEM_PICKUP(const S_MATCH_ITEM_PICKUP& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message() {
-  S_MATCH_ITEM_PICKUP* const _this = this; (void)_this;
-  new (&_impl_) Impl_{
-      decltype(_impl_.player_index_){}
-    , decltype(_impl_.item_id_){}
-    , decltype(_impl_.result_){}
-    , decltype(_impl_.is_item_rotated_){}
-    , decltype(_impl_.top_left_index_){}
-    , /*decltype(_impl_._cached_size_)*/{}};
-
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  ::memcpy(&_impl_.player_index_, &from._impl_.player_index_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.top_left_index_) -
-    reinterpret_cast<char*>(&_impl_.player_index_)) + sizeof(_impl_.top_left_index_));
-  // @@protoc_insertion_point(copy_constructor:ProjectJ.S_MATCH_ITEM_PICKUP)
-}
-
-inline void S_MATCH_ITEM_PICKUP::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
-  (void)arena;
-  (void)is_message_owned;
-  new (&_impl_) Impl_{
-      decltype(_impl_.player_index_){0}
-    , decltype(_impl_.item_id_){0}
-    , decltype(_impl_.result_){false}
-    , decltype(_impl_.is_item_rotated_){false}
-    , decltype(_impl_.top_left_index_){0}
-    , /*decltype(_impl_._cached_size_)*/{}
-  };
-}
-
-S_MATCH_ITEM_PICKUP::~S_MATCH_ITEM_PICKUP() {
-  // @@protoc_insertion_point(destructor:ProjectJ.S_MATCH_ITEM_PICKUP)
-  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
-  (void)arena;
-    return;
-  }
-  SharedDtor();
-}
-
-inline void S_MATCH_ITEM_PICKUP::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-}
-
-void S_MATCH_ITEM_PICKUP::SetCachedSize(int size) const {
-  _impl_._cached_size_.Set(size);
-}
-
-void S_MATCH_ITEM_PICKUP::Clear() {
-// @@protoc_insertion_point(message_clear_start:ProjectJ.S_MATCH_ITEM_PICKUP)
-  uint32_t cached_has_bits = 0;
-  // Prevent compiler warnings about cached_has_bits being unused
-  (void) cached_has_bits;
-
-  ::memset(&_impl_.player_index_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&_impl_.top_left_index_) -
-      reinterpret_cast<char*>(&_impl_.player_index_)) + sizeof(_impl_.top_left_index_));
-  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
-}
-
-const char* S_MATCH_ITEM_PICKUP::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
-#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
-  while (!ctx->Done(&ptr)) {
-    uint32_t tag;
-    ptr = ::_pbi::ReadTag(ptr, &tag);
-    switch (tag >> 3) {
-      // bool result = 1;
-      case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
-          _impl_.result_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      // int32 player_index = 2;
-      case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
-          _impl_.player_index_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      // int32 item_id = 3;
-      case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
-          _impl_.item_id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      // int32 top_left_index = 4;
-      case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
-          _impl_.top_left_index_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      // bool is_item_rotated = 5;
-      case 5:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 40)) {
-          _impl_.is_item_rotated_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      default:
-        goto handle_unusual;
-    }  // switch
-  handle_unusual:
-    if ((tag == 0) || ((tag & 7) == 4)) {
-      CHK_(ptr);
-      ctx->SetLastTag(tag);
-      goto message_done;
-    }
-    ptr = UnknownFieldParse(
-        tag,
-        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
-        ptr, ctx);
-    CHK_(ptr != nullptr);
-  }  // while
-message_done:
-  return ptr;
-failure:
-  ptr = nullptr;
-  goto message_done;
-#undef CHK_
-}
-
-uint8_t* S_MATCH_ITEM_PICKUP::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:ProjectJ.S_MATCH_ITEM_PICKUP)
-  uint32_t cached_has_bits = 0;
-  (void) cached_has_bits;
-
-  // bool result = 1;
-  if (this->_internal_result() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(1, this->_internal_result(), target);
-  }
-
-  // int32 player_index = 2;
-  if (this->_internal_player_index() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(2, this->_internal_player_index(), target);
-  }
-
-  // int32 item_id = 3;
-  if (this->_internal_item_id() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(3, this->_internal_item_id(), target);
-  }
-
-  // int32 top_left_index = 4;
-  if (this->_internal_top_left_index() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(4, this->_internal_top_left_index(), target);
-  }
-
-  // bool is_item_rotated = 5;
-  if (this->_internal_is_item_rotated() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(5, this->_internal_is_item_rotated(), target);
-  }
-
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
-        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
-  }
-  // @@protoc_insertion_point(serialize_to_array_end:ProjectJ.S_MATCH_ITEM_PICKUP)
-  return target;
-}
-
-size_t S_MATCH_ITEM_PICKUP::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:ProjectJ.S_MATCH_ITEM_PICKUP)
-  size_t total_size = 0;
-
-  uint32_t cached_has_bits = 0;
-  // Prevent compiler warnings about cached_has_bits being unused
-  (void) cached_has_bits;
-
-  // int32 player_index = 2;
-  if (this->_internal_player_index() != 0) {
-    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_player_index());
-  }
-
-  // int32 item_id = 3;
-  if (this->_internal_item_id() != 0) {
-    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_item_id());
-  }
-
-  // bool result = 1;
-  if (this->_internal_result() != 0) {
-    total_size += 1 + 1;
-  }
-
-  // bool is_item_rotated = 5;
-  if (this->_internal_is_item_rotated() != 0) {
-    total_size += 1 + 1;
-  }
-
-  // int32 top_left_index = 4;
-  if (this->_internal_top_left_index() != 0) {
-    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_top_left_index());
-  }
-
-  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
-}
-
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData S_MATCH_ITEM_PICKUP::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
-    S_MATCH_ITEM_PICKUP::MergeImpl
-};
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*S_MATCH_ITEM_PICKUP::GetClassData() const { return &_class_data_; }
-
-
-void S_MATCH_ITEM_PICKUP::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
-  auto* const _this = static_cast<S_MATCH_ITEM_PICKUP*>(&to_msg);
-  auto& from = static_cast<const S_MATCH_ITEM_PICKUP&>(from_msg);
-  // @@protoc_insertion_point(class_specific_merge_from_start:ProjectJ.S_MATCH_ITEM_PICKUP)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
-  (void) cached_has_bits;
-
-  if (from._internal_player_index() != 0) {
-    _this->_internal_set_player_index(from._internal_player_index());
-  }
-  if (from._internal_item_id() != 0) {
-    _this->_internal_set_item_id(from._internal_item_id());
-  }
-  if (from._internal_result() != 0) {
-    _this->_internal_set_result(from._internal_result());
-  }
-  if (from._internal_is_item_rotated() != 0) {
-    _this->_internal_set_is_item_rotated(from._internal_is_item_rotated());
-  }
-  if (from._internal_top_left_index() != 0) {
-    _this->_internal_set_top_left_index(from._internal_top_left_index());
-  }
-  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-}
-
-void S_MATCH_ITEM_PICKUP::CopyFrom(const S_MATCH_ITEM_PICKUP& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:ProjectJ.S_MATCH_ITEM_PICKUP)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-bool S_MATCH_ITEM_PICKUP::IsInitialized() const {
-  return true;
-}
-
-void S_MATCH_ITEM_PICKUP::InternalSwap(S_MATCH_ITEM_PICKUP* other) {
-  using std::swap;
-  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(S_MATCH_ITEM_PICKUP, _impl_.top_left_index_)
-      + sizeof(S_MATCH_ITEM_PICKUP::_impl_.top_left_index_)
-      - PROTOBUF_FIELD_OFFSET(S_MATCH_ITEM_PICKUP, _impl_.player_index_)>(
-          reinterpret_cast<char*>(&_impl_.player_index_),
-          reinterpret_cast<char*>(&other->_impl_.player_index_));
-}
-
-::PROTOBUF_NAMESPACE_ID::Metadata S_MATCH_ITEM_PICKUP::GetMetadata() const {
-  return ::_pbi::AssignDescriptors(
-      &descriptor_table_Message_2eproto_getter, &descriptor_table_Message_2eproto_once,
-      file_level_metadata_Message_2eproto[28]);
 }
 
 // ===================================================================
@@ -7429,15 +7303,17 @@ C_MATCH_ITEM_MOVE::C_MATCH_ITEM_MOVE(const C_MATCH_ITEM_MOVE& from)
   C_MATCH_ITEM_MOVE* const _this = this; (void)_this;
   new (&_impl_) Impl_{
       decltype(_impl_.player_index_){}
-    , decltype(_impl_.item_id_){}
-    , decltype(_impl_.is_item_rotated_){}
+    , decltype(_impl_.from_index_){}
+    , decltype(_impl_.to_index_){}
+    , decltype(_impl_.item_index_){}
     , decltype(_impl_.target_top_left_index_){}
+    , decltype(_impl_.is_item_rotated_){}
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   ::memcpy(&_impl_.player_index_, &from._impl_.player_index_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.target_top_left_index_) -
-    reinterpret_cast<char*>(&_impl_.player_index_)) + sizeof(_impl_.target_top_left_index_));
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.is_item_rotated_) -
+    reinterpret_cast<char*>(&_impl_.player_index_)) + sizeof(_impl_.is_item_rotated_));
   // @@protoc_insertion_point(copy_constructor:ProjectJ.C_MATCH_ITEM_MOVE)
 }
 
@@ -7447,9 +7323,11 @@ inline void C_MATCH_ITEM_MOVE::SharedCtor(
   (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_.player_index_){0}
-    , decltype(_impl_.item_id_){0}
-    , decltype(_impl_.is_item_rotated_){0}
+    , decltype(_impl_.from_index_){0}
+    , decltype(_impl_.to_index_){0}
+    , decltype(_impl_.item_index_){0}
     , decltype(_impl_.target_top_left_index_){0}
+    , decltype(_impl_.is_item_rotated_){false}
     , /*decltype(_impl_._cached_size_)*/{}
   };
 }
@@ -7478,8 +7356,8 @@ void C_MATCH_ITEM_MOVE::Clear() {
   (void) cached_has_bits;
 
   ::memset(&_impl_.player_index_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&_impl_.target_top_left_index_) -
-      reinterpret_cast<char*>(&_impl_.player_index_)) + sizeof(_impl_.target_top_left_index_));
+      reinterpret_cast<char*>(&_impl_.is_item_rotated_) -
+      reinterpret_cast<char*>(&_impl_.player_index_)) + sizeof(_impl_.is_item_rotated_));
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -7497,26 +7375,42 @@ const char* C_MATCH_ITEM_MOVE::_InternalParse(const char* ptr, ::_pbi::ParseCont
         } else
           goto handle_unusual;
         continue;
-      // int32 item_id = 2;
+      // int32 from_index = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
-          _impl_.item_id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.from_index_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
-      // int32 is_item_rotated = 3;
+      // int32 to_index = 3;
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
-          _impl_.is_item_rotated_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.to_index_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
-      // int32 target_top_left_index = 4;
+      // int32 item_index = 4;
       case 4:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
+          _impl_.item_index_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // int32 target_top_left_index = 5;
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 40)) {
           _impl_.target_top_left_index_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // bool is_item_rotated = 6;
+      case 6:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 48)) {
+          _impl_.is_item_rotated_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -7556,22 +7450,34 @@ uint8_t* C_MATCH_ITEM_MOVE::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteInt32ToArray(1, this->_internal_player_index(), target);
   }
 
-  // int32 item_id = 2;
-  if (this->_internal_item_id() != 0) {
+  // int32 from_index = 2;
+  if (this->_internal_from_index() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(2, this->_internal_item_id(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(2, this->_internal_from_index(), target);
   }
 
-  // int32 is_item_rotated = 3;
-  if (this->_internal_is_item_rotated() != 0) {
+  // int32 to_index = 3;
+  if (this->_internal_to_index() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(3, this->_internal_is_item_rotated(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(3, this->_internal_to_index(), target);
   }
 
-  // int32 target_top_left_index = 4;
+  // int32 item_index = 4;
+  if (this->_internal_item_index() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(4, this->_internal_item_index(), target);
+  }
+
+  // int32 target_top_left_index = 5;
   if (this->_internal_target_top_left_index() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(4, this->_internal_target_top_left_index(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(5, this->_internal_target_top_left_index(), target);
+  }
+
+  // bool is_item_rotated = 6;
+  if (this->_internal_is_item_rotated() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(6, this->_internal_is_item_rotated(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -7595,19 +7501,29 @@ size_t C_MATCH_ITEM_MOVE::ByteSizeLong() const {
     total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_player_index());
   }
 
-  // int32 item_id = 2;
-  if (this->_internal_item_id() != 0) {
-    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_item_id());
+  // int32 from_index = 2;
+  if (this->_internal_from_index() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_from_index());
   }
 
-  // int32 is_item_rotated = 3;
-  if (this->_internal_is_item_rotated() != 0) {
-    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_is_item_rotated());
+  // int32 to_index = 3;
+  if (this->_internal_to_index() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_to_index());
   }
 
-  // int32 target_top_left_index = 4;
+  // int32 item_index = 4;
+  if (this->_internal_item_index() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_item_index());
+  }
+
+  // int32 target_top_left_index = 5;
   if (this->_internal_target_top_left_index() != 0) {
     total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_target_top_left_index());
+  }
+
+  // bool is_item_rotated = 6;
+  if (this->_internal_is_item_rotated() != 0) {
+    total_size += 1 + 1;
   }
 
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
@@ -7631,14 +7547,20 @@ void C_MATCH_ITEM_MOVE::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, cons
   if (from._internal_player_index() != 0) {
     _this->_internal_set_player_index(from._internal_player_index());
   }
-  if (from._internal_item_id() != 0) {
-    _this->_internal_set_item_id(from._internal_item_id());
+  if (from._internal_from_index() != 0) {
+    _this->_internal_set_from_index(from._internal_from_index());
   }
-  if (from._internal_is_item_rotated() != 0) {
-    _this->_internal_set_is_item_rotated(from._internal_is_item_rotated());
+  if (from._internal_to_index() != 0) {
+    _this->_internal_set_to_index(from._internal_to_index());
+  }
+  if (from._internal_item_index() != 0) {
+    _this->_internal_set_item_index(from._internal_item_index());
   }
   if (from._internal_target_top_left_index() != 0) {
     _this->_internal_set_target_top_left_index(from._internal_target_top_left_index());
+  }
+  if (from._internal_is_item_rotated() != 0) {
+    _this->_internal_set_is_item_rotated(from._internal_is_item_rotated());
   }
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
@@ -7658,8 +7580,8 @@ void C_MATCH_ITEM_MOVE::InternalSwap(C_MATCH_ITEM_MOVE* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(C_MATCH_ITEM_MOVE, _impl_.target_top_left_index_)
-      + sizeof(C_MATCH_ITEM_MOVE::_impl_.target_top_left_index_)
+      PROTOBUF_FIELD_OFFSET(C_MATCH_ITEM_MOVE, _impl_.is_item_rotated_)
+      + sizeof(C_MATCH_ITEM_MOVE::_impl_.is_item_rotated_)
       - PROTOBUF_FIELD_OFFSET(C_MATCH_ITEM_MOVE, _impl_.player_index_)>(
           reinterpret_cast<char*>(&_impl_.player_index_),
           reinterpret_cast<char*>(&other->_impl_.player_index_));
@@ -7668,266 +7590,7 @@ void C_MATCH_ITEM_MOVE::InternalSwap(C_MATCH_ITEM_MOVE* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata C_MATCH_ITEM_MOVE::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2eproto_getter, &descriptor_table_Message_2eproto_once,
-      file_level_metadata_Message_2eproto[29]);
-}
-
-// ===================================================================
-
-class S_MATCH_ITEM_MOVE::_Internal {
- public:
-};
-
-S_MATCH_ITEM_MOVE::S_MATCH_ITEM_MOVE(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
-  // @@protoc_insertion_point(arena_constructor:ProjectJ.S_MATCH_ITEM_MOVE)
-}
-S_MATCH_ITEM_MOVE::S_MATCH_ITEM_MOVE(const S_MATCH_ITEM_MOVE& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message() {
-  S_MATCH_ITEM_MOVE* const _this = this; (void)_this;
-  new (&_impl_) Impl_{
-      decltype(_impl_.result_){}
-    , decltype(_impl_.item_id_){}
-    , decltype(_impl_.is_item_rotated_){}
-    , decltype(_impl_.top_left_index_){}
-    , /*decltype(_impl_._cached_size_)*/{}};
-
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  ::memcpy(&_impl_.result_, &from._impl_.result_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.top_left_index_) -
-    reinterpret_cast<char*>(&_impl_.result_)) + sizeof(_impl_.top_left_index_));
-  // @@protoc_insertion_point(copy_constructor:ProjectJ.S_MATCH_ITEM_MOVE)
-}
-
-inline void S_MATCH_ITEM_MOVE::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
-  (void)arena;
-  (void)is_message_owned;
-  new (&_impl_) Impl_{
-      decltype(_impl_.result_){false}
-    , decltype(_impl_.item_id_){0}
-    , decltype(_impl_.is_item_rotated_){0}
-    , decltype(_impl_.top_left_index_){0}
-    , /*decltype(_impl_._cached_size_)*/{}
-  };
-}
-
-S_MATCH_ITEM_MOVE::~S_MATCH_ITEM_MOVE() {
-  // @@protoc_insertion_point(destructor:ProjectJ.S_MATCH_ITEM_MOVE)
-  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
-  (void)arena;
-    return;
-  }
-  SharedDtor();
-}
-
-inline void S_MATCH_ITEM_MOVE::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-}
-
-void S_MATCH_ITEM_MOVE::SetCachedSize(int size) const {
-  _impl_._cached_size_.Set(size);
-}
-
-void S_MATCH_ITEM_MOVE::Clear() {
-// @@protoc_insertion_point(message_clear_start:ProjectJ.S_MATCH_ITEM_MOVE)
-  uint32_t cached_has_bits = 0;
-  // Prevent compiler warnings about cached_has_bits being unused
-  (void) cached_has_bits;
-
-  ::memset(&_impl_.result_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&_impl_.top_left_index_) -
-      reinterpret_cast<char*>(&_impl_.result_)) + sizeof(_impl_.top_left_index_));
-  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
-}
-
-const char* S_MATCH_ITEM_MOVE::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
-#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
-  while (!ctx->Done(&ptr)) {
-    uint32_t tag;
-    ptr = ::_pbi::ReadTag(ptr, &tag);
-    switch (tag >> 3) {
-      // bool result = 1;
-      case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
-          _impl_.result_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      // int32 item_id = 2;
-      case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
-          _impl_.item_id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      // int32 is_item_rotated = 3;
-      case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
-          _impl_.is_item_rotated_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      // int32 top_left_index = 4;
-      case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
-          _impl_.top_left_index_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      default:
-        goto handle_unusual;
-    }  // switch
-  handle_unusual:
-    if ((tag == 0) || ((tag & 7) == 4)) {
-      CHK_(ptr);
-      ctx->SetLastTag(tag);
-      goto message_done;
-    }
-    ptr = UnknownFieldParse(
-        tag,
-        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
-        ptr, ctx);
-    CHK_(ptr != nullptr);
-  }  // while
-message_done:
-  return ptr;
-failure:
-  ptr = nullptr;
-  goto message_done;
-#undef CHK_
-}
-
-uint8_t* S_MATCH_ITEM_MOVE::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:ProjectJ.S_MATCH_ITEM_MOVE)
-  uint32_t cached_has_bits = 0;
-  (void) cached_has_bits;
-
-  // bool result = 1;
-  if (this->_internal_result() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(1, this->_internal_result(), target);
-  }
-
-  // int32 item_id = 2;
-  if (this->_internal_item_id() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(2, this->_internal_item_id(), target);
-  }
-
-  // int32 is_item_rotated = 3;
-  if (this->_internal_is_item_rotated() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(3, this->_internal_is_item_rotated(), target);
-  }
-
-  // int32 top_left_index = 4;
-  if (this->_internal_top_left_index() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(4, this->_internal_top_left_index(), target);
-  }
-
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
-        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
-  }
-  // @@protoc_insertion_point(serialize_to_array_end:ProjectJ.S_MATCH_ITEM_MOVE)
-  return target;
-}
-
-size_t S_MATCH_ITEM_MOVE::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:ProjectJ.S_MATCH_ITEM_MOVE)
-  size_t total_size = 0;
-
-  uint32_t cached_has_bits = 0;
-  // Prevent compiler warnings about cached_has_bits being unused
-  (void) cached_has_bits;
-
-  // bool result = 1;
-  if (this->_internal_result() != 0) {
-    total_size += 1 + 1;
-  }
-
-  // int32 item_id = 2;
-  if (this->_internal_item_id() != 0) {
-    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_item_id());
-  }
-
-  // int32 is_item_rotated = 3;
-  if (this->_internal_is_item_rotated() != 0) {
-    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_is_item_rotated());
-  }
-
-  // int32 top_left_index = 4;
-  if (this->_internal_top_left_index() != 0) {
-    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_top_left_index());
-  }
-
-  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
-}
-
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData S_MATCH_ITEM_MOVE::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
-    S_MATCH_ITEM_MOVE::MergeImpl
-};
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*S_MATCH_ITEM_MOVE::GetClassData() const { return &_class_data_; }
-
-
-void S_MATCH_ITEM_MOVE::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
-  auto* const _this = static_cast<S_MATCH_ITEM_MOVE*>(&to_msg);
-  auto& from = static_cast<const S_MATCH_ITEM_MOVE&>(from_msg);
-  // @@protoc_insertion_point(class_specific_merge_from_start:ProjectJ.S_MATCH_ITEM_MOVE)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
-  (void) cached_has_bits;
-
-  if (from._internal_result() != 0) {
-    _this->_internal_set_result(from._internal_result());
-  }
-  if (from._internal_item_id() != 0) {
-    _this->_internal_set_item_id(from._internal_item_id());
-  }
-  if (from._internal_is_item_rotated() != 0) {
-    _this->_internal_set_is_item_rotated(from._internal_is_item_rotated());
-  }
-  if (from._internal_top_left_index() != 0) {
-    _this->_internal_set_top_left_index(from._internal_top_left_index());
-  }
-  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-}
-
-void S_MATCH_ITEM_MOVE::CopyFrom(const S_MATCH_ITEM_MOVE& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:ProjectJ.S_MATCH_ITEM_MOVE)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-bool S_MATCH_ITEM_MOVE::IsInitialized() const {
-  return true;
-}
-
-void S_MATCH_ITEM_MOVE::InternalSwap(S_MATCH_ITEM_MOVE* other) {
-  using std::swap;
-  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(S_MATCH_ITEM_MOVE, _impl_.top_left_index_)
-      + sizeof(S_MATCH_ITEM_MOVE::_impl_.top_left_index_)
-      - PROTOBUF_FIELD_OFFSET(S_MATCH_ITEM_MOVE, _impl_.result_)>(
-          reinterpret_cast<char*>(&_impl_.result_),
-          reinterpret_cast<char*>(&other->_impl_.result_));
-}
-
-::PROTOBUF_NAMESPACE_ID::Metadata S_MATCH_ITEM_MOVE::GetMetadata() const {
-  return ::_pbi::AssignDescriptors(
-      &descriptor_table_Message_2eproto_getter, &descriptor_table_Message_2eproto_once,
-      file_level_metadata_Message_2eproto[30]);
+      file_level_metadata_Message_2eproto[28]);
 }
 
 // ===================================================================
@@ -7971,7 +7634,7 @@ C_MATCH_ITEM_DROP::C_MATCH_ITEM_DROP(const C_MATCH_ITEM_DROP& from)
       decltype(_impl_.drop_item_position_){nullptr}
     , decltype(_impl_.drop_item_rotation_){nullptr}
     , decltype(_impl_.player_index_){}
-    , decltype(_impl_.item_id_){}
+    , decltype(_impl_.item_index_){}
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
@@ -7982,8 +7645,8 @@ C_MATCH_ITEM_DROP::C_MATCH_ITEM_DROP(const C_MATCH_ITEM_DROP& from)
     _this->_impl_.drop_item_rotation_ = new ::ProjectJ::Rotator(*from._impl_.drop_item_rotation_);
   }
   ::memcpy(&_impl_.player_index_, &from._impl_.player_index_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.item_id_) -
-    reinterpret_cast<char*>(&_impl_.player_index_)) + sizeof(_impl_.item_id_));
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.item_index_) -
+    reinterpret_cast<char*>(&_impl_.player_index_)) + sizeof(_impl_.item_index_));
   // @@protoc_insertion_point(copy_constructor:ProjectJ.C_MATCH_ITEM_DROP)
 }
 
@@ -7995,7 +7658,7 @@ inline void C_MATCH_ITEM_DROP::SharedCtor(
       decltype(_impl_.drop_item_position_){nullptr}
     , decltype(_impl_.drop_item_rotation_){nullptr}
     , decltype(_impl_.player_index_){0}
-    , decltype(_impl_.item_id_){0}
+    , decltype(_impl_.item_index_){0}
     , /*decltype(_impl_._cached_size_)*/{}
   };
 }
@@ -8034,8 +7697,8 @@ void C_MATCH_ITEM_DROP::Clear() {
   }
   _impl_.drop_item_rotation_ = nullptr;
   ::memset(&_impl_.player_index_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&_impl_.item_id_) -
-      reinterpret_cast<char*>(&_impl_.player_index_)) + sizeof(_impl_.item_id_));
+      reinterpret_cast<char*>(&_impl_.item_index_) -
+      reinterpret_cast<char*>(&_impl_.player_index_)) + sizeof(_impl_.item_index_));
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -8053,26 +7716,26 @@ const char* C_MATCH_ITEM_DROP::_InternalParse(const char* ptr, ::_pbi::ParseCont
         } else
           goto handle_unusual;
         continue;
-      // .ProjectJ.Vector drop_item_position = 2;
+      // int32 item_index = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+          _impl_.item_index_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // .ProjectJ.Vector drop_item_position = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
           ptr = ctx->ParseMessage(_internal_mutable_drop_item_position(), ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
-      // .ProjectJ.Rotator drop_item_rotation = 3;
-      case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
-          ptr = ctx->ParseMessage(_internal_mutable_drop_item_rotation(), ptr);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      // int32 item_id = 4;
+      // .ProjectJ.Rotator drop_item_rotation = 4;
       case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
-          _impl_.item_id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
+          ptr = ctx->ParseMessage(_internal_mutable_drop_item_rotation(), ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -8112,24 +7775,24 @@ uint8_t* C_MATCH_ITEM_DROP::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteInt32ToArray(1, this->_internal_player_index(), target);
   }
 
-  // .ProjectJ.Vector drop_item_position = 2;
+  // int32 item_index = 2;
+  if (this->_internal_item_index() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(2, this->_internal_item_index(), target);
+  }
+
+  // .ProjectJ.Vector drop_item_position = 3;
   if (this->_internal_has_drop_item_position()) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(2, _Internal::drop_item_position(this),
+      InternalWriteMessage(3, _Internal::drop_item_position(this),
         _Internal::drop_item_position(this).GetCachedSize(), target, stream);
   }
 
-  // .ProjectJ.Rotator drop_item_rotation = 3;
+  // .ProjectJ.Rotator drop_item_rotation = 4;
   if (this->_internal_has_drop_item_rotation()) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(3, _Internal::drop_item_rotation(this),
+      InternalWriteMessage(4, _Internal::drop_item_rotation(this),
         _Internal::drop_item_rotation(this).GetCachedSize(), target, stream);
-  }
-
-  // int32 item_id = 4;
-  if (this->_internal_item_id() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(4, this->_internal_item_id(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -8148,14 +7811,14 @@ size_t C_MATCH_ITEM_DROP::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // .ProjectJ.Vector drop_item_position = 2;
+  // .ProjectJ.Vector drop_item_position = 3;
   if (this->_internal_has_drop_item_position()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
         *_impl_.drop_item_position_);
   }
 
-  // .ProjectJ.Rotator drop_item_rotation = 3;
+  // .ProjectJ.Rotator drop_item_rotation = 4;
   if (this->_internal_has_drop_item_rotation()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
@@ -8167,9 +7830,9 @@ size_t C_MATCH_ITEM_DROP::ByteSizeLong() const {
     total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_player_index());
   }
 
-  // int32 item_id = 4;
-  if (this->_internal_item_id() != 0) {
-    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_item_id());
+  // int32 item_index = 2;
+  if (this->_internal_item_index() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_item_index());
   }
 
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
@@ -8201,8 +7864,8 @@ void C_MATCH_ITEM_DROP::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, cons
   if (from._internal_player_index() != 0) {
     _this->_internal_set_player_index(from._internal_player_index());
   }
-  if (from._internal_item_id() != 0) {
-    _this->_internal_set_item_id(from._internal_item_id());
+  if (from._internal_item_index() != 0) {
+    _this->_internal_set_item_index(from._internal_item_index());
   }
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
@@ -8222,8 +7885,8 @@ void C_MATCH_ITEM_DROP::InternalSwap(C_MATCH_ITEM_DROP* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(C_MATCH_ITEM_DROP, _impl_.item_id_)
-      + sizeof(C_MATCH_ITEM_DROP::_impl_.item_id_)
+      PROTOBUF_FIELD_OFFSET(C_MATCH_ITEM_DROP, _impl_.item_index_)
+      + sizeof(C_MATCH_ITEM_DROP::_impl_.item_index_)
       - PROTOBUF_FIELD_OFFSET(C_MATCH_ITEM_DROP, _impl_.drop_item_position_)>(
           reinterpret_cast<char*>(&_impl_.drop_item_position_),
           reinterpret_cast<char*>(&other->_impl_.drop_item_position_));
@@ -8232,81 +7895,53 @@ void C_MATCH_ITEM_DROP::InternalSwap(C_MATCH_ITEM_DROP* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata C_MATCH_ITEM_DROP::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2eproto_getter, &descriptor_table_Message_2eproto_once,
-      file_level_metadata_Message_2eproto[31]);
+      file_level_metadata_Message_2eproto[29]);
 }
 
 // ===================================================================
 
-class S_MATCH_ITEM_DROP::_Internal {
+class S_MATCH_ITEM_SOMEONE_PICKUP::_Internal {
  public:
-  static const ::ProjectJ::Vector& drop_item_position(const S_MATCH_ITEM_DROP* msg);
-  static const ::ProjectJ::Rotator& drop_item_rotation(const S_MATCH_ITEM_DROP* msg);
 };
 
-const ::ProjectJ::Vector&
-S_MATCH_ITEM_DROP::_Internal::drop_item_position(const S_MATCH_ITEM_DROP* msg) {
-  return *msg->_impl_.drop_item_position_;
-}
-const ::ProjectJ::Rotator&
-S_MATCH_ITEM_DROP::_Internal::drop_item_rotation(const S_MATCH_ITEM_DROP* msg) {
-  return *msg->_impl_.drop_item_rotation_;
-}
-void S_MATCH_ITEM_DROP::clear_drop_item_position() {
-  if (GetArenaForAllocation() == nullptr && _impl_.drop_item_position_ != nullptr) {
-    delete _impl_.drop_item_position_;
-  }
-  _impl_.drop_item_position_ = nullptr;
-}
-void S_MATCH_ITEM_DROP::clear_drop_item_rotation() {
-  if (GetArenaForAllocation() == nullptr && _impl_.drop_item_rotation_ != nullptr) {
-    delete _impl_.drop_item_rotation_;
-  }
-  _impl_.drop_item_rotation_ = nullptr;
-}
-S_MATCH_ITEM_DROP::S_MATCH_ITEM_DROP(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+S_MATCH_ITEM_SOMEONE_PICKUP::S_MATCH_ITEM_SOMEONE_PICKUP(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
   SharedCtor(arena, is_message_owned);
-  // @@protoc_insertion_point(arena_constructor:ProjectJ.S_MATCH_ITEM_DROP)
+  // @@protoc_insertion_point(arena_constructor:ProjectJ.S_MATCH_ITEM_SOMEONE_PICKUP)
 }
-S_MATCH_ITEM_DROP::S_MATCH_ITEM_DROP(const S_MATCH_ITEM_DROP& from)
+S_MATCH_ITEM_SOMEONE_PICKUP::S_MATCH_ITEM_SOMEONE_PICKUP(const S_MATCH_ITEM_SOMEONE_PICKUP& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
-  S_MATCH_ITEM_DROP* const _this = this; (void)_this;
+  S_MATCH_ITEM_SOMEONE_PICKUP* const _this = this; (void)_this;
   new (&_impl_) Impl_{
-      decltype(_impl_.drop_item_position_){nullptr}
-    , decltype(_impl_.drop_item_rotation_){nullptr}
-    , decltype(_impl_.player_index_){}
-    , decltype(_impl_.item_id_){}
+      decltype(_impl_.player_index_){}
+    , decltype(_impl_.item_index_){}
+    , decltype(_impl_.top_left_index_){}
+    , decltype(_impl_.is_item_rotated_){}
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  if (from._internal_has_drop_item_position()) {
-    _this->_impl_.drop_item_position_ = new ::ProjectJ::Vector(*from._impl_.drop_item_position_);
-  }
-  if (from._internal_has_drop_item_rotation()) {
-    _this->_impl_.drop_item_rotation_ = new ::ProjectJ::Rotator(*from._impl_.drop_item_rotation_);
-  }
   ::memcpy(&_impl_.player_index_, &from._impl_.player_index_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.item_id_) -
-    reinterpret_cast<char*>(&_impl_.player_index_)) + sizeof(_impl_.item_id_));
-  // @@protoc_insertion_point(copy_constructor:ProjectJ.S_MATCH_ITEM_DROP)
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.is_item_rotated_) -
+    reinterpret_cast<char*>(&_impl_.player_index_)) + sizeof(_impl_.is_item_rotated_));
+  // @@protoc_insertion_point(copy_constructor:ProjectJ.S_MATCH_ITEM_SOMEONE_PICKUP)
 }
 
-inline void S_MATCH_ITEM_DROP::SharedCtor(
+inline void S_MATCH_ITEM_SOMEONE_PICKUP::SharedCtor(
     ::_pb::Arena* arena, bool is_message_owned) {
   (void)arena;
   (void)is_message_owned;
   new (&_impl_) Impl_{
-      decltype(_impl_.drop_item_position_){nullptr}
-    , decltype(_impl_.drop_item_rotation_){nullptr}
-    , decltype(_impl_.player_index_){0}
-    , decltype(_impl_.item_id_){0}
+      decltype(_impl_.player_index_){0}
+    , decltype(_impl_.item_index_){0}
+    , decltype(_impl_.top_left_index_){0}
+    , decltype(_impl_.is_item_rotated_){false}
     , /*decltype(_impl_._cached_size_)*/{}
   };
 }
 
-S_MATCH_ITEM_DROP::~S_MATCH_ITEM_DROP() {
-  // @@protoc_insertion_point(destructor:ProjectJ.S_MATCH_ITEM_DROP)
+S_MATCH_ITEM_SOMEONE_PICKUP::~S_MATCH_ITEM_SOMEONE_PICKUP() {
+  // @@protoc_insertion_point(destructor:ProjectJ.S_MATCH_ITEM_SOMEONE_PICKUP)
   if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
   (void)arena;
     return;
@@ -8314,37 +7949,27 @@ S_MATCH_ITEM_DROP::~S_MATCH_ITEM_DROP() {
   SharedDtor();
 }
 
-inline void S_MATCH_ITEM_DROP::SharedDtor() {
+inline void S_MATCH_ITEM_SOMEONE_PICKUP::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  if (this != internal_default_instance()) delete _impl_.drop_item_position_;
-  if (this != internal_default_instance()) delete _impl_.drop_item_rotation_;
 }
 
-void S_MATCH_ITEM_DROP::SetCachedSize(int size) const {
+void S_MATCH_ITEM_SOMEONE_PICKUP::SetCachedSize(int size) const {
   _impl_._cached_size_.Set(size);
 }
 
-void S_MATCH_ITEM_DROP::Clear() {
-// @@protoc_insertion_point(message_clear_start:ProjectJ.S_MATCH_ITEM_DROP)
+void S_MATCH_ITEM_SOMEONE_PICKUP::Clear() {
+// @@protoc_insertion_point(message_clear_start:ProjectJ.S_MATCH_ITEM_SOMEONE_PICKUP)
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  if (GetArenaForAllocation() == nullptr && _impl_.drop_item_position_ != nullptr) {
-    delete _impl_.drop_item_position_;
-  }
-  _impl_.drop_item_position_ = nullptr;
-  if (GetArenaForAllocation() == nullptr && _impl_.drop_item_rotation_ != nullptr) {
-    delete _impl_.drop_item_rotation_;
-  }
-  _impl_.drop_item_rotation_ = nullptr;
   ::memset(&_impl_.player_index_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&_impl_.item_id_) -
-      reinterpret_cast<char*>(&_impl_.player_index_)) + sizeof(_impl_.item_id_));
+      reinterpret_cast<char*>(&_impl_.is_item_rotated_) -
+      reinterpret_cast<char*>(&_impl_.player_index_)) + sizeof(_impl_.is_item_rotated_));
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* S_MATCH_ITEM_DROP::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+const char* S_MATCH_ITEM_SOMEONE_PICKUP::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
@@ -8358,26 +7983,26 @@ const char* S_MATCH_ITEM_DROP::_InternalParse(const char* ptr, ::_pbi::ParseCont
         } else
           goto handle_unusual;
         continue;
-      // .ProjectJ.Vector drop_item_position = 2;
+      // int32 item_index = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
-          ptr = ctx->ParseMessage(_internal_mutable_drop_item_position(), ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+          _impl_.item_index_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
-      // .ProjectJ.Rotator drop_item_rotation = 3;
+      // int32 top_left_index = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
-          ptr = ctx->ParseMessage(_internal_mutable_drop_item_rotation(), ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+          _impl_.top_left_index_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
-      // int32 item_id = 4;
+      // bool is_item_rotated = 4;
       case 4:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
-          _impl_.item_id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.is_item_rotated_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -8405,9 +8030,9 @@ failure:
 #undef CHK_
 }
 
-uint8_t* S_MATCH_ITEM_DROP::_InternalSerialize(
+uint8_t* S_MATCH_ITEM_SOMEONE_PICKUP::_InternalSerialize(
     uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:ProjectJ.S_MATCH_ITEM_DROP)
+  // @@protoc_insertion_point(serialize_to_array_start:ProjectJ.S_MATCH_ITEM_SOMEONE_PICKUP)
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -8417,50 +8042,654 @@ uint8_t* S_MATCH_ITEM_DROP::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteInt32ToArray(1, this->_internal_player_index(), target);
   }
 
-  // .ProjectJ.Vector drop_item_position = 2;
-  if (this->_internal_has_drop_item_position()) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(2, _Internal::drop_item_position(this),
-        _Internal::drop_item_position(this).GetCachedSize(), target, stream);
-  }
-
-  // .ProjectJ.Rotator drop_item_rotation = 3;
-  if (this->_internal_has_drop_item_rotation()) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(3, _Internal::drop_item_rotation(this),
-        _Internal::drop_item_rotation(this).GetCachedSize(), target, stream);
-  }
-
-  // int32 item_id = 4;
-  if (this->_internal_item_id() != 0) {
+  // int32 item_index = 2;
+  if (this->_internal_item_index() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(4, this->_internal_item_id(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(2, this->_internal_item_index(), target);
+  }
+
+  // int32 top_left_index = 3;
+  if (this->_internal_top_left_index() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(3, this->_internal_top_left_index(), target);
+  }
+
+  // bool is_item_rotated = 4;
+  if (this->_internal_is_item_rotated() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(4, this->_internal_is_item_rotated(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:ProjectJ.S_MATCH_ITEM_DROP)
+  // @@protoc_insertion_point(serialize_to_array_end:ProjectJ.S_MATCH_ITEM_SOMEONE_PICKUP)
   return target;
 }
 
-size_t S_MATCH_ITEM_DROP::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:ProjectJ.S_MATCH_ITEM_DROP)
+size_t S_MATCH_ITEM_SOMEONE_PICKUP::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:ProjectJ.S_MATCH_ITEM_SOMEONE_PICKUP)
   size_t total_size = 0;
 
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // .ProjectJ.Vector drop_item_position = 2;
+  // int32 player_index = 1;
+  if (this->_internal_player_index() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_player_index());
+  }
+
+  // int32 item_index = 2;
+  if (this->_internal_item_index() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_item_index());
+  }
+
+  // int32 top_left_index = 3;
+  if (this->_internal_top_left_index() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_top_left_index());
+  }
+
+  // bool is_item_rotated = 4;
+  if (this->_internal_is_item_rotated() != 0) {
+    total_size += 1 + 1;
+  }
+
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
+}
+
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData S_MATCH_ITEM_SOMEONE_PICKUP::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
+    S_MATCH_ITEM_SOMEONE_PICKUP::MergeImpl
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*S_MATCH_ITEM_SOMEONE_PICKUP::GetClassData() const { return &_class_data_; }
+
+
+void S_MATCH_ITEM_SOMEONE_PICKUP::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<S_MATCH_ITEM_SOMEONE_PICKUP*>(&to_msg);
+  auto& from = static_cast<const S_MATCH_ITEM_SOMEONE_PICKUP&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:ProjectJ.S_MATCH_ITEM_SOMEONE_PICKUP)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_player_index() != 0) {
+    _this->_internal_set_player_index(from._internal_player_index());
+  }
+  if (from._internal_item_index() != 0) {
+    _this->_internal_set_item_index(from._internal_item_index());
+  }
+  if (from._internal_top_left_index() != 0) {
+    _this->_internal_set_top_left_index(from._internal_top_left_index());
+  }
+  if (from._internal_is_item_rotated() != 0) {
+    _this->_internal_set_is_item_rotated(from._internal_is_item_rotated());
+  }
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void S_MATCH_ITEM_SOMEONE_PICKUP::CopyFrom(const S_MATCH_ITEM_SOMEONE_PICKUP& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:ProjectJ.S_MATCH_ITEM_SOMEONE_PICKUP)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool S_MATCH_ITEM_SOMEONE_PICKUP::IsInitialized() const {
+  return true;
+}
+
+void S_MATCH_ITEM_SOMEONE_PICKUP::InternalSwap(S_MATCH_ITEM_SOMEONE_PICKUP* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(S_MATCH_ITEM_SOMEONE_PICKUP, _impl_.is_item_rotated_)
+      + sizeof(S_MATCH_ITEM_SOMEONE_PICKUP::_impl_.is_item_rotated_)
+      - PROTOBUF_FIELD_OFFSET(S_MATCH_ITEM_SOMEONE_PICKUP, _impl_.player_index_)>(
+          reinterpret_cast<char*>(&_impl_.player_index_),
+          reinterpret_cast<char*>(&other->_impl_.player_index_));
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata S_MATCH_ITEM_SOMEONE_PICKUP::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
+      &descriptor_table_Message_2eproto_getter, &descriptor_table_Message_2eproto_once,
+      file_level_metadata_Message_2eproto[30]);
+}
+
+// ===================================================================
+
+class S_MATCH_ITEM_SOMEONE_MOVE::_Internal {
+ public:
+};
+
+S_MATCH_ITEM_SOMEONE_MOVE::S_MATCH_ITEM_SOMEONE_MOVE(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:ProjectJ.S_MATCH_ITEM_SOMEONE_MOVE)
+}
+S_MATCH_ITEM_SOMEONE_MOVE::S_MATCH_ITEM_SOMEONE_MOVE(const S_MATCH_ITEM_SOMEONE_MOVE& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  S_MATCH_ITEM_SOMEONE_MOVE* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.player_index_){}
+    , decltype(_impl_.from_index_){}
+    , decltype(_impl_.to_index_){}
+    , decltype(_impl_.item_index_){}
+    , decltype(_impl_.top_left_index_){}
+    , decltype(_impl_.is_item_rotated_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  ::memcpy(&_impl_.player_index_, &from._impl_.player_index_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.is_item_rotated_) -
+    reinterpret_cast<char*>(&_impl_.player_index_)) + sizeof(_impl_.is_item_rotated_));
+  // @@protoc_insertion_point(copy_constructor:ProjectJ.S_MATCH_ITEM_SOMEONE_MOVE)
+}
+
+inline void S_MATCH_ITEM_SOMEONE_MOVE::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.player_index_){0}
+    , decltype(_impl_.from_index_){0}
+    , decltype(_impl_.to_index_){0}
+    , decltype(_impl_.item_index_){0}
+    , decltype(_impl_.top_left_index_){0}
+    , decltype(_impl_.is_item_rotated_){false}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+}
+
+S_MATCH_ITEM_SOMEONE_MOVE::~S_MATCH_ITEM_SOMEONE_MOVE() {
+  // @@protoc_insertion_point(destructor:ProjectJ.S_MATCH_ITEM_SOMEONE_MOVE)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void S_MATCH_ITEM_SOMEONE_MOVE::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+}
+
+void S_MATCH_ITEM_SOMEONE_MOVE::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void S_MATCH_ITEM_SOMEONE_MOVE::Clear() {
+// @@protoc_insertion_point(message_clear_start:ProjectJ.S_MATCH_ITEM_SOMEONE_MOVE)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  ::memset(&_impl_.player_index_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&_impl_.is_item_rotated_) -
+      reinterpret_cast<char*>(&_impl_.player_index_)) + sizeof(_impl_.is_item_rotated_));
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* S_MATCH_ITEM_SOMEONE_MOVE::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // int32 player_index = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          _impl_.player_index_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // int32 from_index = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+          _impl_.from_index_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // int32 to_index = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+          _impl_.to_index_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // int32 item_index = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
+          _impl_.item_index_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // int32 top_left_index = 5;
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 40)) {
+          _impl_.top_left_index_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // bool is_item_rotated = 6;
+      case 6:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 48)) {
+          _impl_.is_item_rotated_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* S_MATCH_ITEM_SOMEONE_MOVE::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:ProjectJ.S_MATCH_ITEM_SOMEONE_MOVE)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // int32 player_index = 1;
+  if (this->_internal_player_index() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(1, this->_internal_player_index(), target);
+  }
+
+  // int32 from_index = 2;
+  if (this->_internal_from_index() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(2, this->_internal_from_index(), target);
+  }
+
+  // int32 to_index = 3;
+  if (this->_internal_to_index() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(3, this->_internal_to_index(), target);
+  }
+
+  // int32 item_index = 4;
+  if (this->_internal_item_index() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(4, this->_internal_item_index(), target);
+  }
+
+  // int32 top_left_index = 5;
+  if (this->_internal_top_left_index() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(5, this->_internal_top_left_index(), target);
+  }
+
+  // bool is_item_rotated = 6;
+  if (this->_internal_is_item_rotated() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(6, this->_internal_is_item_rotated(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:ProjectJ.S_MATCH_ITEM_SOMEONE_MOVE)
+  return target;
+}
+
+size_t S_MATCH_ITEM_SOMEONE_MOVE::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:ProjectJ.S_MATCH_ITEM_SOMEONE_MOVE)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // int32 player_index = 1;
+  if (this->_internal_player_index() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_player_index());
+  }
+
+  // int32 from_index = 2;
+  if (this->_internal_from_index() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_from_index());
+  }
+
+  // int32 to_index = 3;
+  if (this->_internal_to_index() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_to_index());
+  }
+
+  // int32 item_index = 4;
+  if (this->_internal_item_index() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_item_index());
+  }
+
+  // int32 top_left_index = 5;
+  if (this->_internal_top_left_index() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_top_left_index());
+  }
+
+  // bool is_item_rotated = 6;
+  if (this->_internal_is_item_rotated() != 0) {
+    total_size += 1 + 1;
+  }
+
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
+}
+
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData S_MATCH_ITEM_SOMEONE_MOVE::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
+    S_MATCH_ITEM_SOMEONE_MOVE::MergeImpl
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*S_MATCH_ITEM_SOMEONE_MOVE::GetClassData() const { return &_class_data_; }
+
+
+void S_MATCH_ITEM_SOMEONE_MOVE::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<S_MATCH_ITEM_SOMEONE_MOVE*>(&to_msg);
+  auto& from = static_cast<const S_MATCH_ITEM_SOMEONE_MOVE&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:ProjectJ.S_MATCH_ITEM_SOMEONE_MOVE)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_player_index() != 0) {
+    _this->_internal_set_player_index(from._internal_player_index());
+  }
+  if (from._internal_from_index() != 0) {
+    _this->_internal_set_from_index(from._internal_from_index());
+  }
+  if (from._internal_to_index() != 0) {
+    _this->_internal_set_to_index(from._internal_to_index());
+  }
+  if (from._internal_item_index() != 0) {
+    _this->_internal_set_item_index(from._internal_item_index());
+  }
+  if (from._internal_top_left_index() != 0) {
+    _this->_internal_set_top_left_index(from._internal_top_left_index());
+  }
+  if (from._internal_is_item_rotated() != 0) {
+    _this->_internal_set_is_item_rotated(from._internal_is_item_rotated());
+  }
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void S_MATCH_ITEM_SOMEONE_MOVE::CopyFrom(const S_MATCH_ITEM_SOMEONE_MOVE& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:ProjectJ.S_MATCH_ITEM_SOMEONE_MOVE)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool S_MATCH_ITEM_SOMEONE_MOVE::IsInitialized() const {
+  return true;
+}
+
+void S_MATCH_ITEM_SOMEONE_MOVE::InternalSwap(S_MATCH_ITEM_SOMEONE_MOVE* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(S_MATCH_ITEM_SOMEONE_MOVE, _impl_.is_item_rotated_)
+      + sizeof(S_MATCH_ITEM_SOMEONE_MOVE::_impl_.is_item_rotated_)
+      - PROTOBUF_FIELD_OFFSET(S_MATCH_ITEM_SOMEONE_MOVE, _impl_.player_index_)>(
+          reinterpret_cast<char*>(&_impl_.player_index_),
+          reinterpret_cast<char*>(&other->_impl_.player_index_));
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata S_MATCH_ITEM_SOMEONE_MOVE::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
+      &descriptor_table_Message_2eproto_getter, &descriptor_table_Message_2eproto_once,
+      file_level_metadata_Message_2eproto[31]);
+}
+
+// ===================================================================
+
+class S_MATCH_ITEM_SOMEONE_DROP::_Internal {
+ public:
+  static const ::ProjectJ::Vector& drop_item_position(const S_MATCH_ITEM_SOMEONE_DROP* msg);
+  static const ::ProjectJ::Rotator& drop_item_rotation(const S_MATCH_ITEM_SOMEONE_DROP* msg);
+};
+
+const ::ProjectJ::Vector&
+S_MATCH_ITEM_SOMEONE_DROP::_Internal::drop_item_position(const S_MATCH_ITEM_SOMEONE_DROP* msg) {
+  return *msg->_impl_.drop_item_position_;
+}
+const ::ProjectJ::Rotator&
+S_MATCH_ITEM_SOMEONE_DROP::_Internal::drop_item_rotation(const S_MATCH_ITEM_SOMEONE_DROP* msg) {
+  return *msg->_impl_.drop_item_rotation_;
+}
+void S_MATCH_ITEM_SOMEONE_DROP::clear_drop_item_position() {
+  if (GetArenaForAllocation() == nullptr && _impl_.drop_item_position_ != nullptr) {
+    delete _impl_.drop_item_position_;
+  }
+  _impl_.drop_item_position_ = nullptr;
+}
+void S_MATCH_ITEM_SOMEONE_DROP::clear_drop_item_rotation() {
+  if (GetArenaForAllocation() == nullptr && _impl_.drop_item_rotation_ != nullptr) {
+    delete _impl_.drop_item_rotation_;
+  }
+  _impl_.drop_item_rotation_ = nullptr;
+}
+S_MATCH_ITEM_SOMEONE_DROP::S_MATCH_ITEM_SOMEONE_DROP(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:ProjectJ.S_MATCH_ITEM_SOMEONE_DROP)
+}
+S_MATCH_ITEM_SOMEONE_DROP::S_MATCH_ITEM_SOMEONE_DROP(const S_MATCH_ITEM_SOMEONE_DROP& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  S_MATCH_ITEM_SOMEONE_DROP* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.drop_item_position_){nullptr}
+    , decltype(_impl_.drop_item_rotation_){nullptr}
+    , decltype(_impl_.player_index_){}
+    , decltype(_impl_.item_index_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  if (from._internal_has_drop_item_position()) {
+    _this->_impl_.drop_item_position_ = new ::ProjectJ::Vector(*from._impl_.drop_item_position_);
+  }
+  if (from._internal_has_drop_item_rotation()) {
+    _this->_impl_.drop_item_rotation_ = new ::ProjectJ::Rotator(*from._impl_.drop_item_rotation_);
+  }
+  ::memcpy(&_impl_.player_index_, &from._impl_.player_index_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.item_index_) -
+    reinterpret_cast<char*>(&_impl_.player_index_)) + sizeof(_impl_.item_index_));
+  // @@protoc_insertion_point(copy_constructor:ProjectJ.S_MATCH_ITEM_SOMEONE_DROP)
+}
+
+inline void S_MATCH_ITEM_SOMEONE_DROP::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.drop_item_position_){nullptr}
+    , decltype(_impl_.drop_item_rotation_){nullptr}
+    , decltype(_impl_.player_index_){0}
+    , decltype(_impl_.item_index_){0}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+}
+
+S_MATCH_ITEM_SOMEONE_DROP::~S_MATCH_ITEM_SOMEONE_DROP() {
+  // @@protoc_insertion_point(destructor:ProjectJ.S_MATCH_ITEM_SOMEONE_DROP)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void S_MATCH_ITEM_SOMEONE_DROP::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  if (this != internal_default_instance()) delete _impl_.drop_item_position_;
+  if (this != internal_default_instance()) delete _impl_.drop_item_rotation_;
+}
+
+void S_MATCH_ITEM_SOMEONE_DROP::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void S_MATCH_ITEM_SOMEONE_DROP::Clear() {
+// @@protoc_insertion_point(message_clear_start:ProjectJ.S_MATCH_ITEM_SOMEONE_DROP)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  if (GetArenaForAllocation() == nullptr && _impl_.drop_item_position_ != nullptr) {
+    delete _impl_.drop_item_position_;
+  }
+  _impl_.drop_item_position_ = nullptr;
+  if (GetArenaForAllocation() == nullptr && _impl_.drop_item_rotation_ != nullptr) {
+    delete _impl_.drop_item_rotation_;
+  }
+  _impl_.drop_item_rotation_ = nullptr;
+  ::memset(&_impl_.player_index_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&_impl_.item_index_) -
+      reinterpret_cast<char*>(&_impl_.player_index_)) + sizeof(_impl_.item_index_));
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* S_MATCH_ITEM_SOMEONE_DROP::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // int32 player_index = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          _impl_.player_index_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // int32 item_index = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+          _impl_.item_index_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // .ProjectJ.Vector drop_item_position = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+          ptr = ctx->ParseMessage(_internal_mutable_drop_item_position(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // .ProjectJ.Rotator drop_item_rotation = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
+          ptr = ctx->ParseMessage(_internal_mutable_drop_item_rotation(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* S_MATCH_ITEM_SOMEONE_DROP::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:ProjectJ.S_MATCH_ITEM_SOMEONE_DROP)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // int32 player_index = 1;
+  if (this->_internal_player_index() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(1, this->_internal_player_index(), target);
+  }
+
+  // int32 item_index = 2;
+  if (this->_internal_item_index() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(2, this->_internal_item_index(), target);
+  }
+
+  // .ProjectJ.Vector drop_item_position = 3;
+  if (this->_internal_has_drop_item_position()) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(3, _Internal::drop_item_position(this),
+        _Internal::drop_item_position(this).GetCachedSize(), target, stream);
+  }
+
+  // .ProjectJ.Rotator drop_item_rotation = 4;
+  if (this->_internal_has_drop_item_rotation()) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(4, _Internal::drop_item_rotation(this),
+        _Internal::drop_item_rotation(this).GetCachedSize(), target, stream);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:ProjectJ.S_MATCH_ITEM_SOMEONE_DROP)
+  return target;
+}
+
+size_t S_MATCH_ITEM_SOMEONE_DROP::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:ProjectJ.S_MATCH_ITEM_SOMEONE_DROP)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // .ProjectJ.Vector drop_item_position = 3;
   if (this->_internal_has_drop_item_position()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
         *_impl_.drop_item_position_);
   }
 
-  // .ProjectJ.Rotator drop_item_rotation = 3;
+  // .ProjectJ.Rotator drop_item_rotation = 4;
   if (this->_internal_has_drop_item_rotation()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
@@ -8472,25 +8701,25 @@ size_t S_MATCH_ITEM_DROP::ByteSizeLong() const {
     total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_player_index());
   }
 
-  // int32 item_id = 4;
-  if (this->_internal_item_id() != 0) {
-    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_item_id());
+  // int32 item_index = 2;
+  if (this->_internal_item_index() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_item_index());
   }
 
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData S_MATCH_ITEM_DROP::_class_data_ = {
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData S_MATCH_ITEM_SOMEONE_DROP::_class_data_ = {
     ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
-    S_MATCH_ITEM_DROP::MergeImpl
+    S_MATCH_ITEM_SOMEONE_DROP::MergeImpl
 };
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*S_MATCH_ITEM_DROP::GetClassData() const { return &_class_data_; }
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*S_MATCH_ITEM_SOMEONE_DROP::GetClassData() const { return &_class_data_; }
 
 
-void S_MATCH_ITEM_DROP::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
-  auto* const _this = static_cast<S_MATCH_ITEM_DROP*>(&to_msg);
-  auto& from = static_cast<const S_MATCH_ITEM_DROP&>(from_msg);
-  // @@protoc_insertion_point(class_specific_merge_from_start:ProjectJ.S_MATCH_ITEM_DROP)
+void S_MATCH_ITEM_SOMEONE_DROP::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<S_MATCH_ITEM_SOMEONE_DROP*>(&to_msg);
+  auto& from = static_cast<const S_MATCH_ITEM_SOMEONE_DROP&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:ProjectJ.S_MATCH_ITEM_SOMEONE_DROP)
   GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
@@ -8506,35 +8735,35 @@ void S_MATCH_ITEM_DROP::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, cons
   if (from._internal_player_index() != 0) {
     _this->_internal_set_player_index(from._internal_player_index());
   }
-  if (from._internal_item_id() != 0) {
-    _this->_internal_set_item_id(from._internal_item_id());
+  if (from._internal_item_index() != 0) {
+    _this->_internal_set_item_index(from._internal_item_index());
   }
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
-void S_MATCH_ITEM_DROP::CopyFrom(const S_MATCH_ITEM_DROP& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:ProjectJ.S_MATCH_ITEM_DROP)
+void S_MATCH_ITEM_SOMEONE_DROP::CopyFrom(const S_MATCH_ITEM_SOMEONE_DROP& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:ProjectJ.S_MATCH_ITEM_SOMEONE_DROP)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool S_MATCH_ITEM_DROP::IsInitialized() const {
+bool S_MATCH_ITEM_SOMEONE_DROP::IsInitialized() const {
   return true;
 }
 
-void S_MATCH_ITEM_DROP::InternalSwap(S_MATCH_ITEM_DROP* other) {
+void S_MATCH_ITEM_SOMEONE_DROP::InternalSwap(S_MATCH_ITEM_SOMEONE_DROP* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(S_MATCH_ITEM_DROP, _impl_.item_id_)
-      + sizeof(S_MATCH_ITEM_DROP::_impl_.item_id_)
-      - PROTOBUF_FIELD_OFFSET(S_MATCH_ITEM_DROP, _impl_.drop_item_position_)>(
+      PROTOBUF_FIELD_OFFSET(S_MATCH_ITEM_SOMEONE_DROP, _impl_.item_index_)
+      + sizeof(S_MATCH_ITEM_SOMEONE_DROP::_impl_.item_index_)
+      - PROTOBUF_FIELD_OFFSET(S_MATCH_ITEM_SOMEONE_DROP, _impl_.drop_item_position_)>(
           reinterpret_cast<char*>(&_impl_.drop_item_position_),
           reinterpret_cast<char*>(&other->_impl_.drop_item_position_));
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata S_MATCH_ITEM_DROP::GetMetadata() const {
+::PROTOBUF_NAMESPACE_ID::Metadata S_MATCH_ITEM_SOMEONE_DROP::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2eproto_getter, &descriptor_table_Message_2eproto_once,
       file_level_metadata_Message_2eproto[32]);
@@ -8623,17 +8852,9 @@ template<> PROTOBUF_NOINLINE ::ProjectJ::S_ROOM_START_MATCH*
 Arena::CreateMaybeMessage< ::ProjectJ::S_ROOM_START_MATCH >(Arena* arena) {
   return Arena::CreateMessageInternal< ::ProjectJ::S_ROOM_START_MATCH >(arena);
 }
-template<> PROTOBUF_NOINLINE ::ProjectJ::S_MATCH_INIT_PLAYER_INDEX*
-Arena::CreateMaybeMessage< ::ProjectJ::S_MATCH_INIT_PLAYER_INDEX >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::ProjectJ::S_MATCH_INIT_PLAYER_INDEX >(arena);
-}
-template<> PROTOBUF_NOINLINE ::ProjectJ::S_MATCH_INIT_ITEMS*
-Arena::CreateMaybeMessage< ::ProjectJ::S_MATCH_INIT_ITEMS >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::ProjectJ::S_MATCH_INIT_ITEMS >(arena);
-}
-template<> PROTOBUF_NOINLINE ::ProjectJ::C_MATCH_LOADING_COMPLETE*
-Arena::CreateMaybeMessage< ::ProjectJ::C_MATCH_LOADING_COMPLETE >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::ProjectJ::C_MATCH_LOADING_COMPLETE >(arena);
+template<> PROTOBUF_NOINLINE ::ProjectJ::C_MATCH_READY_TO_RECEIVE*
+Arena::CreateMaybeMessage< ::ProjectJ::C_MATCH_READY_TO_RECEIVE >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::ProjectJ::C_MATCH_READY_TO_RECEIVE >(arena);
 }
 template<> PROTOBUF_NOINLINE ::ProjectJ::S_MATCH_ALL_LOADING_COMPLETE*
 Arena::CreateMaybeMessage< ::ProjectJ::S_MATCH_ALL_LOADING_COMPLETE >(Arena* arena) {
@@ -8642,6 +8863,14 @@ Arena::CreateMaybeMessage< ::ProjectJ::S_MATCH_ALL_LOADING_COMPLETE >(Arena* are
 template<> PROTOBUF_NOINLINE ::ProjectJ::S_MATCH_START*
 Arena::CreateMaybeMessage< ::ProjectJ::S_MATCH_START >(Arena* arena) {
   return Arena::CreateMessageInternal< ::ProjectJ::S_MATCH_START >(arena);
+}
+template<> PROTOBUF_NOINLINE ::ProjectJ::C_MATCH_INFO_MyInfo*
+Arena::CreateMaybeMessage< ::ProjectJ::C_MATCH_INFO_MyInfo >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::ProjectJ::C_MATCH_INFO_MyInfo >(arena);
+}
+template<> PROTOBUF_NOINLINE ::ProjectJ::C_MATCH_INFO*
+Arena::CreateMaybeMessage< ::ProjectJ::C_MATCH_INFO >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::ProjectJ::C_MATCH_INFO >(arena);
 }
 template<> PROTOBUF_NOINLINE ::ProjectJ::S_MATCH_INFO*
 Arena::CreateMaybeMessage< ::ProjectJ::S_MATCH_INFO >(Arena* arena) {
@@ -8655,25 +8884,25 @@ template<> PROTOBUF_NOINLINE ::ProjectJ::C_MATCH_ITEM_PICKUP*
 Arena::CreateMaybeMessage< ::ProjectJ::C_MATCH_ITEM_PICKUP >(Arena* arena) {
   return Arena::CreateMessageInternal< ::ProjectJ::C_MATCH_ITEM_PICKUP >(arena);
 }
-template<> PROTOBUF_NOINLINE ::ProjectJ::S_MATCH_ITEM_PICKUP*
-Arena::CreateMaybeMessage< ::ProjectJ::S_MATCH_ITEM_PICKUP >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::ProjectJ::S_MATCH_ITEM_PICKUP >(arena);
-}
 template<> PROTOBUF_NOINLINE ::ProjectJ::C_MATCH_ITEM_MOVE*
 Arena::CreateMaybeMessage< ::ProjectJ::C_MATCH_ITEM_MOVE >(Arena* arena) {
   return Arena::CreateMessageInternal< ::ProjectJ::C_MATCH_ITEM_MOVE >(arena);
-}
-template<> PROTOBUF_NOINLINE ::ProjectJ::S_MATCH_ITEM_MOVE*
-Arena::CreateMaybeMessage< ::ProjectJ::S_MATCH_ITEM_MOVE >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::ProjectJ::S_MATCH_ITEM_MOVE >(arena);
 }
 template<> PROTOBUF_NOINLINE ::ProjectJ::C_MATCH_ITEM_DROP*
 Arena::CreateMaybeMessage< ::ProjectJ::C_MATCH_ITEM_DROP >(Arena* arena) {
   return Arena::CreateMessageInternal< ::ProjectJ::C_MATCH_ITEM_DROP >(arena);
 }
-template<> PROTOBUF_NOINLINE ::ProjectJ::S_MATCH_ITEM_DROP*
-Arena::CreateMaybeMessage< ::ProjectJ::S_MATCH_ITEM_DROP >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::ProjectJ::S_MATCH_ITEM_DROP >(arena);
+template<> PROTOBUF_NOINLINE ::ProjectJ::S_MATCH_ITEM_SOMEONE_PICKUP*
+Arena::CreateMaybeMessage< ::ProjectJ::S_MATCH_ITEM_SOMEONE_PICKUP >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::ProjectJ::S_MATCH_ITEM_SOMEONE_PICKUP >(arena);
+}
+template<> PROTOBUF_NOINLINE ::ProjectJ::S_MATCH_ITEM_SOMEONE_MOVE*
+Arena::CreateMaybeMessage< ::ProjectJ::S_MATCH_ITEM_SOMEONE_MOVE >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::ProjectJ::S_MATCH_ITEM_SOMEONE_MOVE >(arena);
+}
+template<> PROTOBUF_NOINLINE ::ProjectJ::S_MATCH_ITEM_SOMEONE_DROP*
+Arena::CreateMaybeMessage< ::ProjectJ::S_MATCH_ITEM_SOMEONE_DROP >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::ProjectJ::S_MATCH_ITEM_SOMEONE_DROP >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 

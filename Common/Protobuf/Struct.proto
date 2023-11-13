@@ -60,6 +60,34 @@ message Item
 	bool is_rotated = 10;
 }
 
+message PlayerInfo
+{
+	MatchPlayerState state = 1;
+	int32 player_index = 2;
+	Player player = 3;
+	Vector position = 4;
+	Rotator rotation = 5;
+}
+
+message MatchInitInfo
+{
+	message ScaleInitInfo
+	{
+		int32 operating_weight = 1;
+		int32 tolerance = 2;
+	}
+
+	PlayerInfo chaser = 1;
+	PlayerInfo fugitive_first = 2;
+	PlayerInfo fugitive_second = 3;
+	PlayerInfo fugitive_third = 4;
+
+	ScaleInitInfo scale_first = 5;
+	ScaleInitInfo scale_second = 6;
+	ScaleInitInfo scale_third = 7;
+	ScaleInitInfo scale_fourth = 8;
+}
+
 message MatchInfo
 {
 	message PlayerInfo
@@ -71,8 +99,21 @@ message MatchInfo
 		Rotator rotation = 5;
 	}
 
+	message ScaleInfo
+	{
+		bool is_operating = 1;
+		int32 current_weight = 2;
+	}
+
 	PlayerInfo chaser = 1;
 	PlayerInfo fugitive_first = 2;
 	PlayerInfo fugitive_second = 3;
 	PlayerInfo fugitive_third = 4;
+
+	ScaleInfo scale_first = 5;
+	ScaleInfo scale_second = 6;
+	ScaleInfo scale_third = 7;
+	ScaleInfo scale_fourth = 8;
+
+	repeated Item items = 9;
 }

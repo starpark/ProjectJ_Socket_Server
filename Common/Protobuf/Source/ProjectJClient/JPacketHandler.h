@@ -33,19 +33,18 @@ enum : uint16
 	PKT_S_ROOM_CHAT = 1017,
 	PKT_S_ROOM_STANDBY_MATCH = 1018,
 	PKT_S_ROOM_START_MATCH = 1019,
-	PKT_S_MATCH_INIT_PLAYER_INDEX = 1020,
-	PKT_S_MATCH_INIT_ITEMS = 1021,
-	PKT_C_MATCH_LOADING_COMPLETE = 1022,
-	PKT_S_MATCH_ALL_LOADING_COMPLETE = 1023,
-	PKT_S_MATCH_START = 1024,
-	PKT_S_MATCH_INFO = 1025,
-	PKT_S_MATCH_END = 1026,
-	PKT_C_MATCH_ITEM_PICKUP = 1027,
-	PKT_S_MATCH_ITEM_PICKUP = 1028,
-	PKT_C_MATCH_ITEM_MOVE = 1029,
-	PKT_S_MATCH_ITEM_MOVE = 1030,
-	PKT_C_MATCH_ITEM_DROP = 1031,
-	PKT_S_MATCH_ITEM_DROP = 1032,
+	PKT_C_MATCH_READY_TO_RECEIVE = 1020,
+	PKT_S_MATCH_ALL_LOADING_COMPLETE = 1021,
+	PKT_S_MATCH_START = 1022,
+	PKT_C_MATCH_INFO = 1023,
+	PKT_S_MATCH_INFO = 1024,
+	PKT_S_MATCH_END = 1025,
+	PKT_C_MATCH_ITEM_PICKUP = 1026,
+	PKT_C_MATCH_ITEM_MOVE = 1027,
+	PKT_C_MATCH_ITEM_DROP = 1028,
+	PKT_S_MATCH_ITEM_SOMEONE_PICKUP = 1029,
+	PKT_S_MATCH_ITEM_SOMEONE_MOVE = 1030,
+	PKT_S_MATCH_ITEM_SOMEONE_DROP = 1031,
 };
 
 // RecvThread 전용 패킷 가공 함수
@@ -83,10 +82,6 @@ bool Handle_S_ROOM_STANDBY_MATCH(UWorld* World, ProjectJ::S_ROOM_STANDBY_MATCH& 
 DECLARE_DELEGATE_RetVal_ThreeParams(bool, FPacket_S_ROOM_STANDBY_MATCH, UWorld*, ProjectJ::S_ROOM_STANDBY_MATCH&, float);
 bool Handle_S_ROOM_START_MATCH(UWorld* World, ProjectJ::S_ROOM_START_MATCH& Packet, float DeltaSeconds);
 DECLARE_DELEGATE_RetVal_ThreeParams(bool, FPacket_S_ROOM_START_MATCH, UWorld*, ProjectJ::S_ROOM_START_MATCH&, float);
-bool Handle_S_MATCH_INIT_PLAYER_INDEX(UWorld* World, ProjectJ::S_MATCH_INIT_PLAYER_INDEX& Packet, float DeltaSeconds);
-DECLARE_DELEGATE_RetVal_ThreeParams(bool, FPacket_S_MATCH_INIT_PLAYER_INDEX, UWorld*, ProjectJ::S_MATCH_INIT_PLAYER_INDEX&, float);
-bool Handle_S_MATCH_INIT_ITEMS(UWorld* World, ProjectJ::S_MATCH_INIT_ITEMS& Packet, float DeltaSeconds);
-DECLARE_DELEGATE_RetVal_ThreeParams(bool, FPacket_S_MATCH_INIT_ITEMS, UWorld*, ProjectJ::S_MATCH_INIT_ITEMS&, float);
 bool Handle_S_MATCH_ALL_LOADING_COMPLETE(UWorld* World, ProjectJ::S_MATCH_ALL_LOADING_COMPLETE& Packet, float DeltaSeconds);
 DECLARE_DELEGATE_RetVal_ThreeParams(bool, FPacket_S_MATCH_ALL_LOADING_COMPLETE, UWorld*, ProjectJ::S_MATCH_ALL_LOADING_COMPLETE&, float);
 bool Handle_S_MATCH_START(UWorld* World, ProjectJ::S_MATCH_START& Packet, float DeltaSeconds);
@@ -95,17 +90,17 @@ bool Handle_S_MATCH_INFO(UWorld* World, ProjectJ::S_MATCH_INFO& Packet, float De
 DECLARE_DELEGATE_RetVal_ThreeParams(bool, FPacket_S_MATCH_INFO, UWorld*, ProjectJ::S_MATCH_INFO&, float);
 bool Handle_S_MATCH_END(UWorld* World, ProjectJ::S_MATCH_END& Packet, float DeltaSeconds);
 DECLARE_DELEGATE_RetVal_ThreeParams(bool, FPacket_S_MATCH_END, UWorld*, ProjectJ::S_MATCH_END&, float);
-bool Handle_S_MATCH_ITEM_PICKUP(UWorld* World, ProjectJ::S_MATCH_ITEM_PICKUP& Packet, float DeltaSeconds);
-DECLARE_DELEGATE_RetVal_ThreeParams(bool, FPacket_S_MATCH_ITEM_PICKUP, UWorld*, ProjectJ::S_MATCH_ITEM_PICKUP&, float);
-bool Handle_S_MATCH_ITEM_MOVE(UWorld* World, ProjectJ::S_MATCH_ITEM_MOVE& Packet, float DeltaSeconds);
-DECLARE_DELEGATE_RetVal_ThreeParams(bool, FPacket_S_MATCH_ITEM_MOVE, UWorld*, ProjectJ::S_MATCH_ITEM_MOVE&, float);
-bool Handle_S_MATCH_ITEM_DROP(UWorld* World, ProjectJ::S_MATCH_ITEM_DROP& Packet, float DeltaSeconds);
-DECLARE_DELEGATE_RetVal_ThreeParams(bool, FPacket_S_MATCH_ITEM_DROP, UWorld*, ProjectJ::S_MATCH_ITEM_DROP&, float);
+bool Handle_S_MATCH_ITEM_SOMEONE_PICKUP(UWorld* World, ProjectJ::S_MATCH_ITEM_SOMEONE_PICKUP& Packet, float DeltaSeconds);
+DECLARE_DELEGATE_RetVal_ThreeParams(bool, FPacket_S_MATCH_ITEM_SOMEONE_PICKUP, UWorld*, ProjectJ::S_MATCH_ITEM_SOMEONE_PICKUP&, float);
+bool Handle_S_MATCH_ITEM_SOMEONE_MOVE(UWorld* World, ProjectJ::S_MATCH_ITEM_SOMEONE_MOVE& Packet, float DeltaSeconds);
+DECLARE_DELEGATE_RetVal_ThreeParams(bool, FPacket_S_MATCH_ITEM_SOMEONE_MOVE, UWorld*, ProjectJ::S_MATCH_ITEM_SOMEONE_MOVE&, float);
+bool Handle_S_MATCH_ITEM_SOMEONE_DROP(UWorld* World, ProjectJ::S_MATCH_ITEM_SOMEONE_DROP& Packet, float DeltaSeconds);
+DECLARE_DELEGATE_RetVal_ThreeParams(bool, FPacket_S_MATCH_ITEM_SOMEONE_DROP, UWorld*, ProjectJ::S_MATCH_ITEM_SOMEONE_DROP&, float);
 
 // 소켓 수신 데이터 처리 및 송신 버퍼 생성 클래스
 // 최초 작성자: 박별
 // 수정자: 
-// 최종 수정일: 2023-11-09 자동 생성
+// 최종 수정일: 2023-11-13 자동 생성
 class PROJECTJ_API UJPacketHandler : public UObject
 {
 public:
@@ -134,15 +129,13 @@ public:
 		GPacketProcessor[PKT_S_ROOM_CHAT] = [](UWorld* World, const TSharedPtr<JPackets>& PacketPtr, float DeltaSeconds) {return ProcessPacket<ProjectJ::S_ROOM_CHAT>(Handle_S_ROOM_CHAT, World, PacketPtr, DeltaSeconds);};
 		GPacketProcessor[PKT_S_ROOM_STANDBY_MATCH] = [](UWorld* World, const TSharedPtr<JPackets>& PacketPtr, float DeltaSeconds) {return ProcessPacket<ProjectJ::S_ROOM_STANDBY_MATCH>(Handle_S_ROOM_STANDBY_MATCH, World, PacketPtr, DeltaSeconds);};
 		GPacketProcessor[PKT_S_ROOM_START_MATCH] = [](UWorld* World, const TSharedPtr<JPackets>& PacketPtr, float DeltaSeconds) {return ProcessPacket<ProjectJ::S_ROOM_START_MATCH>(Handle_S_ROOM_START_MATCH, World, PacketPtr, DeltaSeconds);};
-		GPacketProcessor[PKT_S_MATCH_INIT_PLAYER_INDEX] = [](UWorld* World, const TSharedPtr<JPackets>& PacketPtr, float DeltaSeconds) {return ProcessPacket<ProjectJ::S_MATCH_INIT_PLAYER_INDEX>(Handle_S_MATCH_INIT_PLAYER_INDEX, World, PacketPtr, DeltaSeconds);};
-		GPacketProcessor[PKT_S_MATCH_INIT_ITEMS] = [](UWorld* World, const TSharedPtr<JPackets>& PacketPtr, float DeltaSeconds) {return ProcessPacket<ProjectJ::S_MATCH_INIT_ITEMS>(Handle_S_MATCH_INIT_ITEMS, World, PacketPtr, DeltaSeconds);};
 		GPacketProcessor[PKT_S_MATCH_ALL_LOADING_COMPLETE] = [](UWorld* World, const TSharedPtr<JPackets>& PacketPtr, float DeltaSeconds) {return ProcessPacket<ProjectJ::S_MATCH_ALL_LOADING_COMPLETE>(Handle_S_MATCH_ALL_LOADING_COMPLETE, World, PacketPtr, DeltaSeconds);};
 		GPacketProcessor[PKT_S_MATCH_START] = [](UWorld* World, const TSharedPtr<JPackets>& PacketPtr, float DeltaSeconds) {return ProcessPacket<ProjectJ::S_MATCH_START>(Handle_S_MATCH_START, World, PacketPtr, DeltaSeconds);};
 		GPacketProcessor[PKT_S_MATCH_INFO] = [](UWorld* World, const TSharedPtr<JPackets>& PacketPtr, float DeltaSeconds) {return ProcessPacket<ProjectJ::S_MATCH_INFO>(Handle_S_MATCH_INFO, World, PacketPtr, DeltaSeconds);};
 		GPacketProcessor[PKT_S_MATCH_END] = [](UWorld* World, const TSharedPtr<JPackets>& PacketPtr, float DeltaSeconds) {return ProcessPacket<ProjectJ::S_MATCH_END>(Handle_S_MATCH_END, World, PacketPtr, DeltaSeconds);};
-		GPacketProcessor[PKT_S_MATCH_ITEM_PICKUP] = [](UWorld* World, const TSharedPtr<JPackets>& PacketPtr, float DeltaSeconds) {return ProcessPacket<ProjectJ::S_MATCH_ITEM_PICKUP>(Handle_S_MATCH_ITEM_PICKUP, World, PacketPtr, DeltaSeconds);};
-		GPacketProcessor[PKT_S_MATCH_ITEM_MOVE] = [](UWorld* World, const TSharedPtr<JPackets>& PacketPtr, float DeltaSeconds) {return ProcessPacket<ProjectJ::S_MATCH_ITEM_MOVE>(Handle_S_MATCH_ITEM_MOVE, World, PacketPtr, DeltaSeconds);};
-		GPacketProcessor[PKT_S_MATCH_ITEM_DROP] = [](UWorld* World, const TSharedPtr<JPackets>& PacketPtr, float DeltaSeconds) {return ProcessPacket<ProjectJ::S_MATCH_ITEM_DROP>(Handle_S_MATCH_ITEM_DROP, World, PacketPtr, DeltaSeconds);};
+		GPacketProcessor[PKT_S_MATCH_ITEM_SOMEONE_PICKUP] = [](UWorld* World, const TSharedPtr<JPackets>& PacketPtr, float DeltaSeconds) {return ProcessPacket<ProjectJ::S_MATCH_ITEM_SOMEONE_PICKUP>(Handle_S_MATCH_ITEM_SOMEONE_PICKUP, World, PacketPtr, DeltaSeconds);};
+		GPacketProcessor[PKT_S_MATCH_ITEM_SOMEONE_MOVE] = [](UWorld* World, const TSharedPtr<JPackets>& PacketPtr, float DeltaSeconds) {return ProcessPacket<ProjectJ::S_MATCH_ITEM_SOMEONE_MOVE>(Handle_S_MATCH_ITEM_SOMEONE_MOVE, World, PacketPtr, DeltaSeconds);};
+		GPacketProcessor[PKT_S_MATCH_ITEM_SOMEONE_DROP] = [](UWorld* World, const TSharedPtr<JPackets>& PacketPtr, float DeltaSeconds) {return ProcessPacket<ProjectJ::S_MATCH_ITEM_SOMEONE_DROP>(Handle_S_MATCH_ITEM_SOMEONE_DROP, World, PacketPtr, DeltaSeconds);};
 
 		// Handler 바인딩
 		GPacketHandler[PKT_S_VERIFY_TOKEN] = [](uint16 TypeCode, uint8* Buffer, int32 Size) {return HandlePacket<ProjectJ::S_VERIFY_TOKEN>(TypeCode, Buffer, Size);};
@@ -157,15 +150,13 @@ public:
 		GPacketHandler[PKT_S_ROOM_CHAT] = [](uint16 TypeCode, uint8* Buffer, int32 Size) {return HandlePacket<ProjectJ::S_ROOM_CHAT>(TypeCode, Buffer, Size);};
 		GPacketHandler[PKT_S_ROOM_STANDBY_MATCH] = [](uint16 TypeCode, uint8* Buffer, int32 Size) {return HandlePacket<ProjectJ::S_ROOM_STANDBY_MATCH>(TypeCode, Buffer, Size);};
 		GPacketHandler[PKT_S_ROOM_START_MATCH] = [](uint16 TypeCode, uint8* Buffer, int32 Size) {return HandlePacket<ProjectJ::S_ROOM_START_MATCH>(TypeCode, Buffer, Size);};
-		GPacketHandler[PKT_S_MATCH_INIT_PLAYER_INDEX] = [](uint16 TypeCode, uint8* Buffer, int32 Size) {return HandlePacket<ProjectJ::S_MATCH_INIT_PLAYER_INDEX>(TypeCode, Buffer, Size);};
-		GPacketHandler[PKT_S_MATCH_INIT_ITEMS] = [](uint16 TypeCode, uint8* Buffer, int32 Size) {return HandlePacket<ProjectJ::S_MATCH_INIT_ITEMS>(TypeCode, Buffer, Size);};
 		GPacketHandler[PKT_S_MATCH_ALL_LOADING_COMPLETE] = [](uint16 TypeCode, uint8* Buffer, int32 Size) {return HandlePacket<ProjectJ::S_MATCH_ALL_LOADING_COMPLETE>(TypeCode, Buffer, Size);};
 		GPacketHandler[PKT_S_MATCH_START] = [](uint16 TypeCode, uint8* Buffer, int32 Size) {return HandlePacket<ProjectJ::S_MATCH_START>(TypeCode, Buffer, Size);};
 		GPacketHandler[PKT_S_MATCH_INFO] = [](uint16 TypeCode, uint8* Buffer, int32 Size) {return HandlePacket<ProjectJ::S_MATCH_INFO>(TypeCode, Buffer, Size);};
 		GPacketHandler[PKT_S_MATCH_END] = [](uint16 TypeCode, uint8* Buffer, int32 Size) {return HandlePacket<ProjectJ::S_MATCH_END>(TypeCode, Buffer, Size);};
-		GPacketHandler[PKT_S_MATCH_ITEM_PICKUP] = [](uint16 TypeCode, uint8* Buffer, int32 Size) {return HandlePacket<ProjectJ::S_MATCH_ITEM_PICKUP>(TypeCode, Buffer, Size);};
-		GPacketHandler[PKT_S_MATCH_ITEM_MOVE] = [](uint16 TypeCode, uint8* Buffer, int32 Size) {return HandlePacket<ProjectJ::S_MATCH_ITEM_MOVE>(TypeCode, Buffer, Size);};
-		GPacketHandler[PKT_S_MATCH_ITEM_DROP] = [](uint16 TypeCode, uint8* Buffer, int32 Size) {return HandlePacket<ProjectJ::S_MATCH_ITEM_DROP>(TypeCode, Buffer, Size);};
+		GPacketHandler[PKT_S_MATCH_ITEM_SOMEONE_PICKUP] = [](uint16 TypeCode, uint8* Buffer, int32 Size) {return HandlePacket<ProjectJ::S_MATCH_ITEM_SOMEONE_PICKUP>(TypeCode, Buffer, Size);};
+		GPacketHandler[PKT_S_MATCH_ITEM_SOMEONE_MOVE] = [](uint16 TypeCode, uint8* Buffer, int32 Size) {return HandlePacket<ProjectJ::S_MATCH_ITEM_SOMEONE_MOVE>(TypeCode, Buffer, Size);};
+		GPacketHandler[PKT_S_MATCH_ITEM_SOMEONE_DROP] = [](uint16 TypeCode, uint8* Buffer, int32 Size) {return HandlePacket<ProjectJ::S_MATCH_ITEM_SOMEONE_DROP>(TypeCode, Buffer, Size);};
 	}
 
 	// 게임 스레드에서 가공된 데이터를 처리하는 함수
@@ -229,10 +220,14 @@ public:
 	// Packet: C_ROOM_CHAT 객체
 	// 생성된 FJSendBuffer 스마트포인터 반환
 	static TSharedPtr<FJSendBuffer> MakeSendBuffer(ProjectJ::C_ROOM_CHAT& Packet) {return MakeSendBuffer(Packet, PKT_C_ROOM_CHAT);}
-	// C_MATCH_LOADING_COMPLETE를 직렬화한 FJSendBuffer 생성 함수
-	// Packet: C_MATCH_LOADING_COMPLETE 객체
+	// C_MATCH_READY_TO_RECEIVE를 직렬화한 FJSendBuffer 생성 함수
+	// Packet: C_MATCH_READY_TO_RECEIVE 객체
 	// 생성된 FJSendBuffer 스마트포인터 반환
-	static TSharedPtr<FJSendBuffer> MakeSendBuffer(ProjectJ::C_MATCH_LOADING_COMPLETE& Packet) {return MakeSendBuffer(Packet, PKT_C_MATCH_LOADING_COMPLETE);}
+	static TSharedPtr<FJSendBuffer> MakeSendBuffer(ProjectJ::C_MATCH_READY_TO_RECEIVE& Packet) {return MakeSendBuffer(Packet, PKT_C_MATCH_READY_TO_RECEIVE);}
+	// C_MATCH_INFO를 직렬화한 FJSendBuffer 생성 함수
+	// Packet: C_MATCH_INFO 객체
+	// 생성된 FJSendBuffer 스마트포인터 반환
+	static TSharedPtr<FJSendBuffer> MakeSendBuffer(ProjectJ::C_MATCH_INFO& Packet) {return MakeSendBuffer(Packet, PKT_C_MATCH_INFO);}
 	// C_MATCH_ITEM_PICKUP를 직렬화한 FJSendBuffer 생성 함수
 	// Packet: C_MATCH_ITEM_PICKUP 객체
 	// 생성된 FJSendBuffer 스마트포인터 반환
@@ -329,13 +324,11 @@ public:
 	static FPacket_S_ROOM_CHAT Packet_S_ROOM_CHAT_Delegate;
 	static FPacket_S_ROOM_STANDBY_MATCH Packet_S_ROOM_STANDBY_MATCH_Delegate;
 	static FPacket_S_ROOM_START_MATCH Packet_S_ROOM_START_MATCH_Delegate;
-	static FPacket_S_MATCH_INIT_PLAYER_INDEX Packet_S_MATCH_INIT_PLAYER_INDEX_Delegate;
-	static FPacket_S_MATCH_INIT_ITEMS Packet_S_MATCH_INIT_ITEMS_Delegate;
 	static FPacket_S_MATCH_ALL_LOADING_COMPLETE Packet_S_MATCH_ALL_LOADING_COMPLETE_Delegate;
 	static FPacket_S_MATCH_START Packet_S_MATCH_START_Delegate;
 	static FPacket_S_MATCH_INFO Packet_S_MATCH_INFO_Delegate;
 	static FPacket_S_MATCH_END Packet_S_MATCH_END_Delegate;
-	static FPacket_S_MATCH_ITEM_PICKUP Packet_S_MATCH_ITEM_PICKUP_Delegate;
-	static FPacket_S_MATCH_ITEM_MOVE Packet_S_MATCH_ITEM_MOVE_Delegate;
-	static FPacket_S_MATCH_ITEM_DROP Packet_S_MATCH_ITEM_DROP_Delegate;
+	static FPacket_S_MATCH_ITEM_SOMEONE_PICKUP Packet_S_MATCH_ITEM_SOMEONE_PICKUP_Delegate;
+	static FPacket_S_MATCH_ITEM_SOMEONE_MOVE Packet_S_MATCH_ITEM_SOMEONE_MOVE_Delegate;
+	static FPacket_S_MATCH_ITEM_SOMEONE_DROP Packet_S_MATCH_ITEM_SOMEONE_DROP_Delegate;
 };

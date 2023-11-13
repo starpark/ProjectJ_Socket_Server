@@ -60,6 +60,12 @@ extern C_LOBBY_ENTER_ROOMDefaultTypeInternal _C_LOBBY_ENTER_ROOM_default_instanc
 class C_LOBBY_REFRESH_ROOM;
 struct C_LOBBY_REFRESH_ROOMDefaultTypeInternal;
 extern C_LOBBY_REFRESH_ROOMDefaultTypeInternal _C_LOBBY_REFRESH_ROOM_default_instance_;
+class C_MATCH_INFO;
+struct C_MATCH_INFODefaultTypeInternal;
+extern C_MATCH_INFODefaultTypeInternal _C_MATCH_INFO_default_instance_;
+class C_MATCH_INFO_MyInfo;
+struct C_MATCH_INFO_MyInfoDefaultTypeInternal;
+extern C_MATCH_INFO_MyInfoDefaultTypeInternal _C_MATCH_INFO_MyInfo_default_instance_;
 class C_MATCH_ITEM_DROP;
 struct C_MATCH_ITEM_DROPDefaultTypeInternal;
 extern C_MATCH_ITEM_DROPDefaultTypeInternal _C_MATCH_ITEM_DROP_default_instance_;
@@ -69,9 +75,9 @@ extern C_MATCH_ITEM_MOVEDefaultTypeInternal _C_MATCH_ITEM_MOVE_default_instance_
 class C_MATCH_ITEM_PICKUP;
 struct C_MATCH_ITEM_PICKUPDefaultTypeInternal;
 extern C_MATCH_ITEM_PICKUPDefaultTypeInternal _C_MATCH_ITEM_PICKUP_default_instance_;
-class C_MATCH_LOADING_COMPLETE;
-struct C_MATCH_LOADING_COMPLETEDefaultTypeInternal;
-extern C_MATCH_LOADING_COMPLETEDefaultTypeInternal _C_MATCH_LOADING_COMPLETE_default_instance_;
+class C_MATCH_READY_TO_RECEIVE;
+struct C_MATCH_READY_TO_RECEIVEDefaultTypeInternal;
+extern C_MATCH_READY_TO_RECEIVEDefaultTypeInternal _C_MATCH_READY_TO_RECEIVE_default_instance_;
 class C_ROOM_CHAT;
 struct C_ROOM_CHATDefaultTypeInternal;
 extern C_ROOM_CHATDefaultTypeInternal _C_ROOM_CHAT_default_instance_;
@@ -105,21 +111,15 @@ extern S_MATCH_ENDDefaultTypeInternal _S_MATCH_END_default_instance_;
 class S_MATCH_INFO;
 struct S_MATCH_INFODefaultTypeInternal;
 extern S_MATCH_INFODefaultTypeInternal _S_MATCH_INFO_default_instance_;
-class S_MATCH_INIT_ITEMS;
-struct S_MATCH_INIT_ITEMSDefaultTypeInternal;
-extern S_MATCH_INIT_ITEMSDefaultTypeInternal _S_MATCH_INIT_ITEMS_default_instance_;
-class S_MATCH_INIT_PLAYER_INDEX;
-struct S_MATCH_INIT_PLAYER_INDEXDefaultTypeInternal;
-extern S_MATCH_INIT_PLAYER_INDEXDefaultTypeInternal _S_MATCH_INIT_PLAYER_INDEX_default_instance_;
-class S_MATCH_ITEM_DROP;
-struct S_MATCH_ITEM_DROPDefaultTypeInternal;
-extern S_MATCH_ITEM_DROPDefaultTypeInternal _S_MATCH_ITEM_DROP_default_instance_;
-class S_MATCH_ITEM_MOVE;
-struct S_MATCH_ITEM_MOVEDefaultTypeInternal;
-extern S_MATCH_ITEM_MOVEDefaultTypeInternal _S_MATCH_ITEM_MOVE_default_instance_;
-class S_MATCH_ITEM_PICKUP;
-struct S_MATCH_ITEM_PICKUPDefaultTypeInternal;
-extern S_MATCH_ITEM_PICKUPDefaultTypeInternal _S_MATCH_ITEM_PICKUP_default_instance_;
+class S_MATCH_ITEM_SOMEONE_DROP;
+struct S_MATCH_ITEM_SOMEONE_DROPDefaultTypeInternal;
+extern S_MATCH_ITEM_SOMEONE_DROPDefaultTypeInternal _S_MATCH_ITEM_SOMEONE_DROP_default_instance_;
+class S_MATCH_ITEM_SOMEONE_MOVE;
+struct S_MATCH_ITEM_SOMEONE_MOVEDefaultTypeInternal;
+extern S_MATCH_ITEM_SOMEONE_MOVEDefaultTypeInternal _S_MATCH_ITEM_SOMEONE_MOVE_default_instance_;
+class S_MATCH_ITEM_SOMEONE_PICKUP;
+struct S_MATCH_ITEM_SOMEONE_PICKUPDefaultTypeInternal;
+extern S_MATCH_ITEM_SOMEONE_PICKUPDefaultTypeInternal _S_MATCH_ITEM_SOMEONE_PICKUP_default_instance_;
 class S_MATCH_START;
 struct S_MATCH_STARTDefaultTypeInternal;
 extern S_MATCH_STARTDefaultTypeInternal _S_MATCH_START_default_instance_;
@@ -153,10 +153,12 @@ template<> ::ProjectJ::C_LOBBY_CHAT* Arena::CreateMaybeMessage<::ProjectJ::C_LOB
 template<> ::ProjectJ::C_LOBBY_CREATE_ROOM* Arena::CreateMaybeMessage<::ProjectJ::C_LOBBY_CREATE_ROOM>(Arena*);
 template<> ::ProjectJ::C_LOBBY_ENTER_ROOM* Arena::CreateMaybeMessage<::ProjectJ::C_LOBBY_ENTER_ROOM>(Arena*);
 template<> ::ProjectJ::C_LOBBY_REFRESH_ROOM* Arena::CreateMaybeMessage<::ProjectJ::C_LOBBY_REFRESH_ROOM>(Arena*);
+template<> ::ProjectJ::C_MATCH_INFO* Arena::CreateMaybeMessage<::ProjectJ::C_MATCH_INFO>(Arena*);
+template<> ::ProjectJ::C_MATCH_INFO_MyInfo* Arena::CreateMaybeMessage<::ProjectJ::C_MATCH_INFO_MyInfo>(Arena*);
 template<> ::ProjectJ::C_MATCH_ITEM_DROP* Arena::CreateMaybeMessage<::ProjectJ::C_MATCH_ITEM_DROP>(Arena*);
 template<> ::ProjectJ::C_MATCH_ITEM_MOVE* Arena::CreateMaybeMessage<::ProjectJ::C_MATCH_ITEM_MOVE>(Arena*);
 template<> ::ProjectJ::C_MATCH_ITEM_PICKUP* Arena::CreateMaybeMessage<::ProjectJ::C_MATCH_ITEM_PICKUP>(Arena*);
-template<> ::ProjectJ::C_MATCH_LOADING_COMPLETE* Arena::CreateMaybeMessage<::ProjectJ::C_MATCH_LOADING_COMPLETE>(Arena*);
+template<> ::ProjectJ::C_MATCH_READY_TO_RECEIVE* Arena::CreateMaybeMessage<::ProjectJ::C_MATCH_READY_TO_RECEIVE>(Arena*);
 template<> ::ProjectJ::C_ROOM_CHAT* Arena::CreateMaybeMessage<::ProjectJ::C_ROOM_CHAT>(Arena*);
 template<> ::ProjectJ::C_ROOM_LEAVE* Arena::CreateMaybeMessage<::ProjectJ::C_ROOM_LEAVE>(Arena*);
 template<> ::ProjectJ::C_ROOM_READY* Arena::CreateMaybeMessage<::ProjectJ::C_ROOM_READY>(Arena*);
@@ -168,11 +170,9 @@ template<> ::ProjectJ::S_LOBBY_REFRESH_ROOM* Arena::CreateMaybeMessage<::Project
 template<> ::ProjectJ::S_MATCH_ALL_LOADING_COMPLETE* Arena::CreateMaybeMessage<::ProjectJ::S_MATCH_ALL_LOADING_COMPLETE>(Arena*);
 template<> ::ProjectJ::S_MATCH_END* Arena::CreateMaybeMessage<::ProjectJ::S_MATCH_END>(Arena*);
 template<> ::ProjectJ::S_MATCH_INFO* Arena::CreateMaybeMessage<::ProjectJ::S_MATCH_INFO>(Arena*);
-template<> ::ProjectJ::S_MATCH_INIT_ITEMS* Arena::CreateMaybeMessage<::ProjectJ::S_MATCH_INIT_ITEMS>(Arena*);
-template<> ::ProjectJ::S_MATCH_INIT_PLAYER_INDEX* Arena::CreateMaybeMessage<::ProjectJ::S_MATCH_INIT_PLAYER_INDEX>(Arena*);
-template<> ::ProjectJ::S_MATCH_ITEM_DROP* Arena::CreateMaybeMessage<::ProjectJ::S_MATCH_ITEM_DROP>(Arena*);
-template<> ::ProjectJ::S_MATCH_ITEM_MOVE* Arena::CreateMaybeMessage<::ProjectJ::S_MATCH_ITEM_MOVE>(Arena*);
-template<> ::ProjectJ::S_MATCH_ITEM_PICKUP* Arena::CreateMaybeMessage<::ProjectJ::S_MATCH_ITEM_PICKUP>(Arena*);
+template<> ::ProjectJ::S_MATCH_ITEM_SOMEONE_DROP* Arena::CreateMaybeMessage<::ProjectJ::S_MATCH_ITEM_SOMEONE_DROP>(Arena*);
+template<> ::ProjectJ::S_MATCH_ITEM_SOMEONE_MOVE* Arena::CreateMaybeMessage<::ProjectJ::S_MATCH_ITEM_SOMEONE_MOVE>(Arena*);
+template<> ::ProjectJ::S_MATCH_ITEM_SOMEONE_PICKUP* Arena::CreateMaybeMessage<::ProjectJ::S_MATCH_ITEM_SOMEONE_PICKUP>(Arena*);
 template<> ::ProjectJ::S_MATCH_START* Arena::CreateMaybeMessage<::ProjectJ::S_MATCH_START>(Arena*);
 template<> ::ProjectJ::S_ROOM_CHAT* Arena::CreateMaybeMessage<::ProjectJ::S_ROOM_CHAT>(Arena*);
 template<> ::ProjectJ::S_ROOM_LEAVE* Arena::CreateMaybeMessage<::ProjectJ::S_ROOM_LEAVE>(Arena*);
@@ -3489,24 +3489,24 @@ class S_ROOM_START_MATCH final :
 };
 // -------------------------------------------------------------------
 
-class S_MATCH_INIT_PLAYER_INDEX final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:ProjectJ.S_MATCH_INIT_PLAYER_INDEX) */ {
+class C_MATCH_READY_TO_RECEIVE final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:ProjectJ.C_MATCH_READY_TO_RECEIVE) */ {
  public:
-  inline S_MATCH_INIT_PLAYER_INDEX() : S_MATCH_INIT_PLAYER_INDEX(nullptr) {}
-  ~S_MATCH_INIT_PLAYER_INDEX() override;
-  explicit PROTOBUF_CONSTEXPR S_MATCH_INIT_PLAYER_INDEX(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+  inline C_MATCH_READY_TO_RECEIVE() : C_MATCH_READY_TO_RECEIVE(nullptr) {}
+  ~C_MATCH_READY_TO_RECEIVE() override;
+  explicit PROTOBUF_CONSTEXPR C_MATCH_READY_TO_RECEIVE(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
 
-  S_MATCH_INIT_PLAYER_INDEX(const S_MATCH_INIT_PLAYER_INDEX& from);
-  S_MATCH_INIT_PLAYER_INDEX(S_MATCH_INIT_PLAYER_INDEX&& from) noexcept
-    : S_MATCH_INIT_PLAYER_INDEX() {
+  C_MATCH_READY_TO_RECEIVE(const C_MATCH_READY_TO_RECEIVE& from);
+  C_MATCH_READY_TO_RECEIVE(C_MATCH_READY_TO_RECEIVE&& from) noexcept
+    : C_MATCH_READY_TO_RECEIVE() {
     *this = ::std::move(from);
   }
 
-  inline S_MATCH_INIT_PLAYER_INDEX& operator=(const S_MATCH_INIT_PLAYER_INDEX& from) {
+  inline C_MATCH_READY_TO_RECEIVE& operator=(const C_MATCH_READY_TO_RECEIVE& from) {
     CopyFrom(from);
     return *this;
   }
-  inline S_MATCH_INIT_PLAYER_INDEX& operator=(S_MATCH_INIT_PLAYER_INDEX&& from) noexcept {
+  inline C_MATCH_READY_TO_RECEIVE& operator=(C_MATCH_READY_TO_RECEIVE&& from) noexcept {
     if (this == &from) return *this;
     if (GetOwningArena() == from.GetOwningArena()
   #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
@@ -3529,20 +3529,20 @@ class S_MATCH_INIT_PLAYER_INDEX final :
   static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
     return default_instance().GetMetadata().reflection;
   }
-  static const S_MATCH_INIT_PLAYER_INDEX& default_instance() {
+  static const C_MATCH_READY_TO_RECEIVE& default_instance() {
     return *internal_default_instance();
   }
-  static inline const S_MATCH_INIT_PLAYER_INDEX* internal_default_instance() {
-    return reinterpret_cast<const S_MATCH_INIT_PLAYER_INDEX*>(
-               &_S_MATCH_INIT_PLAYER_INDEX_default_instance_);
+  static inline const C_MATCH_READY_TO_RECEIVE* internal_default_instance() {
+    return reinterpret_cast<const C_MATCH_READY_TO_RECEIVE*>(
+               &_C_MATCH_READY_TO_RECEIVE_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
     20;
 
-  friend void swap(S_MATCH_INIT_PLAYER_INDEX& a, S_MATCH_INIT_PLAYER_INDEX& b) {
+  friend void swap(C_MATCH_READY_TO_RECEIVE& a, C_MATCH_READY_TO_RECEIVE& b) {
     a.Swap(&b);
   }
-  inline void Swap(S_MATCH_INIT_PLAYER_INDEX* other) {
+  inline void Swap(C_MATCH_READY_TO_RECEIVE* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -3555,7 +3555,7 @@ class S_MATCH_INIT_PLAYER_INDEX final :
       ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
     }
   }
-  void UnsafeArenaSwap(S_MATCH_INIT_PLAYER_INDEX* other) {
+  void UnsafeArenaSwap(C_MATCH_READY_TO_RECEIVE* other) {
     if (other == this) return;
     GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
     InternalSwap(other);
@@ -3563,14 +3563,14 @@ class S_MATCH_INIT_PLAYER_INDEX final :
 
   // implements Message ----------------------------------------------
 
-  S_MATCH_INIT_PLAYER_INDEX* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<S_MATCH_INIT_PLAYER_INDEX>(arena);
+  C_MATCH_READY_TO_RECEIVE* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<C_MATCH_READY_TO_RECEIVE>(arena);
   }
   using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
-  void CopyFrom(const S_MATCH_INIT_PLAYER_INDEX& from);
+  void CopyFrom(const C_MATCH_READY_TO_RECEIVE& from);
   using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
-  void MergeFrom( const S_MATCH_INIT_PLAYER_INDEX& from) {
-    S_MATCH_INIT_PLAYER_INDEX::MergeImpl(*this, from);
+  void MergeFrom( const C_MATCH_READY_TO_RECEIVE& from) {
+    C_MATCH_READY_TO_RECEIVE::MergeImpl(*this, from);
   }
   private:
   static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
@@ -3588,15 +3588,15 @@ class S_MATCH_INIT_PLAYER_INDEX final :
   void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
   void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(S_MATCH_INIT_PLAYER_INDEX* other);
+  void InternalSwap(C_MATCH_READY_TO_RECEIVE* other);
 
   private:
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "ProjectJ.S_MATCH_INIT_PLAYER_INDEX";
+    return "ProjectJ.C_MATCH_READY_TO_RECEIVE";
   }
   protected:
-  explicit S_MATCH_INIT_PLAYER_INDEX(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+  explicit C_MATCH_READY_TO_RECEIVE(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                        bool is_message_owned = false);
   public:
 
@@ -3610,18 +3610,18 @@ class S_MATCH_INIT_PLAYER_INDEX final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kPlayerIndexFieldNumber = 1,
+    kAccountIdFieldNumber = 1,
   };
-  // int32 player_index = 1;
-  void clear_player_index();
-  int32_t player_index() const;
-  void set_player_index(int32_t value);
+  // int32 account_id = 1;
+  void clear_account_id();
+  int32_t account_id() const;
+  void set_account_id(int32_t value);
   private:
-  int32_t _internal_player_index() const;
-  void _internal_set_player_index(int32_t value);
+  int32_t _internal_account_id() const;
+  void _internal_set_account_id(int32_t value);
   public:
 
-  // @@protoc_insertion_point(class_scope:ProjectJ.S_MATCH_INIT_PLAYER_INDEX)
+  // @@protoc_insertion_point(class_scope:ProjectJ.C_MATCH_READY_TO_RECEIVE)
  private:
   class _Internal;
 
@@ -3629,312 +3629,7 @@ class S_MATCH_INIT_PLAYER_INDEX final :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   struct Impl_ {
-    int32_t player_index_;
-    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-  };
-  union { Impl_ _impl_; };
-  friend struct ::TableStruct_Message_2eproto;
-};
-// -------------------------------------------------------------------
-
-class S_MATCH_INIT_ITEMS final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:ProjectJ.S_MATCH_INIT_ITEMS) */ {
- public:
-  inline S_MATCH_INIT_ITEMS() : S_MATCH_INIT_ITEMS(nullptr) {}
-  ~S_MATCH_INIT_ITEMS() override;
-  explicit PROTOBUF_CONSTEXPR S_MATCH_INIT_ITEMS(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
-
-  S_MATCH_INIT_ITEMS(const S_MATCH_INIT_ITEMS& from);
-  S_MATCH_INIT_ITEMS(S_MATCH_INIT_ITEMS&& from) noexcept
-    : S_MATCH_INIT_ITEMS() {
-    *this = ::std::move(from);
-  }
-
-  inline S_MATCH_INIT_ITEMS& operator=(const S_MATCH_INIT_ITEMS& from) {
-    CopyFrom(from);
-    return *this;
-  }
-  inline S_MATCH_INIT_ITEMS& operator=(S_MATCH_INIT_ITEMS&& from) noexcept {
-    if (this == &from) return *this;
-    if (GetOwningArena() == from.GetOwningArena()
-  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
-        && GetOwningArena() != nullptr
-  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
-    ) {
-      InternalSwap(&from);
-    } else {
-      CopyFrom(from);
-    }
-    return *this;
-  }
-
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return default_instance().GetMetadata().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return default_instance().GetMetadata().reflection;
-  }
-  static const S_MATCH_INIT_ITEMS& default_instance() {
-    return *internal_default_instance();
-  }
-  static inline const S_MATCH_INIT_ITEMS* internal_default_instance() {
-    return reinterpret_cast<const S_MATCH_INIT_ITEMS*>(
-               &_S_MATCH_INIT_ITEMS_default_instance_);
-  }
-  static constexpr int kIndexInFileMessages =
-    21;
-
-  friend void swap(S_MATCH_INIT_ITEMS& a, S_MATCH_INIT_ITEMS& b) {
-    a.Swap(&b);
-  }
-  inline void Swap(S_MATCH_INIT_ITEMS* other) {
-    if (other == this) return;
-  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
-    if (GetOwningArena() != nullptr &&
-        GetOwningArena() == other->GetOwningArena()) {
-   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
-    if (GetOwningArena() == other->GetOwningArena()) {
-  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
-      InternalSwap(other);
-    } else {
-      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
-    }
-  }
-  void UnsafeArenaSwap(S_MATCH_INIT_ITEMS* other) {
-    if (other == this) return;
-    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
-    InternalSwap(other);
-  }
-
-  // implements Message ----------------------------------------------
-
-  S_MATCH_INIT_ITEMS* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<S_MATCH_INIT_ITEMS>(arena);
-  }
-  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
-  void CopyFrom(const S_MATCH_INIT_ITEMS& from);
-  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
-  void MergeFrom( const S_MATCH_INIT_ITEMS& from) {
-    S_MATCH_INIT_ITEMS::MergeImpl(*this, from);
-  }
-  private:
-  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
-  public:
-  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
-  bool IsInitialized() const final;
-
-  size_t ByteSizeLong() const final;
-  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
-  uint8_t* _InternalSerialize(
-      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
-  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
-
-  private:
-  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
-  void SharedDtor();
-  void SetCachedSize(int size) const final;
-  void InternalSwap(S_MATCH_INIT_ITEMS* other);
-
-  private:
-  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
-  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "ProjectJ.S_MATCH_INIT_ITEMS";
-  }
-  protected:
-  explicit S_MATCH_INIT_ITEMS(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                       bool is_message_owned = false);
-  public:
-
-  static const ClassData _class_data_;
-  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
-
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  enum : int {
-    kItemsFieldNumber = 1,
-  };
-  // repeated .ProjectJ.Item items = 1;
-  int items_size() const;
-  private:
-  int _internal_items_size() const;
-  public:
-  void clear_items();
-  ::ProjectJ::Item* mutable_items(int index);
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::ProjectJ::Item >*
-      mutable_items();
-  private:
-  const ::ProjectJ::Item& _internal_items(int index) const;
-  ::ProjectJ::Item* _internal_add_items();
-  public:
-  const ::ProjectJ::Item& items(int index) const;
-  ::ProjectJ::Item* add_items();
-  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::ProjectJ::Item >&
-      items() const;
-
-  // @@protoc_insertion_point(class_scope:ProjectJ.S_MATCH_INIT_ITEMS)
- private:
-  class _Internal;
-
-  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
-  typedef void InternalArenaConstructable_;
-  typedef void DestructorSkippable_;
-  struct Impl_ {
-    ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::ProjectJ::Item > items_;
-    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-  };
-  union { Impl_ _impl_; };
-  friend struct ::TableStruct_Message_2eproto;
-};
-// -------------------------------------------------------------------
-
-class C_MATCH_LOADING_COMPLETE final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:ProjectJ.C_MATCH_LOADING_COMPLETE) */ {
- public:
-  inline C_MATCH_LOADING_COMPLETE() : C_MATCH_LOADING_COMPLETE(nullptr) {}
-  ~C_MATCH_LOADING_COMPLETE() override;
-  explicit PROTOBUF_CONSTEXPR C_MATCH_LOADING_COMPLETE(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
-
-  C_MATCH_LOADING_COMPLETE(const C_MATCH_LOADING_COMPLETE& from);
-  C_MATCH_LOADING_COMPLETE(C_MATCH_LOADING_COMPLETE&& from) noexcept
-    : C_MATCH_LOADING_COMPLETE() {
-    *this = ::std::move(from);
-  }
-
-  inline C_MATCH_LOADING_COMPLETE& operator=(const C_MATCH_LOADING_COMPLETE& from) {
-    CopyFrom(from);
-    return *this;
-  }
-  inline C_MATCH_LOADING_COMPLETE& operator=(C_MATCH_LOADING_COMPLETE&& from) noexcept {
-    if (this == &from) return *this;
-    if (GetOwningArena() == from.GetOwningArena()
-  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
-        && GetOwningArena() != nullptr
-  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
-    ) {
-      InternalSwap(&from);
-    } else {
-      CopyFrom(from);
-    }
-    return *this;
-  }
-
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return default_instance().GetMetadata().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return default_instance().GetMetadata().reflection;
-  }
-  static const C_MATCH_LOADING_COMPLETE& default_instance() {
-    return *internal_default_instance();
-  }
-  static inline const C_MATCH_LOADING_COMPLETE* internal_default_instance() {
-    return reinterpret_cast<const C_MATCH_LOADING_COMPLETE*>(
-               &_C_MATCH_LOADING_COMPLETE_default_instance_);
-  }
-  static constexpr int kIndexInFileMessages =
-    22;
-
-  friend void swap(C_MATCH_LOADING_COMPLETE& a, C_MATCH_LOADING_COMPLETE& b) {
-    a.Swap(&b);
-  }
-  inline void Swap(C_MATCH_LOADING_COMPLETE* other) {
-    if (other == this) return;
-  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
-    if (GetOwningArena() != nullptr &&
-        GetOwningArena() == other->GetOwningArena()) {
-   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
-    if (GetOwningArena() == other->GetOwningArena()) {
-  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
-      InternalSwap(other);
-    } else {
-      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
-    }
-  }
-  void UnsafeArenaSwap(C_MATCH_LOADING_COMPLETE* other) {
-    if (other == this) return;
-    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
-    InternalSwap(other);
-  }
-
-  // implements Message ----------------------------------------------
-
-  C_MATCH_LOADING_COMPLETE* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<C_MATCH_LOADING_COMPLETE>(arena);
-  }
-  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
-  void CopyFrom(const C_MATCH_LOADING_COMPLETE& from);
-  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
-  void MergeFrom( const C_MATCH_LOADING_COMPLETE& from) {
-    C_MATCH_LOADING_COMPLETE::MergeImpl(*this, from);
-  }
-  private:
-  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
-  public:
-  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
-  bool IsInitialized() const final;
-
-  size_t ByteSizeLong() const final;
-  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
-  uint8_t* _InternalSerialize(
-      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
-  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
-
-  private:
-  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
-  void SharedDtor();
-  void SetCachedSize(int size) const final;
-  void InternalSwap(C_MATCH_LOADING_COMPLETE* other);
-
-  private:
-  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
-  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "ProjectJ.C_MATCH_LOADING_COMPLETE";
-  }
-  protected:
-  explicit C_MATCH_LOADING_COMPLETE(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                       bool is_message_owned = false);
-  public:
-
-  static const ClassData _class_data_;
-  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
-
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  enum : int {
-    kPlayerIndexFieldNumber = 1,
-  };
-  // int32 player_index = 1;
-  void clear_player_index();
-  int32_t player_index() const;
-  void set_player_index(int32_t value);
-  private:
-  int32_t _internal_player_index() const;
-  void _internal_set_player_index(int32_t value);
-  public:
-
-  // @@protoc_insertion_point(class_scope:ProjectJ.C_MATCH_LOADING_COMPLETE)
- private:
-  class _Internal;
-
-  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
-  typedef void InternalArenaConstructable_;
-  typedef void DestructorSkippable_;
-  struct Impl_ {
-    int32_t player_index_;
+    int32_t account_id_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -3990,7 +3685,7 @@ class S_MATCH_ALL_LOADING_COMPLETE final :
                &_S_MATCH_ALL_LOADING_COMPLETE_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    23;
+    21;
 
   friend void swap(S_MATCH_ALL_LOADING_COMPLETE& a, S_MATCH_ALL_LOADING_COMPLETE& b) {
     a.Swap(&b);
@@ -4063,25 +3758,35 @@ class S_MATCH_ALL_LOADING_COMPLETE final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kInfoFieldNumber = 1,
+    kInfoFieldNumber = 2,
+    kYourPlayerIndexFieldNumber = 1,
   };
-  // .ProjectJ.MatchInfo info = 1;
+  // .ProjectJ.MatchInitInfo info = 2;
   bool has_info() const;
   private:
   bool _internal_has_info() const;
   public:
   void clear_info();
-  const ::ProjectJ::MatchInfo& info() const;
-  PROTOBUF_NODISCARD ::ProjectJ::MatchInfo* release_info();
-  ::ProjectJ::MatchInfo* mutable_info();
-  void set_allocated_info(::ProjectJ::MatchInfo* info);
+  const ::ProjectJ::MatchInitInfo& info() const;
+  PROTOBUF_NODISCARD ::ProjectJ::MatchInitInfo* release_info();
+  ::ProjectJ::MatchInitInfo* mutable_info();
+  void set_allocated_info(::ProjectJ::MatchInitInfo* info);
   private:
-  const ::ProjectJ::MatchInfo& _internal_info() const;
-  ::ProjectJ::MatchInfo* _internal_mutable_info();
+  const ::ProjectJ::MatchInitInfo& _internal_info() const;
+  ::ProjectJ::MatchInitInfo* _internal_mutable_info();
   public:
   void unsafe_arena_set_allocated_info(
-      ::ProjectJ::MatchInfo* info);
-  ::ProjectJ::MatchInfo* unsafe_arena_release_info();
+      ::ProjectJ::MatchInitInfo* info);
+  ::ProjectJ::MatchInitInfo* unsafe_arena_release_info();
+
+  // int32 your_player_index = 1;
+  void clear_your_player_index();
+  int32_t your_player_index() const;
+  void set_your_player_index(int32_t value);
+  private:
+  int32_t _internal_your_player_index() const;
+  void _internal_set_your_player_index(int32_t value);
+  public:
 
   // @@protoc_insertion_point(class_scope:ProjectJ.S_MATCH_ALL_LOADING_COMPLETE)
  private:
@@ -4091,7 +3796,8 @@ class S_MATCH_ALL_LOADING_COMPLETE final :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   struct Impl_ {
-    ::ProjectJ::MatchInfo* info_;
+    ::ProjectJ::MatchInitInfo* info_;
+    int32_t your_player_index_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -4147,7 +3853,7 @@ class S_MATCH_START final :
                &_S_MATCH_START_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    24;
+    22;
 
   friend void swap(S_MATCH_START& a, S_MATCH_START& b) {
     a.Swap(&b);
@@ -4251,6 +3957,353 @@ class S_MATCH_START final :
   struct Impl_ {
     uint64_t end_tick_;
     uint64_t current_tick_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_Message_2eproto;
+};
+// -------------------------------------------------------------------
+
+class C_MATCH_INFO_MyInfo final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:ProjectJ.C_MATCH_INFO.MyInfo) */ {
+ public:
+  inline C_MATCH_INFO_MyInfo() : C_MATCH_INFO_MyInfo(nullptr) {}
+  ~C_MATCH_INFO_MyInfo() override;
+  explicit PROTOBUF_CONSTEXPR C_MATCH_INFO_MyInfo(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  C_MATCH_INFO_MyInfo(const C_MATCH_INFO_MyInfo& from);
+  C_MATCH_INFO_MyInfo(C_MATCH_INFO_MyInfo&& from) noexcept
+    : C_MATCH_INFO_MyInfo() {
+    *this = ::std::move(from);
+  }
+
+  inline C_MATCH_INFO_MyInfo& operator=(const C_MATCH_INFO_MyInfo& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline C_MATCH_INFO_MyInfo& operator=(C_MATCH_INFO_MyInfo&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const C_MATCH_INFO_MyInfo& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const C_MATCH_INFO_MyInfo* internal_default_instance() {
+    return reinterpret_cast<const C_MATCH_INFO_MyInfo*>(
+               &_C_MATCH_INFO_MyInfo_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    23;
+
+  friend void swap(C_MATCH_INFO_MyInfo& a, C_MATCH_INFO_MyInfo& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(C_MATCH_INFO_MyInfo* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(C_MATCH_INFO_MyInfo* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  C_MATCH_INFO_MyInfo* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<C_MATCH_INFO_MyInfo>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const C_MATCH_INFO_MyInfo& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom( const C_MATCH_INFO_MyInfo& from) {
+    C_MATCH_INFO_MyInfo::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(C_MATCH_INFO_MyInfo* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "ProjectJ.C_MATCH_INFO.MyInfo";
+  }
+  protected:
+  explicit C_MATCH_INFO_MyInfo(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kPositionFieldNumber = 1,
+    kRotationFieldNumber = 2,
+  };
+  // .ProjectJ.Vector position = 1;
+  bool has_position() const;
+  private:
+  bool _internal_has_position() const;
+  public:
+  void clear_position();
+  const ::ProjectJ::Vector& position() const;
+  PROTOBUF_NODISCARD ::ProjectJ::Vector* release_position();
+  ::ProjectJ::Vector* mutable_position();
+  void set_allocated_position(::ProjectJ::Vector* position);
+  private:
+  const ::ProjectJ::Vector& _internal_position() const;
+  ::ProjectJ::Vector* _internal_mutable_position();
+  public:
+  void unsafe_arena_set_allocated_position(
+      ::ProjectJ::Vector* position);
+  ::ProjectJ::Vector* unsafe_arena_release_position();
+
+  // .ProjectJ.Rotator rotation = 2;
+  bool has_rotation() const;
+  private:
+  bool _internal_has_rotation() const;
+  public:
+  void clear_rotation();
+  const ::ProjectJ::Rotator& rotation() const;
+  PROTOBUF_NODISCARD ::ProjectJ::Rotator* release_rotation();
+  ::ProjectJ::Rotator* mutable_rotation();
+  void set_allocated_rotation(::ProjectJ::Rotator* rotation);
+  private:
+  const ::ProjectJ::Rotator& _internal_rotation() const;
+  ::ProjectJ::Rotator* _internal_mutable_rotation();
+  public:
+  void unsafe_arena_set_allocated_rotation(
+      ::ProjectJ::Rotator* rotation);
+  ::ProjectJ::Rotator* unsafe_arena_release_rotation();
+
+  // @@protoc_insertion_point(class_scope:ProjectJ.C_MATCH_INFO.MyInfo)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    ::ProjectJ::Vector* position_;
+    ::ProjectJ::Rotator* rotation_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_Message_2eproto;
+};
+// -------------------------------------------------------------------
+
+class C_MATCH_INFO final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:ProjectJ.C_MATCH_INFO) */ {
+ public:
+  inline C_MATCH_INFO() : C_MATCH_INFO(nullptr) {}
+  ~C_MATCH_INFO() override;
+  explicit PROTOBUF_CONSTEXPR C_MATCH_INFO(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  C_MATCH_INFO(const C_MATCH_INFO& from);
+  C_MATCH_INFO(C_MATCH_INFO&& from) noexcept
+    : C_MATCH_INFO() {
+    *this = ::std::move(from);
+  }
+
+  inline C_MATCH_INFO& operator=(const C_MATCH_INFO& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline C_MATCH_INFO& operator=(C_MATCH_INFO&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const C_MATCH_INFO& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const C_MATCH_INFO* internal_default_instance() {
+    return reinterpret_cast<const C_MATCH_INFO*>(
+               &_C_MATCH_INFO_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    24;
+
+  friend void swap(C_MATCH_INFO& a, C_MATCH_INFO& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(C_MATCH_INFO* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(C_MATCH_INFO* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  C_MATCH_INFO* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<C_MATCH_INFO>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const C_MATCH_INFO& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom( const C_MATCH_INFO& from) {
+    C_MATCH_INFO::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(C_MATCH_INFO* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "ProjectJ.C_MATCH_INFO";
+  }
+  protected:
+  explicit C_MATCH_INFO(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  typedef C_MATCH_INFO_MyInfo MyInfo;
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kInfoFieldNumber = 2,
+    kPlayerIndexFieldNumber = 1,
+  };
+  // .ProjectJ.C_MATCH_INFO.MyInfo info = 2;
+  bool has_info() const;
+  private:
+  bool _internal_has_info() const;
+  public:
+  void clear_info();
+  const ::ProjectJ::C_MATCH_INFO_MyInfo& info() const;
+  PROTOBUF_NODISCARD ::ProjectJ::C_MATCH_INFO_MyInfo* release_info();
+  ::ProjectJ::C_MATCH_INFO_MyInfo* mutable_info();
+  void set_allocated_info(::ProjectJ::C_MATCH_INFO_MyInfo* info);
+  private:
+  const ::ProjectJ::C_MATCH_INFO_MyInfo& _internal_info() const;
+  ::ProjectJ::C_MATCH_INFO_MyInfo* _internal_mutable_info();
+  public:
+  void unsafe_arena_set_allocated_info(
+      ::ProjectJ::C_MATCH_INFO_MyInfo* info);
+  ::ProjectJ::C_MATCH_INFO_MyInfo* unsafe_arena_release_info();
+
+  // int32 player_index = 1;
+  void clear_player_index();
+  int32_t player_index() const;
+  void set_player_index(int32_t value);
+  private:
+  int32_t _internal_player_index() const;
+  void _internal_set_player_index(int32_t value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:ProjectJ.C_MATCH_INFO)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    ::ProjectJ::C_MATCH_INFO_MyInfo* info_;
+    int32_t player_index_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -4729,7 +4782,7 @@ class C_MATCH_ITEM_PICKUP final :
 
   enum : int {
     kPlayerIndexFieldNumber = 1,
-    kItemIdFieldNumber = 2,
+    kItemIndexFieldNumber = 2,
   };
   // int32 player_index = 1;
   void clear_player_index();
@@ -4740,13 +4793,13 @@ class C_MATCH_ITEM_PICKUP final :
   void _internal_set_player_index(int32_t value);
   public:
 
-  // int32 item_id = 2;
-  void clear_item_id();
-  int32_t item_id() const;
-  void set_item_id(int32_t value);
+  // int32 item_index = 2;
+  void clear_item_index();
+  int32_t item_index() const;
+  void set_item_index(int32_t value);
   private:
-  int32_t _internal_item_id() const;
-  void _internal_set_item_id(int32_t value);
+  int32_t _internal_item_index() const;
+  void _internal_set_item_index(int32_t value);
   public:
 
   // @@protoc_insertion_point(class_scope:ProjectJ.C_MATCH_ITEM_PICKUP)
@@ -4758,199 +4811,7 @@ class C_MATCH_ITEM_PICKUP final :
   typedef void DestructorSkippable_;
   struct Impl_ {
     int32_t player_index_;
-    int32_t item_id_;
-    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-  };
-  union { Impl_ _impl_; };
-  friend struct ::TableStruct_Message_2eproto;
-};
-// -------------------------------------------------------------------
-
-class S_MATCH_ITEM_PICKUP final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:ProjectJ.S_MATCH_ITEM_PICKUP) */ {
- public:
-  inline S_MATCH_ITEM_PICKUP() : S_MATCH_ITEM_PICKUP(nullptr) {}
-  ~S_MATCH_ITEM_PICKUP() override;
-  explicit PROTOBUF_CONSTEXPR S_MATCH_ITEM_PICKUP(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
-
-  S_MATCH_ITEM_PICKUP(const S_MATCH_ITEM_PICKUP& from);
-  S_MATCH_ITEM_PICKUP(S_MATCH_ITEM_PICKUP&& from) noexcept
-    : S_MATCH_ITEM_PICKUP() {
-    *this = ::std::move(from);
-  }
-
-  inline S_MATCH_ITEM_PICKUP& operator=(const S_MATCH_ITEM_PICKUP& from) {
-    CopyFrom(from);
-    return *this;
-  }
-  inline S_MATCH_ITEM_PICKUP& operator=(S_MATCH_ITEM_PICKUP&& from) noexcept {
-    if (this == &from) return *this;
-    if (GetOwningArena() == from.GetOwningArena()
-  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
-        && GetOwningArena() != nullptr
-  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
-    ) {
-      InternalSwap(&from);
-    } else {
-      CopyFrom(from);
-    }
-    return *this;
-  }
-
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return default_instance().GetMetadata().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return default_instance().GetMetadata().reflection;
-  }
-  static const S_MATCH_ITEM_PICKUP& default_instance() {
-    return *internal_default_instance();
-  }
-  static inline const S_MATCH_ITEM_PICKUP* internal_default_instance() {
-    return reinterpret_cast<const S_MATCH_ITEM_PICKUP*>(
-               &_S_MATCH_ITEM_PICKUP_default_instance_);
-  }
-  static constexpr int kIndexInFileMessages =
-    28;
-
-  friend void swap(S_MATCH_ITEM_PICKUP& a, S_MATCH_ITEM_PICKUP& b) {
-    a.Swap(&b);
-  }
-  inline void Swap(S_MATCH_ITEM_PICKUP* other) {
-    if (other == this) return;
-  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
-    if (GetOwningArena() != nullptr &&
-        GetOwningArena() == other->GetOwningArena()) {
-   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
-    if (GetOwningArena() == other->GetOwningArena()) {
-  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
-      InternalSwap(other);
-    } else {
-      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
-    }
-  }
-  void UnsafeArenaSwap(S_MATCH_ITEM_PICKUP* other) {
-    if (other == this) return;
-    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
-    InternalSwap(other);
-  }
-
-  // implements Message ----------------------------------------------
-
-  S_MATCH_ITEM_PICKUP* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<S_MATCH_ITEM_PICKUP>(arena);
-  }
-  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
-  void CopyFrom(const S_MATCH_ITEM_PICKUP& from);
-  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
-  void MergeFrom( const S_MATCH_ITEM_PICKUP& from) {
-    S_MATCH_ITEM_PICKUP::MergeImpl(*this, from);
-  }
-  private:
-  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
-  public:
-  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
-  bool IsInitialized() const final;
-
-  size_t ByteSizeLong() const final;
-  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
-  uint8_t* _InternalSerialize(
-      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
-  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
-
-  private:
-  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
-  void SharedDtor();
-  void SetCachedSize(int size) const final;
-  void InternalSwap(S_MATCH_ITEM_PICKUP* other);
-
-  private:
-  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
-  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "ProjectJ.S_MATCH_ITEM_PICKUP";
-  }
-  protected:
-  explicit S_MATCH_ITEM_PICKUP(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                       bool is_message_owned = false);
-  public:
-
-  static const ClassData _class_data_;
-  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
-
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  enum : int {
-    kPlayerIndexFieldNumber = 2,
-    kItemIdFieldNumber = 3,
-    kResultFieldNumber = 1,
-    kIsItemRotatedFieldNumber = 5,
-    kTopLeftIndexFieldNumber = 4,
-  };
-  // int32 player_index = 2;
-  void clear_player_index();
-  int32_t player_index() const;
-  void set_player_index(int32_t value);
-  private:
-  int32_t _internal_player_index() const;
-  void _internal_set_player_index(int32_t value);
-  public:
-
-  // int32 item_id = 3;
-  void clear_item_id();
-  int32_t item_id() const;
-  void set_item_id(int32_t value);
-  private:
-  int32_t _internal_item_id() const;
-  void _internal_set_item_id(int32_t value);
-  public:
-
-  // bool result = 1;
-  void clear_result();
-  bool result() const;
-  void set_result(bool value);
-  private:
-  bool _internal_result() const;
-  void _internal_set_result(bool value);
-  public:
-
-  // bool is_item_rotated = 5;
-  void clear_is_item_rotated();
-  bool is_item_rotated() const;
-  void set_is_item_rotated(bool value);
-  private:
-  bool _internal_is_item_rotated() const;
-  void _internal_set_is_item_rotated(bool value);
-  public:
-
-  // int32 top_left_index = 4;
-  void clear_top_left_index();
-  int32_t top_left_index() const;
-  void set_top_left_index(int32_t value);
-  private:
-  int32_t _internal_top_left_index() const;
-  void _internal_set_top_left_index(int32_t value);
-  public:
-
-  // @@protoc_insertion_point(class_scope:ProjectJ.S_MATCH_ITEM_PICKUP)
- private:
-  class _Internal;
-
-  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
-  typedef void InternalArenaConstructable_;
-  typedef void DestructorSkippable_;
-  struct Impl_ {
-    int32_t player_index_;
-    int32_t item_id_;
-    bool result_;
-    bool is_item_rotated_;
-    int32_t top_left_index_;
+    int32_t item_index_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -5006,7 +4867,7 @@ class C_MATCH_ITEM_MOVE final :
                &_C_MATCH_ITEM_MOVE_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    29;
+    28;
 
   friend void swap(C_MATCH_ITEM_MOVE& a, C_MATCH_ITEM_MOVE& b) {
     a.Swap(&b);
@@ -5080,9 +4941,11 @@ class C_MATCH_ITEM_MOVE final :
 
   enum : int {
     kPlayerIndexFieldNumber = 1,
-    kItemIdFieldNumber = 2,
-    kIsItemRotatedFieldNumber = 3,
-    kTargetTopLeftIndexFieldNumber = 4,
+    kFromIndexFieldNumber = 2,
+    kToIndexFieldNumber = 3,
+    kItemIndexFieldNumber = 4,
+    kTargetTopLeftIndexFieldNumber = 5,
+    kIsItemRotatedFieldNumber = 6,
   };
   // int32 player_index = 1;
   void clear_player_index();
@@ -5093,31 +4956,49 @@ class C_MATCH_ITEM_MOVE final :
   void _internal_set_player_index(int32_t value);
   public:
 
-  // int32 item_id = 2;
-  void clear_item_id();
-  int32_t item_id() const;
-  void set_item_id(int32_t value);
+  // int32 from_index = 2;
+  void clear_from_index();
+  int32_t from_index() const;
+  void set_from_index(int32_t value);
   private:
-  int32_t _internal_item_id() const;
-  void _internal_set_item_id(int32_t value);
+  int32_t _internal_from_index() const;
+  void _internal_set_from_index(int32_t value);
   public:
 
-  // int32 is_item_rotated = 3;
-  void clear_is_item_rotated();
-  int32_t is_item_rotated() const;
-  void set_is_item_rotated(int32_t value);
+  // int32 to_index = 3;
+  void clear_to_index();
+  int32_t to_index() const;
+  void set_to_index(int32_t value);
   private:
-  int32_t _internal_is_item_rotated() const;
-  void _internal_set_is_item_rotated(int32_t value);
+  int32_t _internal_to_index() const;
+  void _internal_set_to_index(int32_t value);
   public:
 
-  // int32 target_top_left_index = 4;
+  // int32 item_index = 4;
+  void clear_item_index();
+  int32_t item_index() const;
+  void set_item_index(int32_t value);
+  private:
+  int32_t _internal_item_index() const;
+  void _internal_set_item_index(int32_t value);
+  public:
+
+  // int32 target_top_left_index = 5;
   void clear_target_top_left_index();
   int32_t target_top_left_index() const;
   void set_target_top_left_index(int32_t value);
   private:
   int32_t _internal_target_top_left_index() const;
   void _internal_set_target_top_left_index(int32_t value);
+  public:
+
+  // bool is_item_rotated = 6;
+  void clear_is_item_rotated();
+  bool is_item_rotated() const;
+  void set_is_item_rotated(bool value);
+  private:
+  bool _internal_is_item_rotated() const;
+  void _internal_set_is_item_rotated(bool value);
   public:
 
   // @@protoc_insertion_point(class_scope:ProjectJ.C_MATCH_ITEM_MOVE)
@@ -5129,190 +5010,11 @@ class C_MATCH_ITEM_MOVE final :
   typedef void DestructorSkippable_;
   struct Impl_ {
     int32_t player_index_;
-    int32_t item_id_;
-    int32_t is_item_rotated_;
+    int32_t from_index_;
+    int32_t to_index_;
+    int32_t item_index_;
     int32_t target_top_left_index_;
-    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-  };
-  union { Impl_ _impl_; };
-  friend struct ::TableStruct_Message_2eproto;
-};
-// -------------------------------------------------------------------
-
-class S_MATCH_ITEM_MOVE final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:ProjectJ.S_MATCH_ITEM_MOVE) */ {
- public:
-  inline S_MATCH_ITEM_MOVE() : S_MATCH_ITEM_MOVE(nullptr) {}
-  ~S_MATCH_ITEM_MOVE() override;
-  explicit PROTOBUF_CONSTEXPR S_MATCH_ITEM_MOVE(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
-
-  S_MATCH_ITEM_MOVE(const S_MATCH_ITEM_MOVE& from);
-  S_MATCH_ITEM_MOVE(S_MATCH_ITEM_MOVE&& from) noexcept
-    : S_MATCH_ITEM_MOVE() {
-    *this = ::std::move(from);
-  }
-
-  inline S_MATCH_ITEM_MOVE& operator=(const S_MATCH_ITEM_MOVE& from) {
-    CopyFrom(from);
-    return *this;
-  }
-  inline S_MATCH_ITEM_MOVE& operator=(S_MATCH_ITEM_MOVE&& from) noexcept {
-    if (this == &from) return *this;
-    if (GetOwningArena() == from.GetOwningArena()
-  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
-        && GetOwningArena() != nullptr
-  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
-    ) {
-      InternalSwap(&from);
-    } else {
-      CopyFrom(from);
-    }
-    return *this;
-  }
-
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return default_instance().GetMetadata().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return default_instance().GetMetadata().reflection;
-  }
-  static const S_MATCH_ITEM_MOVE& default_instance() {
-    return *internal_default_instance();
-  }
-  static inline const S_MATCH_ITEM_MOVE* internal_default_instance() {
-    return reinterpret_cast<const S_MATCH_ITEM_MOVE*>(
-               &_S_MATCH_ITEM_MOVE_default_instance_);
-  }
-  static constexpr int kIndexInFileMessages =
-    30;
-
-  friend void swap(S_MATCH_ITEM_MOVE& a, S_MATCH_ITEM_MOVE& b) {
-    a.Swap(&b);
-  }
-  inline void Swap(S_MATCH_ITEM_MOVE* other) {
-    if (other == this) return;
-  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
-    if (GetOwningArena() != nullptr &&
-        GetOwningArena() == other->GetOwningArena()) {
-   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
-    if (GetOwningArena() == other->GetOwningArena()) {
-  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
-      InternalSwap(other);
-    } else {
-      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
-    }
-  }
-  void UnsafeArenaSwap(S_MATCH_ITEM_MOVE* other) {
-    if (other == this) return;
-    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
-    InternalSwap(other);
-  }
-
-  // implements Message ----------------------------------------------
-
-  S_MATCH_ITEM_MOVE* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<S_MATCH_ITEM_MOVE>(arena);
-  }
-  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
-  void CopyFrom(const S_MATCH_ITEM_MOVE& from);
-  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
-  void MergeFrom( const S_MATCH_ITEM_MOVE& from) {
-    S_MATCH_ITEM_MOVE::MergeImpl(*this, from);
-  }
-  private:
-  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
-  public:
-  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
-  bool IsInitialized() const final;
-
-  size_t ByteSizeLong() const final;
-  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
-  uint8_t* _InternalSerialize(
-      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
-  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
-
-  private:
-  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
-  void SharedDtor();
-  void SetCachedSize(int size) const final;
-  void InternalSwap(S_MATCH_ITEM_MOVE* other);
-
-  private:
-  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
-  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "ProjectJ.S_MATCH_ITEM_MOVE";
-  }
-  protected:
-  explicit S_MATCH_ITEM_MOVE(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                       bool is_message_owned = false);
-  public:
-
-  static const ClassData _class_data_;
-  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
-
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  enum : int {
-    kResultFieldNumber = 1,
-    kItemIdFieldNumber = 2,
-    kIsItemRotatedFieldNumber = 3,
-    kTopLeftIndexFieldNumber = 4,
-  };
-  // bool result = 1;
-  void clear_result();
-  bool result() const;
-  void set_result(bool value);
-  private:
-  bool _internal_result() const;
-  void _internal_set_result(bool value);
-  public:
-
-  // int32 item_id = 2;
-  void clear_item_id();
-  int32_t item_id() const;
-  void set_item_id(int32_t value);
-  private:
-  int32_t _internal_item_id() const;
-  void _internal_set_item_id(int32_t value);
-  public:
-
-  // int32 is_item_rotated = 3;
-  void clear_is_item_rotated();
-  int32_t is_item_rotated() const;
-  void set_is_item_rotated(int32_t value);
-  private:
-  int32_t _internal_is_item_rotated() const;
-  void _internal_set_is_item_rotated(int32_t value);
-  public:
-
-  // int32 top_left_index = 4;
-  void clear_top_left_index();
-  int32_t top_left_index() const;
-  void set_top_left_index(int32_t value);
-  private:
-  int32_t _internal_top_left_index() const;
-  void _internal_set_top_left_index(int32_t value);
-  public:
-
-  // @@protoc_insertion_point(class_scope:ProjectJ.S_MATCH_ITEM_MOVE)
- private:
-  class _Internal;
-
-  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
-  typedef void InternalArenaConstructable_;
-  typedef void DestructorSkippable_;
-  struct Impl_ {
-    bool result_;
-    int32_t item_id_;
-    int32_t is_item_rotated_;
-    int32_t top_left_index_;
+    bool is_item_rotated_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -5368,7 +5070,7 @@ class C_MATCH_ITEM_DROP final :
                &_C_MATCH_ITEM_DROP_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    31;
+    29;
 
   friend void swap(C_MATCH_ITEM_DROP& a, C_MATCH_ITEM_DROP& b) {
     a.Swap(&b);
@@ -5441,12 +5143,12 @@ class C_MATCH_ITEM_DROP final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kDropItemPositionFieldNumber = 2,
-    kDropItemRotationFieldNumber = 3,
+    kDropItemPositionFieldNumber = 3,
+    kDropItemRotationFieldNumber = 4,
     kPlayerIndexFieldNumber = 1,
-    kItemIdFieldNumber = 4,
+    kItemIndexFieldNumber = 2,
   };
-  // .ProjectJ.Vector drop_item_position = 2;
+  // .ProjectJ.Vector drop_item_position = 3;
   bool has_drop_item_position() const;
   private:
   bool _internal_has_drop_item_position() const;
@@ -5464,7 +5166,7 @@ class C_MATCH_ITEM_DROP final :
       ::ProjectJ::Vector* drop_item_position);
   ::ProjectJ::Vector* unsafe_arena_release_drop_item_position();
 
-  // .ProjectJ.Rotator drop_item_rotation = 3;
+  // .ProjectJ.Rotator drop_item_rotation = 4;
   bool has_drop_item_rotation() const;
   private:
   bool _internal_has_drop_item_rotation() const;
@@ -5491,13 +5193,13 @@ class C_MATCH_ITEM_DROP final :
   void _internal_set_player_index(int32_t value);
   public:
 
-  // int32 item_id = 4;
-  void clear_item_id();
-  int32_t item_id() const;
-  void set_item_id(int32_t value);
+  // int32 item_index = 2;
+  void clear_item_index();
+  int32_t item_index() const;
+  void set_item_index(int32_t value);
   private:
-  int32_t _internal_item_id() const;
-  void _internal_set_item_id(int32_t value);
+  int32_t _internal_item_index() const;
+  void _internal_set_item_index(int32_t value);
   public:
 
   // @@protoc_insertion_point(class_scope:ProjectJ.C_MATCH_ITEM_DROP)
@@ -5511,7 +5213,7 @@ class C_MATCH_ITEM_DROP final :
     ::ProjectJ::Vector* drop_item_position_;
     ::ProjectJ::Rotator* drop_item_rotation_;
     int32_t player_index_;
-    int32_t item_id_;
+    int32_t item_index_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -5519,24 +5221,24 @@ class C_MATCH_ITEM_DROP final :
 };
 // -------------------------------------------------------------------
 
-class S_MATCH_ITEM_DROP final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:ProjectJ.S_MATCH_ITEM_DROP) */ {
+class S_MATCH_ITEM_SOMEONE_PICKUP final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:ProjectJ.S_MATCH_ITEM_SOMEONE_PICKUP) */ {
  public:
-  inline S_MATCH_ITEM_DROP() : S_MATCH_ITEM_DROP(nullptr) {}
-  ~S_MATCH_ITEM_DROP() override;
-  explicit PROTOBUF_CONSTEXPR S_MATCH_ITEM_DROP(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+  inline S_MATCH_ITEM_SOMEONE_PICKUP() : S_MATCH_ITEM_SOMEONE_PICKUP(nullptr) {}
+  ~S_MATCH_ITEM_SOMEONE_PICKUP() override;
+  explicit PROTOBUF_CONSTEXPR S_MATCH_ITEM_SOMEONE_PICKUP(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
 
-  S_MATCH_ITEM_DROP(const S_MATCH_ITEM_DROP& from);
-  S_MATCH_ITEM_DROP(S_MATCH_ITEM_DROP&& from) noexcept
-    : S_MATCH_ITEM_DROP() {
+  S_MATCH_ITEM_SOMEONE_PICKUP(const S_MATCH_ITEM_SOMEONE_PICKUP& from);
+  S_MATCH_ITEM_SOMEONE_PICKUP(S_MATCH_ITEM_SOMEONE_PICKUP&& from) noexcept
+    : S_MATCH_ITEM_SOMEONE_PICKUP() {
     *this = ::std::move(from);
   }
 
-  inline S_MATCH_ITEM_DROP& operator=(const S_MATCH_ITEM_DROP& from) {
+  inline S_MATCH_ITEM_SOMEONE_PICKUP& operator=(const S_MATCH_ITEM_SOMEONE_PICKUP& from) {
     CopyFrom(from);
     return *this;
   }
-  inline S_MATCH_ITEM_DROP& operator=(S_MATCH_ITEM_DROP&& from) noexcept {
+  inline S_MATCH_ITEM_SOMEONE_PICKUP& operator=(S_MATCH_ITEM_SOMEONE_PICKUP&& from) noexcept {
     if (this == &from) return *this;
     if (GetOwningArena() == from.GetOwningArena()
   #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
@@ -5559,20 +5261,20 @@ class S_MATCH_ITEM_DROP final :
   static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
     return default_instance().GetMetadata().reflection;
   }
-  static const S_MATCH_ITEM_DROP& default_instance() {
+  static const S_MATCH_ITEM_SOMEONE_PICKUP& default_instance() {
     return *internal_default_instance();
   }
-  static inline const S_MATCH_ITEM_DROP* internal_default_instance() {
-    return reinterpret_cast<const S_MATCH_ITEM_DROP*>(
-               &_S_MATCH_ITEM_DROP_default_instance_);
+  static inline const S_MATCH_ITEM_SOMEONE_PICKUP* internal_default_instance() {
+    return reinterpret_cast<const S_MATCH_ITEM_SOMEONE_PICKUP*>(
+               &_S_MATCH_ITEM_SOMEONE_PICKUP_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    32;
+    30;
 
-  friend void swap(S_MATCH_ITEM_DROP& a, S_MATCH_ITEM_DROP& b) {
+  friend void swap(S_MATCH_ITEM_SOMEONE_PICKUP& a, S_MATCH_ITEM_SOMEONE_PICKUP& b) {
     a.Swap(&b);
   }
-  inline void Swap(S_MATCH_ITEM_DROP* other) {
+  inline void Swap(S_MATCH_ITEM_SOMEONE_PICKUP* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -5585,7 +5287,7 @@ class S_MATCH_ITEM_DROP final :
       ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
     }
   }
-  void UnsafeArenaSwap(S_MATCH_ITEM_DROP* other) {
+  void UnsafeArenaSwap(S_MATCH_ITEM_SOMEONE_PICKUP* other) {
     if (other == this) return;
     GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
     InternalSwap(other);
@@ -5593,14 +5295,14 @@ class S_MATCH_ITEM_DROP final :
 
   // implements Message ----------------------------------------------
 
-  S_MATCH_ITEM_DROP* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<S_MATCH_ITEM_DROP>(arena);
+  S_MATCH_ITEM_SOMEONE_PICKUP* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<S_MATCH_ITEM_SOMEONE_PICKUP>(arena);
   }
   using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
-  void CopyFrom(const S_MATCH_ITEM_DROP& from);
+  void CopyFrom(const S_MATCH_ITEM_SOMEONE_PICKUP& from);
   using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
-  void MergeFrom( const S_MATCH_ITEM_DROP& from) {
-    S_MATCH_ITEM_DROP::MergeImpl(*this, from);
+  void MergeFrom( const S_MATCH_ITEM_SOMEONE_PICKUP& from) {
+    S_MATCH_ITEM_SOMEONE_PICKUP::MergeImpl(*this, from);
   }
   private:
   static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
@@ -5618,15 +5320,15 @@ class S_MATCH_ITEM_DROP final :
   void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
   void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(S_MATCH_ITEM_DROP* other);
+  void InternalSwap(S_MATCH_ITEM_SOMEONE_PICKUP* other);
 
   private:
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "ProjectJ.S_MATCH_ITEM_DROP";
+    return "ProjectJ.S_MATCH_ITEM_SOMEONE_PICKUP";
   }
   protected:
-  explicit S_MATCH_ITEM_DROP(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+  explicit S_MATCH_ITEM_SOMEONE_PICKUP(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                        bool is_message_owned = false);
   public:
 
@@ -5640,12 +5342,396 @@ class S_MATCH_ITEM_DROP final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kDropItemPositionFieldNumber = 2,
-    kDropItemRotationFieldNumber = 3,
     kPlayerIndexFieldNumber = 1,
-    kItemIdFieldNumber = 4,
+    kItemIndexFieldNumber = 2,
+    kTopLeftIndexFieldNumber = 3,
+    kIsItemRotatedFieldNumber = 4,
   };
-  // .ProjectJ.Vector drop_item_position = 2;
+  // int32 player_index = 1;
+  void clear_player_index();
+  int32_t player_index() const;
+  void set_player_index(int32_t value);
+  private:
+  int32_t _internal_player_index() const;
+  void _internal_set_player_index(int32_t value);
+  public:
+
+  // int32 item_index = 2;
+  void clear_item_index();
+  int32_t item_index() const;
+  void set_item_index(int32_t value);
+  private:
+  int32_t _internal_item_index() const;
+  void _internal_set_item_index(int32_t value);
+  public:
+
+  // int32 top_left_index = 3;
+  void clear_top_left_index();
+  int32_t top_left_index() const;
+  void set_top_left_index(int32_t value);
+  private:
+  int32_t _internal_top_left_index() const;
+  void _internal_set_top_left_index(int32_t value);
+  public:
+
+  // bool is_item_rotated = 4;
+  void clear_is_item_rotated();
+  bool is_item_rotated() const;
+  void set_is_item_rotated(bool value);
+  private:
+  bool _internal_is_item_rotated() const;
+  void _internal_set_is_item_rotated(bool value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:ProjectJ.S_MATCH_ITEM_SOMEONE_PICKUP)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    int32_t player_index_;
+    int32_t item_index_;
+    int32_t top_left_index_;
+    bool is_item_rotated_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_Message_2eproto;
+};
+// -------------------------------------------------------------------
+
+class S_MATCH_ITEM_SOMEONE_MOVE final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:ProjectJ.S_MATCH_ITEM_SOMEONE_MOVE) */ {
+ public:
+  inline S_MATCH_ITEM_SOMEONE_MOVE() : S_MATCH_ITEM_SOMEONE_MOVE(nullptr) {}
+  ~S_MATCH_ITEM_SOMEONE_MOVE() override;
+  explicit PROTOBUF_CONSTEXPR S_MATCH_ITEM_SOMEONE_MOVE(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  S_MATCH_ITEM_SOMEONE_MOVE(const S_MATCH_ITEM_SOMEONE_MOVE& from);
+  S_MATCH_ITEM_SOMEONE_MOVE(S_MATCH_ITEM_SOMEONE_MOVE&& from) noexcept
+    : S_MATCH_ITEM_SOMEONE_MOVE() {
+    *this = ::std::move(from);
+  }
+
+  inline S_MATCH_ITEM_SOMEONE_MOVE& operator=(const S_MATCH_ITEM_SOMEONE_MOVE& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline S_MATCH_ITEM_SOMEONE_MOVE& operator=(S_MATCH_ITEM_SOMEONE_MOVE&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const S_MATCH_ITEM_SOMEONE_MOVE& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const S_MATCH_ITEM_SOMEONE_MOVE* internal_default_instance() {
+    return reinterpret_cast<const S_MATCH_ITEM_SOMEONE_MOVE*>(
+               &_S_MATCH_ITEM_SOMEONE_MOVE_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    31;
+
+  friend void swap(S_MATCH_ITEM_SOMEONE_MOVE& a, S_MATCH_ITEM_SOMEONE_MOVE& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(S_MATCH_ITEM_SOMEONE_MOVE* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(S_MATCH_ITEM_SOMEONE_MOVE* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  S_MATCH_ITEM_SOMEONE_MOVE* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<S_MATCH_ITEM_SOMEONE_MOVE>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const S_MATCH_ITEM_SOMEONE_MOVE& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom( const S_MATCH_ITEM_SOMEONE_MOVE& from) {
+    S_MATCH_ITEM_SOMEONE_MOVE::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(S_MATCH_ITEM_SOMEONE_MOVE* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "ProjectJ.S_MATCH_ITEM_SOMEONE_MOVE";
+  }
+  protected:
+  explicit S_MATCH_ITEM_SOMEONE_MOVE(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kPlayerIndexFieldNumber = 1,
+    kFromIndexFieldNumber = 2,
+    kToIndexFieldNumber = 3,
+    kItemIndexFieldNumber = 4,
+    kTopLeftIndexFieldNumber = 5,
+    kIsItemRotatedFieldNumber = 6,
+  };
+  // int32 player_index = 1;
+  void clear_player_index();
+  int32_t player_index() const;
+  void set_player_index(int32_t value);
+  private:
+  int32_t _internal_player_index() const;
+  void _internal_set_player_index(int32_t value);
+  public:
+
+  // int32 from_index = 2;
+  void clear_from_index();
+  int32_t from_index() const;
+  void set_from_index(int32_t value);
+  private:
+  int32_t _internal_from_index() const;
+  void _internal_set_from_index(int32_t value);
+  public:
+
+  // int32 to_index = 3;
+  void clear_to_index();
+  int32_t to_index() const;
+  void set_to_index(int32_t value);
+  private:
+  int32_t _internal_to_index() const;
+  void _internal_set_to_index(int32_t value);
+  public:
+
+  // int32 item_index = 4;
+  void clear_item_index();
+  int32_t item_index() const;
+  void set_item_index(int32_t value);
+  private:
+  int32_t _internal_item_index() const;
+  void _internal_set_item_index(int32_t value);
+  public:
+
+  // int32 top_left_index = 5;
+  void clear_top_left_index();
+  int32_t top_left_index() const;
+  void set_top_left_index(int32_t value);
+  private:
+  int32_t _internal_top_left_index() const;
+  void _internal_set_top_left_index(int32_t value);
+  public:
+
+  // bool is_item_rotated = 6;
+  void clear_is_item_rotated();
+  bool is_item_rotated() const;
+  void set_is_item_rotated(bool value);
+  private:
+  bool _internal_is_item_rotated() const;
+  void _internal_set_is_item_rotated(bool value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:ProjectJ.S_MATCH_ITEM_SOMEONE_MOVE)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    int32_t player_index_;
+    int32_t from_index_;
+    int32_t to_index_;
+    int32_t item_index_;
+    int32_t top_left_index_;
+    bool is_item_rotated_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_Message_2eproto;
+};
+// -------------------------------------------------------------------
+
+class S_MATCH_ITEM_SOMEONE_DROP final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:ProjectJ.S_MATCH_ITEM_SOMEONE_DROP) */ {
+ public:
+  inline S_MATCH_ITEM_SOMEONE_DROP() : S_MATCH_ITEM_SOMEONE_DROP(nullptr) {}
+  ~S_MATCH_ITEM_SOMEONE_DROP() override;
+  explicit PROTOBUF_CONSTEXPR S_MATCH_ITEM_SOMEONE_DROP(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  S_MATCH_ITEM_SOMEONE_DROP(const S_MATCH_ITEM_SOMEONE_DROP& from);
+  S_MATCH_ITEM_SOMEONE_DROP(S_MATCH_ITEM_SOMEONE_DROP&& from) noexcept
+    : S_MATCH_ITEM_SOMEONE_DROP() {
+    *this = ::std::move(from);
+  }
+
+  inline S_MATCH_ITEM_SOMEONE_DROP& operator=(const S_MATCH_ITEM_SOMEONE_DROP& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline S_MATCH_ITEM_SOMEONE_DROP& operator=(S_MATCH_ITEM_SOMEONE_DROP&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const S_MATCH_ITEM_SOMEONE_DROP& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const S_MATCH_ITEM_SOMEONE_DROP* internal_default_instance() {
+    return reinterpret_cast<const S_MATCH_ITEM_SOMEONE_DROP*>(
+               &_S_MATCH_ITEM_SOMEONE_DROP_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    32;
+
+  friend void swap(S_MATCH_ITEM_SOMEONE_DROP& a, S_MATCH_ITEM_SOMEONE_DROP& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(S_MATCH_ITEM_SOMEONE_DROP* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(S_MATCH_ITEM_SOMEONE_DROP* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  S_MATCH_ITEM_SOMEONE_DROP* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<S_MATCH_ITEM_SOMEONE_DROP>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const S_MATCH_ITEM_SOMEONE_DROP& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom( const S_MATCH_ITEM_SOMEONE_DROP& from) {
+    S_MATCH_ITEM_SOMEONE_DROP::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(S_MATCH_ITEM_SOMEONE_DROP* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "ProjectJ.S_MATCH_ITEM_SOMEONE_DROP";
+  }
+  protected:
+  explicit S_MATCH_ITEM_SOMEONE_DROP(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kDropItemPositionFieldNumber = 3,
+    kDropItemRotationFieldNumber = 4,
+    kPlayerIndexFieldNumber = 1,
+    kItemIndexFieldNumber = 2,
+  };
+  // .ProjectJ.Vector drop_item_position = 3;
   bool has_drop_item_position() const;
   private:
   bool _internal_has_drop_item_position() const;
@@ -5663,7 +5749,7 @@ class S_MATCH_ITEM_DROP final :
       ::ProjectJ::Vector* drop_item_position);
   ::ProjectJ::Vector* unsafe_arena_release_drop_item_position();
 
-  // .ProjectJ.Rotator drop_item_rotation = 3;
+  // .ProjectJ.Rotator drop_item_rotation = 4;
   bool has_drop_item_rotation() const;
   private:
   bool _internal_has_drop_item_rotation() const;
@@ -5690,16 +5776,16 @@ class S_MATCH_ITEM_DROP final :
   void _internal_set_player_index(int32_t value);
   public:
 
-  // int32 item_id = 4;
-  void clear_item_id();
-  int32_t item_id() const;
-  void set_item_id(int32_t value);
+  // int32 item_index = 2;
+  void clear_item_index();
+  int32_t item_index() const;
+  void set_item_index(int32_t value);
   private:
-  int32_t _internal_item_id() const;
-  void _internal_set_item_id(int32_t value);
+  int32_t _internal_item_index() const;
+  void _internal_set_item_index(int32_t value);
   public:
 
-  // @@protoc_insertion_point(class_scope:ProjectJ.S_MATCH_ITEM_DROP)
+  // @@protoc_insertion_point(class_scope:ProjectJ.S_MATCH_ITEM_SOMEONE_DROP)
  private:
   class _Internal;
 
@@ -5710,7 +5796,7 @@ class S_MATCH_ITEM_DROP final :
     ::ProjectJ::Vector* drop_item_position_;
     ::ProjectJ::Rotator* drop_item_rotation_;
     int32_t player_index_;
-    int32_t item_id_;
+    int32_t item_index_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -7377,115 +7463,70 @@ inline void S_ROOM_START_MATCH::set_start(bool value) {
 
 // -------------------------------------------------------------------
 
-// S_MATCH_INIT_PLAYER_INDEX
+// C_MATCH_READY_TO_RECEIVE
 
-// int32 player_index = 1;
-inline void S_MATCH_INIT_PLAYER_INDEX::clear_player_index() {
-  _impl_.player_index_ = 0;
+// int32 account_id = 1;
+inline void C_MATCH_READY_TO_RECEIVE::clear_account_id() {
+  _impl_.account_id_ = 0;
 }
-inline int32_t S_MATCH_INIT_PLAYER_INDEX::_internal_player_index() const {
-  return _impl_.player_index_;
+inline int32_t C_MATCH_READY_TO_RECEIVE::_internal_account_id() const {
+  return _impl_.account_id_;
 }
-inline int32_t S_MATCH_INIT_PLAYER_INDEX::player_index() const {
-  // @@protoc_insertion_point(field_get:ProjectJ.S_MATCH_INIT_PLAYER_INDEX.player_index)
-  return _internal_player_index();
+inline int32_t C_MATCH_READY_TO_RECEIVE::account_id() const {
+  // @@protoc_insertion_point(field_get:ProjectJ.C_MATCH_READY_TO_RECEIVE.account_id)
+  return _internal_account_id();
 }
-inline void S_MATCH_INIT_PLAYER_INDEX::_internal_set_player_index(int32_t value) {
+inline void C_MATCH_READY_TO_RECEIVE::_internal_set_account_id(int32_t value) {
   
-  _impl_.player_index_ = value;
+  _impl_.account_id_ = value;
 }
-inline void S_MATCH_INIT_PLAYER_INDEX::set_player_index(int32_t value) {
-  _internal_set_player_index(value);
-  // @@protoc_insertion_point(field_set:ProjectJ.S_MATCH_INIT_PLAYER_INDEX.player_index)
-}
-
-// -------------------------------------------------------------------
-
-// S_MATCH_INIT_ITEMS
-
-// repeated .ProjectJ.Item items = 1;
-inline int S_MATCH_INIT_ITEMS::_internal_items_size() const {
-  return _impl_.items_.size();
-}
-inline int S_MATCH_INIT_ITEMS::items_size() const {
-  return _internal_items_size();
-}
-inline ::ProjectJ::Item* S_MATCH_INIT_ITEMS::mutable_items(int index) {
-  // @@protoc_insertion_point(field_mutable:ProjectJ.S_MATCH_INIT_ITEMS.items)
-  return _impl_.items_.Mutable(index);
-}
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::ProjectJ::Item >*
-S_MATCH_INIT_ITEMS::mutable_items() {
-  // @@protoc_insertion_point(field_mutable_list:ProjectJ.S_MATCH_INIT_ITEMS.items)
-  return &_impl_.items_;
-}
-inline const ::ProjectJ::Item& S_MATCH_INIT_ITEMS::_internal_items(int index) const {
-  return _impl_.items_.Get(index);
-}
-inline const ::ProjectJ::Item& S_MATCH_INIT_ITEMS::items(int index) const {
-  // @@protoc_insertion_point(field_get:ProjectJ.S_MATCH_INIT_ITEMS.items)
-  return _internal_items(index);
-}
-inline ::ProjectJ::Item* S_MATCH_INIT_ITEMS::_internal_add_items() {
-  return _impl_.items_.Add();
-}
-inline ::ProjectJ::Item* S_MATCH_INIT_ITEMS::add_items() {
-  ::ProjectJ::Item* _add = _internal_add_items();
-  // @@protoc_insertion_point(field_add:ProjectJ.S_MATCH_INIT_ITEMS.items)
-  return _add;
-}
-inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::ProjectJ::Item >&
-S_MATCH_INIT_ITEMS::items() const {
-  // @@protoc_insertion_point(field_list:ProjectJ.S_MATCH_INIT_ITEMS.items)
-  return _impl_.items_;
-}
-
-// -------------------------------------------------------------------
-
-// C_MATCH_LOADING_COMPLETE
-
-// int32 player_index = 1;
-inline void C_MATCH_LOADING_COMPLETE::clear_player_index() {
-  _impl_.player_index_ = 0;
-}
-inline int32_t C_MATCH_LOADING_COMPLETE::_internal_player_index() const {
-  return _impl_.player_index_;
-}
-inline int32_t C_MATCH_LOADING_COMPLETE::player_index() const {
-  // @@protoc_insertion_point(field_get:ProjectJ.C_MATCH_LOADING_COMPLETE.player_index)
-  return _internal_player_index();
-}
-inline void C_MATCH_LOADING_COMPLETE::_internal_set_player_index(int32_t value) {
-  
-  _impl_.player_index_ = value;
-}
-inline void C_MATCH_LOADING_COMPLETE::set_player_index(int32_t value) {
-  _internal_set_player_index(value);
-  // @@protoc_insertion_point(field_set:ProjectJ.C_MATCH_LOADING_COMPLETE.player_index)
+inline void C_MATCH_READY_TO_RECEIVE::set_account_id(int32_t value) {
+  _internal_set_account_id(value);
+  // @@protoc_insertion_point(field_set:ProjectJ.C_MATCH_READY_TO_RECEIVE.account_id)
 }
 
 // -------------------------------------------------------------------
 
 // S_MATCH_ALL_LOADING_COMPLETE
 
-// .ProjectJ.MatchInfo info = 1;
+// int32 your_player_index = 1;
+inline void S_MATCH_ALL_LOADING_COMPLETE::clear_your_player_index() {
+  _impl_.your_player_index_ = 0;
+}
+inline int32_t S_MATCH_ALL_LOADING_COMPLETE::_internal_your_player_index() const {
+  return _impl_.your_player_index_;
+}
+inline int32_t S_MATCH_ALL_LOADING_COMPLETE::your_player_index() const {
+  // @@protoc_insertion_point(field_get:ProjectJ.S_MATCH_ALL_LOADING_COMPLETE.your_player_index)
+  return _internal_your_player_index();
+}
+inline void S_MATCH_ALL_LOADING_COMPLETE::_internal_set_your_player_index(int32_t value) {
+  
+  _impl_.your_player_index_ = value;
+}
+inline void S_MATCH_ALL_LOADING_COMPLETE::set_your_player_index(int32_t value) {
+  _internal_set_your_player_index(value);
+  // @@protoc_insertion_point(field_set:ProjectJ.S_MATCH_ALL_LOADING_COMPLETE.your_player_index)
+}
+
+// .ProjectJ.MatchInitInfo info = 2;
 inline bool S_MATCH_ALL_LOADING_COMPLETE::_internal_has_info() const {
   return this != internal_default_instance() && _impl_.info_ != nullptr;
 }
 inline bool S_MATCH_ALL_LOADING_COMPLETE::has_info() const {
   return _internal_has_info();
 }
-inline const ::ProjectJ::MatchInfo& S_MATCH_ALL_LOADING_COMPLETE::_internal_info() const {
-  const ::ProjectJ::MatchInfo* p = _impl_.info_;
-  return p != nullptr ? *p : reinterpret_cast<const ::ProjectJ::MatchInfo&>(
-      ::ProjectJ::_MatchInfo_default_instance_);
+inline const ::ProjectJ::MatchInitInfo& S_MATCH_ALL_LOADING_COMPLETE::_internal_info() const {
+  const ::ProjectJ::MatchInitInfo* p = _impl_.info_;
+  return p != nullptr ? *p : reinterpret_cast<const ::ProjectJ::MatchInitInfo&>(
+      ::ProjectJ::_MatchInitInfo_default_instance_);
 }
-inline const ::ProjectJ::MatchInfo& S_MATCH_ALL_LOADING_COMPLETE::info() const {
+inline const ::ProjectJ::MatchInitInfo& S_MATCH_ALL_LOADING_COMPLETE::info() const {
   // @@protoc_insertion_point(field_get:ProjectJ.S_MATCH_ALL_LOADING_COMPLETE.info)
   return _internal_info();
 }
 inline void S_MATCH_ALL_LOADING_COMPLETE::unsafe_arena_set_allocated_info(
-    ::ProjectJ::MatchInfo* info) {
+    ::ProjectJ::MatchInitInfo* info) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.info_);
   }
@@ -7497,9 +7538,9 @@ inline void S_MATCH_ALL_LOADING_COMPLETE::unsafe_arena_set_allocated_info(
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:ProjectJ.S_MATCH_ALL_LOADING_COMPLETE.info)
 }
-inline ::ProjectJ::MatchInfo* S_MATCH_ALL_LOADING_COMPLETE::release_info() {
+inline ::ProjectJ::MatchInitInfo* S_MATCH_ALL_LOADING_COMPLETE::release_info() {
   
-  ::ProjectJ::MatchInfo* temp = _impl_.info_;
+  ::ProjectJ::MatchInitInfo* temp = _impl_.info_;
   _impl_.info_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
   auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
@@ -7512,27 +7553,27 @@ inline ::ProjectJ::MatchInfo* S_MATCH_ALL_LOADING_COMPLETE::release_info() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::ProjectJ::MatchInfo* S_MATCH_ALL_LOADING_COMPLETE::unsafe_arena_release_info() {
+inline ::ProjectJ::MatchInitInfo* S_MATCH_ALL_LOADING_COMPLETE::unsafe_arena_release_info() {
   // @@protoc_insertion_point(field_release:ProjectJ.S_MATCH_ALL_LOADING_COMPLETE.info)
   
-  ::ProjectJ::MatchInfo* temp = _impl_.info_;
+  ::ProjectJ::MatchInitInfo* temp = _impl_.info_;
   _impl_.info_ = nullptr;
   return temp;
 }
-inline ::ProjectJ::MatchInfo* S_MATCH_ALL_LOADING_COMPLETE::_internal_mutable_info() {
+inline ::ProjectJ::MatchInitInfo* S_MATCH_ALL_LOADING_COMPLETE::_internal_mutable_info() {
   
   if (_impl_.info_ == nullptr) {
-    auto* p = CreateMaybeMessage<::ProjectJ::MatchInfo>(GetArenaForAllocation());
+    auto* p = CreateMaybeMessage<::ProjectJ::MatchInitInfo>(GetArenaForAllocation());
     _impl_.info_ = p;
   }
   return _impl_.info_;
 }
-inline ::ProjectJ::MatchInfo* S_MATCH_ALL_LOADING_COMPLETE::mutable_info() {
-  ::ProjectJ::MatchInfo* _msg = _internal_mutable_info();
+inline ::ProjectJ::MatchInitInfo* S_MATCH_ALL_LOADING_COMPLETE::mutable_info() {
+  ::ProjectJ::MatchInitInfo* _msg = _internal_mutable_info();
   // @@protoc_insertion_point(field_mutable:ProjectJ.S_MATCH_ALL_LOADING_COMPLETE.info)
   return _msg;
 }
-inline void S_MATCH_ALL_LOADING_COMPLETE::set_allocated_info(::ProjectJ::MatchInfo* info) {
+inline void S_MATCH_ALL_LOADING_COMPLETE::set_allocated_info(::ProjectJ::MatchInitInfo* info) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.info_);
@@ -7595,6 +7636,294 @@ inline void S_MATCH_START::_internal_set_current_tick(uint64_t value) {
 inline void S_MATCH_START::set_current_tick(uint64_t value) {
   _internal_set_current_tick(value);
   // @@protoc_insertion_point(field_set:ProjectJ.S_MATCH_START.current_tick)
+}
+
+// -------------------------------------------------------------------
+
+// C_MATCH_INFO_MyInfo
+
+// .ProjectJ.Vector position = 1;
+inline bool C_MATCH_INFO_MyInfo::_internal_has_position() const {
+  return this != internal_default_instance() && _impl_.position_ != nullptr;
+}
+inline bool C_MATCH_INFO_MyInfo::has_position() const {
+  return _internal_has_position();
+}
+inline const ::ProjectJ::Vector& C_MATCH_INFO_MyInfo::_internal_position() const {
+  const ::ProjectJ::Vector* p = _impl_.position_;
+  return p != nullptr ? *p : reinterpret_cast<const ::ProjectJ::Vector&>(
+      ::ProjectJ::_Vector_default_instance_);
+}
+inline const ::ProjectJ::Vector& C_MATCH_INFO_MyInfo::position() const {
+  // @@protoc_insertion_point(field_get:ProjectJ.C_MATCH_INFO.MyInfo.position)
+  return _internal_position();
+}
+inline void C_MATCH_INFO_MyInfo::unsafe_arena_set_allocated_position(
+    ::ProjectJ::Vector* position) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.position_);
+  }
+  _impl_.position_ = position;
+  if (position) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:ProjectJ.C_MATCH_INFO.MyInfo.position)
+}
+inline ::ProjectJ::Vector* C_MATCH_INFO_MyInfo::release_position() {
+  
+  ::ProjectJ::Vector* temp = _impl_.position_;
+  _impl_.position_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::ProjectJ::Vector* C_MATCH_INFO_MyInfo::unsafe_arena_release_position() {
+  // @@protoc_insertion_point(field_release:ProjectJ.C_MATCH_INFO.MyInfo.position)
+  
+  ::ProjectJ::Vector* temp = _impl_.position_;
+  _impl_.position_ = nullptr;
+  return temp;
+}
+inline ::ProjectJ::Vector* C_MATCH_INFO_MyInfo::_internal_mutable_position() {
+  
+  if (_impl_.position_ == nullptr) {
+    auto* p = CreateMaybeMessage<::ProjectJ::Vector>(GetArenaForAllocation());
+    _impl_.position_ = p;
+  }
+  return _impl_.position_;
+}
+inline ::ProjectJ::Vector* C_MATCH_INFO_MyInfo::mutable_position() {
+  ::ProjectJ::Vector* _msg = _internal_mutable_position();
+  // @@protoc_insertion_point(field_mutable:ProjectJ.C_MATCH_INFO.MyInfo.position)
+  return _msg;
+}
+inline void C_MATCH_INFO_MyInfo::set_allocated_position(::ProjectJ::Vector* position) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.position_);
+  }
+  if (position) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
+                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(position));
+    if (message_arena != submessage_arena) {
+      position = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, position, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  _impl_.position_ = position;
+  // @@protoc_insertion_point(field_set_allocated:ProjectJ.C_MATCH_INFO.MyInfo.position)
+}
+
+// .ProjectJ.Rotator rotation = 2;
+inline bool C_MATCH_INFO_MyInfo::_internal_has_rotation() const {
+  return this != internal_default_instance() && _impl_.rotation_ != nullptr;
+}
+inline bool C_MATCH_INFO_MyInfo::has_rotation() const {
+  return _internal_has_rotation();
+}
+inline const ::ProjectJ::Rotator& C_MATCH_INFO_MyInfo::_internal_rotation() const {
+  const ::ProjectJ::Rotator* p = _impl_.rotation_;
+  return p != nullptr ? *p : reinterpret_cast<const ::ProjectJ::Rotator&>(
+      ::ProjectJ::_Rotator_default_instance_);
+}
+inline const ::ProjectJ::Rotator& C_MATCH_INFO_MyInfo::rotation() const {
+  // @@protoc_insertion_point(field_get:ProjectJ.C_MATCH_INFO.MyInfo.rotation)
+  return _internal_rotation();
+}
+inline void C_MATCH_INFO_MyInfo::unsafe_arena_set_allocated_rotation(
+    ::ProjectJ::Rotator* rotation) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.rotation_);
+  }
+  _impl_.rotation_ = rotation;
+  if (rotation) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:ProjectJ.C_MATCH_INFO.MyInfo.rotation)
+}
+inline ::ProjectJ::Rotator* C_MATCH_INFO_MyInfo::release_rotation() {
+  
+  ::ProjectJ::Rotator* temp = _impl_.rotation_;
+  _impl_.rotation_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::ProjectJ::Rotator* C_MATCH_INFO_MyInfo::unsafe_arena_release_rotation() {
+  // @@protoc_insertion_point(field_release:ProjectJ.C_MATCH_INFO.MyInfo.rotation)
+  
+  ::ProjectJ::Rotator* temp = _impl_.rotation_;
+  _impl_.rotation_ = nullptr;
+  return temp;
+}
+inline ::ProjectJ::Rotator* C_MATCH_INFO_MyInfo::_internal_mutable_rotation() {
+  
+  if (_impl_.rotation_ == nullptr) {
+    auto* p = CreateMaybeMessage<::ProjectJ::Rotator>(GetArenaForAllocation());
+    _impl_.rotation_ = p;
+  }
+  return _impl_.rotation_;
+}
+inline ::ProjectJ::Rotator* C_MATCH_INFO_MyInfo::mutable_rotation() {
+  ::ProjectJ::Rotator* _msg = _internal_mutable_rotation();
+  // @@protoc_insertion_point(field_mutable:ProjectJ.C_MATCH_INFO.MyInfo.rotation)
+  return _msg;
+}
+inline void C_MATCH_INFO_MyInfo::set_allocated_rotation(::ProjectJ::Rotator* rotation) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.rotation_);
+  }
+  if (rotation) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
+                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(rotation));
+    if (message_arena != submessage_arena) {
+      rotation = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, rotation, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  _impl_.rotation_ = rotation;
+  // @@protoc_insertion_point(field_set_allocated:ProjectJ.C_MATCH_INFO.MyInfo.rotation)
+}
+
+// -------------------------------------------------------------------
+
+// C_MATCH_INFO
+
+// int32 player_index = 1;
+inline void C_MATCH_INFO::clear_player_index() {
+  _impl_.player_index_ = 0;
+}
+inline int32_t C_MATCH_INFO::_internal_player_index() const {
+  return _impl_.player_index_;
+}
+inline int32_t C_MATCH_INFO::player_index() const {
+  // @@protoc_insertion_point(field_get:ProjectJ.C_MATCH_INFO.player_index)
+  return _internal_player_index();
+}
+inline void C_MATCH_INFO::_internal_set_player_index(int32_t value) {
+  
+  _impl_.player_index_ = value;
+}
+inline void C_MATCH_INFO::set_player_index(int32_t value) {
+  _internal_set_player_index(value);
+  // @@protoc_insertion_point(field_set:ProjectJ.C_MATCH_INFO.player_index)
+}
+
+// .ProjectJ.C_MATCH_INFO.MyInfo info = 2;
+inline bool C_MATCH_INFO::_internal_has_info() const {
+  return this != internal_default_instance() && _impl_.info_ != nullptr;
+}
+inline bool C_MATCH_INFO::has_info() const {
+  return _internal_has_info();
+}
+inline void C_MATCH_INFO::clear_info() {
+  if (GetArenaForAllocation() == nullptr && _impl_.info_ != nullptr) {
+    delete _impl_.info_;
+  }
+  _impl_.info_ = nullptr;
+}
+inline const ::ProjectJ::C_MATCH_INFO_MyInfo& C_MATCH_INFO::_internal_info() const {
+  const ::ProjectJ::C_MATCH_INFO_MyInfo* p = _impl_.info_;
+  return p != nullptr ? *p : reinterpret_cast<const ::ProjectJ::C_MATCH_INFO_MyInfo&>(
+      ::ProjectJ::_C_MATCH_INFO_MyInfo_default_instance_);
+}
+inline const ::ProjectJ::C_MATCH_INFO_MyInfo& C_MATCH_INFO::info() const {
+  // @@protoc_insertion_point(field_get:ProjectJ.C_MATCH_INFO.info)
+  return _internal_info();
+}
+inline void C_MATCH_INFO::unsafe_arena_set_allocated_info(
+    ::ProjectJ::C_MATCH_INFO_MyInfo* info) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.info_);
+  }
+  _impl_.info_ = info;
+  if (info) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:ProjectJ.C_MATCH_INFO.info)
+}
+inline ::ProjectJ::C_MATCH_INFO_MyInfo* C_MATCH_INFO::release_info() {
+  
+  ::ProjectJ::C_MATCH_INFO_MyInfo* temp = _impl_.info_;
+  _impl_.info_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::ProjectJ::C_MATCH_INFO_MyInfo* C_MATCH_INFO::unsafe_arena_release_info() {
+  // @@protoc_insertion_point(field_release:ProjectJ.C_MATCH_INFO.info)
+  
+  ::ProjectJ::C_MATCH_INFO_MyInfo* temp = _impl_.info_;
+  _impl_.info_ = nullptr;
+  return temp;
+}
+inline ::ProjectJ::C_MATCH_INFO_MyInfo* C_MATCH_INFO::_internal_mutable_info() {
+  
+  if (_impl_.info_ == nullptr) {
+    auto* p = CreateMaybeMessage<::ProjectJ::C_MATCH_INFO_MyInfo>(GetArenaForAllocation());
+    _impl_.info_ = p;
+  }
+  return _impl_.info_;
+}
+inline ::ProjectJ::C_MATCH_INFO_MyInfo* C_MATCH_INFO::mutable_info() {
+  ::ProjectJ::C_MATCH_INFO_MyInfo* _msg = _internal_mutable_info();
+  // @@protoc_insertion_point(field_mutable:ProjectJ.C_MATCH_INFO.info)
+  return _msg;
+}
+inline void C_MATCH_INFO::set_allocated_info(::ProjectJ::C_MATCH_INFO_MyInfo* info) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete _impl_.info_;
+  }
+  if (info) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(info);
+    if (message_arena != submessage_arena) {
+      info = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, info, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  _impl_.info_ = info;
+  // @@protoc_insertion_point(field_set_allocated:ProjectJ.C_MATCH_INFO.info)
 }
 
 // -------------------------------------------------------------------
@@ -7814,128 +8143,24 @@ inline void C_MATCH_ITEM_PICKUP::set_player_index(int32_t value) {
   // @@protoc_insertion_point(field_set:ProjectJ.C_MATCH_ITEM_PICKUP.player_index)
 }
 
-// int32 item_id = 2;
-inline void C_MATCH_ITEM_PICKUP::clear_item_id() {
-  _impl_.item_id_ = 0;
+// int32 item_index = 2;
+inline void C_MATCH_ITEM_PICKUP::clear_item_index() {
+  _impl_.item_index_ = 0;
 }
-inline int32_t C_MATCH_ITEM_PICKUP::_internal_item_id() const {
-  return _impl_.item_id_;
+inline int32_t C_MATCH_ITEM_PICKUP::_internal_item_index() const {
+  return _impl_.item_index_;
 }
-inline int32_t C_MATCH_ITEM_PICKUP::item_id() const {
-  // @@protoc_insertion_point(field_get:ProjectJ.C_MATCH_ITEM_PICKUP.item_id)
-  return _internal_item_id();
+inline int32_t C_MATCH_ITEM_PICKUP::item_index() const {
+  // @@protoc_insertion_point(field_get:ProjectJ.C_MATCH_ITEM_PICKUP.item_index)
+  return _internal_item_index();
 }
-inline void C_MATCH_ITEM_PICKUP::_internal_set_item_id(int32_t value) {
+inline void C_MATCH_ITEM_PICKUP::_internal_set_item_index(int32_t value) {
   
-  _impl_.item_id_ = value;
+  _impl_.item_index_ = value;
 }
-inline void C_MATCH_ITEM_PICKUP::set_item_id(int32_t value) {
-  _internal_set_item_id(value);
-  // @@protoc_insertion_point(field_set:ProjectJ.C_MATCH_ITEM_PICKUP.item_id)
-}
-
-// -------------------------------------------------------------------
-
-// S_MATCH_ITEM_PICKUP
-
-// bool result = 1;
-inline void S_MATCH_ITEM_PICKUP::clear_result() {
-  _impl_.result_ = false;
-}
-inline bool S_MATCH_ITEM_PICKUP::_internal_result() const {
-  return _impl_.result_;
-}
-inline bool S_MATCH_ITEM_PICKUP::result() const {
-  // @@protoc_insertion_point(field_get:ProjectJ.S_MATCH_ITEM_PICKUP.result)
-  return _internal_result();
-}
-inline void S_MATCH_ITEM_PICKUP::_internal_set_result(bool value) {
-  
-  _impl_.result_ = value;
-}
-inline void S_MATCH_ITEM_PICKUP::set_result(bool value) {
-  _internal_set_result(value);
-  // @@protoc_insertion_point(field_set:ProjectJ.S_MATCH_ITEM_PICKUP.result)
-}
-
-// int32 player_index = 2;
-inline void S_MATCH_ITEM_PICKUP::clear_player_index() {
-  _impl_.player_index_ = 0;
-}
-inline int32_t S_MATCH_ITEM_PICKUP::_internal_player_index() const {
-  return _impl_.player_index_;
-}
-inline int32_t S_MATCH_ITEM_PICKUP::player_index() const {
-  // @@protoc_insertion_point(field_get:ProjectJ.S_MATCH_ITEM_PICKUP.player_index)
-  return _internal_player_index();
-}
-inline void S_MATCH_ITEM_PICKUP::_internal_set_player_index(int32_t value) {
-  
-  _impl_.player_index_ = value;
-}
-inline void S_MATCH_ITEM_PICKUP::set_player_index(int32_t value) {
-  _internal_set_player_index(value);
-  // @@protoc_insertion_point(field_set:ProjectJ.S_MATCH_ITEM_PICKUP.player_index)
-}
-
-// int32 item_id = 3;
-inline void S_MATCH_ITEM_PICKUP::clear_item_id() {
-  _impl_.item_id_ = 0;
-}
-inline int32_t S_MATCH_ITEM_PICKUP::_internal_item_id() const {
-  return _impl_.item_id_;
-}
-inline int32_t S_MATCH_ITEM_PICKUP::item_id() const {
-  // @@protoc_insertion_point(field_get:ProjectJ.S_MATCH_ITEM_PICKUP.item_id)
-  return _internal_item_id();
-}
-inline void S_MATCH_ITEM_PICKUP::_internal_set_item_id(int32_t value) {
-  
-  _impl_.item_id_ = value;
-}
-inline void S_MATCH_ITEM_PICKUP::set_item_id(int32_t value) {
-  _internal_set_item_id(value);
-  // @@protoc_insertion_point(field_set:ProjectJ.S_MATCH_ITEM_PICKUP.item_id)
-}
-
-// int32 top_left_index = 4;
-inline void S_MATCH_ITEM_PICKUP::clear_top_left_index() {
-  _impl_.top_left_index_ = 0;
-}
-inline int32_t S_MATCH_ITEM_PICKUP::_internal_top_left_index() const {
-  return _impl_.top_left_index_;
-}
-inline int32_t S_MATCH_ITEM_PICKUP::top_left_index() const {
-  // @@protoc_insertion_point(field_get:ProjectJ.S_MATCH_ITEM_PICKUP.top_left_index)
-  return _internal_top_left_index();
-}
-inline void S_MATCH_ITEM_PICKUP::_internal_set_top_left_index(int32_t value) {
-  
-  _impl_.top_left_index_ = value;
-}
-inline void S_MATCH_ITEM_PICKUP::set_top_left_index(int32_t value) {
-  _internal_set_top_left_index(value);
-  // @@protoc_insertion_point(field_set:ProjectJ.S_MATCH_ITEM_PICKUP.top_left_index)
-}
-
-// bool is_item_rotated = 5;
-inline void S_MATCH_ITEM_PICKUP::clear_is_item_rotated() {
-  _impl_.is_item_rotated_ = false;
-}
-inline bool S_MATCH_ITEM_PICKUP::_internal_is_item_rotated() const {
-  return _impl_.is_item_rotated_;
-}
-inline bool S_MATCH_ITEM_PICKUP::is_item_rotated() const {
-  // @@protoc_insertion_point(field_get:ProjectJ.S_MATCH_ITEM_PICKUP.is_item_rotated)
-  return _internal_is_item_rotated();
-}
-inline void S_MATCH_ITEM_PICKUP::_internal_set_is_item_rotated(bool value) {
-  
-  _impl_.is_item_rotated_ = value;
-}
-inline void S_MATCH_ITEM_PICKUP::set_is_item_rotated(bool value) {
-  _internal_set_is_item_rotated(value);
-  // @@protoc_insertion_point(field_set:ProjectJ.S_MATCH_ITEM_PICKUP.is_item_rotated)
+inline void C_MATCH_ITEM_PICKUP::set_item_index(int32_t value) {
+  _internal_set_item_index(value);
+  // @@protoc_insertion_point(field_set:ProjectJ.C_MATCH_ITEM_PICKUP.item_index)
 }
 
 // -------------------------------------------------------------------
@@ -7962,47 +8187,67 @@ inline void C_MATCH_ITEM_MOVE::set_player_index(int32_t value) {
   // @@protoc_insertion_point(field_set:ProjectJ.C_MATCH_ITEM_MOVE.player_index)
 }
 
-// int32 item_id = 2;
-inline void C_MATCH_ITEM_MOVE::clear_item_id() {
-  _impl_.item_id_ = 0;
+// int32 from_index = 2;
+inline void C_MATCH_ITEM_MOVE::clear_from_index() {
+  _impl_.from_index_ = 0;
 }
-inline int32_t C_MATCH_ITEM_MOVE::_internal_item_id() const {
-  return _impl_.item_id_;
+inline int32_t C_MATCH_ITEM_MOVE::_internal_from_index() const {
+  return _impl_.from_index_;
 }
-inline int32_t C_MATCH_ITEM_MOVE::item_id() const {
-  // @@protoc_insertion_point(field_get:ProjectJ.C_MATCH_ITEM_MOVE.item_id)
-  return _internal_item_id();
+inline int32_t C_MATCH_ITEM_MOVE::from_index() const {
+  // @@protoc_insertion_point(field_get:ProjectJ.C_MATCH_ITEM_MOVE.from_index)
+  return _internal_from_index();
 }
-inline void C_MATCH_ITEM_MOVE::_internal_set_item_id(int32_t value) {
+inline void C_MATCH_ITEM_MOVE::_internal_set_from_index(int32_t value) {
   
-  _impl_.item_id_ = value;
+  _impl_.from_index_ = value;
 }
-inline void C_MATCH_ITEM_MOVE::set_item_id(int32_t value) {
-  _internal_set_item_id(value);
-  // @@protoc_insertion_point(field_set:ProjectJ.C_MATCH_ITEM_MOVE.item_id)
+inline void C_MATCH_ITEM_MOVE::set_from_index(int32_t value) {
+  _internal_set_from_index(value);
+  // @@protoc_insertion_point(field_set:ProjectJ.C_MATCH_ITEM_MOVE.from_index)
 }
 
-// int32 is_item_rotated = 3;
-inline void C_MATCH_ITEM_MOVE::clear_is_item_rotated() {
-  _impl_.is_item_rotated_ = 0;
+// int32 to_index = 3;
+inline void C_MATCH_ITEM_MOVE::clear_to_index() {
+  _impl_.to_index_ = 0;
 }
-inline int32_t C_MATCH_ITEM_MOVE::_internal_is_item_rotated() const {
-  return _impl_.is_item_rotated_;
+inline int32_t C_MATCH_ITEM_MOVE::_internal_to_index() const {
+  return _impl_.to_index_;
 }
-inline int32_t C_MATCH_ITEM_MOVE::is_item_rotated() const {
-  // @@protoc_insertion_point(field_get:ProjectJ.C_MATCH_ITEM_MOVE.is_item_rotated)
-  return _internal_is_item_rotated();
+inline int32_t C_MATCH_ITEM_MOVE::to_index() const {
+  // @@protoc_insertion_point(field_get:ProjectJ.C_MATCH_ITEM_MOVE.to_index)
+  return _internal_to_index();
 }
-inline void C_MATCH_ITEM_MOVE::_internal_set_is_item_rotated(int32_t value) {
+inline void C_MATCH_ITEM_MOVE::_internal_set_to_index(int32_t value) {
   
-  _impl_.is_item_rotated_ = value;
+  _impl_.to_index_ = value;
 }
-inline void C_MATCH_ITEM_MOVE::set_is_item_rotated(int32_t value) {
-  _internal_set_is_item_rotated(value);
-  // @@protoc_insertion_point(field_set:ProjectJ.C_MATCH_ITEM_MOVE.is_item_rotated)
+inline void C_MATCH_ITEM_MOVE::set_to_index(int32_t value) {
+  _internal_set_to_index(value);
+  // @@protoc_insertion_point(field_set:ProjectJ.C_MATCH_ITEM_MOVE.to_index)
 }
 
-// int32 target_top_left_index = 4;
+// int32 item_index = 4;
+inline void C_MATCH_ITEM_MOVE::clear_item_index() {
+  _impl_.item_index_ = 0;
+}
+inline int32_t C_MATCH_ITEM_MOVE::_internal_item_index() const {
+  return _impl_.item_index_;
+}
+inline int32_t C_MATCH_ITEM_MOVE::item_index() const {
+  // @@protoc_insertion_point(field_get:ProjectJ.C_MATCH_ITEM_MOVE.item_index)
+  return _internal_item_index();
+}
+inline void C_MATCH_ITEM_MOVE::_internal_set_item_index(int32_t value) {
+  
+  _impl_.item_index_ = value;
+}
+inline void C_MATCH_ITEM_MOVE::set_item_index(int32_t value) {
+  _internal_set_item_index(value);
+  // @@protoc_insertion_point(field_set:ProjectJ.C_MATCH_ITEM_MOVE.item_index)
+}
+
+// int32 target_top_left_index = 5;
 inline void C_MATCH_ITEM_MOVE::clear_target_top_left_index() {
   _impl_.target_top_left_index_ = 0;
 }
@@ -8022,88 +8267,24 @@ inline void C_MATCH_ITEM_MOVE::set_target_top_left_index(int32_t value) {
   // @@protoc_insertion_point(field_set:ProjectJ.C_MATCH_ITEM_MOVE.target_top_left_index)
 }
 
-// -------------------------------------------------------------------
-
-// S_MATCH_ITEM_MOVE
-
-// bool result = 1;
-inline void S_MATCH_ITEM_MOVE::clear_result() {
-  _impl_.result_ = false;
+// bool is_item_rotated = 6;
+inline void C_MATCH_ITEM_MOVE::clear_is_item_rotated() {
+  _impl_.is_item_rotated_ = false;
 }
-inline bool S_MATCH_ITEM_MOVE::_internal_result() const {
-  return _impl_.result_;
-}
-inline bool S_MATCH_ITEM_MOVE::result() const {
-  // @@protoc_insertion_point(field_get:ProjectJ.S_MATCH_ITEM_MOVE.result)
-  return _internal_result();
-}
-inline void S_MATCH_ITEM_MOVE::_internal_set_result(bool value) {
-  
-  _impl_.result_ = value;
-}
-inline void S_MATCH_ITEM_MOVE::set_result(bool value) {
-  _internal_set_result(value);
-  // @@protoc_insertion_point(field_set:ProjectJ.S_MATCH_ITEM_MOVE.result)
-}
-
-// int32 item_id = 2;
-inline void S_MATCH_ITEM_MOVE::clear_item_id() {
-  _impl_.item_id_ = 0;
-}
-inline int32_t S_MATCH_ITEM_MOVE::_internal_item_id() const {
-  return _impl_.item_id_;
-}
-inline int32_t S_MATCH_ITEM_MOVE::item_id() const {
-  // @@protoc_insertion_point(field_get:ProjectJ.S_MATCH_ITEM_MOVE.item_id)
-  return _internal_item_id();
-}
-inline void S_MATCH_ITEM_MOVE::_internal_set_item_id(int32_t value) {
-  
-  _impl_.item_id_ = value;
-}
-inline void S_MATCH_ITEM_MOVE::set_item_id(int32_t value) {
-  _internal_set_item_id(value);
-  // @@protoc_insertion_point(field_set:ProjectJ.S_MATCH_ITEM_MOVE.item_id)
-}
-
-// int32 is_item_rotated = 3;
-inline void S_MATCH_ITEM_MOVE::clear_is_item_rotated() {
-  _impl_.is_item_rotated_ = 0;
-}
-inline int32_t S_MATCH_ITEM_MOVE::_internal_is_item_rotated() const {
+inline bool C_MATCH_ITEM_MOVE::_internal_is_item_rotated() const {
   return _impl_.is_item_rotated_;
 }
-inline int32_t S_MATCH_ITEM_MOVE::is_item_rotated() const {
-  // @@protoc_insertion_point(field_get:ProjectJ.S_MATCH_ITEM_MOVE.is_item_rotated)
+inline bool C_MATCH_ITEM_MOVE::is_item_rotated() const {
+  // @@protoc_insertion_point(field_get:ProjectJ.C_MATCH_ITEM_MOVE.is_item_rotated)
   return _internal_is_item_rotated();
 }
-inline void S_MATCH_ITEM_MOVE::_internal_set_is_item_rotated(int32_t value) {
+inline void C_MATCH_ITEM_MOVE::_internal_set_is_item_rotated(bool value) {
   
   _impl_.is_item_rotated_ = value;
 }
-inline void S_MATCH_ITEM_MOVE::set_is_item_rotated(int32_t value) {
+inline void C_MATCH_ITEM_MOVE::set_is_item_rotated(bool value) {
   _internal_set_is_item_rotated(value);
-  // @@protoc_insertion_point(field_set:ProjectJ.S_MATCH_ITEM_MOVE.is_item_rotated)
-}
-
-// int32 top_left_index = 4;
-inline void S_MATCH_ITEM_MOVE::clear_top_left_index() {
-  _impl_.top_left_index_ = 0;
-}
-inline int32_t S_MATCH_ITEM_MOVE::_internal_top_left_index() const {
-  return _impl_.top_left_index_;
-}
-inline int32_t S_MATCH_ITEM_MOVE::top_left_index() const {
-  // @@protoc_insertion_point(field_get:ProjectJ.S_MATCH_ITEM_MOVE.top_left_index)
-  return _internal_top_left_index();
-}
-inline void S_MATCH_ITEM_MOVE::_internal_set_top_left_index(int32_t value) {
-  
-  _impl_.top_left_index_ = value;
-}
-inline void S_MATCH_ITEM_MOVE::set_top_left_index(int32_t value) {
-  _internal_set_top_left_index(value);
-  // @@protoc_insertion_point(field_set:ProjectJ.S_MATCH_ITEM_MOVE.top_left_index)
+  // @@protoc_insertion_point(field_set:ProjectJ.C_MATCH_ITEM_MOVE.is_item_rotated)
 }
 
 // -------------------------------------------------------------------
@@ -8130,7 +8311,27 @@ inline void C_MATCH_ITEM_DROP::set_player_index(int32_t value) {
   // @@protoc_insertion_point(field_set:ProjectJ.C_MATCH_ITEM_DROP.player_index)
 }
 
-// .ProjectJ.Vector drop_item_position = 2;
+// int32 item_index = 2;
+inline void C_MATCH_ITEM_DROP::clear_item_index() {
+  _impl_.item_index_ = 0;
+}
+inline int32_t C_MATCH_ITEM_DROP::_internal_item_index() const {
+  return _impl_.item_index_;
+}
+inline int32_t C_MATCH_ITEM_DROP::item_index() const {
+  // @@protoc_insertion_point(field_get:ProjectJ.C_MATCH_ITEM_DROP.item_index)
+  return _internal_item_index();
+}
+inline void C_MATCH_ITEM_DROP::_internal_set_item_index(int32_t value) {
+  
+  _impl_.item_index_ = value;
+}
+inline void C_MATCH_ITEM_DROP::set_item_index(int32_t value) {
+  _internal_set_item_index(value);
+  // @@protoc_insertion_point(field_set:ProjectJ.C_MATCH_ITEM_DROP.item_index)
+}
+
+// .ProjectJ.Vector drop_item_position = 3;
 inline bool C_MATCH_ITEM_DROP::_internal_has_drop_item_position() const {
   return this != internal_default_instance() && _impl_.drop_item_position_ != nullptr;
 }
@@ -8215,7 +8416,7 @@ inline void C_MATCH_ITEM_DROP::set_allocated_drop_item_position(::ProjectJ::Vect
   // @@protoc_insertion_point(field_set_allocated:ProjectJ.C_MATCH_ITEM_DROP.drop_item_position)
 }
 
-// .ProjectJ.Rotator drop_item_rotation = 3;
+// .ProjectJ.Rotator drop_item_rotation = 4;
 inline bool C_MATCH_ITEM_DROP::_internal_has_drop_item_rotation() const {
   return this != internal_default_instance() && _impl_.drop_item_rotation_ != nullptr;
 }
@@ -8300,67 +8501,275 @@ inline void C_MATCH_ITEM_DROP::set_allocated_drop_item_rotation(::ProjectJ::Rota
   // @@protoc_insertion_point(field_set_allocated:ProjectJ.C_MATCH_ITEM_DROP.drop_item_rotation)
 }
 
-// int32 item_id = 4;
-inline void C_MATCH_ITEM_DROP::clear_item_id() {
-  _impl_.item_id_ = 0;
+// -------------------------------------------------------------------
+
+// S_MATCH_ITEM_SOMEONE_PICKUP
+
+// int32 player_index = 1;
+inline void S_MATCH_ITEM_SOMEONE_PICKUP::clear_player_index() {
+  _impl_.player_index_ = 0;
 }
-inline int32_t C_MATCH_ITEM_DROP::_internal_item_id() const {
-  return _impl_.item_id_;
+inline int32_t S_MATCH_ITEM_SOMEONE_PICKUP::_internal_player_index() const {
+  return _impl_.player_index_;
 }
-inline int32_t C_MATCH_ITEM_DROP::item_id() const {
-  // @@protoc_insertion_point(field_get:ProjectJ.C_MATCH_ITEM_DROP.item_id)
-  return _internal_item_id();
+inline int32_t S_MATCH_ITEM_SOMEONE_PICKUP::player_index() const {
+  // @@protoc_insertion_point(field_get:ProjectJ.S_MATCH_ITEM_SOMEONE_PICKUP.player_index)
+  return _internal_player_index();
 }
-inline void C_MATCH_ITEM_DROP::_internal_set_item_id(int32_t value) {
+inline void S_MATCH_ITEM_SOMEONE_PICKUP::_internal_set_player_index(int32_t value) {
   
-  _impl_.item_id_ = value;
+  _impl_.player_index_ = value;
 }
-inline void C_MATCH_ITEM_DROP::set_item_id(int32_t value) {
-  _internal_set_item_id(value);
-  // @@protoc_insertion_point(field_set:ProjectJ.C_MATCH_ITEM_DROP.item_id)
+inline void S_MATCH_ITEM_SOMEONE_PICKUP::set_player_index(int32_t value) {
+  _internal_set_player_index(value);
+  // @@protoc_insertion_point(field_set:ProjectJ.S_MATCH_ITEM_SOMEONE_PICKUP.player_index)
+}
+
+// int32 item_index = 2;
+inline void S_MATCH_ITEM_SOMEONE_PICKUP::clear_item_index() {
+  _impl_.item_index_ = 0;
+}
+inline int32_t S_MATCH_ITEM_SOMEONE_PICKUP::_internal_item_index() const {
+  return _impl_.item_index_;
+}
+inline int32_t S_MATCH_ITEM_SOMEONE_PICKUP::item_index() const {
+  // @@protoc_insertion_point(field_get:ProjectJ.S_MATCH_ITEM_SOMEONE_PICKUP.item_index)
+  return _internal_item_index();
+}
+inline void S_MATCH_ITEM_SOMEONE_PICKUP::_internal_set_item_index(int32_t value) {
+  
+  _impl_.item_index_ = value;
+}
+inline void S_MATCH_ITEM_SOMEONE_PICKUP::set_item_index(int32_t value) {
+  _internal_set_item_index(value);
+  // @@protoc_insertion_point(field_set:ProjectJ.S_MATCH_ITEM_SOMEONE_PICKUP.item_index)
+}
+
+// int32 top_left_index = 3;
+inline void S_MATCH_ITEM_SOMEONE_PICKUP::clear_top_left_index() {
+  _impl_.top_left_index_ = 0;
+}
+inline int32_t S_MATCH_ITEM_SOMEONE_PICKUP::_internal_top_left_index() const {
+  return _impl_.top_left_index_;
+}
+inline int32_t S_MATCH_ITEM_SOMEONE_PICKUP::top_left_index() const {
+  // @@protoc_insertion_point(field_get:ProjectJ.S_MATCH_ITEM_SOMEONE_PICKUP.top_left_index)
+  return _internal_top_left_index();
+}
+inline void S_MATCH_ITEM_SOMEONE_PICKUP::_internal_set_top_left_index(int32_t value) {
+  
+  _impl_.top_left_index_ = value;
+}
+inline void S_MATCH_ITEM_SOMEONE_PICKUP::set_top_left_index(int32_t value) {
+  _internal_set_top_left_index(value);
+  // @@protoc_insertion_point(field_set:ProjectJ.S_MATCH_ITEM_SOMEONE_PICKUP.top_left_index)
+}
+
+// bool is_item_rotated = 4;
+inline void S_MATCH_ITEM_SOMEONE_PICKUP::clear_is_item_rotated() {
+  _impl_.is_item_rotated_ = false;
+}
+inline bool S_MATCH_ITEM_SOMEONE_PICKUP::_internal_is_item_rotated() const {
+  return _impl_.is_item_rotated_;
+}
+inline bool S_MATCH_ITEM_SOMEONE_PICKUP::is_item_rotated() const {
+  // @@protoc_insertion_point(field_get:ProjectJ.S_MATCH_ITEM_SOMEONE_PICKUP.is_item_rotated)
+  return _internal_is_item_rotated();
+}
+inline void S_MATCH_ITEM_SOMEONE_PICKUP::_internal_set_is_item_rotated(bool value) {
+  
+  _impl_.is_item_rotated_ = value;
+}
+inline void S_MATCH_ITEM_SOMEONE_PICKUP::set_is_item_rotated(bool value) {
+  _internal_set_is_item_rotated(value);
+  // @@protoc_insertion_point(field_set:ProjectJ.S_MATCH_ITEM_SOMEONE_PICKUP.is_item_rotated)
 }
 
 // -------------------------------------------------------------------
 
-// S_MATCH_ITEM_DROP
+// S_MATCH_ITEM_SOMEONE_MOVE
 
 // int32 player_index = 1;
-inline void S_MATCH_ITEM_DROP::clear_player_index() {
+inline void S_MATCH_ITEM_SOMEONE_MOVE::clear_player_index() {
   _impl_.player_index_ = 0;
 }
-inline int32_t S_MATCH_ITEM_DROP::_internal_player_index() const {
+inline int32_t S_MATCH_ITEM_SOMEONE_MOVE::_internal_player_index() const {
   return _impl_.player_index_;
 }
-inline int32_t S_MATCH_ITEM_DROP::player_index() const {
-  // @@protoc_insertion_point(field_get:ProjectJ.S_MATCH_ITEM_DROP.player_index)
+inline int32_t S_MATCH_ITEM_SOMEONE_MOVE::player_index() const {
+  // @@protoc_insertion_point(field_get:ProjectJ.S_MATCH_ITEM_SOMEONE_MOVE.player_index)
   return _internal_player_index();
 }
-inline void S_MATCH_ITEM_DROP::_internal_set_player_index(int32_t value) {
+inline void S_MATCH_ITEM_SOMEONE_MOVE::_internal_set_player_index(int32_t value) {
   
   _impl_.player_index_ = value;
 }
-inline void S_MATCH_ITEM_DROP::set_player_index(int32_t value) {
+inline void S_MATCH_ITEM_SOMEONE_MOVE::set_player_index(int32_t value) {
   _internal_set_player_index(value);
-  // @@protoc_insertion_point(field_set:ProjectJ.S_MATCH_ITEM_DROP.player_index)
+  // @@protoc_insertion_point(field_set:ProjectJ.S_MATCH_ITEM_SOMEONE_MOVE.player_index)
 }
 
-// .ProjectJ.Vector drop_item_position = 2;
-inline bool S_MATCH_ITEM_DROP::_internal_has_drop_item_position() const {
+// int32 from_index = 2;
+inline void S_MATCH_ITEM_SOMEONE_MOVE::clear_from_index() {
+  _impl_.from_index_ = 0;
+}
+inline int32_t S_MATCH_ITEM_SOMEONE_MOVE::_internal_from_index() const {
+  return _impl_.from_index_;
+}
+inline int32_t S_MATCH_ITEM_SOMEONE_MOVE::from_index() const {
+  // @@protoc_insertion_point(field_get:ProjectJ.S_MATCH_ITEM_SOMEONE_MOVE.from_index)
+  return _internal_from_index();
+}
+inline void S_MATCH_ITEM_SOMEONE_MOVE::_internal_set_from_index(int32_t value) {
+  
+  _impl_.from_index_ = value;
+}
+inline void S_MATCH_ITEM_SOMEONE_MOVE::set_from_index(int32_t value) {
+  _internal_set_from_index(value);
+  // @@protoc_insertion_point(field_set:ProjectJ.S_MATCH_ITEM_SOMEONE_MOVE.from_index)
+}
+
+// int32 to_index = 3;
+inline void S_MATCH_ITEM_SOMEONE_MOVE::clear_to_index() {
+  _impl_.to_index_ = 0;
+}
+inline int32_t S_MATCH_ITEM_SOMEONE_MOVE::_internal_to_index() const {
+  return _impl_.to_index_;
+}
+inline int32_t S_MATCH_ITEM_SOMEONE_MOVE::to_index() const {
+  // @@protoc_insertion_point(field_get:ProjectJ.S_MATCH_ITEM_SOMEONE_MOVE.to_index)
+  return _internal_to_index();
+}
+inline void S_MATCH_ITEM_SOMEONE_MOVE::_internal_set_to_index(int32_t value) {
+  
+  _impl_.to_index_ = value;
+}
+inline void S_MATCH_ITEM_SOMEONE_MOVE::set_to_index(int32_t value) {
+  _internal_set_to_index(value);
+  // @@protoc_insertion_point(field_set:ProjectJ.S_MATCH_ITEM_SOMEONE_MOVE.to_index)
+}
+
+// int32 item_index = 4;
+inline void S_MATCH_ITEM_SOMEONE_MOVE::clear_item_index() {
+  _impl_.item_index_ = 0;
+}
+inline int32_t S_MATCH_ITEM_SOMEONE_MOVE::_internal_item_index() const {
+  return _impl_.item_index_;
+}
+inline int32_t S_MATCH_ITEM_SOMEONE_MOVE::item_index() const {
+  // @@protoc_insertion_point(field_get:ProjectJ.S_MATCH_ITEM_SOMEONE_MOVE.item_index)
+  return _internal_item_index();
+}
+inline void S_MATCH_ITEM_SOMEONE_MOVE::_internal_set_item_index(int32_t value) {
+  
+  _impl_.item_index_ = value;
+}
+inline void S_MATCH_ITEM_SOMEONE_MOVE::set_item_index(int32_t value) {
+  _internal_set_item_index(value);
+  // @@protoc_insertion_point(field_set:ProjectJ.S_MATCH_ITEM_SOMEONE_MOVE.item_index)
+}
+
+// int32 top_left_index = 5;
+inline void S_MATCH_ITEM_SOMEONE_MOVE::clear_top_left_index() {
+  _impl_.top_left_index_ = 0;
+}
+inline int32_t S_MATCH_ITEM_SOMEONE_MOVE::_internal_top_left_index() const {
+  return _impl_.top_left_index_;
+}
+inline int32_t S_MATCH_ITEM_SOMEONE_MOVE::top_left_index() const {
+  // @@protoc_insertion_point(field_get:ProjectJ.S_MATCH_ITEM_SOMEONE_MOVE.top_left_index)
+  return _internal_top_left_index();
+}
+inline void S_MATCH_ITEM_SOMEONE_MOVE::_internal_set_top_left_index(int32_t value) {
+  
+  _impl_.top_left_index_ = value;
+}
+inline void S_MATCH_ITEM_SOMEONE_MOVE::set_top_left_index(int32_t value) {
+  _internal_set_top_left_index(value);
+  // @@protoc_insertion_point(field_set:ProjectJ.S_MATCH_ITEM_SOMEONE_MOVE.top_left_index)
+}
+
+// bool is_item_rotated = 6;
+inline void S_MATCH_ITEM_SOMEONE_MOVE::clear_is_item_rotated() {
+  _impl_.is_item_rotated_ = false;
+}
+inline bool S_MATCH_ITEM_SOMEONE_MOVE::_internal_is_item_rotated() const {
+  return _impl_.is_item_rotated_;
+}
+inline bool S_MATCH_ITEM_SOMEONE_MOVE::is_item_rotated() const {
+  // @@protoc_insertion_point(field_get:ProjectJ.S_MATCH_ITEM_SOMEONE_MOVE.is_item_rotated)
+  return _internal_is_item_rotated();
+}
+inline void S_MATCH_ITEM_SOMEONE_MOVE::_internal_set_is_item_rotated(bool value) {
+  
+  _impl_.is_item_rotated_ = value;
+}
+inline void S_MATCH_ITEM_SOMEONE_MOVE::set_is_item_rotated(bool value) {
+  _internal_set_is_item_rotated(value);
+  // @@protoc_insertion_point(field_set:ProjectJ.S_MATCH_ITEM_SOMEONE_MOVE.is_item_rotated)
+}
+
+// -------------------------------------------------------------------
+
+// S_MATCH_ITEM_SOMEONE_DROP
+
+// int32 player_index = 1;
+inline void S_MATCH_ITEM_SOMEONE_DROP::clear_player_index() {
+  _impl_.player_index_ = 0;
+}
+inline int32_t S_MATCH_ITEM_SOMEONE_DROP::_internal_player_index() const {
+  return _impl_.player_index_;
+}
+inline int32_t S_MATCH_ITEM_SOMEONE_DROP::player_index() const {
+  // @@protoc_insertion_point(field_get:ProjectJ.S_MATCH_ITEM_SOMEONE_DROP.player_index)
+  return _internal_player_index();
+}
+inline void S_MATCH_ITEM_SOMEONE_DROP::_internal_set_player_index(int32_t value) {
+  
+  _impl_.player_index_ = value;
+}
+inline void S_MATCH_ITEM_SOMEONE_DROP::set_player_index(int32_t value) {
+  _internal_set_player_index(value);
+  // @@protoc_insertion_point(field_set:ProjectJ.S_MATCH_ITEM_SOMEONE_DROP.player_index)
+}
+
+// int32 item_index = 2;
+inline void S_MATCH_ITEM_SOMEONE_DROP::clear_item_index() {
+  _impl_.item_index_ = 0;
+}
+inline int32_t S_MATCH_ITEM_SOMEONE_DROP::_internal_item_index() const {
+  return _impl_.item_index_;
+}
+inline int32_t S_MATCH_ITEM_SOMEONE_DROP::item_index() const {
+  // @@protoc_insertion_point(field_get:ProjectJ.S_MATCH_ITEM_SOMEONE_DROP.item_index)
+  return _internal_item_index();
+}
+inline void S_MATCH_ITEM_SOMEONE_DROP::_internal_set_item_index(int32_t value) {
+  
+  _impl_.item_index_ = value;
+}
+inline void S_MATCH_ITEM_SOMEONE_DROP::set_item_index(int32_t value) {
+  _internal_set_item_index(value);
+  // @@protoc_insertion_point(field_set:ProjectJ.S_MATCH_ITEM_SOMEONE_DROP.item_index)
+}
+
+// .ProjectJ.Vector drop_item_position = 3;
+inline bool S_MATCH_ITEM_SOMEONE_DROP::_internal_has_drop_item_position() const {
   return this != internal_default_instance() && _impl_.drop_item_position_ != nullptr;
 }
-inline bool S_MATCH_ITEM_DROP::has_drop_item_position() const {
+inline bool S_MATCH_ITEM_SOMEONE_DROP::has_drop_item_position() const {
   return _internal_has_drop_item_position();
 }
-inline const ::ProjectJ::Vector& S_MATCH_ITEM_DROP::_internal_drop_item_position() const {
+inline const ::ProjectJ::Vector& S_MATCH_ITEM_SOMEONE_DROP::_internal_drop_item_position() const {
   const ::ProjectJ::Vector* p = _impl_.drop_item_position_;
   return p != nullptr ? *p : reinterpret_cast<const ::ProjectJ::Vector&>(
       ::ProjectJ::_Vector_default_instance_);
 }
-inline const ::ProjectJ::Vector& S_MATCH_ITEM_DROP::drop_item_position() const {
-  // @@protoc_insertion_point(field_get:ProjectJ.S_MATCH_ITEM_DROP.drop_item_position)
+inline const ::ProjectJ::Vector& S_MATCH_ITEM_SOMEONE_DROP::drop_item_position() const {
+  // @@protoc_insertion_point(field_get:ProjectJ.S_MATCH_ITEM_SOMEONE_DROP.drop_item_position)
   return _internal_drop_item_position();
 }
-inline void S_MATCH_ITEM_DROP::unsafe_arena_set_allocated_drop_item_position(
+inline void S_MATCH_ITEM_SOMEONE_DROP::unsafe_arena_set_allocated_drop_item_position(
     ::ProjectJ::Vector* drop_item_position) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.drop_item_position_);
@@ -8371,9 +8780,9 @@ inline void S_MATCH_ITEM_DROP::unsafe_arena_set_allocated_drop_item_position(
   } else {
     
   }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:ProjectJ.S_MATCH_ITEM_DROP.drop_item_position)
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:ProjectJ.S_MATCH_ITEM_SOMEONE_DROP.drop_item_position)
 }
-inline ::ProjectJ::Vector* S_MATCH_ITEM_DROP::release_drop_item_position() {
+inline ::ProjectJ::Vector* S_MATCH_ITEM_SOMEONE_DROP::release_drop_item_position() {
   
   ::ProjectJ::Vector* temp = _impl_.drop_item_position_;
   _impl_.drop_item_position_ = nullptr;
@@ -8388,14 +8797,14 @@ inline ::ProjectJ::Vector* S_MATCH_ITEM_DROP::release_drop_item_position() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::ProjectJ::Vector* S_MATCH_ITEM_DROP::unsafe_arena_release_drop_item_position() {
-  // @@protoc_insertion_point(field_release:ProjectJ.S_MATCH_ITEM_DROP.drop_item_position)
+inline ::ProjectJ::Vector* S_MATCH_ITEM_SOMEONE_DROP::unsafe_arena_release_drop_item_position() {
+  // @@protoc_insertion_point(field_release:ProjectJ.S_MATCH_ITEM_SOMEONE_DROP.drop_item_position)
   
   ::ProjectJ::Vector* temp = _impl_.drop_item_position_;
   _impl_.drop_item_position_ = nullptr;
   return temp;
 }
-inline ::ProjectJ::Vector* S_MATCH_ITEM_DROP::_internal_mutable_drop_item_position() {
+inline ::ProjectJ::Vector* S_MATCH_ITEM_SOMEONE_DROP::_internal_mutable_drop_item_position() {
   
   if (_impl_.drop_item_position_ == nullptr) {
     auto* p = CreateMaybeMessage<::ProjectJ::Vector>(GetArenaForAllocation());
@@ -8403,12 +8812,12 @@ inline ::ProjectJ::Vector* S_MATCH_ITEM_DROP::_internal_mutable_drop_item_positi
   }
   return _impl_.drop_item_position_;
 }
-inline ::ProjectJ::Vector* S_MATCH_ITEM_DROP::mutable_drop_item_position() {
+inline ::ProjectJ::Vector* S_MATCH_ITEM_SOMEONE_DROP::mutable_drop_item_position() {
   ::ProjectJ::Vector* _msg = _internal_mutable_drop_item_position();
-  // @@protoc_insertion_point(field_mutable:ProjectJ.S_MATCH_ITEM_DROP.drop_item_position)
+  // @@protoc_insertion_point(field_mutable:ProjectJ.S_MATCH_ITEM_SOMEONE_DROP.drop_item_position)
   return _msg;
 }
-inline void S_MATCH_ITEM_DROP::set_allocated_drop_item_position(::ProjectJ::Vector* drop_item_position) {
+inline void S_MATCH_ITEM_SOMEONE_DROP::set_allocated_drop_item_position(::ProjectJ::Vector* drop_item_position) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.drop_item_position_);
@@ -8426,26 +8835,26 @@ inline void S_MATCH_ITEM_DROP::set_allocated_drop_item_position(::ProjectJ::Vect
     
   }
   _impl_.drop_item_position_ = drop_item_position;
-  // @@protoc_insertion_point(field_set_allocated:ProjectJ.S_MATCH_ITEM_DROP.drop_item_position)
+  // @@protoc_insertion_point(field_set_allocated:ProjectJ.S_MATCH_ITEM_SOMEONE_DROP.drop_item_position)
 }
 
-// .ProjectJ.Rotator drop_item_rotation = 3;
-inline bool S_MATCH_ITEM_DROP::_internal_has_drop_item_rotation() const {
+// .ProjectJ.Rotator drop_item_rotation = 4;
+inline bool S_MATCH_ITEM_SOMEONE_DROP::_internal_has_drop_item_rotation() const {
   return this != internal_default_instance() && _impl_.drop_item_rotation_ != nullptr;
 }
-inline bool S_MATCH_ITEM_DROP::has_drop_item_rotation() const {
+inline bool S_MATCH_ITEM_SOMEONE_DROP::has_drop_item_rotation() const {
   return _internal_has_drop_item_rotation();
 }
-inline const ::ProjectJ::Rotator& S_MATCH_ITEM_DROP::_internal_drop_item_rotation() const {
+inline const ::ProjectJ::Rotator& S_MATCH_ITEM_SOMEONE_DROP::_internal_drop_item_rotation() const {
   const ::ProjectJ::Rotator* p = _impl_.drop_item_rotation_;
   return p != nullptr ? *p : reinterpret_cast<const ::ProjectJ::Rotator&>(
       ::ProjectJ::_Rotator_default_instance_);
 }
-inline const ::ProjectJ::Rotator& S_MATCH_ITEM_DROP::drop_item_rotation() const {
-  // @@protoc_insertion_point(field_get:ProjectJ.S_MATCH_ITEM_DROP.drop_item_rotation)
+inline const ::ProjectJ::Rotator& S_MATCH_ITEM_SOMEONE_DROP::drop_item_rotation() const {
+  // @@protoc_insertion_point(field_get:ProjectJ.S_MATCH_ITEM_SOMEONE_DROP.drop_item_rotation)
   return _internal_drop_item_rotation();
 }
-inline void S_MATCH_ITEM_DROP::unsafe_arena_set_allocated_drop_item_rotation(
+inline void S_MATCH_ITEM_SOMEONE_DROP::unsafe_arena_set_allocated_drop_item_rotation(
     ::ProjectJ::Rotator* drop_item_rotation) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.drop_item_rotation_);
@@ -8456,9 +8865,9 @@ inline void S_MATCH_ITEM_DROP::unsafe_arena_set_allocated_drop_item_rotation(
   } else {
     
   }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:ProjectJ.S_MATCH_ITEM_DROP.drop_item_rotation)
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:ProjectJ.S_MATCH_ITEM_SOMEONE_DROP.drop_item_rotation)
 }
-inline ::ProjectJ::Rotator* S_MATCH_ITEM_DROP::release_drop_item_rotation() {
+inline ::ProjectJ::Rotator* S_MATCH_ITEM_SOMEONE_DROP::release_drop_item_rotation() {
   
   ::ProjectJ::Rotator* temp = _impl_.drop_item_rotation_;
   _impl_.drop_item_rotation_ = nullptr;
@@ -8473,14 +8882,14 @@ inline ::ProjectJ::Rotator* S_MATCH_ITEM_DROP::release_drop_item_rotation() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::ProjectJ::Rotator* S_MATCH_ITEM_DROP::unsafe_arena_release_drop_item_rotation() {
-  // @@protoc_insertion_point(field_release:ProjectJ.S_MATCH_ITEM_DROP.drop_item_rotation)
+inline ::ProjectJ::Rotator* S_MATCH_ITEM_SOMEONE_DROP::unsafe_arena_release_drop_item_rotation() {
+  // @@protoc_insertion_point(field_release:ProjectJ.S_MATCH_ITEM_SOMEONE_DROP.drop_item_rotation)
   
   ::ProjectJ::Rotator* temp = _impl_.drop_item_rotation_;
   _impl_.drop_item_rotation_ = nullptr;
   return temp;
 }
-inline ::ProjectJ::Rotator* S_MATCH_ITEM_DROP::_internal_mutable_drop_item_rotation() {
+inline ::ProjectJ::Rotator* S_MATCH_ITEM_SOMEONE_DROP::_internal_mutable_drop_item_rotation() {
   
   if (_impl_.drop_item_rotation_ == nullptr) {
     auto* p = CreateMaybeMessage<::ProjectJ::Rotator>(GetArenaForAllocation());
@@ -8488,12 +8897,12 @@ inline ::ProjectJ::Rotator* S_MATCH_ITEM_DROP::_internal_mutable_drop_item_rotat
   }
   return _impl_.drop_item_rotation_;
 }
-inline ::ProjectJ::Rotator* S_MATCH_ITEM_DROP::mutable_drop_item_rotation() {
+inline ::ProjectJ::Rotator* S_MATCH_ITEM_SOMEONE_DROP::mutable_drop_item_rotation() {
   ::ProjectJ::Rotator* _msg = _internal_mutable_drop_item_rotation();
-  // @@protoc_insertion_point(field_mutable:ProjectJ.S_MATCH_ITEM_DROP.drop_item_rotation)
+  // @@protoc_insertion_point(field_mutable:ProjectJ.S_MATCH_ITEM_SOMEONE_DROP.drop_item_rotation)
   return _msg;
 }
-inline void S_MATCH_ITEM_DROP::set_allocated_drop_item_rotation(::ProjectJ::Rotator* drop_item_rotation) {
+inline void S_MATCH_ITEM_SOMEONE_DROP::set_allocated_drop_item_rotation(::ProjectJ::Rotator* drop_item_rotation) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.drop_item_rotation_);
@@ -8511,27 +8920,7 @@ inline void S_MATCH_ITEM_DROP::set_allocated_drop_item_rotation(::ProjectJ::Rota
     
   }
   _impl_.drop_item_rotation_ = drop_item_rotation;
-  // @@protoc_insertion_point(field_set_allocated:ProjectJ.S_MATCH_ITEM_DROP.drop_item_rotation)
-}
-
-// int32 item_id = 4;
-inline void S_MATCH_ITEM_DROP::clear_item_id() {
-  _impl_.item_id_ = 0;
-}
-inline int32_t S_MATCH_ITEM_DROP::_internal_item_id() const {
-  return _impl_.item_id_;
-}
-inline int32_t S_MATCH_ITEM_DROP::item_id() const {
-  // @@protoc_insertion_point(field_get:ProjectJ.S_MATCH_ITEM_DROP.item_id)
-  return _internal_item_id();
-}
-inline void S_MATCH_ITEM_DROP::_internal_set_item_id(int32_t value) {
-  
-  _impl_.item_id_ = value;
-}
-inline void S_MATCH_ITEM_DROP::set_item_id(int32_t value) {
-  _internal_set_item_id(value);
-  // @@protoc_insertion_point(field_set:ProjectJ.S_MATCH_ITEM_DROP.item_id)
+  // @@protoc_insertion_point(field_set_allocated:ProjectJ.S_MATCH_ITEM_SOMEONE_DROP.drop_item_rotation)
 }
 
 #ifdef __GNUC__

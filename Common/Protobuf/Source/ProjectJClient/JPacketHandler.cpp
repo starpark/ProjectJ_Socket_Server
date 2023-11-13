@@ -16,15 +16,13 @@ FPacket_S_ROOM_READY UJPacketHandler::Packet_S_ROOM_READY_Delegate;
 FPacket_S_ROOM_CHAT UJPacketHandler::Packet_S_ROOM_CHAT_Delegate;
 FPacket_S_ROOM_STANDBY_MATCH UJPacketHandler::Packet_S_ROOM_STANDBY_MATCH_Delegate;
 FPacket_S_ROOM_START_MATCH UJPacketHandler::Packet_S_ROOM_START_MATCH_Delegate;
-FPacket_S_MATCH_INIT_PLAYER_INDEX UJPacketHandler::Packet_S_MATCH_INIT_PLAYER_INDEX_Delegate;
-FPacket_S_MATCH_INIT_ITEMS UJPacketHandler::Packet_S_MATCH_INIT_ITEMS_Delegate;
 FPacket_S_MATCH_ALL_LOADING_COMPLETE UJPacketHandler::Packet_S_MATCH_ALL_LOADING_COMPLETE_Delegate;
 FPacket_S_MATCH_START UJPacketHandler::Packet_S_MATCH_START_Delegate;
 FPacket_S_MATCH_INFO UJPacketHandler::Packet_S_MATCH_INFO_Delegate;
 FPacket_S_MATCH_END UJPacketHandler::Packet_S_MATCH_END_Delegate;
-FPacket_S_MATCH_ITEM_PICKUP UJPacketHandler::Packet_S_MATCH_ITEM_PICKUP_Delegate;
-FPacket_S_MATCH_ITEM_MOVE UJPacketHandler::Packet_S_MATCH_ITEM_MOVE_Delegate;
-FPacket_S_MATCH_ITEM_DROP UJPacketHandler::Packet_S_MATCH_ITEM_DROP_Delegate;
+FPacket_S_MATCH_ITEM_SOMEONE_PICKUP UJPacketHandler::Packet_S_MATCH_ITEM_SOMEONE_PICKUP_Delegate;
+FPacket_S_MATCH_ITEM_SOMEONE_MOVE UJPacketHandler::Packet_S_MATCH_ITEM_SOMEONE_MOVE_Delegate;
+FPacket_S_MATCH_ITEM_SOMEONE_DROP UJPacketHandler::Packet_S_MATCH_ITEM_SOMEONE_DROP_Delegate;
 
 bool Handle_INVALID(UWorld* World, const TSharedPtr<JPackets>& Packet, float DeltaSeconds)
 {
@@ -139,24 +137,6 @@ bool Handle_S_ROOM_START_MATCH(UWorld* World, ProjectJ::S_ROOM_START_MATCH& Pack
 
 	return false;
 }
-bool Handle_S_MATCH_INIT_PLAYER_INDEX(UWorld* World, ProjectJ::S_MATCH_INIT_PLAYER_INDEX& Packet, float DeltaSeconds)
-{
-	if (UJPacketHandler::Packet_S_MATCH_INIT_PLAYER_INDEX_Delegate.IsBound())
-	{
-		return UJPacketHandler::Packet_S_MATCH_INIT_PLAYER_INDEX_Delegate.Execute(World, Packet, DeltaSeconds);
-	}
-
-	return false;
-}
-bool Handle_S_MATCH_INIT_ITEMS(UWorld* World, ProjectJ::S_MATCH_INIT_ITEMS& Packet, float DeltaSeconds)
-{
-	if (UJPacketHandler::Packet_S_MATCH_INIT_ITEMS_Delegate.IsBound())
-	{
-		return UJPacketHandler::Packet_S_MATCH_INIT_ITEMS_Delegate.Execute(World, Packet, DeltaSeconds);
-	}
-
-	return false;
-}
 bool Handle_S_MATCH_ALL_LOADING_COMPLETE(UWorld* World, ProjectJ::S_MATCH_ALL_LOADING_COMPLETE& Packet, float DeltaSeconds)
 {
 	if (UJPacketHandler::Packet_S_MATCH_ALL_LOADING_COMPLETE_Delegate.IsBound())
@@ -193,29 +173,29 @@ bool Handle_S_MATCH_END(UWorld* World, ProjectJ::S_MATCH_END& Packet, float Delt
 
 	return false;
 }
-bool Handle_S_MATCH_ITEM_PICKUP(UWorld* World, ProjectJ::S_MATCH_ITEM_PICKUP& Packet, float DeltaSeconds)
+bool Handle_S_MATCH_ITEM_SOMEONE_PICKUP(UWorld* World, ProjectJ::S_MATCH_ITEM_SOMEONE_PICKUP& Packet, float DeltaSeconds)
 {
-	if (UJPacketHandler::Packet_S_MATCH_ITEM_PICKUP_Delegate.IsBound())
+	if (UJPacketHandler::Packet_S_MATCH_ITEM_SOMEONE_PICKUP_Delegate.IsBound())
 	{
-		return UJPacketHandler::Packet_S_MATCH_ITEM_PICKUP_Delegate.Execute(World, Packet, DeltaSeconds);
+		return UJPacketHandler::Packet_S_MATCH_ITEM_SOMEONE_PICKUP_Delegate.Execute(World, Packet, DeltaSeconds);
 	}
 
 	return false;
 }
-bool Handle_S_MATCH_ITEM_MOVE(UWorld* World, ProjectJ::S_MATCH_ITEM_MOVE& Packet, float DeltaSeconds)
+bool Handle_S_MATCH_ITEM_SOMEONE_MOVE(UWorld* World, ProjectJ::S_MATCH_ITEM_SOMEONE_MOVE& Packet, float DeltaSeconds)
 {
-	if (UJPacketHandler::Packet_S_MATCH_ITEM_MOVE_Delegate.IsBound())
+	if (UJPacketHandler::Packet_S_MATCH_ITEM_SOMEONE_MOVE_Delegate.IsBound())
 	{
-		return UJPacketHandler::Packet_S_MATCH_ITEM_MOVE_Delegate.Execute(World, Packet, DeltaSeconds);
+		return UJPacketHandler::Packet_S_MATCH_ITEM_SOMEONE_MOVE_Delegate.Execute(World, Packet, DeltaSeconds);
 	}
 
 	return false;
 }
-bool Handle_S_MATCH_ITEM_DROP(UWorld* World, ProjectJ::S_MATCH_ITEM_DROP& Packet, float DeltaSeconds)
+bool Handle_S_MATCH_ITEM_SOMEONE_DROP(UWorld* World, ProjectJ::S_MATCH_ITEM_SOMEONE_DROP& Packet, float DeltaSeconds)
 {
-	if (UJPacketHandler::Packet_S_MATCH_ITEM_DROP_Delegate.IsBound())
+	if (UJPacketHandler::Packet_S_MATCH_ITEM_SOMEONE_DROP_Delegate.IsBound())
 	{
-		return UJPacketHandler::Packet_S_MATCH_ITEM_DROP_Delegate.Execute(World, Packet, DeltaSeconds);
+		return UJPacketHandler::Packet_S_MATCH_ITEM_SOMEONE_DROP_Delegate.Execute(World, Packet, DeltaSeconds);
 	}
 
 	return false;

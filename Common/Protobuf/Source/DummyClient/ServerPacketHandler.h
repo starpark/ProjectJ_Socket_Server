@@ -26,19 +26,18 @@ enum : uint16_t
 	PKT_S_ROOM_CHAT = 1017,
 	PKT_S_ROOM_STANDBY_MATCH = 1018,
 	PKT_S_ROOM_START_MATCH = 1019,
-	PKT_S_MATCH_INIT_PLAYER_INDEX = 1020,
-	PKT_S_MATCH_INIT_ITEMS = 1021,
-	PKT_C_MATCH_LOADING_COMPLETE = 1022,
-	PKT_S_MATCH_ALL_LOADING_COMPLETE = 1023,
-	PKT_S_MATCH_START = 1024,
-	PKT_S_MATCH_INFO = 1025,
-	PKT_S_MATCH_END = 1026,
-	PKT_C_MATCH_ITEM_PICKUP = 1027,
-	PKT_S_MATCH_ITEM_PICKUP = 1028,
-	PKT_C_MATCH_ITEM_MOVE = 1029,
-	PKT_S_MATCH_ITEM_MOVE = 1030,
-	PKT_C_MATCH_ITEM_DROP = 1031,
-	PKT_S_MATCH_ITEM_DROP = 1032,
+	PKT_C_MATCH_READY_TO_RECEIVE = 1020,
+	PKT_S_MATCH_ALL_LOADING_COMPLETE = 1021,
+	PKT_S_MATCH_START = 1022,
+	PKT_C_MATCH_INFO = 1023,
+	PKT_S_MATCH_INFO = 1024,
+	PKT_S_MATCH_END = 1025,
+	PKT_C_MATCH_ITEM_PICKUP = 1026,
+	PKT_C_MATCH_ITEM_MOVE = 1027,
+	PKT_C_MATCH_ITEM_DROP = 1028,
+	PKT_S_MATCH_ITEM_SOMEONE_PICKUP = 1029,
+	PKT_S_MATCH_ITEM_SOMEONE_MOVE = 1030,
+	PKT_S_MATCH_ITEM_SOMEONE_DROP = 1031,
 };
 
 bool Handle_INVALID(const shared_ptr<SessionBase>& session, BYTE* bufer, int numOfBytes);
@@ -54,21 +53,19 @@ bool Handle_S_ROOM_READY(const shared_ptr<SessionBase>& session, ProjectJ::S_ROO
 bool Handle_S_ROOM_CHAT(const shared_ptr<SessionBase>& session, ProjectJ::S_ROOM_CHAT& packet);
 bool Handle_S_ROOM_STANDBY_MATCH(const shared_ptr<SessionBase>& session, ProjectJ::S_ROOM_STANDBY_MATCH& packet);
 bool Handle_S_ROOM_START_MATCH(const shared_ptr<SessionBase>& session, ProjectJ::S_ROOM_START_MATCH& packet);
-bool Handle_S_MATCH_INIT_PLAYER_INDEX(const shared_ptr<SessionBase>& session, ProjectJ::S_MATCH_INIT_PLAYER_INDEX& packet);
-bool Handle_S_MATCH_INIT_ITEMS(const shared_ptr<SessionBase>& session, ProjectJ::S_MATCH_INIT_ITEMS& packet);
 bool Handle_S_MATCH_ALL_LOADING_COMPLETE(const shared_ptr<SessionBase>& session, ProjectJ::S_MATCH_ALL_LOADING_COMPLETE& packet);
 bool Handle_S_MATCH_START(const shared_ptr<SessionBase>& session, ProjectJ::S_MATCH_START& packet);
 bool Handle_S_MATCH_INFO(const shared_ptr<SessionBase>& session, ProjectJ::S_MATCH_INFO& packet);
 bool Handle_S_MATCH_END(const shared_ptr<SessionBase>& session, ProjectJ::S_MATCH_END& packet);
-bool Handle_S_MATCH_ITEM_PICKUP(const shared_ptr<SessionBase>& session, ProjectJ::S_MATCH_ITEM_PICKUP& packet);
-bool Handle_S_MATCH_ITEM_MOVE(const shared_ptr<SessionBase>& session, ProjectJ::S_MATCH_ITEM_MOVE& packet);
-bool Handle_S_MATCH_ITEM_DROP(const shared_ptr<SessionBase>& session, ProjectJ::S_MATCH_ITEM_DROP& packet);
+bool Handle_S_MATCH_ITEM_SOMEONE_PICKUP(const shared_ptr<SessionBase>& session, ProjectJ::S_MATCH_ITEM_SOMEONE_PICKUP& packet);
+bool Handle_S_MATCH_ITEM_SOMEONE_MOVE(const shared_ptr<SessionBase>& session, ProjectJ::S_MATCH_ITEM_SOMEONE_MOVE& packet);
+bool Handle_S_MATCH_ITEM_SOMEONE_DROP(const shared_ptr<SessionBase>& session, ProjectJ::S_MATCH_ITEM_SOMEONE_DROP& packet);
 
 
 // 소켓 수신 데이터 처리 및 송신 버퍼 생성 클래스
 // 최초 작성자: 박별
 // 수정자: 
-// 최종 수정일: 2023-11-09 자동 생성
+// 최종 수정일: 2023-11-13 자동 생성
 class ServerPacketHandler
 {
 public:
@@ -90,15 +87,13 @@ public:
 		GPacketHandler[PKT_S_ROOM_CHAT] = [](shared_ptr<SessionBase> session, BYTE* buffer, int numOfBytes) {return HandlePacket<ProjectJ::S_ROOM_CHAT>(Handle_S_ROOM_CHAT, session, buffer, numOfBytes);};
 		GPacketHandler[PKT_S_ROOM_STANDBY_MATCH] = [](shared_ptr<SessionBase> session, BYTE* buffer, int numOfBytes) {return HandlePacket<ProjectJ::S_ROOM_STANDBY_MATCH>(Handle_S_ROOM_STANDBY_MATCH, session, buffer, numOfBytes);};
 		GPacketHandler[PKT_S_ROOM_START_MATCH] = [](shared_ptr<SessionBase> session, BYTE* buffer, int numOfBytes) {return HandlePacket<ProjectJ::S_ROOM_START_MATCH>(Handle_S_ROOM_START_MATCH, session, buffer, numOfBytes);};
-		GPacketHandler[PKT_S_MATCH_INIT_PLAYER_INDEX] = [](shared_ptr<SessionBase> session, BYTE* buffer, int numOfBytes) {return HandlePacket<ProjectJ::S_MATCH_INIT_PLAYER_INDEX>(Handle_S_MATCH_INIT_PLAYER_INDEX, session, buffer, numOfBytes);};
-		GPacketHandler[PKT_S_MATCH_INIT_ITEMS] = [](shared_ptr<SessionBase> session, BYTE* buffer, int numOfBytes) {return HandlePacket<ProjectJ::S_MATCH_INIT_ITEMS>(Handle_S_MATCH_INIT_ITEMS, session, buffer, numOfBytes);};
 		GPacketHandler[PKT_S_MATCH_ALL_LOADING_COMPLETE] = [](shared_ptr<SessionBase> session, BYTE* buffer, int numOfBytes) {return HandlePacket<ProjectJ::S_MATCH_ALL_LOADING_COMPLETE>(Handle_S_MATCH_ALL_LOADING_COMPLETE, session, buffer, numOfBytes);};
 		GPacketHandler[PKT_S_MATCH_START] = [](shared_ptr<SessionBase> session, BYTE* buffer, int numOfBytes) {return HandlePacket<ProjectJ::S_MATCH_START>(Handle_S_MATCH_START, session, buffer, numOfBytes);};
 		GPacketHandler[PKT_S_MATCH_INFO] = [](shared_ptr<SessionBase> session, BYTE* buffer, int numOfBytes) {return HandlePacket<ProjectJ::S_MATCH_INFO>(Handle_S_MATCH_INFO, session, buffer, numOfBytes);};
 		GPacketHandler[PKT_S_MATCH_END] = [](shared_ptr<SessionBase> session, BYTE* buffer, int numOfBytes) {return HandlePacket<ProjectJ::S_MATCH_END>(Handle_S_MATCH_END, session, buffer, numOfBytes);};
-		GPacketHandler[PKT_S_MATCH_ITEM_PICKUP] = [](shared_ptr<SessionBase> session, BYTE* buffer, int numOfBytes) {return HandlePacket<ProjectJ::S_MATCH_ITEM_PICKUP>(Handle_S_MATCH_ITEM_PICKUP, session, buffer, numOfBytes);};
-		GPacketHandler[PKT_S_MATCH_ITEM_MOVE] = [](shared_ptr<SessionBase> session, BYTE* buffer, int numOfBytes) {return HandlePacket<ProjectJ::S_MATCH_ITEM_MOVE>(Handle_S_MATCH_ITEM_MOVE, session, buffer, numOfBytes);};
-		GPacketHandler[PKT_S_MATCH_ITEM_DROP] = [](shared_ptr<SessionBase> session, BYTE* buffer, int numOfBytes) {return HandlePacket<ProjectJ::S_MATCH_ITEM_DROP>(Handle_S_MATCH_ITEM_DROP, session, buffer, numOfBytes);};
+		GPacketHandler[PKT_S_MATCH_ITEM_SOMEONE_PICKUP] = [](shared_ptr<SessionBase> session, BYTE* buffer, int numOfBytes) {return HandlePacket<ProjectJ::S_MATCH_ITEM_SOMEONE_PICKUP>(Handle_S_MATCH_ITEM_SOMEONE_PICKUP, session, buffer, numOfBytes);};
+		GPacketHandler[PKT_S_MATCH_ITEM_SOMEONE_MOVE] = [](shared_ptr<SessionBase> session, BYTE* buffer, int numOfBytes) {return HandlePacket<ProjectJ::S_MATCH_ITEM_SOMEONE_MOVE>(Handle_S_MATCH_ITEM_SOMEONE_MOVE, session, buffer, numOfBytes);};
+		GPacketHandler[PKT_S_MATCH_ITEM_SOMEONE_DROP] = [](shared_ptr<SessionBase> session, BYTE* buffer, int numOfBytes) {return HandlePacket<ProjectJ::S_MATCH_ITEM_SOMEONE_DROP>(Handle_S_MATCH_ITEM_SOMEONE_DROP, session, buffer, numOfBytes);};
 	}
 
 	static bool HandlePacket(shared_ptr<SessionBase>& session, BYTE* buffer, int numOfBytes)
@@ -114,7 +109,8 @@ public:
 	static shared_ptr<SendBuffer> MakeSendBuffer(ProjectJ::C_ROOM_LEAVE& packet) {return MakeSendBuffer(packet, PKT_C_ROOM_LEAVE);}
 	static shared_ptr<SendBuffer> MakeSendBuffer(ProjectJ::C_ROOM_READY& packet) {return MakeSendBuffer(packet, PKT_C_ROOM_READY);}
 	static shared_ptr<SendBuffer> MakeSendBuffer(ProjectJ::C_ROOM_CHAT& packet) {return MakeSendBuffer(packet, PKT_C_ROOM_CHAT);}
-	static shared_ptr<SendBuffer> MakeSendBuffer(ProjectJ::C_MATCH_LOADING_COMPLETE& packet) {return MakeSendBuffer(packet, PKT_C_MATCH_LOADING_COMPLETE);}
+	static shared_ptr<SendBuffer> MakeSendBuffer(ProjectJ::C_MATCH_READY_TO_RECEIVE& packet) {return MakeSendBuffer(packet, PKT_C_MATCH_READY_TO_RECEIVE);}
+	static shared_ptr<SendBuffer> MakeSendBuffer(ProjectJ::C_MATCH_INFO& packet) {return MakeSendBuffer(packet, PKT_C_MATCH_INFO);}
 	static shared_ptr<SendBuffer> MakeSendBuffer(ProjectJ::C_MATCH_ITEM_PICKUP& packet) {return MakeSendBuffer(packet, PKT_C_MATCH_ITEM_PICKUP);}
 	static shared_ptr<SendBuffer> MakeSendBuffer(ProjectJ::C_MATCH_ITEM_MOVE& packet) {return MakeSendBuffer(packet, PKT_C_MATCH_ITEM_MOVE);}
 	static shared_ptr<SendBuffer> MakeSendBuffer(ProjectJ::C_MATCH_ITEM_DROP& packet) {return MakeSendBuffer(packet, PKT_C_MATCH_ITEM_DROP);}

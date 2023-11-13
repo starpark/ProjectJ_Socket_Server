@@ -3,6 +3,7 @@
 #include "GameSession.h"
 #include "GameService.h"
 #include "Lobby.h"
+#include "Match.h"
 #include "jwt/jwt.hpp"
 
 PacketHandlerFunc GPacketHandler[UINT16_MAX];
@@ -402,22 +403,61 @@ bool Handle_C_ROOM_CHAT(const shared_ptr<SessionBase>& session, ProjectJ::C_ROOM
 
 /* MATCH PROTOCOLS */
 
-bool Handle_C_MATCH_LOADING_COMPLETE(const shared_ptr<SessionBase>& session, ProjectJ::C_MATCH_LOADING_COMPLETE& packet)
+bool Handle_C_MATCH_READY_TO_RECEIVE(const shared_ptr<SessionBase>& session, ProjectJ::C_MATCH_READY_TO_RECEIVE& packet)
+{
+	shared_ptr<GameSession> gameSession = static_pointer_cast<GameSession>(session);
+	auto match = gameSession->TryGetMatch();
+
+	if (match)
+	{
+		match->DoTaskAsync(&Match::PlayerLoadingComplete, gameSession);
+	}
+
+	return true;
+}
+
+bool Handle_C_MATCH_INFO(const shared_ptr<SessionBase>& session, ProjectJ::C_MATCH_INFO& packet)
 {
 	return true;
 }
 
 bool Handle_C_MATCH_ITEM_PICKUP(const shared_ptr<SessionBase>& session, ProjectJ::C_MATCH_ITEM_PICKUP& packet)
 {
+	shared_ptr<GameSession> gameSession = static_pointer_cast<GameSession>(session);
+	auto match = gameSession->TryGetMatch();
+
+	if (match)
+	{
+		match->PlayerPickupItem(packet.player_index(), packet.item_index());
+	}
+
 	return true;
 }
 
 bool Handle_C_MATCH_ITEM_MOVE(const shared_ptr<SessionBase>& session, ProjectJ::C_MATCH_ITEM_MOVE& packet)
 {
+	shared_ptr<GameSession> gameSession = static_pointer_cast<GameSession>(session);
+	auto match = gameSession->TryGetMatch();
+
+	if (match)
+	{
+		match->PlayerMoveItem(packet.player_index(),
+		                      packet.from_index(),
+		                      packet.to_index(),
+		                      packet.item_index(),
+		                      packet.target_top_left_index(),
+		                      packet.is_item_rotated());
+	}
 	return true;
 }
 
 bool Handle_C_MATCH_ITEM_DROP(const shared_ptr<SessionBase>& session, ProjectJ::C_MATCH_ITEM_DROP& packet)
 {
+	shared_ptr<GameSession> gameSession = static_pointer_cast<GameSession>(session);
+	auto match = gameSession->TryGetMatch();
+
+	if (match)
+	{
+	}
 	return true;
 }
