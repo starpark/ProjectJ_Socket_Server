@@ -1,25 +1,23 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "Player.h"
 #include "Match.h"
 #include "GameSession.h"
 
-Player::Player(const shared_ptr<Match>& match)
-	: match_(match)
+
+Player::Player(int index, int row, int column, int maxWeight, const shared_ptr<Match>& match)
+	: Inventory(row, column, maxWeight), index_(index), match_(match)
 {
-	inventory_ = make_shared<Inventory>();
 }
 
 Player::~Player()
 {
 	GLogHelper->Print(LogCategory::Log_INFO, L"~Player()\n");
 	match_ = nullptr;
-	inventory_ = nullptr;
 }
 
 
 void Player::SetInfo(ProjectJ::Vector position, ProjectJ::Rotator rotation)
 {
-	WRITE_LOCK;
 	worldPosition_.x = position.x();
 	worldPosition_.y = position.y();
 	worldPosition_.z = position.z();

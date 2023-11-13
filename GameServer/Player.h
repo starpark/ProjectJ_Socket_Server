@@ -4,36 +4,25 @@
 class Match;
 class GameSession;
 
-struct Vector
-{
-	float x;
-	float y;
-	float z;
-};
-
-struct Rotator
-{
-	float roll;
-	float pitch;
-	float yaw;
-};
-
-class Player
+class Player : public Inventory
 {
 public:
-	Player(const shared_ptr<Match>& match);
-	~Player();
+	Player(int index, int row, int column, int maxWeight, const shared_ptr<Match>& match);
+	virtual ~Player();
 
 	shared_ptr<GameSession> GetOwnerSession() { return ownerSession_.lock(); }
+	int GetIndex() const { return index_; }
+	Vector GetVector() const { return worldPosition_; }
+	Rotator GetRotator() const { return worldRotation_; }
+
 	void SetSession(const shared_ptr<GameSession>& session) { ownerSession_ = session; }
 	void SetInfo(ProjectJ::Vector position, ProjectJ::Rotator rotation);
 	void ResetMatch() { match_.reset(); }
 
 private:
-	USE_LOCK;
+	int index_;
 	Vector worldPosition_;
 	Rotator worldRotation_;
 	shared_ptr<Match> match_;
-	shared_ptr<Inventory> inventory_;
 	weak_ptr<GameSession> ownerSession_;
 };
