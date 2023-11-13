@@ -1,35 +1,6 @@
 #include "pch.h"
 #include "Item.h"
 
-Item::Item(int id, int weight, Point size, ProjectJ::Vector vector, ProjectJ::Rotator rotate)
-	: itemID_(id), weight_(weight), size_(size), vector_(vector), rotation_(rotate)
-{
-}
-
-Item::~Item()
-{
-
-}
-
-void Item::DroppedToWorld(ProjectJ::Vector vector, ProjectJ::Rotator rotation)
-{
-	vector_ = vector;
-	rotation_ = rotation;
-	topLeftIndex_ = -1;
-}
-
-void Item::PickedUpByPlayer(shared_ptr<Player> player, int topLeftIndex, bool rotated)
-{
-	topLeftIndex_ = topLeftIndex;
-	bIsRotated_ = rotated;
-}
-
-void Item::RelocatedInInventory(int topLeftIndex, bool rotated)
-{
-	topLeftIndex_ = topLeftIndex;
-	bIsRotated_ = rotated;
-}
-
 string ItemManager::version_;
 string ItemManager::updatedDate_;
 vector<ItemData> ItemManager::itemData_;
@@ -67,9 +38,9 @@ bool ItemManager::Init()
 				for (auto item : data["Items"])
 				{
 					itemData_.push_back(ItemData{
-						item["ItemID"], item["Category"], item["Size"]["Height"], item["Size"]["Width"],
-						item["Weight"]["Max"],
-						item["Weight"]["Min"]
+						item["ItemID"], item["Size_Height"], item["Size_Width"],
+						item["Weight_Max"],
+						item["Weight_Min"]
 					});
 				}
 			}
