@@ -11,34 +11,6 @@ UINT32 TimerTaskManager::GetThreadId(UINT64 state)
 	return static_cast<UINT32>(state >> 32);
 }
 
-
-/*
-void TimerTaskManager::ClearTimer(TimerHandle& handle)
-{
-	if (TimerData* timerData = FindTimer(handle))
-	{
-		switch (timerData->status)
-		{
-		case TimerStatus::Active:
-			timerData->status = TimerStatus::ActivePendingRemoval;
-			break;
-
-		case TimerStatus::Executing:
-			RemoveTimer(handle);
-			break;
-
-		case TimerStatus::ActivePendingRemoval:
-			// 이미 삭제가 진행된 상태
-			break;
-
-		default:
-			CRASH("Invalid Timer Status");
-		}
-	}
-	handle.Invalidate();
-}
-*/
-
 void TimerTaskManager::RemoveTimer(TimerHandle handle)
 {
 	if (TimerElementPtr element = handle.lock())
