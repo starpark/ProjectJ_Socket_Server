@@ -317,8 +317,7 @@ void Room::StartMatch()
 	shared_ptr<GameSession> fugitiveThird = sessionSlots_[3].first;
 
 	match_ = make_shared<Match>(GetRoomPtr());
-	match_->Init(chaser, fugitiveFirst, fugitiveSecond, fugitiveThird);
-
+	match_->DoTaskAsync(&Match::Init, chaser, fugitiveFirst, fugitiveSecond, fugitiveThird);
 	{
 		ProjectJ::S_ROOM_START_MATCH sendPacket;
 		sendPacket.set_start(true);
