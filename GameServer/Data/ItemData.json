@@ -1,34 +1,321 @@
-﻿{
+{
   "Version": "0.1",
-  "Date" :  "2023-10-27",
+  "Date": "2023-11-13",
   "Items": [
     {
-      "ItemID": "Item0000",
-      "ItemName": "테스트 아이템1",
-      "Description": "테스트용 아이템1",
-      "Category": "Test",
-      "Size": {
-        "Height": 2,
-        "Width": 2
-      },
-      "Weight": {
-        "Min": 1000,
-        "Max": 2000
-      }
+      "ItemID": 1,
+      "ItemName_Eng": "Beer",
+      "ItemName_Kor": "맥주병",
+      "Size_Width": 1,
+      "Size_Height": 4,
+      "Weight_Min": 300,
+      "Weight_Max": 400
     },
     {
-      "ItemID": "Item0001",
-      "ItemName": "테스트 아이템2",
-      "Description": "테스트용 아이템2",
-      "Category": "Test",
-      "Size": {
-        "Height": 3,
-        "Width": 3
-      },
-      "Weight": {
-        "Min": 2000,
-        "Max": 3000
-      }
+      "ItemID": 2,
+      "ItemName_Eng": "Book1",
+      "ItemName_Kor": "책_1",
+      "Size_Width": 2,
+      "Size_Height": 2,
+      "Weight_Min": 300,
+      "Weight_Max": 500
+    },
+    {
+      "ItemID": 3,
+      "ItemName_Eng": "Book2",
+      "ItemName_Kor": "책_2",
+      "Size_Width": 2,
+      "Size_Height": 2,
+      "Weight_Min": 300,
+      "Weight_Max": 500
+    },
+    {
+      "ItemID": 4,
+      "ItemName_Eng": "Book3",
+      "ItemName_Kor": "책_3",
+      "Size_Width": 2,
+      "Size_Height": 2,
+      "Weight_Min": 300,
+      "Weight_Max": 500
+    },
+    {
+      "ItemID": 5,
+      "ItemName_Eng": "Book4",
+      "ItemName_Kor": "책_4",
+      "Size_Width": 2,
+      "Size_Height": 2,
+      "Weight_Min": 300,
+      "Weight_Max": 500
+    },
+    {
+      "ItemID": 6,
+      "ItemName_Eng": "Book6",
+      "ItemName_Kor": "책_6",
+      "Size_Width": 2,
+      "Size_Height": 2,
+      "Weight_Min": 300,
+      "Weight_Max": 500
+    },
+    {
+      "ItemID": 7,
+      "ItemName_Eng": "Bottle1",
+      "ItemName_Kor": "병_1",
+      "Size_Width": 1,
+      "Size_Height": 3,
+      "Weight_Min": 200,
+      "Weight_Max": 400
+    },
+    {
+      "ItemID": 8,
+      "ItemName_Eng": "Bottle2",
+      "ItemName_Kor": "병_2",
+      "Size_Width": 1,
+      "Size_Height": 3,
+      "Weight_Min": 200,
+      "Weight_Max": 400
+    },
+    {
+      "ItemID": 9,
+      "ItemName_Eng": "Bottle3",
+      "ItemName_Kor": "병_3",
+      "Size_Width": 1,
+      "Size_Height": 3,
+      "Weight_Min": 200,
+      "Weight_Max": 400
+    },
+    {
+      "ItemID": 10,
+      "ItemName_Eng": "Bottle4",
+      "ItemName_Kor": "병_4",
+      "Size_Width": 1,
+      "Size_Height": 3,
+      "Weight_Min": 200,
+      "Weight_Max": 400
+    },
+    {
+      "ItemID": 11,
+      "ItemName_Eng": "Bottle5",
+      "ItemName_Kor": "병_5",
+      "Size_Width": 1,
+      "Size_Height": 3,
+      "Weight_Min": 200,
+      "Weight_Max": 400
+    },
+    {
+      "ItemID": 12,
+      "ItemName_Eng": "Bottle6",
+      "ItemName_Kor": "병_6",
+      "Size_Width": 1,
+      "Size_Height": 3,
+      "Weight_Min": 200,
+      "Weight_Max": 400
+    },
+    {
+      "ItemID": 13,
+      "ItemName_Eng": "Bushing",
+      "ItemName_Kor": "부싱",
+      "Size_Width": 1,
+      "Size_Height": 1,
+      "Weight_Min": 100,
+      "Weight_Max": 200
+    },
+    {
+      "ItemID": 14,
+      "ItemName_Eng": "Can1",
+      "ItemName_Kor": "캔_1",
+      "Size_Width": 1,
+      "Size_Height": 2,
+      "Weight_Min": 50,
+      "Weight_Max": 200
+    },
+    {
+      "ItemID": 15,
+      "ItemName_Eng": "Can2",
+      "ItemName_Kor": "캔_2",
+      "Size_Width": 1,
+      "Size_Height": 2,
+      "Weight_Min": 50,
+      "Weight_Max": 200
+    },
+    {
+      "ItemID": 16,
+      "ItemName_Eng": "Can3",
+      "ItemName_Kor": "캔_3",
+      "Size_Width": 1,
+      "Size_Height": 2,
+      "Weight_Min": 50,
+      "Weight_Max": 200
+    },
+    {
+      "ItemID": 17,
+      "ItemName_Eng": "Can4",
+      "ItemName_Kor": "캔_4",
+      "Size_Width": 1,
+      "Size_Height": 2,
+      "Weight_Min": 50,
+      "Weight_Max": 200
+    },
+    {
+      "ItemID": 18,
+      "ItemName_Eng": "Can5",
+      "ItemName_Kor": "캔_5",
+      "Size_Width": 1,
+      "Size_Height": 2,
+      "Weight_Min": 50,
+      "Weight_Max": 200
+    },
+    {
+      "ItemID": 19,
+      "ItemName_Eng": "Can6",
+      "ItemName_Kor": "캔_6",
+      "Size_Width": 1,
+      "Size_Height": 2,
+      "Weight_Min": 50,
+      "Weight_Max": 200
+    },
+    {
+      "ItemID": 20,
+      "ItemName_Eng": "Can7",
+      "ItemName_Kor": "캔_7",
+      "Size_Width": 1,
+      "Size_Height": 2,
+      "Weight_Min": 50,
+      "Weight_Max": 200
+    },
+    {
+      "ItemID": 21,
+      "ItemName_Eng": "Can8",
+      "ItemName_Kor": "캔_8",
+      "Size_Width": 1,
+      "Size_Height": 2,
+      "Weight_Min": 50,
+      "Weight_Max": 20
+    },
+    {
+      "ItemID": 22,
+      "ItemName_Eng": "Chips1",
+      "ItemName_Kor": "감자칩봉투_1",
+      "Size_Width": 2,
+      "Size_Height": 2,
+      "Weight_Min": 10,
+      "Weight_Max": 50
+    },
+    {
+      "ItemID": 23,
+      "ItemName_Eng": "Chips2",
+      "ItemName_Kor": "감자칩봉투_2",
+      "Size_Width": 2,
+      "Size_Height": 2,
+      "Weight_Min": 10,
+      "Weight_Max": 50
+    },
+    {
+      "ItemID": 24,
+      "ItemName_Eng": "CigarettePackage2",
+      "ItemName_Kor": "담배값",
+      "Size_Width": 1,
+      "Size_Height": 1,
+      "Weight_Min": 10,
+      "Weight_Max": 50
+    },
+    {
+      "ItemID": 25,
+      "ItemName_Eng": "CoffeCup",
+      "ItemName_Kor": "컵",
+      "Size_Width": 2,
+      "Size_Height": 2,
+      "Weight_Min": 300,
+      "Weight_Max": 400
+    },
+    {
+      "ItemID": 26,
+      "ItemName_Eng": "Milk",
+      "ItemName_Kor": "우유곽",
+      "Size_Width": 1,
+      "Size_Height": 3,
+      "Weight_Min": 10,
+      "Weight_Max": 50
+    },
+    {
+      "ItemID": 27,
+      "ItemName_Eng": "PaperBag",
+      "ItemName_Kor": "종이백",
+      "Size_Width": 2,
+      "Size_Height": 3,
+      "Weight_Min": 10,
+      "Weight_Max": 50
+    },
+    {
+      "ItemID": 28,
+      "ItemName_Eng": "SmallBox1",
+      "ItemName_Kor": "상자_1",
+      "Size_Width": 4,
+      "Size_Height": 3,
+      "Weight_Min": 10,
+      "Weight_Max": 500
+    },
+    {
+      "ItemID": 29,
+      "ItemName_Eng": "SmallBox2",
+      "ItemName_Kor": "상자_2",
+      "Size_Width": 4,
+      "Size_Height": 3,
+      "Weight_Min": 10,
+      "Weight_Max": 500
+    },
+    {
+      "ItemID": 30,
+      "ItemName_Eng": "SmallBox4",
+      "ItemName_Kor": "상자_4",
+      "Size_Width": 4,
+      "Size_Height": 3,
+      "Weight_Min": 10,
+      "Weight_Max": 500
+    },
+    {
+      "ItemID": 31,
+      "ItemName_Eng": "Soda",
+      "ItemName_Kor": "음료병",
+      "Size_Width": 1,
+      "Size_Height": 3,
+      "Weight_Min": 200,
+      "Weight_Max": 400
+    },
+    {
+      "ItemID": 32,
+      "ItemName_Eng": "Trashbag1",
+      "ItemName_Kor": "쓰레기봉투_1",
+      "Size_Width": 4,
+      "Size_Height": 5,
+      "Weight_Min": 200,
+      "Weight_Max": 1000
+    },
+    {
+      "ItemID": 33,
+      "ItemName_Eng": "Trashbag2",
+      "ItemName_Kor": "쓰레기봉투_2",
+      "Size_Width": 5,
+      "Size_Height": 6,
+      "Weight_Min": 200,
+      "Weight_Max": 1000
+    },
+    {
+      "ItemID": 34,
+      "ItemName_Eng": "Trashbag3",
+      "ItemName_Kor": "쓰레기봉투_3",
+      "Size_Width": 6,
+      "Size_Height": 7,
+      "Weight_Min": 200,
+      "Weight_Max": 1000
+    },
+    {
+      "ItemID": 35,
+      "ItemName_Eng": "Wine",
+      "ItemName_Kor": "와인병",
+      "Size_Width": 1,
+      "Size_Height": 4,
+      "Weight_Min": 300,
+      "Weight_Max": 400
     }
   ]
 }
