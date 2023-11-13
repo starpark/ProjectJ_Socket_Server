@@ -171,6 +171,7 @@
     <ClInclude Include="ThreadManager.h" />
     <ClInclude Include="TickTask.h" />
     <ClInclude Include="TimerTask.h" />
+    <ClInclude Include="Types.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CommandTask.cpp" />
@@ -200,6 +201,7 @@
     <ClCompile Include="ThreadManager.cpp" />
     <ClCompile Include="TickTask.cpp" />
     <ClCompile Include="TimerTask.cpp" />
+    <ClCompile Include="Types.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

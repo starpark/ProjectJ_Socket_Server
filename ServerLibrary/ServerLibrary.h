@@ -2,6 +2,7 @@
 
 #include "Macro.h"
 #include "Global.h"
+#include "Types.h"
 
 #include <iostream>
 #include <mutex>
