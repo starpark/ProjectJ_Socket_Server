@@ -1,56 +1,60 @@
 #pragma once
-#include "TickTask.h"
+#include "Scale.h"
 #include "Item.h"
+
+#define CHASER_INDEX 0
+#define FUGITIVE_FIRST_INDEX 1
+#define FUGITIVE_SECOND_INDEX 2
+#define FUGITIVE_THIRD_INDEX 3
+
+#define SCALE_FIRST_INDEX 0
+#define SCALE_SECOND_INDEX 1
+#define SCALE_THIRD_INDEX 2
+#define SCALE_FOURTH_INDEX 3
+
+#define MAX_INVENTORY_INDEX 8
 
 class GameSession;
 class Room;
 class Scale;
 
-enum class PlayerState
-{
-	NONE = 0,
-	LOADING = 1,
-	ALIVE = 2,
-	ALIVE_DAMAGED = 3,
-	ALIVE_CRITICAL = 4,
-	ALIVE_MORIBUND = 5,
-	ESCAPED = 6,
-	MURDERED = 7,
-	DISCONNECTED = 8
-};
-
 class Match : public CommandTaskObject
 {
 	enum : UINT64
 	{
-		MATCH_END_TICK = 15 * 60 * 1000
+		MATCH_END_TICK = 1000 * 60 * 15
 	};
 
+	// State
 public:
 	Match(shared_ptr<Room> owner);
 	~Match() override;
 
+	shared_ptr<Match> GetMatchPtr() { return static_pointer_cast<Match>(shared_from_this()); }
+	ProjectJ::PlayerInfo* GetPlayerInfo(int playerIndex);
+
 	void Tick(double deltaTime);
 	void Broadcast(shared_ptr<SendBuffer> sendBuffer);
 
-	void Init(shared_ptr<GameSession> chaser, shared_ptr<GameSession> fugitiveFirst,
+	void Init(shared_ptr<GameSession> chaser,
+	          shared_ptr<GameSession> fugitiveFirst,
 	          shared_ptr<GameSession> fugitiveSecond,
 	          shared_ptr<GameSession> fugitiveThird);
 	void Start();
 	void End();
 	bool CheckEndCondition();
-	bool CheckPlayers();
-	void PlayerStateChanged(shared_ptr<GameSession> player, PlayerState state);
+	bool CheckPlayersState();
+	void PlayerStateChanged(const shared_ptr<GameSession>& session, ProjectJ::MatchPlayerState state);
 	void PlayerDisconnected(const shared_ptr<GameSession>& session);
 
-	
+	// Contents
+public:
+	void PlayerLoadingComplete(shared_ptr<GameSession> session);
+	void PlayerPickupItem(int playerIndex, int itemIndex);
+	void PlayerMoveItem(int playerIndex, int fromIndex, int toIndex, int itemIndex, int targetTopLeftIndex, bool isRotated);
+	void PlayerDropItem(int playerIndex, int itemIndex, ProjectJ::Vector position, ProjectJ::Rotator rotation);
 
 public:
-	shared_ptr<Match> GetMatchPtr() { return static_pointer_cast<Match>(shared_from_this()); }
-
-public:
-
-
 private:
 	void GenerateItems();
 	void PlayerBackToRoom();
@@ -60,7 +64,7 @@ private:
 	atomic<bool> matchStated_ = false;
 	UINT64 matchEndTick_ = 0;
 	shared_ptr<Room> ownerRoom_;
-	vector<pair<shared_ptr<Player>, PlayerState>> players_;
+	vector<pair<shared_ptr<Player>, ProjectJ::MatchPlayerState>> players_;
 	vector<shared_ptr<Scale>> scales_;
-	map<int, shared_ptr<Item>> items_;
+	vector<shared_ptr<Item>> items_;
 };
