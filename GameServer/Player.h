@@ -8,7 +8,7 @@ class Player : public Inventory
 {
 public:
 	Player(int index, int row, int column, int maxWeight, const shared_ptr<Match>& match);
-	virtual ~Player();
+	~Player() override;
 
 	shared_ptr<GameSession> GetOwnerSession() { return ownerSession_.lock(); }
 	int GetIndex() const { return index_; }
@@ -20,7 +20,6 @@ public:
 	void ResetMatch() { match_.reset(); }
 
 private:
-	int index_;
 	Vector worldPosition_;
 	Rotator worldRotation_;
 	shared_ptr<Match> match_;

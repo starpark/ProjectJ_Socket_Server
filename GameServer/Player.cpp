@@ -5,7 +5,7 @@
 
 
 Player::Player(int index, int row, int column, int maxWeight, const shared_ptr<Match>& match)
-	: Inventory(row, column, maxWeight), index_(index), match_(match)
+	: Inventory(index, row, column, maxWeight), match_(match)
 {
 }
 

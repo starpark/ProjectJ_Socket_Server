@@ -12,12 +12,12 @@ public:
 	Scale(int index, int operatingWeight, int tolerance, int ivRow, int ivColumn);
 	~Scale() override;
 
+	int GetIndex() const { return index_; }
 	bool IsOperating();
 	int GetOperatingWeight() const { return operatingWeight_; }
 	int GetTolerance() const { return tolerance_; }
 
 private:
-	int index_;
 	int operatingWeight_;
 	int tolerance_;
 };

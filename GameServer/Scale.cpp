@@ -2,7 +2,7 @@
 #include "Scale.h"
 
 Scale::Scale(int index, int operatingWeight, int tolerance, int ivRow, int ivColumn)
-	: Inventory(ivRow, ivColumn, SCALE_MAX_WEIGHT), index_(index), operatingWeight_(operatingWeight), tolerance_(tolerance)
+	: Inventory(index, ivRow, ivColumn, SCALE_MAX_WEIGHT), operatingWeight_(operatingWeight), tolerance_(tolerance)
 {
 }
 
