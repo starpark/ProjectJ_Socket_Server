@@ -1,6 +1,8 @@
 ﻿#include "pch.h"
 #include "Client.h"
 
+#define TEST_PORT 55141
+#define LIVE_PORT 3000
 #define SESSION_COUNT 10
 
 int main(int argc, char* argv[])
@@ -10,7 +12,7 @@ int main(int argc, char* argv[])
 	this_thread::sleep_for(1s);
 
 	auto service = make_shared<ClientService>(
-		NetAddress(L"127.0.0.1", 3000),
+		NetAddress(L"127.0.0.1", TEST_PORT),
 		[=]() { return make_shared<ClientSession>(); },
 		SESSION_COUNT
 	);

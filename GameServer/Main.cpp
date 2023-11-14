@@ -44,7 +44,7 @@ int main()
 	}
 	GamePacketHandler::Init();
 
-	auto service = make_shared<GameService>(NetAddress(L"0.0.0.0", LIVE_PORT),
+	auto service = make_shared<GameService>(NetAddress(L"0.0.0.0", TEST_PORT),
 	                                        [=]() { return make_shared<GameSession>(); },
 	                                        1000);
 
@@ -58,7 +58,6 @@ int main()
 			});
 		}
 	}
-
 
 	while (true)
 	{
