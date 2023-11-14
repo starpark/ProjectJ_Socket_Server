@@ -231,5 +231,11 @@ message S_MATCH_ITEM_SOMEONE_DROP
 	Rotator drop_item_rotation = 4;
 }
 
+message S_MATCH_SCALE_ON_CHANGED
+{
+	int32 scale_index = 1;
+	int32 current_weight = 2;
+	bool is_operating = 3;
+}
 
 

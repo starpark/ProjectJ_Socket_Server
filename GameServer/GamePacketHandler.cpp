@@ -410,7 +410,7 @@ bool Handle_C_MATCH_READY_TO_RECEIVE(const shared_ptr<SessionBase>& session, Pro
 
 	if (match)
 	{
-		match->DoTaskAsync(&Match::PlayerLoadingComplete, gameSession);
+		match->DoTaskAsync(&Match::PlayerReadyToRecieve, gameSession);
 	}
 
 	return true;
@@ -418,6 +418,14 @@ bool Handle_C_MATCH_READY_TO_RECEIVE(const shared_ptr<SessionBase>& session, Pro
 
 bool Handle_C_MATCH_READY_TO_START(const shared_ptr<SessionBase>& session, ProjectJ::C_MATCH_READY_TO_START& packet)
 {
+	shared_ptr<GameSession> gameSession = static_pointer_cast<GameSession>(session);
+	auto match = gameSession->TryGetMatch();
+
+	if (match)
+	{
+		match->DoTaskAsync(&Match::PlayerReadyToStart, gameSession);
+	}
+
 	return true;
 }
 

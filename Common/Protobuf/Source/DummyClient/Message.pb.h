@@ -126,6 +126,9 @@ extern S_MATCH_ITEM_SOMEONE_MOVEDefaultTypeInternal _S_MATCH_ITEM_SOMEONE_MOVE_d
 class S_MATCH_ITEM_SOMEONE_PICKUP;
 struct S_MATCH_ITEM_SOMEONE_PICKUPDefaultTypeInternal;
 extern S_MATCH_ITEM_SOMEONE_PICKUPDefaultTypeInternal _S_MATCH_ITEM_SOMEONE_PICKUP_default_instance_;
+class S_MATCH_SCALE_ON_CHANGED;
+struct S_MATCH_SCALE_ON_CHANGEDDefaultTypeInternal;
+extern S_MATCH_SCALE_ON_CHANGEDDefaultTypeInternal _S_MATCH_SCALE_ON_CHANGED_default_instance_;
 class S_MATCH_START;
 struct S_MATCH_STARTDefaultTypeInternal;
 extern S_MATCH_STARTDefaultTypeInternal _S_MATCH_START_default_instance_;
@@ -181,6 +184,7 @@ template<> ::ProjectJ::S_MATCH_ITEM_GENERATED* Arena::CreateMaybeMessage<::Proje
 template<> ::ProjectJ::S_MATCH_ITEM_SOMEONE_DROP* Arena::CreateMaybeMessage<::ProjectJ::S_MATCH_ITEM_SOMEONE_DROP>(Arena*);
 template<> ::ProjectJ::S_MATCH_ITEM_SOMEONE_MOVE* Arena::CreateMaybeMessage<::ProjectJ::S_MATCH_ITEM_SOMEONE_MOVE>(Arena*);
 template<> ::ProjectJ::S_MATCH_ITEM_SOMEONE_PICKUP* Arena::CreateMaybeMessage<::ProjectJ::S_MATCH_ITEM_SOMEONE_PICKUP>(Arena*);
+template<> ::ProjectJ::S_MATCH_SCALE_ON_CHANGED* Arena::CreateMaybeMessage<::ProjectJ::S_MATCH_SCALE_ON_CHANGED>(Arena*);
 template<> ::ProjectJ::S_MATCH_START* Arena::CreateMaybeMessage<::ProjectJ::S_MATCH_START>(Arena*);
 template<> ::ProjectJ::S_ROOM_CHAT* Arena::CreateMaybeMessage<::ProjectJ::S_ROOM_CHAT>(Arena*);
 template<> ::ProjectJ::S_ROOM_LEAVE* Arena::CreateMaybeMessage<::ProjectJ::S_ROOM_LEAVE>(Arena*);
@@ -6115,6 +6119,176 @@ class S_MATCH_ITEM_SOMEONE_DROP final :
   union { Impl_ _impl_; };
   friend struct ::TableStruct_Message_2eproto;
 };
+// -------------------------------------------------------------------
+
+class S_MATCH_SCALE_ON_CHANGED final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:ProjectJ.S_MATCH_SCALE_ON_CHANGED) */ {
+ public:
+  inline S_MATCH_SCALE_ON_CHANGED() : S_MATCH_SCALE_ON_CHANGED(nullptr) {}
+  ~S_MATCH_SCALE_ON_CHANGED() override;
+  explicit PROTOBUF_CONSTEXPR S_MATCH_SCALE_ON_CHANGED(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  S_MATCH_SCALE_ON_CHANGED(const S_MATCH_SCALE_ON_CHANGED& from);
+  S_MATCH_SCALE_ON_CHANGED(S_MATCH_SCALE_ON_CHANGED&& from) noexcept
+    : S_MATCH_SCALE_ON_CHANGED() {
+    *this = ::std::move(from);
+  }
+
+  inline S_MATCH_SCALE_ON_CHANGED& operator=(const S_MATCH_SCALE_ON_CHANGED& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline S_MATCH_SCALE_ON_CHANGED& operator=(S_MATCH_SCALE_ON_CHANGED&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const S_MATCH_SCALE_ON_CHANGED& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const S_MATCH_SCALE_ON_CHANGED* internal_default_instance() {
+    return reinterpret_cast<const S_MATCH_SCALE_ON_CHANGED*>(
+               &_S_MATCH_SCALE_ON_CHANGED_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    35;
+
+  friend void swap(S_MATCH_SCALE_ON_CHANGED& a, S_MATCH_SCALE_ON_CHANGED& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(S_MATCH_SCALE_ON_CHANGED* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(S_MATCH_SCALE_ON_CHANGED* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  S_MATCH_SCALE_ON_CHANGED* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<S_MATCH_SCALE_ON_CHANGED>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const S_MATCH_SCALE_ON_CHANGED& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom( const S_MATCH_SCALE_ON_CHANGED& from) {
+    S_MATCH_SCALE_ON_CHANGED::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(S_MATCH_SCALE_ON_CHANGED* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "ProjectJ.S_MATCH_SCALE_ON_CHANGED";
+  }
+  protected:
+  explicit S_MATCH_SCALE_ON_CHANGED(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kScaleIndexFieldNumber = 1,
+    kCurrentWeightFieldNumber = 2,
+    kIsOperatingFieldNumber = 3,
+  };
+  // int32 scale_index = 1;
+  void clear_scale_index();
+  int32_t scale_index() const;
+  void set_scale_index(int32_t value);
+  private:
+  int32_t _internal_scale_index() const;
+  void _internal_set_scale_index(int32_t value);
+  public:
+
+  // int32 current_weight = 2;
+  void clear_current_weight();
+  int32_t current_weight() const;
+  void set_current_weight(int32_t value);
+  private:
+  int32_t _internal_current_weight() const;
+  void _internal_set_current_weight(int32_t value);
+  public:
+
+  // bool is_operating = 3;
+  void clear_is_operating();
+  bool is_operating() const;
+  void set_is_operating(bool value);
+  private:
+  bool _internal_is_operating() const;
+  void _internal_set_is_operating(bool value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:ProjectJ.S_MATCH_SCALE_ON_CHANGED)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    int32_t scale_index_;
+    int32_t current_weight_;
+    bool is_operating_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_Message_2eproto;
+};
 // ===================================================================
 
 
@@ -9301,9 +9475,75 @@ inline void S_MATCH_ITEM_SOMEONE_DROP::set_allocated_drop_item_rotation(::Projec
   // @@protoc_insertion_point(field_set_allocated:ProjectJ.S_MATCH_ITEM_SOMEONE_DROP.drop_item_rotation)
 }
 
+// -------------------------------------------------------------------
+
+// S_MATCH_SCALE_ON_CHANGED
+
+// int32 scale_index = 1;
+inline void S_MATCH_SCALE_ON_CHANGED::clear_scale_index() {
+  _impl_.scale_index_ = 0;
+}
+inline int32_t S_MATCH_SCALE_ON_CHANGED::_internal_scale_index() const {
+  return _impl_.scale_index_;
+}
+inline int32_t S_MATCH_SCALE_ON_CHANGED::scale_index() const {
+  // @@protoc_insertion_point(field_get:ProjectJ.S_MATCH_SCALE_ON_CHANGED.scale_index)
+  return _internal_scale_index();
+}
+inline void S_MATCH_SCALE_ON_CHANGED::_internal_set_scale_index(int32_t value) {
+  
+  _impl_.scale_index_ = value;
+}
+inline void S_MATCH_SCALE_ON_CHANGED::set_scale_index(int32_t value) {
+  _internal_set_scale_index(value);
+  // @@protoc_insertion_point(field_set:ProjectJ.S_MATCH_SCALE_ON_CHANGED.scale_index)
+}
+
+// int32 current_weight = 2;
+inline void S_MATCH_SCALE_ON_CHANGED::clear_current_weight() {
+  _impl_.current_weight_ = 0;
+}
+inline int32_t S_MATCH_SCALE_ON_CHANGED::_internal_current_weight() const {
+  return _impl_.current_weight_;
+}
+inline int32_t S_MATCH_SCALE_ON_CHANGED::current_weight() const {
+  // @@protoc_insertion_point(field_get:ProjectJ.S_MATCH_SCALE_ON_CHANGED.current_weight)
+  return _internal_current_weight();
+}
+inline void S_MATCH_SCALE_ON_CHANGED::_internal_set_current_weight(int32_t value) {
+  
+  _impl_.current_weight_ = value;
+}
+inline void S_MATCH_SCALE_ON_CHANGED::set_current_weight(int32_t value) {
+  _internal_set_current_weight(value);
+  // @@protoc_insertion_point(field_set:ProjectJ.S_MATCH_SCALE_ON_CHANGED.current_weight)
+}
+
+// bool is_operating = 3;
+inline void S_MATCH_SCALE_ON_CHANGED::clear_is_operating() {
+  _impl_.is_operating_ = false;
+}
+inline bool S_MATCH_SCALE_ON_CHANGED::_internal_is_operating() const {
+  return _impl_.is_operating_;
+}
+inline bool S_MATCH_SCALE_ON_CHANGED::is_operating() const {
+  // @@protoc_insertion_point(field_get:ProjectJ.S_MATCH_SCALE_ON_CHANGED.is_operating)
+  return _internal_is_operating();
+}
+inline void S_MATCH_SCALE_ON_CHANGED::_internal_set_is_operating(bool value) {
+  
+  _impl_.is_operating_ = value;
+}
+inline void S_MATCH_SCALE_ON_CHANGED::set_is_operating(bool value) {
+  _internal_set_is_operating(value);
+  // @@protoc_insertion_point(field_set:ProjectJ.S_MATCH_SCALE_ON_CHANGED.is_operating)
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

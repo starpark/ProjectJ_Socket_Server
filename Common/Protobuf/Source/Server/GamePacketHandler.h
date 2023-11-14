@@ -40,6 +40,7 @@ enum : uint16_t
 	PKT_S_MATCH_ITEM_SOMEONE_PICKUP = 1031,
 	PKT_S_MATCH_ITEM_SOMEONE_MOVE = 1032,
 	PKT_S_MATCH_ITEM_SOMEONE_DROP = 1033,
+	PKT_S_MATCH_SCALE_ON_CHANGED = 1034,
 };
 
 bool Handle_INVALID(const shared_ptr<SessionBase>& session, BYTE* bufer, int numOfBytes);
@@ -62,7 +63,7 @@ bool Handle_C_MATCH_ITEM_DROP(const shared_ptr<SessionBase>& session, ProjectJ::
 // 소켓 수신 데이터 처리 및 송신 버퍼 생성 클래스
 // 최초 작성자: 박별
 // 수정자: 
-// 최종 수정일: 2023-11-14 자동 생성
+// 최종 수정일: 2023-11-15 자동 생성
 class GamePacketHandler
 {
 public:
@@ -113,6 +114,7 @@ public:
 	static shared_ptr<SendBuffer> MakeSendBuffer(ProjectJ::S_MATCH_ITEM_SOMEONE_PICKUP& packet) {return MakeSendBuffer(packet, PKT_S_MATCH_ITEM_SOMEONE_PICKUP);}
 	static shared_ptr<SendBuffer> MakeSendBuffer(ProjectJ::S_MATCH_ITEM_SOMEONE_MOVE& packet) {return MakeSendBuffer(packet, PKT_S_MATCH_ITEM_SOMEONE_MOVE);}
 	static shared_ptr<SendBuffer> MakeSendBuffer(ProjectJ::S_MATCH_ITEM_SOMEONE_DROP& packet) {return MakeSendBuffer(packet, PKT_S_MATCH_ITEM_SOMEONE_DROP);}
+	static shared_ptr<SendBuffer> MakeSendBuffer(ProjectJ::S_MATCH_SCALE_ON_CHANGED& packet) {return MakeSendBuffer(packet, PKT_S_MATCH_SCALE_ON_CHANGED);}
 
 private:
 	template <typename PacketMessage, typename ProcessFunc>

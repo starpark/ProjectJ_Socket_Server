@@ -40,6 +40,7 @@ enum : uint16_t
 	PKT_S_MATCH_ITEM_SOMEONE_PICKUP = 1031,
 	PKT_S_MATCH_ITEM_SOMEONE_MOVE = 1032,
 	PKT_S_MATCH_ITEM_SOMEONE_DROP = 1033,
+	PKT_S_MATCH_SCALE_ON_CHANGED = 1034,
 };
 
 bool Handle_INVALID(const shared_ptr<SessionBase>& session, BYTE* bufer, int numOfBytes);
@@ -63,12 +64,13 @@ bool Handle_S_MATCH_END(const shared_ptr<SessionBase>& session, ProjectJ::S_MATC
 bool Handle_S_MATCH_ITEM_SOMEONE_PICKUP(const shared_ptr<SessionBase>& session, ProjectJ::S_MATCH_ITEM_SOMEONE_PICKUP& packet);
 bool Handle_S_MATCH_ITEM_SOMEONE_MOVE(const shared_ptr<SessionBase>& session, ProjectJ::S_MATCH_ITEM_SOMEONE_MOVE& packet);
 bool Handle_S_MATCH_ITEM_SOMEONE_DROP(const shared_ptr<SessionBase>& session, ProjectJ::S_MATCH_ITEM_SOMEONE_DROP& packet);
+bool Handle_S_MATCH_SCALE_ON_CHANGED(const shared_ptr<SessionBase>& session, ProjectJ::S_MATCH_SCALE_ON_CHANGED& packet);
 
 
 // 소켓 수신 데이터 처리 및 송신 버퍼 생성 클래스
 // 최초 작성자: 박별
 // 수정자: 
-// 최종 수정일: 2023-11-14 자동 생성
+// 최종 수정일: 2023-11-15 자동 생성
 class ServerPacketHandler
 {
 public:
@@ -98,6 +100,7 @@ public:
 		GPacketHandler[PKT_S_MATCH_ITEM_SOMEONE_PICKUP] = [](shared_ptr<SessionBase> session, BYTE* buffer, int numOfBytes) {return HandlePacket<ProjectJ::S_MATCH_ITEM_SOMEONE_PICKUP>(Handle_S_MATCH_ITEM_SOMEONE_PICKUP, session, buffer, numOfBytes);};
 		GPacketHandler[PKT_S_MATCH_ITEM_SOMEONE_MOVE] = [](shared_ptr<SessionBase> session, BYTE* buffer, int numOfBytes) {return HandlePacket<ProjectJ::S_MATCH_ITEM_SOMEONE_MOVE>(Handle_S_MATCH_ITEM_SOMEONE_MOVE, session, buffer, numOfBytes);};
 		GPacketHandler[PKT_S_MATCH_ITEM_SOMEONE_DROP] = [](shared_ptr<SessionBase> session, BYTE* buffer, int numOfBytes) {return HandlePacket<ProjectJ::S_MATCH_ITEM_SOMEONE_DROP>(Handle_S_MATCH_ITEM_SOMEONE_DROP, session, buffer, numOfBytes);};
+		GPacketHandler[PKT_S_MATCH_SCALE_ON_CHANGED] = [](shared_ptr<SessionBase> session, BYTE* buffer, int numOfBytes) {return HandlePacket<ProjectJ::S_MATCH_SCALE_ON_CHANGED>(Handle_S_MATCH_SCALE_ON_CHANGED, session, buffer, numOfBytes);};
 	}
 
 	static bool HandlePacket(shared_ptr<SessionBase>& session, BYTE* buffer, int numOfBytes)

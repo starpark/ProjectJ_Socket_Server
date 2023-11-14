@@ -124,6 +124,7 @@ bool Handle_S_MATCH_ALL_READY_TO_RECIEVE(const shared_ptr<SessionBase>& session,
 
 bool Handle_S_MATCH_ITEM_GENERATED(const shared_ptr<SessionBase>& session, ProjectJ::S_MATCH_ITEM_GENERATED& packet)
 {
+	cout << packet.ByteSizeLong() << endl;
 	return true;
 }
 
@@ -153,6 +154,11 @@ bool Handle_S_MATCH_ITEM_SOMEONE_MOVE(const shared_ptr<SessionBase>& session, Pr
 }
 
 bool Handle_S_MATCH_ITEM_SOMEONE_DROP(const shared_ptr<SessionBase>& session, ProjectJ::S_MATCH_ITEM_SOMEONE_DROP& packet)
+{
+	return true;
+}
+
+bool Handle_S_MATCH_SCALE_ON_CHANGED(const shared_ptr<SessionBase>& session, ProjectJ::S_MATCH_SCALE_ON_CHANGED& packet)
 {
 	return true;
 }

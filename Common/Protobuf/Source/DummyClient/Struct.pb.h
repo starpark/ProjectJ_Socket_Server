@@ -53,12 +53,6 @@ extern ItemDefaultTypeInternal _Item_default_instance_;
 class MatchInfo;
 struct MatchInfoDefaultTypeInternal;
 extern MatchInfoDefaultTypeInternal _MatchInfo_default_instance_;
-class MatchInfo_PlayerInfo;
-struct MatchInfo_PlayerInfoDefaultTypeInternal;
-extern MatchInfo_PlayerInfoDefaultTypeInternal _MatchInfo_PlayerInfo_default_instance_;
-class MatchInfo_ScaleInfo;
-struct MatchInfo_ScaleInfoDefaultTypeInternal;
-extern MatchInfo_ScaleInfoDefaultTypeInternal _MatchInfo_ScaleInfo_default_instance_;
 class MatchInitInfo;
 struct MatchInitInfoDefaultTypeInternal;
 extern MatchInitInfoDefaultTypeInternal _MatchInitInfo_default_instance_;
@@ -90,8 +84,6 @@ extern VectorDefaultTypeInternal _Vector_default_instance_;
 PROTOBUF_NAMESPACE_OPEN
 template<> ::ProjectJ::Item* Arena::CreateMaybeMessage<::ProjectJ::Item>(Arena*);
 template<> ::ProjectJ::MatchInfo* Arena::CreateMaybeMessage<::ProjectJ::MatchInfo>(Arena*);
-template<> ::ProjectJ::MatchInfo_PlayerInfo* Arena::CreateMaybeMessage<::ProjectJ::MatchInfo_PlayerInfo>(Arena*);
-template<> ::ProjectJ::MatchInfo_ScaleInfo* Arena::CreateMaybeMessage<::ProjectJ::MatchInfo_ScaleInfo>(Arena*);
 template<> ::ProjectJ::MatchInitInfo* Arena::CreateMaybeMessage<::ProjectJ::MatchInitInfo>(Arena*);
 template<> ::ProjectJ::MatchInitInfo_ScaleInitInfo* Arena::CreateMaybeMessage<::ProjectJ::MatchInitInfo_ScaleInitInfo>(Arena*);
 template<> ::ProjectJ::Player* Arena::CreateMaybeMessage<::ProjectJ::Player>(Arena*);
@@ -2152,384 +2144,6 @@ class MatchInitInfo final :
 };
 // -------------------------------------------------------------------
 
-class MatchInfo_PlayerInfo final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:ProjectJ.MatchInfo.PlayerInfo) */ {
- public:
-  inline MatchInfo_PlayerInfo() : MatchInfo_PlayerInfo(nullptr) {}
-  ~MatchInfo_PlayerInfo() override;
-  explicit PROTOBUF_CONSTEXPR MatchInfo_PlayerInfo(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
-
-  MatchInfo_PlayerInfo(const MatchInfo_PlayerInfo& from);
-  MatchInfo_PlayerInfo(MatchInfo_PlayerInfo&& from) noexcept
-    : MatchInfo_PlayerInfo() {
-    *this = ::std::move(from);
-  }
-
-  inline MatchInfo_PlayerInfo& operator=(const MatchInfo_PlayerInfo& from) {
-    CopyFrom(from);
-    return *this;
-  }
-  inline MatchInfo_PlayerInfo& operator=(MatchInfo_PlayerInfo&& from) noexcept {
-    if (this == &from) return *this;
-    if (GetOwningArena() == from.GetOwningArena()
-  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
-        && GetOwningArena() != nullptr
-  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
-    ) {
-      InternalSwap(&from);
-    } else {
-      CopyFrom(from);
-    }
-    return *this;
-  }
-
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return default_instance().GetMetadata().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return default_instance().GetMetadata().reflection;
-  }
-  static const MatchInfo_PlayerInfo& default_instance() {
-    return *internal_default_instance();
-  }
-  static inline const MatchInfo_PlayerInfo* internal_default_instance() {
-    return reinterpret_cast<const MatchInfo_PlayerInfo*>(
-               &_MatchInfo_PlayerInfo_default_instance_);
-  }
-  static constexpr int kIndexInFileMessages =
-    10;
-
-  friend void swap(MatchInfo_PlayerInfo& a, MatchInfo_PlayerInfo& b) {
-    a.Swap(&b);
-  }
-  inline void Swap(MatchInfo_PlayerInfo* other) {
-    if (other == this) return;
-  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
-    if (GetOwningArena() != nullptr &&
-        GetOwningArena() == other->GetOwningArena()) {
-   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
-    if (GetOwningArena() == other->GetOwningArena()) {
-  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
-      InternalSwap(other);
-    } else {
-      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
-    }
-  }
-  void UnsafeArenaSwap(MatchInfo_PlayerInfo* other) {
-    if (other == this) return;
-    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
-    InternalSwap(other);
-  }
-
-  // implements Message ----------------------------------------------
-
-  MatchInfo_PlayerInfo* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<MatchInfo_PlayerInfo>(arena);
-  }
-  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
-  void CopyFrom(const MatchInfo_PlayerInfo& from);
-  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
-  void MergeFrom( const MatchInfo_PlayerInfo& from) {
-    MatchInfo_PlayerInfo::MergeImpl(*this, from);
-  }
-  private:
-  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
-  public:
-  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
-  bool IsInitialized() const final;
-
-  size_t ByteSizeLong() const final;
-  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
-  uint8_t* _InternalSerialize(
-      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
-  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
-
-  private:
-  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
-  void SharedDtor();
-  void SetCachedSize(int size) const final;
-  void InternalSwap(MatchInfo_PlayerInfo* other);
-
-  private:
-  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
-  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "ProjectJ.MatchInfo.PlayerInfo";
-  }
-  protected:
-  explicit MatchInfo_PlayerInfo(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                       bool is_message_owned = false);
-  public:
-
-  static const ClassData _class_data_;
-  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
-
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  enum : int {
-    kPlayerFieldNumber = 3,
-    kPositionFieldNumber = 4,
-    kRotationFieldNumber = 5,
-    kStateFieldNumber = 1,
-    kPlayerIndexFieldNumber = 2,
-  };
-  // .ProjectJ.Player player = 3;
-  bool has_player() const;
-  private:
-  bool _internal_has_player() const;
-  public:
-  void clear_player();
-  const ::ProjectJ::Player& player() const;
-  PROTOBUF_NODISCARD ::ProjectJ::Player* release_player();
-  ::ProjectJ::Player* mutable_player();
-  void set_allocated_player(::ProjectJ::Player* player);
-  private:
-  const ::ProjectJ::Player& _internal_player() const;
-  ::ProjectJ::Player* _internal_mutable_player();
-  public:
-  void unsafe_arena_set_allocated_player(
-      ::ProjectJ::Player* player);
-  ::ProjectJ::Player* unsafe_arena_release_player();
-
-  // .ProjectJ.Vector position = 4;
-  bool has_position() const;
-  private:
-  bool _internal_has_position() const;
-  public:
-  void clear_position();
-  const ::ProjectJ::Vector& position() const;
-  PROTOBUF_NODISCARD ::ProjectJ::Vector* release_position();
-  ::ProjectJ::Vector* mutable_position();
-  void set_allocated_position(::ProjectJ::Vector* position);
-  private:
-  const ::ProjectJ::Vector& _internal_position() const;
-  ::ProjectJ::Vector* _internal_mutable_position();
-  public:
-  void unsafe_arena_set_allocated_position(
-      ::ProjectJ::Vector* position);
-  ::ProjectJ::Vector* unsafe_arena_release_position();
-
-  // .ProjectJ.Rotator rotation = 5;
-  bool has_rotation() const;
-  private:
-  bool _internal_has_rotation() const;
-  public:
-  void clear_rotation();
-  const ::ProjectJ::Rotator& rotation() const;
-  PROTOBUF_NODISCARD ::ProjectJ::Rotator* release_rotation();
-  ::ProjectJ::Rotator* mutable_rotation();
-  void set_allocated_rotation(::ProjectJ::Rotator* rotation);
-  private:
-  const ::ProjectJ::Rotator& _internal_rotation() const;
-  ::ProjectJ::Rotator* _internal_mutable_rotation();
-  public:
-  void unsafe_arena_set_allocated_rotation(
-      ::ProjectJ::Rotator* rotation);
-  ::ProjectJ::Rotator* unsafe_arena_release_rotation();
-
-  // .ProjectJ.MatchPlayerState state = 1;
-  void clear_state();
-  ::ProjectJ::MatchPlayerState state() const;
-  void set_state(::ProjectJ::MatchPlayerState value);
-  private:
-  ::ProjectJ::MatchPlayerState _internal_state() const;
-  void _internal_set_state(::ProjectJ::MatchPlayerState value);
-  public:
-
-  // int32 player_index = 2;
-  void clear_player_index();
-  int32_t player_index() const;
-  void set_player_index(int32_t value);
-  private:
-  int32_t _internal_player_index() const;
-  void _internal_set_player_index(int32_t value);
-  public:
-
-  // @@protoc_insertion_point(class_scope:ProjectJ.MatchInfo.PlayerInfo)
- private:
-  class _Internal;
-
-  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
-  typedef void InternalArenaConstructable_;
-  typedef void DestructorSkippable_;
-  struct Impl_ {
-    ::ProjectJ::Player* player_;
-    ::ProjectJ::Vector* position_;
-    ::ProjectJ::Rotator* rotation_;
-    int state_;
-    int32_t player_index_;
-    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-  };
-  union { Impl_ _impl_; };
-  friend struct ::TableStruct_Struct_2eproto;
-};
-// -------------------------------------------------------------------
-
-class MatchInfo_ScaleInfo final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:ProjectJ.MatchInfo.ScaleInfo) */ {
- public:
-  inline MatchInfo_ScaleInfo() : MatchInfo_ScaleInfo(nullptr) {}
-  ~MatchInfo_ScaleInfo() override;
-  explicit PROTOBUF_CONSTEXPR MatchInfo_ScaleInfo(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
-
-  MatchInfo_ScaleInfo(const MatchInfo_ScaleInfo& from);
-  MatchInfo_ScaleInfo(MatchInfo_ScaleInfo&& from) noexcept
-    : MatchInfo_ScaleInfo() {
-    *this = ::std::move(from);
-  }
-
-  inline MatchInfo_ScaleInfo& operator=(const MatchInfo_ScaleInfo& from) {
-    CopyFrom(from);
-    return *this;
-  }
-  inline MatchInfo_ScaleInfo& operator=(MatchInfo_ScaleInfo&& from) noexcept {
-    if (this == &from) return *this;
-    if (GetOwningArena() == from.GetOwningArena()
-  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
-        && GetOwningArena() != nullptr
-  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
-    ) {
-      InternalSwap(&from);
-    } else {
-      CopyFrom(from);
-    }
-    return *this;
-  }
-
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return default_instance().GetMetadata().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return default_instance().GetMetadata().reflection;
-  }
-  static const MatchInfo_ScaleInfo& default_instance() {
-    return *internal_default_instance();
-  }
-  static inline const MatchInfo_ScaleInfo* internal_default_instance() {
-    return reinterpret_cast<const MatchInfo_ScaleInfo*>(
-               &_MatchInfo_ScaleInfo_default_instance_);
-  }
-  static constexpr int kIndexInFileMessages =
-    11;
-
-  friend void swap(MatchInfo_ScaleInfo& a, MatchInfo_ScaleInfo& b) {
-    a.Swap(&b);
-  }
-  inline void Swap(MatchInfo_ScaleInfo* other) {
-    if (other == this) return;
-  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
-    if (GetOwningArena() != nullptr &&
-        GetOwningArena() == other->GetOwningArena()) {
-   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
-    if (GetOwningArena() == other->GetOwningArena()) {
-  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
-      InternalSwap(other);
-    } else {
-      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
-    }
-  }
-  void UnsafeArenaSwap(MatchInfo_ScaleInfo* other) {
-    if (other == this) return;
-    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
-    InternalSwap(other);
-  }
-
-  // implements Message ----------------------------------------------
-
-  MatchInfo_ScaleInfo* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<MatchInfo_ScaleInfo>(arena);
-  }
-  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
-  void CopyFrom(const MatchInfo_ScaleInfo& from);
-  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
-  void MergeFrom( const MatchInfo_ScaleInfo& from) {
-    MatchInfo_ScaleInfo::MergeImpl(*this, from);
-  }
-  private:
-  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
-  public:
-  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
-  bool IsInitialized() const final;
-
-  size_t ByteSizeLong() const final;
-  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
-  uint8_t* _InternalSerialize(
-      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
-  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
-
-  private:
-  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
-  void SharedDtor();
-  void SetCachedSize(int size) const final;
-  void InternalSwap(MatchInfo_ScaleInfo* other);
-
-  private:
-  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
-  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "ProjectJ.MatchInfo.ScaleInfo";
-  }
-  protected:
-  explicit MatchInfo_ScaleInfo(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                       bool is_message_owned = false);
-  public:
-
-  static const ClassData _class_data_;
-  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
-
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  enum : int {
-    kIsOperatingFieldNumber = 1,
-    kCurrentWeightFieldNumber = 2,
-  };
-  // bool is_operating = 1;
-  void clear_is_operating();
-  bool is_operating() const;
-  void set_is_operating(bool value);
-  private:
-  bool _internal_is_operating() const;
-  void _internal_set_is_operating(bool value);
-  public:
-
-  // int32 current_weight = 2;
-  void clear_current_weight();
-  int32_t current_weight() const;
-  void set_current_weight(int32_t value);
-  private:
-  int32_t _internal_current_weight() const;
-  void _internal_set_current_weight(int32_t value);
-  public:
-
-  // @@protoc_insertion_point(class_scope:ProjectJ.MatchInfo.ScaleInfo)
- private:
-  class _Internal;
-
-  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
-  typedef void InternalArenaConstructable_;
-  typedef void DestructorSkippable_;
-  struct Impl_ {
-    bool is_operating_;
-    int32_t current_weight_;
-    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-  };
-  union { Impl_ _impl_; };
-  friend struct ::TableStruct_Struct_2eproto;
-};
-// -------------------------------------------------------------------
-
 class MatchInfo final :
     public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:ProjectJ.MatchInfo) */ {
  public:
@@ -2578,7 +2192,7 @@ class MatchInfo final :
                &_MatchInfo_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    12;
+    10;
 
   friend void swap(MatchInfo& a, MatchInfo& b) {
     a.Swap(&b);
@@ -2648,183 +2262,85 @@ class MatchInfo final :
 
   // nested types ----------------------------------------------------
 
-  typedef MatchInfo_PlayerInfo PlayerInfo;
-  typedef MatchInfo_ScaleInfo ScaleInfo;
-
   // accessors -------------------------------------------------------
 
   enum : int {
-    kItemsFieldNumber = 9,
     kChaserFieldNumber = 1,
     kFugitiveFirstFieldNumber = 2,
     kFugitiveSecondFieldNumber = 3,
     kFugitiveThirdFieldNumber = 4,
-    kScaleFirstFieldNumber = 5,
-    kScaleSecondFieldNumber = 6,
-    kScaleThirdFieldNumber = 7,
-    kScaleFourthFieldNumber = 8,
   };
-  // repeated .ProjectJ.Item items = 9;
-  int items_size() const;
-  private:
-  int _internal_items_size() const;
-  public:
-  void clear_items();
-  ::ProjectJ::Item* mutable_items(int index);
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::ProjectJ::Item >*
-      mutable_items();
-  private:
-  const ::ProjectJ::Item& _internal_items(int index) const;
-  ::ProjectJ::Item* _internal_add_items();
-  public:
-  const ::ProjectJ::Item& items(int index) const;
-  ::ProjectJ::Item* add_items();
-  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::ProjectJ::Item >&
-      items() const;
-
-  // .ProjectJ.MatchInfo.PlayerInfo chaser = 1;
+  // .ProjectJ.PlayerInfo chaser = 1;
   bool has_chaser() const;
   private:
   bool _internal_has_chaser() const;
   public:
   void clear_chaser();
-  const ::ProjectJ::MatchInfo_PlayerInfo& chaser() const;
-  PROTOBUF_NODISCARD ::ProjectJ::MatchInfo_PlayerInfo* release_chaser();
-  ::ProjectJ::MatchInfo_PlayerInfo* mutable_chaser();
-  void set_allocated_chaser(::ProjectJ::MatchInfo_PlayerInfo* chaser);
+  const ::ProjectJ::PlayerInfo& chaser() const;
+  PROTOBUF_NODISCARD ::ProjectJ::PlayerInfo* release_chaser();
+  ::ProjectJ::PlayerInfo* mutable_chaser();
+  void set_allocated_chaser(::ProjectJ::PlayerInfo* chaser);
   private:
-  const ::ProjectJ::MatchInfo_PlayerInfo& _internal_chaser() const;
-  ::ProjectJ::MatchInfo_PlayerInfo* _internal_mutable_chaser();
+  const ::ProjectJ::PlayerInfo& _internal_chaser() const;
+  ::ProjectJ::PlayerInfo* _internal_mutable_chaser();
   public:
   void unsafe_arena_set_allocated_chaser(
-      ::ProjectJ::MatchInfo_PlayerInfo* chaser);
-  ::ProjectJ::MatchInfo_PlayerInfo* unsafe_arena_release_chaser();
+      ::ProjectJ::PlayerInfo* chaser);
+  ::ProjectJ::PlayerInfo* unsafe_arena_release_chaser();
 
-  // .ProjectJ.MatchInfo.PlayerInfo fugitive_first = 2;
+  // .ProjectJ.PlayerInfo fugitive_first = 2;
   bool has_fugitive_first() const;
   private:
   bool _internal_has_fugitive_first() const;
   public:
   void clear_fugitive_first();
-  const ::ProjectJ::MatchInfo_PlayerInfo& fugitive_first() const;
-  PROTOBUF_NODISCARD ::ProjectJ::MatchInfo_PlayerInfo* release_fugitive_first();
-  ::ProjectJ::MatchInfo_PlayerInfo* mutable_fugitive_first();
-  void set_allocated_fugitive_first(::ProjectJ::MatchInfo_PlayerInfo* fugitive_first);
+  const ::ProjectJ::PlayerInfo& fugitive_first() const;
+  PROTOBUF_NODISCARD ::ProjectJ::PlayerInfo* release_fugitive_first();
+  ::ProjectJ::PlayerInfo* mutable_fugitive_first();
+  void set_allocated_fugitive_first(::ProjectJ::PlayerInfo* fugitive_first);
   private:
-  const ::ProjectJ::MatchInfo_PlayerInfo& _internal_fugitive_first() const;
-  ::ProjectJ::MatchInfo_PlayerInfo* _internal_mutable_fugitive_first();
+  const ::ProjectJ::PlayerInfo& _internal_fugitive_first() const;
+  ::ProjectJ::PlayerInfo* _internal_mutable_fugitive_first();
   public:
   void unsafe_arena_set_allocated_fugitive_first(
-      ::ProjectJ::MatchInfo_PlayerInfo* fugitive_first);
-  ::ProjectJ::MatchInfo_PlayerInfo* unsafe_arena_release_fugitive_first();
+      ::ProjectJ::PlayerInfo* fugitive_first);
+  ::ProjectJ::PlayerInfo* unsafe_arena_release_fugitive_first();
 
-  // .ProjectJ.MatchInfo.PlayerInfo fugitive_second = 3;
+  // .ProjectJ.PlayerInfo fugitive_second = 3;
   bool has_fugitive_second() const;
   private:
   bool _internal_has_fugitive_second() const;
   public:
   void clear_fugitive_second();
-  const ::ProjectJ::MatchInfo_PlayerInfo& fugitive_second() const;
-  PROTOBUF_NODISCARD ::ProjectJ::MatchInfo_PlayerInfo* release_fugitive_second();
-  ::ProjectJ::MatchInfo_PlayerInfo* mutable_fugitive_second();
-  void set_allocated_fugitive_second(::ProjectJ::MatchInfo_PlayerInfo* fugitive_second);
+  const ::ProjectJ::PlayerInfo& fugitive_second() const;
+  PROTOBUF_NODISCARD ::ProjectJ::PlayerInfo* release_fugitive_second();
+  ::ProjectJ::PlayerInfo* mutable_fugitive_second();
+  void set_allocated_fugitive_second(::ProjectJ::PlayerInfo* fugitive_second);
   private:
-  const ::ProjectJ::MatchInfo_PlayerInfo& _internal_fugitive_second() const;
-  ::ProjectJ::MatchInfo_PlayerInfo* _internal_mutable_fugitive_second();
+  const ::ProjectJ::PlayerInfo& _internal_fugitive_second() const;
+  ::ProjectJ::PlayerInfo* _internal_mutable_fugitive_second();
   public:
   void unsafe_arena_set_allocated_fugitive_second(
-      ::ProjectJ::MatchInfo_PlayerInfo* fugitive_second);
-  ::ProjectJ::MatchInfo_PlayerInfo* unsafe_arena_release_fugitive_second();
+      ::ProjectJ::PlayerInfo* fugitive_second);
+  ::ProjectJ::PlayerInfo* unsafe_arena_release_fugitive_second();
 
-  // .ProjectJ.MatchInfo.PlayerInfo fugitive_third = 4;
+  // .ProjectJ.PlayerInfo fugitive_third = 4;
   bool has_fugitive_third() const;
   private:
   bool _internal_has_fugitive_third() const;
   public:
   void clear_fugitive_third();
-  const ::ProjectJ::MatchInfo_PlayerInfo& fugitive_third() const;
-  PROTOBUF_NODISCARD ::ProjectJ::MatchInfo_PlayerInfo* release_fugitive_third();
-  ::ProjectJ::MatchInfo_PlayerInfo* mutable_fugitive_third();
-  void set_allocated_fugitive_third(::ProjectJ::MatchInfo_PlayerInfo* fugitive_third);
+  const ::ProjectJ::PlayerInfo& fugitive_third() const;
+  PROTOBUF_NODISCARD ::ProjectJ::PlayerInfo* release_fugitive_third();
+  ::ProjectJ::PlayerInfo* mutable_fugitive_third();
+  void set_allocated_fugitive_third(::ProjectJ::PlayerInfo* fugitive_third);
   private:
-  const ::ProjectJ::MatchInfo_PlayerInfo& _internal_fugitive_third() const;
-  ::ProjectJ::MatchInfo_PlayerInfo* _internal_mutable_fugitive_third();
+  const ::ProjectJ::PlayerInfo& _internal_fugitive_third() const;
+  ::ProjectJ::PlayerInfo* _internal_mutable_fugitive_third();
   public:
   void unsafe_arena_set_allocated_fugitive_third(
-      ::ProjectJ::MatchInfo_PlayerInfo* fugitive_third);
-  ::ProjectJ::MatchInfo_PlayerInfo* unsafe_arena_release_fugitive_third();
-
-  // .ProjectJ.MatchInfo.ScaleInfo scale_first = 5;
-  bool has_scale_first() const;
-  private:
-  bool _internal_has_scale_first() const;
-  public:
-  void clear_scale_first();
-  const ::ProjectJ::MatchInfo_ScaleInfo& scale_first() const;
-  PROTOBUF_NODISCARD ::ProjectJ::MatchInfo_ScaleInfo* release_scale_first();
-  ::ProjectJ::MatchInfo_ScaleInfo* mutable_scale_first();
-  void set_allocated_scale_first(::ProjectJ::MatchInfo_ScaleInfo* scale_first);
-  private:
-  const ::ProjectJ::MatchInfo_ScaleInfo& _internal_scale_first() const;
-  ::ProjectJ::MatchInfo_ScaleInfo* _internal_mutable_scale_first();
-  public:
-  void unsafe_arena_set_allocated_scale_first(
-      ::ProjectJ::MatchInfo_ScaleInfo* scale_first);
-  ::ProjectJ::MatchInfo_ScaleInfo* unsafe_arena_release_scale_first();
-
-  // .ProjectJ.MatchInfo.ScaleInfo scale_second = 6;
-  bool has_scale_second() const;
-  private:
-  bool _internal_has_scale_second() const;
-  public:
-  void clear_scale_second();
-  const ::ProjectJ::MatchInfo_ScaleInfo& scale_second() const;
-  PROTOBUF_NODISCARD ::ProjectJ::MatchInfo_ScaleInfo* release_scale_second();
-  ::ProjectJ::MatchInfo_ScaleInfo* mutable_scale_second();
-  void set_allocated_scale_second(::ProjectJ::MatchInfo_ScaleInfo* scale_second);
-  private:
-  const ::ProjectJ::MatchInfo_ScaleInfo& _internal_scale_second() const;
-  ::ProjectJ::MatchInfo_ScaleInfo* _internal_mutable_scale_second();
-  public:
-  void unsafe_arena_set_allocated_scale_second(
-      ::ProjectJ::MatchInfo_ScaleInfo* scale_second);
-  ::ProjectJ::MatchInfo_ScaleInfo* unsafe_arena_release_scale_second();
-
-  // .ProjectJ.MatchInfo.ScaleInfo scale_third = 7;
-  bool has_scale_third() const;
-  private:
-  bool _internal_has_scale_third() const;
-  public:
-  void clear_scale_third();
-  const ::ProjectJ::MatchInfo_ScaleInfo& scale_third() const;
-  PROTOBUF_NODISCARD ::ProjectJ::MatchInfo_ScaleInfo* release_scale_third();
-  ::ProjectJ::MatchInfo_ScaleInfo* mutable_scale_third();
-  void set_allocated_scale_third(::ProjectJ::MatchInfo_ScaleInfo* scale_third);
-  private:
-  const ::ProjectJ::MatchInfo_ScaleInfo& _internal_scale_third() const;
-  ::ProjectJ::MatchInfo_ScaleInfo* _internal_mutable_scale_third();
-  public:
-  void unsafe_arena_set_allocated_scale_third(
-      ::ProjectJ::MatchInfo_ScaleInfo* scale_third);
-  ::ProjectJ::MatchInfo_ScaleInfo* unsafe_arena_release_scale_third();
-
-  // .ProjectJ.MatchInfo.ScaleInfo scale_fourth = 8;
-  bool has_scale_fourth() const;
-  private:
-  bool _internal_has_scale_fourth() const;
-  public:
-  void clear_scale_fourth();
-  const ::ProjectJ::MatchInfo_ScaleInfo& scale_fourth() const;
-  PROTOBUF_NODISCARD ::ProjectJ::MatchInfo_ScaleInfo* release_scale_fourth();
-  ::ProjectJ::MatchInfo_ScaleInfo* mutable_scale_fourth();
-  void set_allocated_scale_fourth(::ProjectJ::MatchInfo_ScaleInfo* scale_fourth);
-  private:
-  const ::ProjectJ::MatchInfo_ScaleInfo& _internal_scale_fourth() const;
-  ::ProjectJ::MatchInfo_ScaleInfo* _internal_mutable_scale_fourth();
-  public:
-  void unsafe_arena_set_allocated_scale_fourth(
-      ::ProjectJ::MatchInfo_ScaleInfo* scale_fourth);
-  ::ProjectJ::MatchInfo_ScaleInfo* unsafe_arena_release_scale_fourth();
+      ::ProjectJ::PlayerInfo* fugitive_third);
+  ::ProjectJ::PlayerInfo* unsafe_arena_release_fugitive_third();
 
   // @@protoc_insertion_point(class_scope:ProjectJ.MatchInfo)
  private:
@@ -2834,15 +2350,10 @@ class MatchInfo final :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   struct Impl_ {
-    ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::ProjectJ::Item > items_;
-    ::ProjectJ::MatchInfo_PlayerInfo* chaser_;
-    ::ProjectJ::MatchInfo_PlayerInfo* fugitive_first_;
-    ::ProjectJ::MatchInfo_PlayerInfo* fugitive_second_;
-    ::ProjectJ::MatchInfo_PlayerInfo* fugitive_third_;
-    ::ProjectJ::MatchInfo_ScaleInfo* scale_first_;
-    ::ProjectJ::MatchInfo_ScaleInfo* scale_second_;
-    ::ProjectJ::MatchInfo_ScaleInfo* scale_third_;
-    ::ProjectJ::MatchInfo_ScaleInfo* scale_fourth_;
+    ::ProjectJ::PlayerInfo* chaser_;
+    ::ProjectJ::PlayerInfo* fugitive_first_;
+    ::ProjectJ::PlayerInfo* fugitive_second_;
+    ::ProjectJ::PlayerInfo* fugitive_third_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -5147,367 +4658,9 @@ inline void MatchInitInfo::set_allocated_scale_fourth(::ProjectJ::MatchInitInfo_
 
 // -------------------------------------------------------------------
 
-// MatchInfo_PlayerInfo
-
-// .ProjectJ.MatchPlayerState state = 1;
-inline void MatchInfo_PlayerInfo::clear_state() {
-  _impl_.state_ = 0;
-}
-inline ::ProjectJ::MatchPlayerState MatchInfo_PlayerInfo::_internal_state() const {
-  return static_cast< ::ProjectJ::MatchPlayerState >(_impl_.state_);
-}
-inline ::ProjectJ::MatchPlayerState MatchInfo_PlayerInfo::state() const {
-  // @@protoc_insertion_point(field_get:ProjectJ.MatchInfo.PlayerInfo.state)
-  return _internal_state();
-}
-inline void MatchInfo_PlayerInfo::_internal_set_state(::ProjectJ::MatchPlayerState value) {
-  
-  _impl_.state_ = value;
-}
-inline void MatchInfo_PlayerInfo::set_state(::ProjectJ::MatchPlayerState value) {
-  _internal_set_state(value);
-  // @@protoc_insertion_point(field_set:ProjectJ.MatchInfo.PlayerInfo.state)
-}
-
-// int32 player_index = 2;
-inline void MatchInfo_PlayerInfo::clear_player_index() {
-  _impl_.player_index_ = 0;
-}
-inline int32_t MatchInfo_PlayerInfo::_internal_player_index() const {
-  return _impl_.player_index_;
-}
-inline int32_t MatchInfo_PlayerInfo::player_index() const {
-  // @@protoc_insertion_point(field_get:ProjectJ.MatchInfo.PlayerInfo.player_index)
-  return _internal_player_index();
-}
-inline void MatchInfo_PlayerInfo::_internal_set_player_index(int32_t value) {
-  
-  _impl_.player_index_ = value;
-}
-inline void MatchInfo_PlayerInfo::set_player_index(int32_t value) {
-  _internal_set_player_index(value);
-  // @@protoc_insertion_point(field_set:ProjectJ.MatchInfo.PlayerInfo.player_index)
-}
-
-// .ProjectJ.Player player = 3;
-inline bool MatchInfo_PlayerInfo::_internal_has_player() const {
-  return this != internal_default_instance() && _impl_.player_ != nullptr;
-}
-inline bool MatchInfo_PlayerInfo::has_player() const {
-  return _internal_has_player();
-}
-inline void MatchInfo_PlayerInfo::clear_player() {
-  if (GetArenaForAllocation() == nullptr && _impl_.player_ != nullptr) {
-    delete _impl_.player_;
-  }
-  _impl_.player_ = nullptr;
-}
-inline const ::ProjectJ::Player& MatchInfo_PlayerInfo::_internal_player() const {
-  const ::ProjectJ::Player* p = _impl_.player_;
-  return p != nullptr ? *p : reinterpret_cast<const ::ProjectJ::Player&>(
-      ::ProjectJ::_Player_default_instance_);
-}
-inline const ::ProjectJ::Player& MatchInfo_PlayerInfo::player() const {
-  // @@protoc_insertion_point(field_get:ProjectJ.MatchInfo.PlayerInfo.player)
-  return _internal_player();
-}
-inline void MatchInfo_PlayerInfo::unsafe_arena_set_allocated_player(
-    ::ProjectJ::Player* player) {
-  if (GetArenaForAllocation() == nullptr) {
-    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.player_);
-  }
-  _impl_.player_ = player;
-  if (player) {
-    
-  } else {
-    
-  }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:ProjectJ.MatchInfo.PlayerInfo.player)
-}
-inline ::ProjectJ::Player* MatchInfo_PlayerInfo::release_player() {
-  
-  ::ProjectJ::Player* temp = _impl_.player_;
-  _impl_.player_ = nullptr;
-#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
-  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
-  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  if (GetArenaForAllocation() == nullptr) { delete old; }
-#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
-  if (GetArenaForAllocation() != nullptr) {
-    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  }
-#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
-  return temp;
-}
-inline ::ProjectJ::Player* MatchInfo_PlayerInfo::unsafe_arena_release_player() {
-  // @@protoc_insertion_point(field_release:ProjectJ.MatchInfo.PlayerInfo.player)
-  
-  ::ProjectJ::Player* temp = _impl_.player_;
-  _impl_.player_ = nullptr;
-  return temp;
-}
-inline ::ProjectJ::Player* MatchInfo_PlayerInfo::_internal_mutable_player() {
-  
-  if (_impl_.player_ == nullptr) {
-    auto* p = CreateMaybeMessage<::ProjectJ::Player>(GetArenaForAllocation());
-    _impl_.player_ = p;
-  }
-  return _impl_.player_;
-}
-inline ::ProjectJ::Player* MatchInfo_PlayerInfo::mutable_player() {
-  ::ProjectJ::Player* _msg = _internal_mutable_player();
-  // @@protoc_insertion_point(field_mutable:ProjectJ.MatchInfo.PlayerInfo.player)
-  return _msg;
-}
-inline void MatchInfo_PlayerInfo::set_allocated_player(::ProjectJ::Player* player) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
-  if (message_arena == nullptr) {
-    delete _impl_.player_;
-  }
-  if (player) {
-    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(player);
-    if (message_arena != submessage_arena) {
-      player = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-          message_arena, player, submessage_arena);
-    }
-    
-  } else {
-    
-  }
-  _impl_.player_ = player;
-  // @@protoc_insertion_point(field_set_allocated:ProjectJ.MatchInfo.PlayerInfo.player)
-}
-
-// .ProjectJ.Vector position = 4;
-inline bool MatchInfo_PlayerInfo::_internal_has_position() const {
-  return this != internal_default_instance() && _impl_.position_ != nullptr;
-}
-inline bool MatchInfo_PlayerInfo::has_position() const {
-  return _internal_has_position();
-}
-inline void MatchInfo_PlayerInfo::clear_position() {
-  if (GetArenaForAllocation() == nullptr && _impl_.position_ != nullptr) {
-    delete _impl_.position_;
-  }
-  _impl_.position_ = nullptr;
-}
-inline const ::ProjectJ::Vector& MatchInfo_PlayerInfo::_internal_position() const {
-  const ::ProjectJ::Vector* p = _impl_.position_;
-  return p != nullptr ? *p : reinterpret_cast<const ::ProjectJ::Vector&>(
-      ::ProjectJ::_Vector_default_instance_);
-}
-inline const ::ProjectJ::Vector& MatchInfo_PlayerInfo::position() const {
-  // @@protoc_insertion_point(field_get:ProjectJ.MatchInfo.PlayerInfo.position)
-  return _internal_position();
-}
-inline void MatchInfo_PlayerInfo::unsafe_arena_set_allocated_position(
-    ::ProjectJ::Vector* position) {
-  if (GetArenaForAllocation() == nullptr) {
-    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.position_);
-  }
-  _impl_.position_ = position;
-  if (position) {
-    
-  } else {
-    
-  }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:ProjectJ.MatchInfo.PlayerInfo.position)
-}
-inline ::ProjectJ::Vector* MatchInfo_PlayerInfo::release_position() {
-  
-  ::ProjectJ::Vector* temp = _impl_.position_;
-  _impl_.position_ = nullptr;
-#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
-  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
-  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  if (GetArenaForAllocation() == nullptr) { delete old; }
-#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
-  if (GetArenaForAllocation() != nullptr) {
-    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  }
-#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
-  return temp;
-}
-inline ::ProjectJ::Vector* MatchInfo_PlayerInfo::unsafe_arena_release_position() {
-  // @@protoc_insertion_point(field_release:ProjectJ.MatchInfo.PlayerInfo.position)
-  
-  ::ProjectJ::Vector* temp = _impl_.position_;
-  _impl_.position_ = nullptr;
-  return temp;
-}
-inline ::ProjectJ::Vector* MatchInfo_PlayerInfo::_internal_mutable_position() {
-  
-  if (_impl_.position_ == nullptr) {
-    auto* p = CreateMaybeMessage<::ProjectJ::Vector>(GetArenaForAllocation());
-    _impl_.position_ = p;
-  }
-  return _impl_.position_;
-}
-inline ::ProjectJ::Vector* MatchInfo_PlayerInfo::mutable_position() {
-  ::ProjectJ::Vector* _msg = _internal_mutable_position();
-  // @@protoc_insertion_point(field_mutable:ProjectJ.MatchInfo.PlayerInfo.position)
-  return _msg;
-}
-inline void MatchInfo_PlayerInfo::set_allocated_position(::ProjectJ::Vector* position) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
-  if (message_arena == nullptr) {
-    delete _impl_.position_;
-  }
-  if (position) {
-    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(position);
-    if (message_arena != submessage_arena) {
-      position = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-          message_arena, position, submessage_arena);
-    }
-    
-  } else {
-    
-  }
-  _impl_.position_ = position;
-  // @@protoc_insertion_point(field_set_allocated:ProjectJ.MatchInfo.PlayerInfo.position)
-}
-
-// .ProjectJ.Rotator rotation = 5;
-inline bool MatchInfo_PlayerInfo::_internal_has_rotation() const {
-  return this != internal_default_instance() && _impl_.rotation_ != nullptr;
-}
-inline bool MatchInfo_PlayerInfo::has_rotation() const {
-  return _internal_has_rotation();
-}
-inline void MatchInfo_PlayerInfo::clear_rotation() {
-  if (GetArenaForAllocation() == nullptr && _impl_.rotation_ != nullptr) {
-    delete _impl_.rotation_;
-  }
-  _impl_.rotation_ = nullptr;
-}
-inline const ::ProjectJ::Rotator& MatchInfo_PlayerInfo::_internal_rotation() const {
-  const ::ProjectJ::Rotator* p = _impl_.rotation_;
-  return p != nullptr ? *p : reinterpret_cast<const ::ProjectJ::Rotator&>(
-      ::ProjectJ::_Rotator_default_instance_);
-}
-inline const ::ProjectJ::Rotator& MatchInfo_PlayerInfo::rotation() const {
-  // @@protoc_insertion_point(field_get:ProjectJ.MatchInfo.PlayerInfo.rotation)
-  return _internal_rotation();
-}
-inline void MatchInfo_PlayerInfo::unsafe_arena_set_allocated_rotation(
-    ::ProjectJ::Rotator* rotation) {
-  if (GetArenaForAllocation() == nullptr) {
-    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.rotation_);
-  }
-  _impl_.rotation_ = rotation;
-  if (rotation) {
-    
-  } else {
-    
-  }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:ProjectJ.MatchInfo.PlayerInfo.rotation)
-}
-inline ::ProjectJ::Rotator* MatchInfo_PlayerInfo::release_rotation() {
-  
-  ::ProjectJ::Rotator* temp = _impl_.rotation_;
-  _impl_.rotation_ = nullptr;
-#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
-  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
-  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  if (GetArenaForAllocation() == nullptr) { delete old; }
-#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
-  if (GetArenaForAllocation() != nullptr) {
-    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  }
-#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
-  return temp;
-}
-inline ::ProjectJ::Rotator* MatchInfo_PlayerInfo::unsafe_arena_release_rotation() {
-  // @@protoc_insertion_point(field_release:ProjectJ.MatchInfo.PlayerInfo.rotation)
-  
-  ::ProjectJ::Rotator* temp = _impl_.rotation_;
-  _impl_.rotation_ = nullptr;
-  return temp;
-}
-inline ::ProjectJ::Rotator* MatchInfo_PlayerInfo::_internal_mutable_rotation() {
-  
-  if (_impl_.rotation_ == nullptr) {
-    auto* p = CreateMaybeMessage<::ProjectJ::Rotator>(GetArenaForAllocation());
-    _impl_.rotation_ = p;
-  }
-  return _impl_.rotation_;
-}
-inline ::ProjectJ::Rotator* MatchInfo_PlayerInfo::mutable_rotation() {
-  ::ProjectJ::Rotator* _msg = _internal_mutable_rotation();
-  // @@protoc_insertion_point(field_mutable:ProjectJ.MatchInfo.PlayerInfo.rotation)
-  return _msg;
-}
-inline void MatchInfo_PlayerInfo::set_allocated_rotation(::ProjectJ::Rotator* rotation) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
-  if (message_arena == nullptr) {
-    delete _impl_.rotation_;
-  }
-  if (rotation) {
-    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(rotation);
-    if (message_arena != submessage_arena) {
-      rotation = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-          message_arena, rotation, submessage_arena);
-    }
-    
-  } else {
-    
-  }
-  _impl_.rotation_ = rotation;
-  // @@protoc_insertion_point(field_set_allocated:ProjectJ.MatchInfo.PlayerInfo.rotation)
-}
-
-// -------------------------------------------------------------------
-
-// MatchInfo_ScaleInfo
-
-// bool is_operating = 1;
-inline void MatchInfo_ScaleInfo::clear_is_operating() {
-  _impl_.is_operating_ = false;
-}
-inline bool MatchInfo_ScaleInfo::_internal_is_operating() const {
-  return _impl_.is_operating_;
-}
-inline bool MatchInfo_ScaleInfo::is_operating() const {
-  // @@protoc_insertion_point(field_get:ProjectJ.MatchInfo.ScaleInfo.is_operating)
-  return _internal_is_operating();
-}
-inline void MatchInfo_ScaleInfo::_internal_set_is_operating(bool value) {
-  
-  _impl_.is_operating_ = value;
-}
-inline void MatchInfo_ScaleInfo::set_is_operating(bool value) {
-  _internal_set_is_operating(value);
-  // @@protoc_insertion_point(field_set:ProjectJ.MatchInfo.ScaleInfo.is_operating)
-}
-
-// int32 current_weight = 2;
-inline void MatchInfo_ScaleInfo::clear_current_weight() {
-  _impl_.current_weight_ = 0;
-}
-inline int32_t MatchInfo_ScaleInfo::_internal_current_weight() const {
-  return _impl_.current_weight_;
-}
-inline int32_t MatchInfo_ScaleInfo::current_weight() const {
-  // @@protoc_insertion_point(field_get:ProjectJ.MatchInfo.ScaleInfo.current_weight)
-  return _internal_current_weight();
-}
-inline void MatchInfo_ScaleInfo::_internal_set_current_weight(int32_t value) {
-  
-  _impl_.current_weight_ = value;
-}
-inline void MatchInfo_ScaleInfo::set_current_weight(int32_t value) {
-  _internal_set_current_weight(value);
-  // @@protoc_insertion_point(field_set:ProjectJ.MatchInfo.ScaleInfo.current_weight)
-}
-
-// -------------------------------------------------------------------
-
 // MatchInfo
 
-// .ProjectJ.MatchInfo.PlayerInfo chaser = 1;
+// .ProjectJ.PlayerInfo chaser = 1;
 inline bool MatchInfo::_internal_has_chaser() const {
   return this != internal_default_instance() && _impl_.chaser_ != nullptr;
 }
@@ -5520,17 +4673,17 @@ inline void MatchInfo::clear_chaser() {
   }
   _impl_.chaser_ = nullptr;
 }
-inline const ::ProjectJ::MatchInfo_PlayerInfo& MatchInfo::_internal_chaser() const {
-  const ::ProjectJ::MatchInfo_PlayerInfo* p = _impl_.chaser_;
-  return p != nullptr ? *p : reinterpret_cast<const ::ProjectJ::MatchInfo_PlayerInfo&>(
-      ::ProjectJ::_MatchInfo_PlayerInfo_default_instance_);
+inline const ::ProjectJ::PlayerInfo& MatchInfo::_internal_chaser() const {
+  const ::ProjectJ::PlayerInfo* p = _impl_.chaser_;
+  return p != nullptr ? *p : reinterpret_cast<const ::ProjectJ::PlayerInfo&>(
+      ::ProjectJ::_PlayerInfo_default_instance_);
 }
-inline const ::ProjectJ::MatchInfo_PlayerInfo& MatchInfo::chaser() const {
+inline const ::ProjectJ::PlayerInfo& MatchInfo::chaser() const {
   // @@protoc_insertion_point(field_get:ProjectJ.MatchInfo.chaser)
   return _internal_chaser();
 }
 inline void MatchInfo::unsafe_arena_set_allocated_chaser(
-    ::ProjectJ::MatchInfo_PlayerInfo* chaser) {
+    ::ProjectJ::PlayerInfo* chaser) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.chaser_);
   }
@@ -5542,9 +4695,9 @@ inline void MatchInfo::unsafe_arena_set_allocated_chaser(
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:ProjectJ.MatchInfo.chaser)
 }
-inline ::ProjectJ::MatchInfo_PlayerInfo* MatchInfo::release_chaser() {
+inline ::ProjectJ::PlayerInfo* MatchInfo::release_chaser() {
   
-  ::ProjectJ::MatchInfo_PlayerInfo* temp = _impl_.chaser_;
+  ::ProjectJ::PlayerInfo* temp = _impl_.chaser_;
   _impl_.chaser_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
   auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
@@ -5557,27 +4710,27 @@ inline ::ProjectJ::MatchInfo_PlayerInfo* MatchInfo::release_chaser() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::ProjectJ::MatchInfo_PlayerInfo* MatchInfo::unsafe_arena_release_chaser() {
+inline ::ProjectJ::PlayerInfo* MatchInfo::unsafe_arena_release_chaser() {
   // @@protoc_insertion_point(field_release:ProjectJ.MatchInfo.chaser)
   
-  ::ProjectJ::MatchInfo_PlayerInfo* temp = _impl_.chaser_;
+  ::ProjectJ::PlayerInfo* temp = _impl_.chaser_;
   _impl_.chaser_ = nullptr;
   return temp;
 }
-inline ::ProjectJ::MatchInfo_PlayerInfo* MatchInfo::_internal_mutable_chaser() {
+inline ::ProjectJ::PlayerInfo* MatchInfo::_internal_mutable_chaser() {
   
   if (_impl_.chaser_ == nullptr) {
-    auto* p = CreateMaybeMessage<::ProjectJ::MatchInfo_PlayerInfo>(GetArenaForAllocation());
+    auto* p = CreateMaybeMessage<::ProjectJ::PlayerInfo>(GetArenaForAllocation());
     _impl_.chaser_ = p;
   }
   return _impl_.chaser_;
 }
-inline ::ProjectJ::MatchInfo_PlayerInfo* MatchInfo::mutable_chaser() {
-  ::ProjectJ::MatchInfo_PlayerInfo* _msg = _internal_mutable_chaser();
+inline ::ProjectJ::PlayerInfo* MatchInfo::mutable_chaser() {
+  ::ProjectJ::PlayerInfo* _msg = _internal_mutable_chaser();
   // @@protoc_insertion_point(field_mutable:ProjectJ.MatchInfo.chaser)
   return _msg;
 }
-inline void MatchInfo::set_allocated_chaser(::ProjectJ::MatchInfo_PlayerInfo* chaser) {
+inline void MatchInfo::set_allocated_chaser(::ProjectJ::PlayerInfo* chaser) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete _impl_.chaser_;
@@ -5597,7 +4750,7 @@ inline void MatchInfo::set_allocated_chaser(::ProjectJ::MatchInfo_PlayerInfo* ch
   // @@protoc_insertion_point(field_set_allocated:ProjectJ.MatchInfo.chaser)
 }
 
-// .ProjectJ.MatchInfo.PlayerInfo fugitive_first = 2;
+// .ProjectJ.PlayerInfo fugitive_first = 2;
 inline bool MatchInfo::_internal_has_fugitive_first() const {
   return this != internal_default_instance() && _impl_.fugitive_first_ != nullptr;
 }
@@ -5610,17 +4763,17 @@ inline void MatchInfo::clear_fugitive_first() {
   }
   _impl_.fugitive_first_ = nullptr;
 }
-inline const ::ProjectJ::MatchInfo_PlayerInfo& MatchInfo::_internal_fugitive_first() const {
-  const ::ProjectJ::MatchInfo_PlayerInfo* p = _impl_.fugitive_first_;
-  return p != nullptr ? *p : reinterpret_cast<const ::ProjectJ::MatchInfo_PlayerInfo&>(
-      ::ProjectJ::_MatchInfo_PlayerInfo_default_instance_);
+inline const ::ProjectJ::PlayerInfo& MatchInfo::_internal_fugitive_first() const {
+  const ::ProjectJ::PlayerInfo* p = _impl_.fugitive_first_;
+  return p != nullptr ? *p : reinterpret_cast<const ::ProjectJ::PlayerInfo&>(
+      ::ProjectJ::_PlayerInfo_default_instance_);
 }
-inline const ::ProjectJ::MatchInfo_PlayerInfo& MatchInfo::fugitive_first() const {
+inline const ::ProjectJ::PlayerInfo& MatchInfo::fugitive_first() const {
   // @@protoc_insertion_point(field_get:ProjectJ.MatchInfo.fugitive_first)
   return _internal_fugitive_first();
 }
 inline void MatchInfo::unsafe_arena_set_allocated_fugitive_first(
-    ::ProjectJ::MatchInfo_PlayerInfo* fugitive_first) {
+    ::ProjectJ::PlayerInfo* fugitive_first) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.fugitive_first_);
   }
@@ -5632,9 +4785,9 @@ inline void MatchInfo::unsafe_arena_set_allocated_fugitive_first(
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:ProjectJ.MatchInfo.fugitive_first)
 }
-inline ::ProjectJ::MatchInfo_PlayerInfo* MatchInfo::release_fugitive_first() {
+inline ::ProjectJ::PlayerInfo* MatchInfo::release_fugitive_first() {
   
-  ::ProjectJ::MatchInfo_PlayerInfo* temp = _impl_.fugitive_first_;
+  ::ProjectJ::PlayerInfo* temp = _impl_.fugitive_first_;
   _impl_.fugitive_first_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
   auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
@@ -5647,27 +4800,27 @@ inline ::ProjectJ::MatchInfo_PlayerInfo* MatchInfo::release_fugitive_first() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::ProjectJ::MatchInfo_PlayerInfo* MatchInfo::unsafe_arena_release_fugitive_first() {
+inline ::ProjectJ::PlayerInfo* MatchInfo::unsafe_arena_release_fugitive_first() {
   // @@protoc_insertion_point(field_release:ProjectJ.MatchInfo.fugitive_first)
   
-  ::ProjectJ::MatchInfo_PlayerInfo* temp = _impl_.fugitive_first_;
+  ::ProjectJ::PlayerInfo* temp = _impl_.fugitive_first_;
   _impl_.fugitive_first_ = nullptr;
   return temp;
 }
-inline ::ProjectJ::MatchInfo_PlayerInfo* MatchInfo::_internal_mutable_fugitive_first() {
+inline ::ProjectJ::PlayerInfo* MatchInfo::_internal_mutable_fugitive_first() {
   
   if (_impl_.fugitive_first_ == nullptr) {
-    auto* p = CreateMaybeMessage<::ProjectJ::MatchInfo_PlayerInfo>(GetArenaForAllocation());
+    auto* p = CreateMaybeMessage<::ProjectJ::PlayerInfo>(GetArenaForAllocation());
     _impl_.fugitive_first_ = p;
   }
   return _impl_.fugitive_first_;
 }
-inline ::ProjectJ::MatchInfo_PlayerInfo* MatchInfo::mutable_fugitive_first() {
-  ::ProjectJ::MatchInfo_PlayerInfo* _msg = _internal_mutable_fugitive_first();
+inline ::ProjectJ::PlayerInfo* MatchInfo::mutable_fugitive_first() {
+  ::ProjectJ::PlayerInfo* _msg = _internal_mutable_fugitive_first();
   // @@protoc_insertion_point(field_mutable:ProjectJ.MatchInfo.fugitive_first)
   return _msg;
 }
-inline void MatchInfo::set_allocated_fugitive_first(::ProjectJ::MatchInfo_PlayerInfo* fugitive_first) {
+inline void MatchInfo::set_allocated_fugitive_first(::ProjectJ::PlayerInfo* fugitive_first) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete _impl_.fugitive_first_;
@@ -5687,7 +4840,7 @@ inline void MatchInfo::set_allocated_fugitive_first(::ProjectJ::MatchInfo_Player
   // @@protoc_insertion_point(field_set_allocated:ProjectJ.MatchInfo.fugitive_first)
 }
 
-// .ProjectJ.MatchInfo.PlayerInfo fugitive_second = 3;
+// .ProjectJ.PlayerInfo fugitive_second = 3;
 inline bool MatchInfo::_internal_has_fugitive_second() const {
   return this != internal_default_instance() && _impl_.fugitive_second_ != nullptr;
 }
@@ -5700,17 +4853,17 @@ inline void MatchInfo::clear_fugitive_second() {
   }
   _impl_.fugitive_second_ = nullptr;
 }
-inline const ::ProjectJ::MatchInfo_PlayerInfo& MatchInfo::_internal_fugitive_second() const {
-  const ::ProjectJ::MatchInfo_PlayerInfo* p = _impl_.fugitive_second_;
-  return p != nullptr ? *p : reinterpret_cast<const ::ProjectJ::MatchInfo_PlayerInfo&>(
-      ::ProjectJ::_MatchInfo_PlayerInfo_default_instance_);
+inline const ::ProjectJ::PlayerInfo& MatchInfo::_internal_fugitive_second() const {
+  const ::ProjectJ::PlayerInfo* p = _impl_.fugitive_second_;
+  return p != nullptr ? *p : reinterpret_cast<const ::ProjectJ::PlayerInfo&>(
+      ::ProjectJ::_PlayerInfo_default_instance_);
 }
-inline const ::ProjectJ::MatchInfo_PlayerInfo& MatchInfo::fugitive_second() const {
+inline const ::ProjectJ::PlayerInfo& MatchInfo::fugitive_second() const {
   // @@protoc_insertion_point(field_get:ProjectJ.MatchInfo.fugitive_second)
   return _internal_fugitive_second();
 }
 inline void MatchInfo::unsafe_arena_set_allocated_fugitive_second(
-    ::ProjectJ::MatchInfo_PlayerInfo* fugitive_second) {
+    ::ProjectJ::PlayerInfo* fugitive_second) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.fugitive_second_);
   }
@@ -5722,9 +4875,9 @@ inline void MatchInfo::unsafe_arena_set_allocated_fugitive_second(
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:ProjectJ.MatchInfo.fugitive_second)
 }
-inline ::ProjectJ::MatchInfo_PlayerInfo* MatchInfo::release_fugitive_second() {
+inline ::ProjectJ::PlayerInfo* MatchInfo::release_fugitive_second() {
   
-  ::ProjectJ::MatchInfo_PlayerInfo* temp = _impl_.fugitive_second_;
+  ::ProjectJ::PlayerInfo* temp = _impl_.fugitive_second_;
   _impl_.fugitive_second_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
   auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
@@ -5737,27 +4890,27 @@ inline ::ProjectJ::MatchInfo_PlayerInfo* MatchInfo::release_fugitive_second() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::ProjectJ::MatchInfo_PlayerInfo* MatchInfo::unsafe_arena_release_fugitive_second() {
+inline ::ProjectJ::PlayerInfo* MatchInfo::unsafe_arena_release_fugitive_second() {
   // @@protoc_insertion_point(field_release:ProjectJ.MatchInfo.fugitive_second)
   
-  ::ProjectJ::MatchInfo_PlayerInfo* temp = _impl_.fugitive_second_;
+  ::ProjectJ::PlayerInfo* temp = _impl_.fugitive_second_;
   _impl_.fugitive_second_ = nullptr;
   return temp;
 }
-inline ::ProjectJ::MatchInfo_PlayerInfo* MatchInfo::_internal_mutable_fugitive_second() {
+inline ::ProjectJ::PlayerInfo* MatchInfo::_internal_mutable_fugitive_second() {
   
   if (_impl_.fugitive_second_ == nullptr) {
-    auto* p = CreateMaybeMessage<::ProjectJ::MatchInfo_PlayerInfo>(GetArenaForAllocation());
+    auto* p = CreateMaybeMessage<::ProjectJ::PlayerInfo>(GetArenaForAllocation());
     _impl_.fugitive_second_ = p;
   }
   return _impl_.fugitive_second_;
 }
-inline ::ProjectJ::MatchInfo_PlayerInfo* MatchInfo::mutable_fugitive_second() {
-  ::ProjectJ::MatchInfo_PlayerInfo* _msg = _internal_mutable_fugitive_second();
+inline ::ProjectJ::PlayerInfo* MatchInfo::mutable_fugitive_second() {
+  ::ProjectJ::PlayerInfo* _msg = _internal_mutable_fugitive_second();
   // @@protoc_insertion_point(field_mutable:ProjectJ.MatchInfo.fugitive_second)
   return _msg;
 }
-inline void MatchInfo::set_allocated_fugitive_second(::ProjectJ::MatchInfo_PlayerInfo* fugitive_second) {
+inline void MatchInfo::set_allocated_fugitive_second(::ProjectJ::PlayerInfo* fugitive_second) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete _impl_.fugitive_second_;
@@ -5777,7 +4930,7 @@ inline void MatchInfo::set_allocated_fugitive_second(::ProjectJ::MatchInfo_Playe
   // @@protoc_insertion_point(field_set_allocated:ProjectJ.MatchInfo.fugitive_second)
 }
 
-// .ProjectJ.MatchInfo.PlayerInfo fugitive_third = 4;
+// .ProjectJ.PlayerInfo fugitive_third = 4;
 inline bool MatchInfo::_internal_has_fugitive_third() const {
   return this != internal_default_instance() && _impl_.fugitive_third_ != nullptr;
 }
@@ -5790,17 +4943,17 @@ inline void MatchInfo::clear_fugitive_third() {
   }
   _impl_.fugitive_third_ = nullptr;
 }
-inline const ::ProjectJ::MatchInfo_PlayerInfo& MatchInfo::_internal_fugitive_third() const {
-  const ::ProjectJ::MatchInfo_PlayerInfo* p = _impl_.fugitive_third_;
-  return p != nullptr ? *p : reinterpret_cast<const ::ProjectJ::MatchInfo_PlayerInfo&>(
-      ::ProjectJ::_MatchInfo_PlayerInfo_default_instance_);
+inline const ::ProjectJ::PlayerInfo& MatchInfo::_internal_fugitive_third() const {
+  const ::ProjectJ::PlayerInfo* p = _impl_.fugitive_third_;
+  return p != nullptr ? *p : reinterpret_cast<const ::ProjectJ::PlayerInfo&>(
+      ::ProjectJ::_PlayerInfo_default_instance_);
 }
-inline const ::ProjectJ::MatchInfo_PlayerInfo& MatchInfo::fugitive_third() const {
+inline const ::ProjectJ::PlayerInfo& MatchInfo::fugitive_third() const {
   // @@protoc_insertion_point(field_get:ProjectJ.MatchInfo.fugitive_third)
   return _internal_fugitive_third();
 }
 inline void MatchInfo::unsafe_arena_set_allocated_fugitive_third(
-    ::ProjectJ::MatchInfo_PlayerInfo* fugitive_third) {
+    ::ProjectJ::PlayerInfo* fugitive_third) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.fugitive_third_);
   }
@@ -5812,9 +4965,9 @@ inline void MatchInfo::unsafe_arena_set_allocated_fugitive_third(
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:ProjectJ.MatchInfo.fugitive_third)
 }
-inline ::ProjectJ::MatchInfo_PlayerInfo* MatchInfo::release_fugitive_third() {
+inline ::ProjectJ::PlayerInfo* MatchInfo::release_fugitive_third() {
   
-  ::ProjectJ::MatchInfo_PlayerInfo* temp = _impl_.fugitive_third_;
+  ::ProjectJ::PlayerInfo* temp = _impl_.fugitive_third_;
   _impl_.fugitive_third_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
   auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
@@ -5827,27 +4980,27 @@ inline ::ProjectJ::MatchInfo_PlayerInfo* MatchInfo::release_fugitive_third() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::ProjectJ::MatchInfo_PlayerInfo* MatchInfo::unsafe_arena_release_fugitive_third() {
+inline ::ProjectJ::PlayerInfo* MatchInfo::unsafe_arena_release_fugitive_third() {
   // @@protoc_insertion_point(field_release:ProjectJ.MatchInfo.fugitive_third)
   
-  ::ProjectJ::MatchInfo_PlayerInfo* temp = _impl_.fugitive_third_;
+  ::ProjectJ::PlayerInfo* temp = _impl_.fugitive_third_;
   _impl_.fugitive_third_ = nullptr;
   return temp;
 }
-inline ::ProjectJ::MatchInfo_PlayerInfo* MatchInfo::_internal_mutable_fugitive_third() {
+inline ::ProjectJ::PlayerInfo* MatchInfo::_internal_mutable_fugitive_third() {
   
   if (_impl_.fugitive_third_ == nullptr) {
-    auto* p = CreateMaybeMessage<::ProjectJ::MatchInfo_PlayerInfo>(GetArenaForAllocation());
+    auto* p = CreateMaybeMessage<::ProjectJ::PlayerInfo>(GetArenaForAllocation());
     _impl_.fugitive_third_ = p;
   }
   return _impl_.fugitive_third_;
 }
-inline ::ProjectJ::MatchInfo_PlayerInfo* MatchInfo::mutable_fugitive_third() {
-  ::ProjectJ::MatchInfo_PlayerInfo* _msg = _internal_mutable_fugitive_third();
+inline ::ProjectJ::PlayerInfo* MatchInfo::mutable_fugitive_third() {
+  ::ProjectJ::PlayerInfo* _msg = _internal_mutable_fugitive_third();
   // @@protoc_insertion_point(field_mutable:ProjectJ.MatchInfo.fugitive_third)
   return _msg;
 }
-inline void MatchInfo::set_allocated_fugitive_third(::ProjectJ::MatchInfo_PlayerInfo* fugitive_third) {
+inline void MatchInfo::set_allocated_fugitive_third(::ProjectJ::PlayerInfo* fugitive_third) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete _impl_.fugitive_third_;
@@ -5867,413 +5020,9 @@ inline void MatchInfo::set_allocated_fugitive_third(::ProjectJ::MatchInfo_Player
   // @@protoc_insertion_point(field_set_allocated:ProjectJ.MatchInfo.fugitive_third)
 }
 
-// .ProjectJ.MatchInfo.ScaleInfo scale_first = 5;
-inline bool MatchInfo::_internal_has_scale_first() const {
-  return this != internal_default_instance() && _impl_.scale_first_ != nullptr;
-}
-inline bool MatchInfo::has_scale_first() const {
-  return _internal_has_scale_first();
-}
-inline void MatchInfo::clear_scale_first() {
-  if (GetArenaForAllocation() == nullptr && _impl_.scale_first_ != nullptr) {
-    delete _impl_.scale_first_;
-  }
-  _impl_.scale_first_ = nullptr;
-}
-inline const ::ProjectJ::MatchInfo_ScaleInfo& MatchInfo::_internal_scale_first() const {
-  const ::ProjectJ::MatchInfo_ScaleInfo* p = _impl_.scale_first_;
-  return p != nullptr ? *p : reinterpret_cast<const ::ProjectJ::MatchInfo_ScaleInfo&>(
-      ::ProjectJ::_MatchInfo_ScaleInfo_default_instance_);
-}
-inline const ::ProjectJ::MatchInfo_ScaleInfo& MatchInfo::scale_first() const {
-  // @@protoc_insertion_point(field_get:ProjectJ.MatchInfo.scale_first)
-  return _internal_scale_first();
-}
-inline void MatchInfo::unsafe_arena_set_allocated_scale_first(
-    ::ProjectJ::MatchInfo_ScaleInfo* scale_first) {
-  if (GetArenaForAllocation() == nullptr) {
-    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.scale_first_);
-  }
-  _impl_.scale_first_ = scale_first;
-  if (scale_first) {
-    
-  } else {
-    
-  }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:ProjectJ.MatchInfo.scale_first)
-}
-inline ::ProjectJ::MatchInfo_ScaleInfo* MatchInfo::release_scale_first() {
-  
-  ::ProjectJ::MatchInfo_ScaleInfo* temp = _impl_.scale_first_;
-  _impl_.scale_first_ = nullptr;
-#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
-  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
-  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  if (GetArenaForAllocation() == nullptr) { delete old; }
-#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
-  if (GetArenaForAllocation() != nullptr) {
-    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  }
-#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
-  return temp;
-}
-inline ::ProjectJ::MatchInfo_ScaleInfo* MatchInfo::unsafe_arena_release_scale_first() {
-  // @@protoc_insertion_point(field_release:ProjectJ.MatchInfo.scale_first)
-  
-  ::ProjectJ::MatchInfo_ScaleInfo* temp = _impl_.scale_first_;
-  _impl_.scale_first_ = nullptr;
-  return temp;
-}
-inline ::ProjectJ::MatchInfo_ScaleInfo* MatchInfo::_internal_mutable_scale_first() {
-  
-  if (_impl_.scale_first_ == nullptr) {
-    auto* p = CreateMaybeMessage<::ProjectJ::MatchInfo_ScaleInfo>(GetArenaForAllocation());
-    _impl_.scale_first_ = p;
-  }
-  return _impl_.scale_first_;
-}
-inline ::ProjectJ::MatchInfo_ScaleInfo* MatchInfo::mutable_scale_first() {
-  ::ProjectJ::MatchInfo_ScaleInfo* _msg = _internal_mutable_scale_first();
-  // @@protoc_insertion_point(field_mutable:ProjectJ.MatchInfo.scale_first)
-  return _msg;
-}
-inline void MatchInfo::set_allocated_scale_first(::ProjectJ::MatchInfo_ScaleInfo* scale_first) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
-  if (message_arena == nullptr) {
-    delete _impl_.scale_first_;
-  }
-  if (scale_first) {
-    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(scale_first);
-    if (message_arena != submessage_arena) {
-      scale_first = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-          message_arena, scale_first, submessage_arena);
-    }
-    
-  } else {
-    
-  }
-  _impl_.scale_first_ = scale_first;
-  // @@protoc_insertion_point(field_set_allocated:ProjectJ.MatchInfo.scale_first)
-}
-
-// .ProjectJ.MatchInfo.ScaleInfo scale_second = 6;
-inline bool MatchInfo::_internal_has_scale_second() const {
-  return this != internal_default_instance() && _impl_.scale_second_ != nullptr;
-}
-inline bool MatchInfo::has_scale_second() const {
-  return _internal_has_scale_second();
-}
-inline void MatchInfo::clear_scale_second() {
-  if (GetArenaForAllocation() == nullptr && _impl_.scale_second_ != nullptr) {
-    delete _impl_.scale_second_;
-  }
-  _impl_.scale_second_ = nullptr;
-}
-inline const ::ProjectJ::MatchInfo_ScaleInfo& MatchInfo::_internal_scale_second() const {
-  const ::ProjectJ::MatchInfo_ScaleInfo* p = _impl_.scale_second_;
-  return p != nullptr ? *p : reinterpret_cast<const ::ProjectJ::MatchInfo_ScaleInfo&>(
-      ::ProjectJ::_MatchInfo_ScaleInfo_default_instance_);
-}
-inline const ::ProjectJ::MatchInfo_ScaleInfo& MatchInfo::scale_second() const {
-  // @@protoc_insertion_point(field_get:ProjectJ.MatchInfo.scale_second)
-  return _internal_scale_second();
-}
-inline void MatchInfo::unsafe_arena_set_allocated_scale_second(
-    ::ProjectJ::MatchInfo_ScaleInfo* scale_second) {
-  if (GetArenaForAllocation() == nullptr) {
-    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.scale_second_);
-  }
-  _impl_.scale_second_ = scale_second;
-  if (scale_second) {
-    
-  } else {
-    
-  }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:ProjectJ.MatchInfo.scale_second)
-}
-inline ::ProjectJ::MatchInfo_ScaleInfo* MatchInfo::release_scale_second() {
-  
-  ::ProjectJ::MatchInfo_ScaleInfo* temp = _impl_.scale_second_;
-  _impl_.scale_second_ = nullptr;
-#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
-  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
-  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  if (GetArenaForAllocation() == nullptr) { delete old; }
-#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
-  if (GetArenaForAllocation() != nullptr) {
-    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  }
-#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
-  return temp;
-}
-inline ::ProjectJ::MatchInfo_ScaleInfo* MatchInfo::unsafe_arena_release_scale_second() {
-  // @@protoc_insertion_point(field_release:ProjectJ.MatchInfo.scale_second)
-  
-  ::ProjectJ::MatchInfo_ScaleInfo* temp = _impl_.scale_second_;
-  _impl_.scale_second_ = nullptr;
-  return temp;
-}
-inline ::ProjectJ::MatchInfo_ScaleInfo* MatchInfo::_internal_mutable_scale_second() {
-  
-  if (_impl_.scale_second_ == nullptr) {
-    auto* p = CreateMaybeMessage<::ProjectJ::MatchInfo_ScaleInfo>(GetArenaForAllocation());
-    _impl_.scale_second_ = p;
-  }
-  return _impl_.scale_second_;
-}
-inline ::ProjectJ::MatchInfo_ScaleInfo* MatchInfo::mutable_scale_second() {
-  ::ProjectJ::MatchInfo_ScaleInfo* _msg = _internal_mutable_scale_second();
-  // @@protoc_insertion_point(field_mutable:ProjectJ.MatchInfo.scale_second)
-  return _msg;
-}
-inline void MatchInfo::set_allocated_scale_second(::ProjectJ::MatchInfo_ScaleInfo* scale_second) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
-  if (message_arena == nullptr) {
-    delete _impl_.scale_second_;
-  }
-  if (scale_second) {
-    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(scale_second);
-    if (message_arena != submessage_arena) {
-      scale_second = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-          message_arena, scale_second, submessage_arena);
-    }
-    
-  } else {
-    
-  }
-  _impl_.scale_second_ = scale_second;
-  // @@protoc_insertion_point(field_set_allocated:ProjectJ.MatchInfo.scale_second)
-}
-
-// .ProjectJ.MatchInfo.ScaleInfo scale_third = 7;
-inline bool MatchInfo::_internal_has_scale_third() const {
-  return this != internal_default_instance() && _impl_.scale_third_ != nullptr;
-}
-inline bool MatchInfo::has_scale_third() const {
-  return _internal_has_scale_third();
-}
-inline void MatchInfo::clear_scale_third() {
-  if (GetArenaForAllocation() == nullptr && _impl_.scale_third_ != nullptr) {
-    delete _impl_.scale_third_;
-  }
-  _impl_.scale_third_ = nullptr;
-}
-inline const ::ProjectJ::MatchInfo_ScaleInfo& MatchInfo::_internal_scale_third() const {
-  const ::ProjectJ::MatchInfo_ScaleInfo* p = _impl_.scale_third_;
-  return p != nullptr ? *p : reinterpret_cast<const ::ProjectJ::MatchInfo_ScaleInfo&>(
-      ::ProjectJ::_MatchInfo_ScaleInfo_default_instance_);
-}
-inline const ::ProjectJ::MatchInfo_ScaleInfo& MatchInfo::scale_third() const {
-  // @@protoc_insertion_point(field_get:ProjectJ.MatchInfo.scale_third)
-  return _internal_scale_third();
-}
-inline void MatchInfo::unsafe_arena_set_allocated_scale_third(
-    ::ProjectJ::MatchInfo_ScaleInfo* scale_third) {
-  if (GetArenaForAllocation() == nullptr) {
-    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.scale_third_);
-  }
-  _impl_.scale_third_ = scale_third;
-  if (scale_third) {
-    
-  } else {
-    
-  }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:ProjectJ.MatchInfo.scale_third)
-}
-inline ::ProjectJ::MatchInfo_ScaleInfo* MatchInfo::release_scale_third() {
-  
-  ::ProjectJ::MatchInfo_ScaleInfo* temp = _impl_.scale_third_;
-  _impl_.scale_third_ = nullptr;
-#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
-  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
-  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  if (GetArenaForAllocation() == nullptr) { delete old; }
-#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
-  if (GetArenaForAllocation() != nullptr) {
-    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  }
-#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
-  return temp;
-}
-inline ::ProjectJ::MatchInfo_ScaleInfo* MatchInfo::unsafe_arena_release_scale_third() {
-  // @@protoc_insertion_point(field_release:ProjectJ.MatchInfo.scale_third)
-  
-  ::ProjectJ::MatchInfo_ScaleInfo* temp = _impl_.scale_third_;
-  _impl_.scale_third_ = nullptr;
-  return temp;
-}
-inline ::ProjectJ::MatchInfo_ScaleInfo* MatchInfo::_internal_mutable_scale_third() {
-  
-  if (_impl_.scale_third_ == nullptr) {
-    auto* p = CreateMaybeMessage<::ProjectJ::MatchInfo_ScaleInfo>(GetArenaForAllocation());
-    _impl_.scale_third_ = p;
-  }
-  return _impl_.scale_third_;
-}
-inline ::ProjectJ::MatchInfo_ScaleInfo* MatchInfo::mutable_scale_third() {
-  ::ProjectJ::MatchInfo_ScaleInfo* _msg = _internal_mutable_scale_third();
-  // @@protoc_insertion_point(field_mutable:ProjectJ.MatchInfo.scale_third)
-  return _msg;
-}
-inline void MatchInfo::set_allocated_scale_third(::ProjectJ::MatchInfo_ScaleInfo* scale_third) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
-  if (message_arena == nullptr) {
-    delete _impl_.scale_third_;
-  }
-  if (scale_third) {
-    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(scale_third);
-    if (message_arena != submessage_arena) {
-      scale_third = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-          message_arena, scale_third, submessage_arena);
-    }
-    
-  } else {
-    
-  }
-  _impl_.scale_third_ = scale_third;
-  // @@protoc_insertion_point(field_set_allocated:ProjectJ.MatchInfo.scale_third)
-}
-
-// .ProjectJ.MatchInfo.ScaleInfo scale_fourth = 8;
-inline bool MatchInfo::_internal_has_scale_fourth() const {
-  return this != internal_default_instance() && _impl_.scale_fourth_ != nullptr;
-}
-inline bool MatchInfo::has_scale_fourth() const {
-  return _internal_has_scale_fourth();
-}
-inline void MatchInfo::clear_scale_fourth() {
-  if (GetArenaForAllocation() == nullptr && _impl_.scale_fourth_ != nullptr) {
-    delete _impl_.scale_fourth_;
-  }
-  _impl_.scale_fourth_ = nullptr;
-}
-inline const ::ProjectJ::MatchInfo_ScaleInfo& MatchInfo::_internal_scale_fourth() const {
-  const ::ProjectJ::MatchInfo_ScaleInfo* p = _impl_.scale_fourth_;
-  return p != nullptr ? *p : reinterpret_cast<const ::ProjectJ::MatchInfo_ScaleInfo&>(
-      ::ProjectJ::_MatchInfo_ScaleInfo_default_instance_);
-}
-inline const ::ProjectJ::MatchInfo_ScaleInfo& MatchInfo::scale_fourth() const {
-  // @@protoc_insertion_point(field_get:ProjectJ.MatchInfo.scale_fourth)
-  return _internal_scale_fourth();
-}
-inline void MatchInfo::unsafe_arena_set_allocated_scale_fourth(
-    ::ProjectJ::MatchInfo_ScaleInfo* scale_fourth) {
-  if (GetArenaForAllocation() == nullptr) {
-    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.scale_fourth_);
-  }
-  _impl_.scale_fourth_ = scale_fourth;
-  if (scale_fourth) {
-    
-  } else {
-    
-  }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:ProjectJ.MatchInfo.scale_fourth)
-}
-inline ::ProjectJ::MatchInfo_ScaleInfo* MatchInfo::release_scale_fourth() {
-  
-  ::ProjectJ::MatchInfo_ScaleInfo* temp = _impl_.scale_fourth_;
-  _impl_.scale_fourth_ = nullptr;
-#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
-  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
-  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  if (GetArenaForAllocation() == nullptr) { delete old; }
-#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
-  if (GetArenaForAllocation() != nullptr) {
-    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  }
-#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
-  return temp;
-}
-inline ::ProjectJ::MatchInfo_ScaleInfo* MatchInfo::unsafe_arena_release_scale_fourth() {
-  // @@protoc_insertion_point(field_release:ProjectJ.MatchInfo.scale_fourth)
-  
-  ::ProjectJ::MatchInfo_ScaleInfo* temp = _impl_.scale_fourth_;
-  _impl_.scale_fourth_ = nullptr;
-  return temp;
-}
-inline ::ProjectJ::MatchInfo_ScaleInfo* MatchInfo::_internal_mutable_scale_fourth() {
-  
-  if (_impl_.scale_fourth_ == nullptr) {
-    auto* p = CreateMaybeMessage<::ProjectJ::MatchInfo_ScaleInfo>(GetArenaForAllocation());
-    _impl_.scale_fourth_ = p;
-  }
-  return _impl_.scale_fourth_;
-}
-inline ::ProjectJ::MatchInfo_ScaleInfo* MatchInfo::mutable_scale_fourth() {
-  ::ProjectJ::MatchInfo_ScaleInfo* _msg = _internal_mutable_scale_fourth();
-  // @@protoc_insertion_point(field_mutable:ProjectJ.MatchInfo.scale_fourth)
-  return _msg;
-}
-inline void MatchInfo::set_allocated_scale_fourth(::ProjectJ::MatchInfo_ScaleInfo* scale_fourth) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
-  if (message_arena == nullptr) {
-    delete _impl_.scale_fourth_;
-  }
-  if (scale_fourth) {
-    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(scale_fourth);
-    if (message_arena != submessage_arena) {
-      scale_fourth = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-          message_arena, scale_fourth, submessage_arena);
-    }
-    
-  } else {
-    
-  }
-  _impl_.scale_fourth_ = scale_fourth;
-  // @@protoc_insertion_point(field_set_allocated:ProjectJ.MatchInfo.scale_fourth)
-}
-
-// repeated .ProjectJ.Item items = 9;
-inline int MatchInfo::_internal_items_size() const {
-  return _impl_.items_.size();
-}
-inline int MatchInfo::items_size() const {
-  return _internal_items_size();
-}
-inline void MatchInfo::clear_items() {
-  _impl_.items_.Clear();
-}
-inline ::ProjectJ::Item* MatchInfo::mutable_items(int index) {
-  // @@protoc_insertion_point(field_mutable:ProjectJ.MatchInfo.items)
-  return _impl_.items_.Mutable(index);
-}
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::ProjectJ::Item >*
-MatchInfo::mutable_items() {
-  // @@protoc_insertion_point(field_mutable_list:ProjectJ.MatchInfo.items)
-  return &_impl_.items_;
-}
-inline const ::ProjectJ::Item& MatchInfo::_internal_items(int index) const {
-  return _impl_.items_.Get(index);
-}
-inline const ::ProjectJ::Item& MatchInfo::items(int index) const {
-  // @@protoc_insertion_point(field_get:ProjectJ.MatchInfo.items)
-  return _internal_items(index);
-}
-inline ::ProjectJ::Item* MatchInfo::_internal_add_items() {
-  return _impl_.items_.Add();
-}
-inline ::ProjectJ::Item* MatchInfo::add_items() {
-  ::ProjectJ::Item* _add = _internal_add_items();
-  // @@protoc_insertion_point(field_add:ProjectJ.MatchInfo.items)
-  return _add;
-}
-inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::ProjectJ::Item >&
-MatchInfo::items() const {
-  // @@protoc_insertion_point(field_list:ProjectJ.MatchInfo.items)
-  return _impl_.items_;
-}
-
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
-// -------------------------------------------------------------------
-
-// -------------------------------------------------------------------
-
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

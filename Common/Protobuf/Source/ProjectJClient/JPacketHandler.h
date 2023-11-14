@@ -47,6 +47,7 @@ enum : uint16
 	PKT_S_MATCH_ITEM_SOMEONE_PICKUP = 1031,
 	PKT_S_MATCH_ITEM_SOMEONE_MOVE = 1032,
 	PKT_S_MATCH_ITEM_SOMEONE_DROP = 1033,
+	PKT_S_MATCH_SCALE_ON_CHANGED = 1034,
 };
 
 // RecvThread 전용 패킷 가공 함수
@@ -100,11 +101,13 @@ bool Handle_S_MATCH_ITEM_SOMEONE_MOVE(UWorld* World, ProjectJ::S_MATCH_ITEM_SOME
 DECLARE_DELEGATE_RetVal_ThreeParams(bool, FPacket_S_MATCH_ITEM_SOMEONE_MOVE, UWorld*, ProjectJ::S_MATCH_ITEM_SOMEONE_MOVE&, float);
 bool Handle_S_MATCH_ITEM_SOMEONE_DROP(UWorld* World, ProjectJ::S_MATCH_ITEM_SOMEONE_DROP& Packet, float DeltaSeconds);
 DECLARE_DELEGATE_RetVal_ThreeParams(bool, FPacket_S_MATCH_ITEM_SOMEONE_DROP, UWorld*, ProjectJ::S_MATCH_ITEM_SOMEONE_DROP&, float);
+bool Handle_S_MATCH_SCALE_ON_CHANGED(UWorld* World, ProjectJ::S_MATCH_SCALE_ON_CHANGED& Packet, float DeltaSeconds);
+DECLARE_DELEGATE_RetVal_ThreeParams(bool, FPacket_S_MATCH_SCALE_ON_CHANGED, UWorld*, ProjectJ::S_MATCH_SCALE_ON_CHANGED&, float);
 
 // 소켓 수신 데이터 처리 및 송신 버퍼 생성 클래스
 // 최초 작성자: 박별
 // 수정자: 
-// 최종 수정일: 2023-11-14 자동 생성
+// 최종 수정일: 2023-11-15 자동 생성
 class PROJECTJ_API UJPacketHandler : public UObject
 {
 public:
@@ -141,6 +144,7 @@ public:
 		GPacketProcessor[PKT_S_MATCH_ITEM_SOMEONE_PICKUP] = [](UWorld* World, const TSharedPtr<JPackets>& PacketPtr, float DeltaSeconds) {return ProcessPacket<ProjectJ::S_MATCH_ITEM_SOMEONE_PICKUP>(Handle_S_MATCH_ITEM_SOMEONE_PICKUP, World, PacketPtr, DeltaSeconds);};
 		GPacketProcessor[PKT_S_MATCH_ITEM_SOMEONE_MOVE] = [](UWorld* World, const TSharedPtr<JPackets>& PacketPtr, float DeltaSeconds) {return ProcessPacket<ProjectJ::S_MATCH_ITEM_SOMEONE_MOVE>(Handle_S_MATCH_ITEM_SOMEONE_MOVE, World, PacketPtr, DeltaSeconds);};
 		GPacketProcessor[PKT_S_MATCH_ITEM_SOMEONE_DROP] = [](UWorld* World, const TSharedPtr<JPackets>& PacketPtr, float DeltaSeconds) {return ProcessPacket<ProjectJ::S_MATCH_ITEM_SOMEONE_DROP>(Handle_S_MATCH_ITEM_SOMEONE_DROP, World, PacketPtr, DeltaSeconds);};
+		GPacketProcessor[PKT_S_MATCH_SCALE_ON_CHANGED] = [](UWorld* World, const TSharedPtr<JPackets>& PacketPtr, float DeltaSeconds) {return ProcessPacket<ProjectJ::S_MATCH_SCALE_ON_CHANGED>(Handle_S_MATCH_SCALE_ON_CHANGED, World, PacketPtr, DeltaSeconds);};
 
 		// Handler 바인딩
 		GPacketHandler[PKT_S_VERIFY_TOKEN] = [](uint16 TypeCode, uint8* Buffer, int32 Size) {return HandlePacket<ProjectJ::S_VERIFY_TOKEN>(TypeCode, Buffer, Size);};
@@ -163,6 +167,7 @@ public:
 		GPacketHandler[PKT_S_MATCH_ITEM_SOMEONE_PICKUP] = [](uint16 TypeCode, uint8* Buffer, int32 Size) {return HandlePacket<ProjectJ::S_MATCH_ITEM_SOMEONE_PICKUP>(TypeCode, Buffer, Size);};
 		GPacketHandler[PKT_S_MATCH_ITEM_SOMEONE_MOVE] = [](uint16 TypeCode, uint8* Buffer, int32 Size) {return HandlePacket<ProjectJ::S_MATCH_ITEM_SOMEONE_MOVE>(TypeCode, Buffer, Size);};
 		GPacketHandler[PKT_S_MATCH_ITEM_SOMEONE_DROP] = [](uint16 TypeCode, uint8* Buffer, int32 Size) {return HandlePacket<ProjectJ::S_MATCH_ITEM_SOMEONE_DROP>(TypeCode, Buffer, Size);};
+		GPacketHandler[PKT_S_MATCH_SCALE_ON_CHANGED] = [](uint16 TypeCode, uint8* Buffer, int32 Size) {return HandlePacket<ProjectJ::S_MATCH_SCALE_ON_CHANGED>(TypeCode, Buffer, Size);};
 	}
 
 	// 게임 스레드에서 가공된 데이터를 처리하는 함수
@@ -342,4 +347,5 @@ public:
 	static FPacket_S_MATCH_ITEM_SOMEONE_PICKUP Packet_S_MATCH_ITEM_SOMEONE_PICKUP_Delegate;
 	static FPacket_S_MATCH_ITEM_SOMEONE_MOVE Packet_S_MATCH_ITEM_SOMEONE_MOVE_Delegate;
 	static FPacket_S_MATCH_ITEM_SOMEONE_DROP Packet_S_MATCH_ITEM_SOMEONE_DROP_Delegate;
+	static FPacket_S_MATCH_SCALE_ON_CHANGED Packet_S_MATCH_SCALE_ON_CHANGED_Delegate;
 };
