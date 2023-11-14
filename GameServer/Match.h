@@ -7,6 +7,7 @@
 #define FUGITIVE_SECOND_INDEX 2
 #define FUGITIVE_THIRD_INDEX 3
 
+#define SCALE_INDEX_PREFIX 4
 #define SCALE_FIRST_INDEX 0
 #define SCALE_SECOND_INDEX 1
 #define SCALE_THIRD_INDEX 2
@@ -33,7 +34,7 @@ public:
 	shared_ptr<Match> GetMatchPtr() { return static_pointer_cast<Match>(shared_from_this()); }
 	ProjectJ::PlayerInfo* GetPlayerInfo(int playerIndex);
 
-	void Tick(double deltaTime);
+	void Tick();
 	void Broadcast(shared_ptr<SendBuffer> sendBuffer);
 
 	void Init(shared_ptr<GameSession> chaser,
@@ -42,21 +43,19 @@ public:
 	          shared_ptr<GameSession> fugitiveThird);
 	void Start();
 	void End();
-	bool CheckEndCondition();
 	bool CheckPlayersState();
 	void PlayerStateChanged(const shared_ptr<GameSession>& session, ProjectJ::MatchPlayerState state);
 	void PlayerDisconnected(const shared_ptr<GameSession>& session);
 
 	// Contents
 public:
-	void PlayerLoadingComplete(shared_ptr<GameSession> session);
+	void PlayerReadyToReceive(shared_ptr<GameSession> session);
+	void PlayerReadyToStart(shared_ptr<GameSession> session);
 	void PlayerPickupItem(int playerIndex, int itemIndex);
 	void PlayerMoveItem(int playerIndex, int fromIndex, int toIndex, int itemIndex, int targetTopLeftIndex, bool isRotated);
 	void PlayerDropItem(int playerIndex, int itemIndex, ProjectJ::Vector position, ProjectJ::Rotator rotation);
 
-public:
 private:
-	void GenerateItems();
 	void PlayerBackToRoom();
 
 private:
@@ -67,4 +66,5 @@ private:
 	vector<pair<shared_ptr<Player>, ProjectJ::MatchPlayerState>> players_;
 	vector<shared_ptr<Scale>> scales_;
 	vector<shared_ptr<Item>> items_;
+	TimerHandle tickHandle_;
 };
