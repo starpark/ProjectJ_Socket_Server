@@ -3,7 +3,10 @@
 #include "GameService.h"
 #include "GameSession.h"
 #include "GamePacketHandler.h"
-#include "Item.h"
+#include "DataManager.h"
+
+#define TEST_PORT 55141
+#define LIVE_PORT 3000
 
 enum
 {
@@ -35,10 +38,13 @@ int main()
 	}
 	GLogHelper->Print(LogCategory::Log_SUCCESS, L"DB Connection Success\n");
 
-	ItemManager::Init();
+	if (DataManager::Init() == false)
+	{
+		return 0;
+	}
 	GamePacketHandler::Init();
-	vector<thread> threads;
-	auto service = make_shared<GameService>(NetAddress(L"0.0.0.0", 3000),
+
+	auto service = make_shared<GameService>(NetAddress(L"0.0.0.0", LIVE_PORT),
 	                                        [=]() { return make_shared<GameSession>(); },
 	                                        1000);
 
