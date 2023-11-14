@@ -110,6 +110,9 @@ void Match::Init(shared_ptr<GameSession> chaser, shared_ptr<GameSession> fugitiv
 	}
 
 	// TODO Generate Items
+	for (int i = 0; i < 100; i++)
+	{
+	}
 	// TODO Send Items Data
 }
 
@@ -213,7 +216,7 @@ void Match::PlayerLoadingComplete(shared_ptr<GameSession> session)
 		}
 	}
 
-	ProjectJ::S_MATCH_ALL_LOADING_COMPLETE sendPacket;
+	ProjectJ::S_MATCH_ALL_READY_TO_RECIEVE sendPacket;
 	auto initInfo = new ProjectJ::MatchInitInfo();
 
 	initInfo->set_allocated_chaser(GetPlayerInfo(CHASER_INDEX));
