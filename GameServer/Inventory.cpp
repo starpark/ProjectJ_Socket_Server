@@ -1,8 +1,8 @@
 ﻿#include "pch.h"
 #include "Inventory.h"
 
-Inventory::Inventory(int row, int column, int maxWeight)
-	: row_(row), column_(column), currentWeight_(0), maxWeight_(maxWeight)
+Inventory::Inventory(int index, int row, int column, int maxWeight)
+	: index_(index), row_(row), column_(column), currentWeight_(0), maxWeight_(maxWeight)
 {
 	inventorySlots_.assign(column * row, EMPTY_ITEM_ID);
 }
@@ -116,14 +116,14 @@ bool Inventory::CheckValidSlot(const shared_ptr<Item>& item, int slotIndex, bool
 	Point size = item->size_;
 	if (isRotated)
 	{
-		swap(size.X, size.Y);
+		swap(size.x, size.y);
 	}
 
-	for (int rowIndex = 0; rowIndex < size.Y; rowIndex++)
+	for (int rowIndex = 0; rowIndex < size.y; rowIndex++)
 	{
-		for (int columnIndex = 0; columnIndex < size.X; columnIndex++)
+		for (int columnIndex = 0; columnIndex < size.x; columnIndex++)
 		{
-			if (CheckValidPoint(tile.X + columnIndex, tile.Y + rowIndex) == false)
+			if (CheckValidPoint(tile.x + columnIndex, tile.y + rowIndex) == false)
 			{
 				return false;
 			}
@@ -160,14 +160,14 @@ void Inventory::AddItemAt(const shared_ptr<Item>& item, int slotIndex)
 
 	if (item->bIsRotated_)
 	{
-		swap(size.X, size.Y);
+		swap(size.x, size.y);
 	}
 
-	for (int rowIndex = 0; rowIndex < size.Y; rowIndex++)
+	for (int rowIndex = 0; rowIndex < size.y; rowIndex++)
 	{
-		for (int columnIndex = 0; columnIndex < size.X; columnIndex++)
+		for (int columnIndex = 0; columnIndex < size.x; columnIndex++)
 		{
-			inventorySlots_[PointToIndex({tile.X + columnIndex, tile.Y + rowIndex})] = item->id_;
+			inventorySlots_[PointToIndex({tile.x + columnIndex, tile.y + rowIndex})] = item->id_;
 		}
 	}
 
@@ -181,14 +181,14 @@ void Inventory::PickUpItem(shared_ptr<Item> item)
 
 	if (item->bIsRotated_)
 	{
-		swap(size.X, size.Y);
+		swap(size.x, size.y);
 	}
 
-	for (int rowIndex = 0; rowIndex < size.Y; rowIndex++)
+	for (int rowIndex = 0; rowIndex < size.y; rowIndex++)
 	{
-		for (int columnIndex = 0; columnIndex < size.X; columnIndex++)
+		for (int columnIndex = 0; columnIndex < size.x; columnIndex++)
 		{
-			int slotIndex = PointToIndex({tile.X + columnIndex, tile.Y + rowIndex});
+			int slotIndex = PointToIndex({tile.x + columnIndex, tile.y + rowIndex});
 			if (inventorySlots_[slotIndex] != item->id_)
 			{
 				// TODO ERROR
