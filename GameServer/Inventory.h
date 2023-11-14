@@ -36,6 +36,7 @@ protected:
 	void ReleaseItem(const shared_ptr<Item>& item);
 
 protected:
+	USE_LOCK;
 	int index_;
 	int row_;
 	int column_;

@@ -14,6 +14,7 @@ Inventory::~Inventory()
 
 bool Inventory::TryAddItem(const shared_ptr<Item>& item)
 {
+	WRITE_LOCK;
 	if (owningItems_.find(item->index_) != owningItems_.end() || item->ownerID_.load() != Item::EMPTY_OWNER_ID)
 	{
 		return false;
@@ -52,6 +53,7 @@ bool Inventory::TryAddItem(const shared_ptr<Item>& item)
 
 bool Inventory::RelocateItem(const shared_ptr<Inventory>& to, const shared_ptr<Item>& item, int slotIndex, bool isRotated)
 {
+	WRITE_LOCK;
 	if (owningItems_.find(item->index_) == owningItems_.end())
 	{
 		return false;
@@ -76,6 +78,7 @@ bool Inventory::RelocateItem(const shared_ptr<Inventory>& to, const shared_ptr<I
 
 bool Inventory::DropItem(const shared_ptr<Item>& item, ProjectJ::Vector vector, ProjectJ::Rotator rotate)
 {
+	WRITE_LOCK;
 	if (owningItems_.find(item->index_) == owningItems_.end())
 	{
 		return false;
