@@ -69,6 +69,9 @@
     <ClCompile Include="Scale.cpp">
       <Filter>Contents</Filter>
     </ClCompile>
+    <ClCompile Include="DataManager.cpp">
+      <Filter>Contents</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -113,6 +116,9 @@
     <ClInclude Include="Scale.h">
       <Filter>Contents</Filter>
     </ClInclude>
+    <ClInclude Include="DataManager.h">
+      <Filter>Contents</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Common\Protobuf\GenCode.bat">
@@ -128,6 +134,12 @@
       <Filter>Network\Protobuf</Filter>
     </None>
     <None Include="Data\ItemData.json">
+      <Filter>Contents\Data</Filter>
+    </None>
+    <None Include="Data\ItemSpawnData.json">
+      <Filter>Contents\Data</Filter>
+    </None>
+    <None Include="Data\CharacterSpawnData.json">
       <Filter>Contents\Data</Filter>
     </None>
   </ItemGroup>

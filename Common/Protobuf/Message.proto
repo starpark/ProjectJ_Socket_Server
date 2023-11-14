@@ -133,10 +133,20 @@ message C_MATCH_READY_TO_RECEIVE
 	int32 account_id = 1;
 }
 
-message S_MATCH_ALL_LOADING_COMPLETE
+message S_MATCH_ALL_READY_TO_RECIEVE
 {
 	int32 your_player_index = 1;
 	MatchInitInfo info = 2;
+}
+
+message S_MATCH_ITEM_GENERATED
+{
+	repeated Item items = 1;
+}
+
+message C_MATCH_READY_TO_START
+{
+	int32 player_index = 1;
 }
 
 message S_MATCH_START

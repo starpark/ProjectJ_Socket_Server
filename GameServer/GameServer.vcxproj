@@ -143,6 +143,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="DataManager.cpp" />
     <ClCompile Include="Enum.pb.cc">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
@@ -175,6 +176,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="DataManager.h" />
     <ClInclude Include="Enum.pb.h" />
     <ClInclude Include="GameService.h" />
     <ClInclude Include="GameSession.h" />
@@ -195,7 +197,9 @@
     <None Include="..\Common\Protobuf\GenCode.bat" />
     <None Include="..\Common\Protobuf\Message.proto" />
     <None Include="..\Common\Protobuf\Struct.proto" />
+    <None Include="Data\CharacterSpawnData.json" />
     <None Include="Data\ItemData.json" />
+    <None Include="Data\ItemSpawnData.json" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

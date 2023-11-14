@@ -115,10 +115,10 @@ struct RoomInfoDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 RoomInfoDefaultTypeInternal _RoomInfo_default_instance_;
 PROTOBUF_CONSTEXPR Item::Item(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.code_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.world_position_)*/nullptr
+    /*decltype(_impl_.world_position_)*/nullptr
   , /*decltype(_impl_.world_rotation_)*/nullptr
   , /*decltype(_impl_.id_)*/0
+  , /*decltype(_impl_.index_)*/0
   , /*decltype(_impl_.width_)*/0
   , /*decltype(_impl_.height_)*/0
   , /*decltype(_impl_.weight_)*/0
@@ -307,7 +307,7 @@ const uint32_t TableStruct_Struct_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(p
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
   PROTOBUF_FIELD_OFFSET(::ProjectJ::Item, _impl_.id_),
-  PROTOBUF_FIELD_OFFSET(::ProjectJ::Item, _impl_.code_),
+  PROTOBUF_FIELD_OFFSET(::ProjectJ::Item, _impl_.index_),
   PROTOBUF_FIELD_OFFSET(::ProjectJ::Item, _impl_.width_),
   PROTOBUF_FIELD_OFFSET(::ProjectJ::Item, _impl_.height_),
   PROTOBUF_FIELD_OFFSET(::ProjectJ::Item, _impl_.weight_),
@@ -432,55 +432,55 @@ const char descriptor_table_protodef_Struct_2eproto[] PROTOBUF_SECTION_VARIABLE(
   "\0225\n\016fugitive_third\030\006 \001(\0132\035.ProjectJ.Room"
   "Info.PlayerSlot\032@\n\nPlayerSlot\022 \n\006player\030"
   "\002 \001(\0132\020.ProjectJ.Player\022\020\n\010is_ready\030\003 \001("
-  "\010\"\346\001\n\004Item\022\n\n\002id\030\001 \001(\005\022\014\n\004code\030\002 \001(\t\022\r\n\005"
-  "width\030\003 \001(\005\022\016\n\006height\030\004 \001(\005\022\016\n\006weight\030\005 "
-  "\001(\005\022\020\n\010is_owned\030\006 \001(\010\022(\n\016world_position\030"
-  "\007 \001(\0132\020.ProjectJ.Vector\022)\n\016world_rotatio"
-  "n\030\010 \001(\0132\021.ProjectJ.Rotator\022\032\n\022onwer_play"
-  "er_index\030\t \001(\005\022\022\n\nis_rotated\030\n \001(\010\"\270\001\n\nP"
-  "layerInfo\022)\n\005state\030\001 \001(\0162\032.ProjectJ.Matc"
-  "hPlayerState\022\024\n\014player_index\030\002 \001(\005\022 \n\006pl"
-  "ayer\030\003 \001(\0132\020.ProjectJ.Player\022\"\n\010position"
-  "\030\004 \001(\0132\020.ProjectJ.Vector\022#\n\010rotation\030\005 \001"
-  "(\0132\021.ProjectJ.Rotator\"\360\003\n\rMatchInitInfo\022"
-  "$\n\006chaser\030\001 \001(\0132\024.ProjectJ.PlayerInfo\022,\n"
-  "\016fugitive_first\030\002 \001(\0132\024.ProjectJ.PlayerI"
-  "nfo\022-\n\017fugitive_second\030\003 \001(\0132\024.ProjectJ."
-  "PlayerInfo\022,\n\016fugitive_third\030\004 \001(\0132\024.Pro"
-  "jectJ.PlayerInfo\022:\n\013scale_first\030\005 \001(\0132%."
-  "ProjectJ.MatchInitInfo.ScaleInitInfo\022;\n\014"
-  "scale_second\030\006 \001(\0132%.ProjectJ.MatchInitI"
-  "nfo.ScaleInitInfo\022:\n\013scale_third\030\007 \001(\0132%"
+  "\010\"\347\001\n\004Item\022\n\n\002id\030\001 \001(\005\022\r\n\005index\030\002 \001(\005\022\r\n"
+  "\005width\030\003 \001(\005\022\016\n\006height\030\004 \001(\005\022\016\n\006weight\030\005"
+  " \001(\005\022\020\n\010is_owned\030\006 \001(\010\022(\n\016world_position"
+  "\030\007 \001(\0132\020.ProjectJ.Vector\022)\n\016world_rotati"
+  "on\030\010 \001(\0132\021.ProjectJ.Rotator\022\032\n\022onwer_pla"
+  "yer_index\030\t \001(\005\022\022\n\nis_rotated\030\n \001(\010\"\270\001\n\n"
+  "PlayerInfo\022)\n\005state\030\001 \001(\0162\032.ProjectJ.Mat"
+  "chPlayerState\022\024\n\014player_index\030\002 \001(\005\022 \n\006p"
+  "layer\030\003 \001(\0132\020.ProjectJ.Player\022\"\n\010positio"
+  "n\030\004 \001(\0132\020.ProjectJ.Vector\022#\n\010rotation\030\005 "
+  "\001(\0132\021.ProjectJ.Rotator\"\360\003\n\rMatchInitInfo"
+  "\022$\n\006chaser\030\001 \001(\0132\024.ProjectJ.PlayerInfo\022,"
+  "\n\016fugitive_first\030\002 \001(\0132\024.ProjectJ.Player"
+  "Info\022-\n\017fugitive_second\030\003 \001(\0132\024.ProjectJ"
+  ".PlayerInfo\022,\n\016fugitive_third\030\004 \001(\0132\024.Pr"
+  "ojectJ.PlayerInfo\022:\n\013scale_first\030\005 \001(\0132%"
   ".ProjectJ.MatchInitInfo.ScaleInitInfo\022;\n"
-  "\014scale_fourth\030\010 \001(\0132%.ProjectJ.MatchInit"
-  "Info.ScaleInitInfo\032<\n\rScaleInitInfo\022\030\n\020o"
-  "perating_weight\030\001 \001(\005\022\021\n\ttolerance\030\002 \001(\005"
-  "\"\313\005\n\tMatchInfo\022.\n\006chaser\030\001 \001(\0132\036.Project"
-  "J.MatchInfo.PlayerInfo\0226\n\016fugitive_first"
-  "\030\002 \001(\0132\036.ProjectJ.MatchInfo.PlayerInfo\0227"
-  "\n\017fugitive_second\030\003 \001(\0132\036.ProjectJ.Match"
-  "Info.PlayerInfo\0226\n\016fugitive_third\030\004 \001(\0132"
-  "\036.ProjectJ.MatchInfo.PlayerInfo\0222\n\013scale"
-  "_first\030\005 \001(\0132\035.ProjectJ.MatchInfo.ScaleI"
-  "nfo\0223\n\014scale_second\030\006 \001(\0132\035.ProjectJ.Mat"
-  "chInfo.ScaleInfo\0222\n\013scale_third\030\007 \001(\0132\035."
-  "ProjectJ.MatchInfo.ScaleInfo\0223\n\014scale_fo"
-  "urth\030\010 \001(\0132\035.ProjectJ.MatchInfo.ScaleInf"
-  "o\022\035\n\005items\030\t \003(\0132\016.ProjectJ.Item\032\270\001\n\nPla"
-  "yerInfo\022)\n\005state\030\001 \001(\0162\032.ProjectJ.MatchP"
-  "layerState\022\024\n\014player_index\030\002 \001(\005\022 \n\006play"
-  "er\030\003 \001(\0132\020.ProjectJ.Player\022\"\n\010position\030\004"
-  " \001(\0132\020.ProjectJ.Vector\022#\n\010rotation\030\005 \001(\013"
-  "2\021.ProjectJ.Rotator\0329\n\tScaleInfo\022\024\n\014is_o"
-  "perating\030\001 \001(\010\022\026\n\016current_weight\030\002 \001(\005b\006"
-  "proto3"
+  "\014scale_second\030\006 \001(\0132%.ProjectJ.MatchInit"
+  "Info.ScaleInitInfo\022:\n\013scale_third\030\007 \001(\0132"
+  "%.ProjectJ.MatchInitInfo.ScaleInitInfo\022;"
+  "\n\014scale_fourth\030\010 \001(\0132%.ProjectJ.MatchIni"
+  "tInfo.ScaleInitInfo\032<\n\rScaleInitInfo\022\030\n\020"
+  "operating_weight\030\001 \001(\005\022\021\n\ttolerance\030\002 \001("
+  "\005\"\313\005\n\tMatchInfo\022.\n\006chaser\030\001 \001(\0132\036.Projec"
+  "tJ.MatchInfo.PlayerInfo\0226\n\016fugitive_firs"
+  "t\030\002 \001(\0132\036.ProjectJ.MatchInfo.PlayerInfo\022"
+  "7\n\017fugitive_second\030\003 \001(\0132\036.ProjectJ.Matc"
+  "hInfo.PlayerInfo\0226\n\016fugitive_third\030\004 \001(\013"
+  "2\036.ProjectJ.MatchInfo.PlayerInfo\0222\n\013scal"
+  "e_first\030\005 \001(\0132\035.ProjectJ.MatchInfo.Scale"
+  "Info\0223\n\014scale_second\030\006 \001(\0132\035.ProjectJ.Ma"
+  "tchInfo.ScaleInfo\0222\n\013scale_third\030\007 \001(\0132\035"
+  ".ProjectJ.MatchInfo.ScaleInfo\0223\n\014scale_f"
+  "ourth\030\010 \001(\0132\035.ProjectJ.MatchInfo.ScaleIn"
+  "fo\022\035\n\005items\030\t \003(\0132\016.ProjectJ.Item\032\270\001\n\nPl"
+  "ayerInfo\022)\n\005state\030\001 \001(\0162\032.ProjectJ.Match"
+  "PlayerState\022\024\n\014player_index\030\002 \001(\005\022 \n\006pla"
+  "yer\030\003 \001(\0132\020.ProjectJ.Player\022\"\n\010position\030"
+  "\004 \001(\0132\020.ProjectJ.Vector\022#\n\010rotation\030\005 \001("
+  "\0132\021.ProjectJ.Rotator\0329\n\tScaleInfo\022\024\n\014is_"
+  "operating\030\001 \001(\010\022\026\n\016current_weight\030\002 \001(\005b"
+  "\006proto3"
   ;
 static const ::_pbi::DescriptorTable* const descriptor_table_Struct_2eproto_deps[1] = {
   &::descriptor_table_Enum_2eproto,
 };
 static ::_pbi::once_flag descriptor_table_Struct_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_Struct_2eproto = {
-    false, false, 2246, descriptor_table_protodef_Struct_2eproto,
+    false, false, 2247, descriptor_table_protodef_Struct_2eproto,
     "Struct.proto",
     &descriptor_table_Struct_2eproto_once, descriptor_table_Struct_2eproto_deps, 1, 13,
     schemas, file_default_instances, TableStruct_Struct_2eproto::offsets,
@@ -2206,10 +2206,10 @@ Item::Item(const Item& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
   Item* const _this = this; (void)_this;
   new (&_impl_) Impl_{
-      decltype(_impl_.code_){}
-    , decltype(_impl_.world_position_){nullptr}
+      decltype(_impl_.world_position_){nullptr}
     , decltype(_impl_.world_rotation_){nullptr}
     , decltype(_impl_.id_){}
+    , decltype(_impl_.index_){}
     , decltype(_impl_.width_){}
     , decltype(_impl_.height_){}
     , decltype(_impl_.weight_){}
@@ -2219,14 +2219,6 @@ Item::Item(const Item& from)
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  _impl_.code_.InitDefault();
-  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.code_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (!from._internal_code().empty()) {
-    _this->_impl_.code_.Set(from._internal_code(), 
-      _this->GetArenaForAllocation());
-  }
   if (from._internal_has_world_position()) {
     _this->_impl_.world_position_ = new ::ProjectJ::Vector(*from._impl_.world_position_);
   }
@@ -2244,10 +2236,10 @@ inline void Item::SharedCtor(
   (void)arena;
   (void)is_message_owned;
   new (&_impl_) Impl_{
-      decltype(_impl_.code_){}
-    , decltype(_impl_.world_position_){nullptr}
+      decltype(_impl_.world_position_){nullptr}
     , decltype(_impl_.world_rotation_){nullptr}
     , decltype(_impl_.id_){0}
+    , decltype(_impl_.index_){0}
     , decltype(_impl_.width_){0}
     , decltype(_impl_.height_){0}
     , decltype(_impl_.weight_){0}
@@ -2256,10 +2248,6 @@ inline void Item::SharedCtor(
     , decltype(_impl_.onwer_player_index_){0}
     , /*decltype(_impl_._cached_size_)*/{}
   };
-  _impl_.code_.InitDefault();
-  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.code_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 Item::~Item() {
@@ -2273,7 +2261,6 @@ Item::~Item() {
 
 inline void Item::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  _impl_.code_.Destroy();
   if (this != internal_default_instance()) delete _impl_.world_position_;
   if (this != internal_default_instance()) delete _impl_.world_rotation_;
 }
@@ -2288,7 +2275,6 @@ void Item::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  _impl_.code_.ClearToEmpty();
   if (GetArenaForAllocation() == nullptr && _impl_.world_position_ != nullptr) {
     delete _impl_.world_position_;
   }
@@ -2317,13 +2303,11 @@ const char* Item::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
         } else
           goto handle_unusual;
         continue;
-      // string code = 2;
+      // int32 index = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
-          auto str = _internal_mutable_code();
-          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+          _impl_.index_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-          CHK_(::_pbi::VerifyUTF8(str, "ProjectJ.Item.code"));
         } else
           goto handle_unusual;
         continue;
@@ -2426,14 +2410,10 @@ uint8_t* Item::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteInt32ToArray(1, this->_internal_id(), target);
   }
 
-  // string code = 2;
-  if (!this->_internal_code().empty()) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-      this->_internal_code().data(), static_cast<int>(this->_internal_code().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "ProjectJ.Item.code");
-    target = stream->WriteStringMaybeAliased(
-        2, this->_internal_code(), target);
+  // int32 index = 2;
+  if (this->_internal_index() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(2, this->_internal_index(), target);
   }
 
   // int32 width = 3;
@@ -2502,13 +2482,6 @@ size_t Item::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // string code = 2;
-  if (!this->_internal_code().empty()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_code());
-  }
-
   // .ProjectJ.Vector world_position = 7;
   if (this->_internal_has_world_position()) {
     total_size += 1 +
@@ -2526,6 +2499,11 @@ size_t Item::ByteSizeLong() const {
   // int32 id = 1;
   if (this->_internal_id() != 0) {
     total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_id());
+  }
+
+  // int32 index = 2;
+  if (this->_internal_index() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_index());
   }
 
   // int32 width = 3;
@@ -2576,9 +2554,6 @@ void Item::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (!from._internal_code().empty()) {
-    _this->_internal_set_code(from._internal_code());
-  }
   if (from._internal_has_world_position()) {
     _this->_internal_mutable_world_position()->::ProjectJ::Vector::MergeFrom(
         from._internal_world_position());
@@ -2589,6 +2564,9 @@ void Item::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_
   }
   if (from._internal_id() != 0) {
     _this->_internal_set_id(from._internal_id());
+  }
+  if (from._internal_index() != 0) {
+    _this->_internal_set_index(from._internal_index());
   }
   if (from._internal_width() != 0) {
     _this->_internal_set_width(from._internal_width());
@@ -2624,13 +2602,7 @@ bool Item::IsInitialized() const {
 
 void Item::InternalSwap(Item* other) {
   using std::swap;
-  auto* lhs_arena = GetArenaForAllocation();
-  auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.code_, lhs_arena,
-      &other->_impl_.code_, rhs_arena
-  );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(Item, _impl_.onwer_player_index_)
       + sizeof(Item::_impl_.onwer_player_index_)

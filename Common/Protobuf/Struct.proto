@@ -49,7 +49,7 @@ message RoomInfo
 message Item
 {
 	int32 id = 1;
-	string code = 2;
+	int32 index = 2;
 	int32 width = 3;
 	int32 height = 4;
 	int32 weight = 5;

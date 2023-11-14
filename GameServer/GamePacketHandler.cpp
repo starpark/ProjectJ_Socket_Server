@@ -416,6 +416,11 @@ bool Handle_C_MATCH_READY_TO_RECEIVE(const shared_ptr<SessionBase>& session, Pro
 	return true;
 }
 
+bool Handle_C_MATCH_READY_TO_START(const shared_ptr<SessionBase>& session, ProjectJ::C_MATCH_READY_TO_START& packet)
+{
+	return true;
+}
+
 bool Handle_C_MATCH_INFO(const shared_ptr<SessionBase>& session, ProjectJ::C_MATCH_INFO& packet)
 {
 	return true;

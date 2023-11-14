@@ -27,17 +27,19 @@ enum : uint16_t
 	PKT_S_ROOM_STANDBY_MATCH = 1018,
 	PKT_S_ROOM_START_MATCH = 1019,
 	PKT_C_MATCH_READY_TO_RECEIVE = 1020,
-	PKT_S_MATCH_ALL_LOADING_COMPLETE = 1021,
-	PKT_S_MATCH_START = 1022,
-	PKT_C_MATCH_INFO = 1023,
-	PKT_S_MATCH_INFO = 1024,
-	PKT_S_MATCH_END = 1025,
-	PKT_C_MATCH_ITEM_PICKUP = 1026,
-	PKT_C_MATCH_ITEM_MOVE = 1027,
-	PKT_C_MATCH_ITEM_DROP = 1028,
-	PKT_S_MATCH_ITEM_SOMEONE_PICKUP = 1029,
-	PKT_S_MATCH_ITEM_SOMEONE_MOVE = 1030,
-	PKT_S_MATCH_ITEM_SOMEONE_DROP = 1031,
+	PKT_S_MATCH_ALL_READY_TO_RECIEVE = 1021,
+	PKT_S_MATCH_ITEM_GENERATED = 1022,
+	PKT_C_MATCH_READY_TO_START = 1023,
+	PKT_S_MATCH_START = 1024,
+	PKT_C_MATCH_INFO = 1025,
+	PKT_S_MATCH_INFO = 1026,
+	PKT_S_MATCH_END = 1027,
+	PKT_C_MATCH_ITEM_PICKUP = 1028,
+	PKT_C_MATCH_ITEM_MOVE = 1029,
+	PKT_C_MATCH_ITEM_DROP = 1030,
+	PKT_S_MATCH_ITEM_SOMEONE_PICKUP = 1031,
+	PKT_S_MATCH_ITEM_SOMEONE_MOVE = 1032,
+	PKT_S_MATCH_ITEM_SOMEONE_DROP = 1033,
 };
 
 bool Handle_INVALID(const shared_ptr<SessionBase>& session, BYTE* bufer, int numOfBytes);
@@ -53,7 +55,8 @@ bool Handle_S_ROOM_READY(const shared_ptr<SessionBase>& session, ProjectJ::S_ROO
 bool Handle_S_ROOM_CHAT(const shared_ptr<SessionBase>& session, ProjectJ::S_ROOM_CHAT& packet);
 bool Handle_S_ROOM_STANDBY_MATCH(const shared_ptr<SessionBase>& session, ProjectJ::S_ROOM_STANDBY_MATCH& packet);
 bool Handle_S_ROOM_START_MATCH(const shared_ptr<SessionBase>& session, ProjectJ::S_ROOM_START_MATCH& packet);
-bool Handle_S_MATCH_ALL_LOADING_COMPLETE(const shared_ptr<SessionBase>& session, ProjectJ::S_MATCH_ALL_LOADING_COMPLETE& packet);
+bool Handle_S_MATCH_ALL_READY_TO_RECIEVE(const shared_ptr<SessionBase>& session, ProjectJ::S_MATCH_ALL_READY_TO_RECIEVE& packet);
+bool Handle_S_MATCH_ITEM_GENERATED(const shared_ptr<SessionBase>& session, ProjectJ::S_MATCH_ITEM_GENERATED& packet);
 bool Handle_S_MATCH_START(const shared_ptr<SessionBase>& session, ProjectJ::S_MATCH_START& packet);
 bool Handle_S_MATCH_INFO(const shared_ptr<SessionBase>& session, ProjectJ::S_MATCH_INFO& packet);
 bool Handle_S_MATCH_END(const shared_ptr<SessionBase>& session, ProjectJ::S_MATCH_END& packet);
@@ -65,7 +68,7 @@ bool Handle_S_MATCH_ITEM_SOMEONE_DROP(const shared_ptr<SessionBase>& session, Pr
 // 소켓 수신 데이터 처리 및 송신 버퍼 생성 클래스
 // 최초 작성자: 박별
 // 수정자: 
-// 최종 수정일: 2023-11-13 자동 생성
+// 최종 수정일: 2023-11-14 자동 생성
 class ServerPacketHandler
 {
 public:
@@ -87,7 +90,8 @@ public:
 		GPacketHandler[PKT_S_ROOM_CHAT] = [](shared_ptr<SessionBase> session, BYTE* buffer, int numOfBytes) {return HandlePacket<ProjectJ::S_ROOM_CHAT>(Handle_S_ROOM_CHAT, session, buffer, numOfBytes);};
 		GPacketHandler[PKT_S_ROOM_STANDBY_MATCH] = [](shared_ptr<SessionBase> session, BYTE* buffer, int numOfBytes) {return HandlePacket<ProjectJ::S_ROOM_STANDBY_MATCH>(Handle_S_ROOM_STANDBY_MATCH, session, buffer, numOfBytes);};
 		GPacketHandler[PKT_S_ROOM_START_MATCH] = [](shared_ptr<SessionBase> session, BYTE* buffer, int numOfBytes) {return HandlePacket<ProjectJ::S_ROOM_START_MATCH>(Handle_S_ROOM_START_MATCH, session, buffer, numOfBytes);};
-		GPacketHandler[PKT_S_MATCH_ALL_LOADING_COMPLETE] = [](shared_ptr<SessionBase> session, BYTE* buffer, int numOfBytes) {return HandlePacket<ProjectJ::S_MATCH_ALL_LOADING_COMPLETE>(Handle_S_MATCH_ALL_LOADING_COMPLETE, session, buffer, numOfBytes);};
+		GPacketHandler[PKT_S_MATCH_ALL_READY_TO_RECIEVE] = [](shared_ptr<SessionBase> session, BYTE* buffer, int numOfBytes) {return HandlePacket<ProjectJ::S_MATCH_ALL_READY_TO_RECIEVE>(Handle_S_MATCH_ALL_READY_TO_RECIEVE, session, buffer, numOfBytes);};
+		GPacketHandler[PKT_S_MATCH_ITEM_GENERATED] = [](shared_ptr<SessionBase> session, BYTE* buffer, int numOfBytes) {return HandlePacket<ProjectJ::S_MATCH_ITEM_GENERATED>(Handle_S_MATCH_ITEM_GENERATED, session, buffer, numOfBytes);};
 		GPacketHandler[PKT_S_MATCH_START] = [](shared_ptr<SessionBase> session, BYTE* buffer, int numOfBytes) {return HandlePacket<ProjectJ::S_MATCH_START>(Handle_S_MATCH_START, session, buffer, numOfBytes);};
 		GPacketHandler[PKT_S_MATCH_INFO] = [](shared_ptr<SessionBase> session, BYTE* buffer, int numOfBytes) {return HandlePacket<ProjectJ::S_MATCH_INFO>(Handle_S_MATCH_INFO, session, buffer, numOfBytes);};
 		GPacketHandler[PKT_S_MATCH_END] = [](shared_ptr<SessionBase> session, BYTE* buffer, int numOfBytes) {return HandlePacket<ProjectJ::S_MATCH_END>(Handle_S_MATCH_END, session, buffer, numOfBytes);};
@@ -110,6 +114,7 @@ public:
 	static shared_ptr<SendBuffer> MakeSendBuffer(ProjectJ::C_ROOM_READY& packet) {return MakeSendBuffer(packet, PKT_C_ROOM_READY);}
 	static shared_ptr<SendBuffer> MakeSendBuffer(ProjectJ::C_ROOM_CHAT& packet) {return MakeSendBuffer(packet, PKT_C_ROOM_CHAT);}
 	static shared_ptr<SendBuffer> MakeSendBuffer(ProjectJ::C_MATCH_READY_TO_RECEIVE& packet) {return MakeSendBuffer(packet, PKT_C_MATCH_READY_TO_RECEIVE);}
+	static shared_ptr<SendBuffer> MakeSendBuffer(ProjectJ::C_MATCH_READY_TO_START& packet) {return MakeSendBuffer(packet, PKT_C_MATCH_READY_TO_START);}
 	static shared_ptr<SendBuffer> MakeSendBuffer(ProjectJ::C_MATCH_INFO& packet) {return MakeSendBuffer(packet, PKT_C_MATCH_INFO);}
 	static shared_ptr<SendBuffer> MakeSendBuffer(ProjectJ::C_MATCH_ITEM_PICKUP& packet) {return MakeSendBuffer(packet, PKT_C_MATCH_ITEM_PICKUP);}
 	static shared_ptr<SendBuffer> MakeSendBuffer(ProjectJ::C_MATCH_ITEM_MOVE& packet) {return MakeSendBuffer(packet, PKT_C_MATCH_ITEM_MOVE);}

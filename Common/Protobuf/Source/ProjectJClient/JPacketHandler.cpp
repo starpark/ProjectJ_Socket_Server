@@ -16,7 +16,8 @@ FPacket_S_ROOM_READY UJPacketHandler::Packet_S_ROOM_READY_Delegate;
 FPacket_S_ROOM_CHAT UJPacketHandler::Packet_S_ROOM_CHAT_Delegate;
 FPacket_S_ROOM_STANDBY_MATCH UJPacketHandler::Packet_S_ROOM_STANDBY_MATCH_Delegate;
 FPacket_S_ROOM_START_MATCH UJPacketHandler::Packet_S_ROOM_START_MATCH_Delegate;
-FPacket_S_MATCH_ALL_LOADING_COMPLETE UJPacketHandler::Packet_S_MATCH_ALL_LOADING_COMPLETE_Delegate;
+FPacket_S_MATCH_ALL_READY_TO_RECIEVE UJPacketHandler::Packet_S_MATCH_ALL_READY_TO_RECIEVE_Delegate;
+FPacket_S_MATCH_ITEM_GENERATED UJPacketHandler::Packet_S_MATCH_ITEM_GENERATED_Delegate;
 FPacket_S_MATCH_START UJPacketHandler::Packet_S_MATCH_START_Delegate;
 FPacket_S_MATCH_INFO UJPacketHandler::Packet_S_MATCH_INFO_Delegate;
 FPacket_S_MATCH_END UJPacketHandler::Packet_S_MATCH_END_Delegate;
@@ -137,11 +138,20 @@ bool Handle_S_ROOM_START_MATCH(UWorld* World, ProjectJ::S_ROOM_START_MATCH& Pack
 
 	return false;
 }
-bool Handle_S_MATCH_ALL_LOADING_COMPLETE(UWorld* World, ProjectJ::S_MATCH_ALL_LOADING_COMPLETE& Packet, float DeltaSeconds)
+bool Handle_S_MATCH_ALL_READY_TO_RECIEVE(UWorld* World, ProjectJ::S_MATCH_ALL_READY_TO_RECIEVE& Packet, float DeltaSeconds)
 {
-	if (UJPacketHandler::Packet_S_MATCH_ALL_LOADING_COMPLETE_Delegate.IsBound())
+	if (UJPacketHandler::Packet_S_MATCH_ALL_READY_TO_RECIEVE_Delegate.IsBound())
 	{
-		return UJPacketHandler::Packet_S_MATCH_ALL_LOADING_COMPLETE_Delegate.Execute(World, Packet, DeltaSeconds);
+		return UJPacketHandler::Packet_S_MATCH_ALL_READY_TO_RECIEVE_Delegate.Execute(World, Packet, DeltaSeconds);
+	}
+
+	return false;
+}
+bool Handle_S_MATCH_ITEM_GENERATED(UWorld* World, ProjectJ::S_MATCH_ITEM_GENERATED& Packet, float DeltaSeconds)
+{
+	if (UJPacketHandler::Packet_S_MATCH_ITEM_GENERATED_Delegate.IsBound())
+	{
+		return UJPacketHandler::Packet_S_MATCH_ITEM_GENERATED_Delegate.Execute(World, Packet, DeltaSeconds);
 	}
 
 	return false;

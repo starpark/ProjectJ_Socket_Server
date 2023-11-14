@@ -1331,10 +1331,10 @@ class Item final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kCodeFieldNumber = 2,
     kWorldPositionFieldNumber = 7,
     kWorldRotationFieldNumber = 8,
     kIdFieldNumber = 1,
+    kIndexFieldNumber = 2,
     kWidthFieldNumber = 3,
     kHeightFieldNumber = 4,
     kWeightFieldNumber = 5,
@@ -1342,20 +1342,6 @@ class Item final :
     kIsRotatedFieldNumber = 10,
     kOnwerPlayerIndexFieldNumber = 9,
   };
-  // string code = 2;
-  void clear_code();
-  const std::string& code() const;
-  template <typename ArgT0 = const std::string&, typename... ArgT>
-  void set_code(ArgT0&& arg0, ArgT... args);
-  std::string* mutable_code();
-  PROTOBUF_NODISCARD std::string* release_code();
-  void set_allocated_code(std::string* code);
-  private:
-  const std::string& _internal_code() const;
-  inline PROTOBUF_ALWAYS_INLINE void _internal_set_code(const std::string& value);
-  std::string* _internal_mutable_code();
-  public:
-
   // .ProjectJ.Vector world_position = 7;
   bool has_world_position() const;
   private:
@@ -1399,6 +1385,15 @@ class Item final :
   private:
   int32_t _internal_id() const;
   void _internal_set_id(int32_t value);
+  public:
+
+  // int32 index = 2;
+  void clear_index();
+  int32_t index() const;
+  void set_index(int32_t value);
+  private:
+  int32_t _internal_index() const;
+  void _internal_set_index(int32_t value);
   public:
 
   // int32 width = 3;
@@ -1463,10 +1458,10 @@ class Item final :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   struct Impl_ {
-    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr code_;
     ::ProjectJ::Vector* world_position_;
     ::ProjectJ::Rotator* world_rotation_;
     int32_t id_;
+    int32_t index_;
     int32_t width_;
     int32_t height_;
     int32_t weight_;
@@ -3748,54 +3743,24 @@ inline void Item::set_id(int32_t value) {
   // @@protoc_insertion_point(field_set:ProjectJ.Item.id)
 }
 
-// string code = 2;
-inline void Item::clear_code() {
-  _impl_.code_.ClearToEmpty();
+// int32 index = 2;
+inline void Item::clear_index() {
+  _impl_.index_ = 0;
 }
-inline const std::string& Item::code() const {
-  // @@protoc_insertion_point(field_get:ProjectJ.Item.code)
-  return _internal_code();
+inline int32_t Item::_internal_index() const {
+  return _impl_.index_;
 }
-template <typename ArgT0, typename... ArgT>
-inline PROTOBUF_ALWAYS_INLINE
-void Item::set_code(ArgT0&& arg0, ArgT... args) {
- 
- _impl_.code_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set:ProjectJ.Item.code)
+inline int32_t Item::index() const {
+  // @@protoc_insertion_point(field_get:ProjectJ.Item.index)
+  return _internal_index();
 }
-inline std::string* Item::mutable_code() {
-  std::string* _s = _internal_mutable_code();
-  // @@protoc_insertion_point(field_mutable:ProjectJ.Item.code)
-  return _s;
-}
-inline const std::string& Item::_internal_code() const {
-  return _impl_.code_.Get();
-}
-inline void Item::_internal_set_code(const std::string& value) {
+inline void Item::_internal_set_index(int32_t value) {
   
-  _impl_.code_.Set(value, GetArenaForAllocation());
+  _impl_.index_ = value;
 }
-inline std::string* Item::_internal_mutable_code() {
-  
-  return _impl_.code_.Mutable(GetArenaForAllocation());
-}
-inline std::string* Item::release_code() {
-  // @@protoc_insertion_point(field_release:ProjectJ.Item.code)
-  return _impl_.code_.Release();
-}
-inline void Item::set_allocated_code(std::string* code) {
-  if (code != nullptr) {
-    
-  } else {
-    
-  }
-  _impl_.code_.SetAllocated(code, GetArenaForAllocation());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (_impl_.code_.IsDefault()) {
-    _impl_.code_.Set("", GetArenaForAllocation());
-  }
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  // @@protoc_insertion_point(field_set_allocated:ProjectJ.Item.code)
+inline void Item::set_index(int32_t value) {
+  _internal_set_index(value);
+  // @@protoc_insertion_point(field_set:ProjectJ.Item.index)
 }
 
 // int32 width = 3;

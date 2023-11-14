@@ -117,19 +117,12 @@ bool Handle_S_ROOM_START_MATCH(const shared_ptr<SessionBase>& session, ProjectJ:
 	return true;
 }
 
-bool Handle_S_MATCH_INIT_PLAYER_INDEX(const shared_ptr<SessionBase>& session,
-                                      ProjectJ::S_MATCH_INIT_PLAYER_INDEX& packet)
+bool Handle_S_MATCH_ALL_READY_TO_RECIEVE(const shared_ptr<SessionBase>& session, ProjectJ::S_MATCH_ALL_READY_TO_RECIEVE& packet)
 {
 	return true;
 }
 
-bool Handle_S_MATCH_INIT_ITEMS(const shared_ptr<SessionBase>& session, ProjectJ::S_MATCH_INIT_ITEMS& packet)
-{
-	return true;
-}
-
-bool Handle_S_MATCH_ALL_LOADING_COMPLETE(const shared_ptr<SessionBase>& session,
-                                         ProjectJ::S_MATCH_ALL_LOADING_COMPLETE& packet)
+bool Handle_S_MATCH_ITEM_GENERATED(const shared_ptr<SessionBase>& session, ProjectJ::S_MATCH_ITEM_GENERATED& packet)
 {
 	return true;
 }
@@ -149,17 +142,17 @@ bool Handle_S_MATCH_END(const shared_ptr<SessionBase>& session, ProjectJ::S_MATC
 	return true;
 }
 
-bool Handle_S_MATCH_ITEM_PICKUP(const shared_ptr<SessionBase>& session, ProjectJ::S_MATCH_ITEM_PICKUP& packet)
+bool Handle_S_MATCH_ITEM_SOMEONE_PICKUP(const shared_ptr<SessionBase>& session, ProjectJ::S_MATCH_ITEM_SOMEONE_PICKUP& packet)
 {
 	return true;
 }
 
-bool Handle_S_MATCH_ITEM_MOVE(const shared_ptr<SessionBase>& session, ProjectJ::S_MATCH_ITEM_MOVE& packet)
+bool Handle_S_MATCH_ITEM_SOMEONE_MOVE(const shared_ptr<SessionBase>& session, ProjectJ::S_MATCH_ITEM_SOMEONE_MOVE& packet)
 {
 	return true;
 }
 
-bool Handle_S_MATCH_ITEM_DROP(const shared_ptr<SessionBase>& session, ProjectJ::S_MATCH_ITEM_DROP& packet)
+bool Handle_S_MATCH_ITEM_SOMEONE_DROP(const shared_ptr<SessionBase>& session, ProjectJ::S_MATCH_ITEM_SOMEONE_DROP& packet)
 {
 	return true;
 }
