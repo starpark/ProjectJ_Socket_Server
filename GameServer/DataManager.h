@@ -1,4 +1,5 @@
 #pragma once
+#include <random>
 #include "Item.h"
 
 struct ItemData
@@ -70,11 +71,15 @@ class DataManager
 {
 public:
 	static bool Init();
+
+	static const vector<ItemSpawnData>& GetItemSpawnData() { return itemSpawnData_; }
+	static shared_ptr<Item> GenerateItem(int index, Vector position, Rotator rotation);
+	static default_random_engine& GetRandomEngine() { return dre_; }
+
+private:
 	static void LoadItemData();
 	static void LoadItemSpawnData();
 	static void LoadCharacterSpawnData();
-	static int GetItemsSize() { return itemData_.size(); }
-	static shared_ptr<Item> GenerateItem();
 
 private:
 	static string itemDataVersion_;
@@ -82,4 +87,6 @@ private:
 	static vector<ItemData> itemData_;
 	static vector<ItemSpawnData> itemSpawnData_;
 	static vector<CharacterSpawnData> characterSpawnData_;
+	static random_device rd_;
+	static default_random_engine dre_;
 };

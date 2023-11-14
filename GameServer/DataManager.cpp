@@ -6,6 +6,8 @@ string DataManager::itemDataUpdatedDate_;
 vector<ItemData> DataManager::itemData_;
 vector<ItemSpawnData> DataManager::itemSpawnData_;
 vector<CharacterSpawnData> DataManager::characterSpawnData_;
+random_device DataManager::rd_;
+default_random_engine DataManager::dre_(rd_());
 
 bool DataManager::Init()
 {
@@ -219,7 +221,17 @@ void DataManager::LoadCharacterSpawnData()
 	}
 }
 
-shared_ptr<Item> DataManager::GenerateItem()
+shared_ptr<Item> DataManager::GenerateItem(int index, Vector position, Rotator rotation)
 {
-	return nullptr;
+	uniform_int_distribution<> idDist(0, itemData_.size() - 1);
+
+	int id = idDist(dre_);
+
+	uniform_int_distribution<> weightDist(itemData_[id].weightMin_, itemData_[id].weightMax_);
+
+	int weight = (weightDist(dre_) / 10) * 10;
+
+	auto newItem = make_shared<Item>(id, index, weight, Point{itemData_[id].sizeWidth_, itemData_[id].sizeHeight_}, position, rotation);
+
+	return newItem;
 }
