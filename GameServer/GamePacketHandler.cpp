@@ -410,7 +410,7 @@ bool Handle_C_MATCH_READY_TO_RECEIVE(const shared_ptr<SessionBase>& session, Pro
 
 	if (match)
 	{
-		match->DoTaskAsync(&Match::PlayerReadyToRecieve, gameSession);
+		match->DoTaskAsync(&Match::PlayerReadyToReceive, gameSession);
 	}
 
 	return true;
