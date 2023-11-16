@@ -16,31 +16,33 @@ enum : uint16_t
 	PKT_S_LOBBY_CREATE_ROOM = 1007,
 	PKT_C_LOBBY_ENTER_ROOM = 1008,
 	PKT_S_LOBBY_ENTER_ROOM = 1009,
-	PKT_C_ROOM_LEAVE = 1010,
-	PKT_S_ROOM_LEAVE = 1011,
-	PKT_S_ROOM_OTHER_ENTER = 1012,
-	PKT_S_ROOM_OTHER_LEAVE = 1013,
-	PKT_C_ROOM_READY = 1014,
-	PKT_S_ROOM_READY = 1015,
-	PKT_C_ROOM_CHAT = 1016,
-	PKT_S_ROOM_CHAT = 1017,
-	PKT_S_ROOM_STANDBY_MATCH = 1018,
-	PKT_S_ROOM_START_MATCH = 1019,
-	PKT_C_MATCH_READY_TO_RECEIVE = 1020,
-	PKT_S_MATCH_ALL_READY_TO_RECIEVE = 1021,
-	PKT_S_MATCH_ITEM_GENERATED = 1022,
-	PKT_C_MATCH_READY_TO_START = 1023,
-	PKT_S_MATCH_START = 1024,
-	PKT_C_MATCH_INFO = 1025,
-	PKT_S_MATCH_INFO = 1026,
-	PKT_S_MATCH_END = 1027,
-	PKT_C_MATCH_ITEM_PICKUP = 1028,
-	PKT_C_MATCH_ITEM_MOVE = 1029,
-	PKT_C_MATCH_ITEM_DROP = 1030,
-	PKT_S_MATCH_ITEM_SOMEONE_PICKUP = 1031,
-	PKT_S_MATCH_ITEM_SOMEONE_MOVE = 1032,
-	PKT_S_MATCH_ITEM_SOMEONE_DROP = 1033,
-	PKT_S_MATCH_SCALE_ON_CHANGED = 1034,
+	PKT_C_ROOM_READY_TO_RECEIVE = 1010,
+	PKT_S_ROOM_INFO = 1011,
+	PKT_C_ROOM_LEAVE = 1012,
+	PKT_S_ROOM_LEAVE = 1013,
+	PKT_S_ROOM_OTHER_ENTER = 1014,
+	PKT_S_ROOM_OTHER_LEAVE = 1015,
+	PKT_C_ROOM_READY = 1016,
+	PKT_S_ROOM_READY = 1017,
+	PKT_C_ROOM_CHAT = 1018,
+	PKT_S_ROOM_CHAT = 1019,
+	PKT_S_ROOM_STANDBY_MATCH = 1020,
+	PKT_S_ROOM_START_MATCH = 1021,
+	PKT_C_MATCH_READY_TO_RECEIVE = 1022,
+	PKT_S_MATCH_ALL_READY_TO_RECIEVE = 1023,
+	PKT_S_MATCH_ITEM_GENERATED = 1024,
+	PKT_C_MATCH_READY_TO_START = 1025,
+	PKT_S_MATCH_START = 1026,
+	PKT_C_MATCH_INFO = 1027,
+	PKT_S_MATCH_INFO = 1028,
+	PKT_S_MATCH_END = 1029,
+	PKT_C_MATCH_ITEM_PICKUP = 1030,
+	PKT_C_MATCH_ITEM_MOVE = 1031,
+	PKT_C_MATCH_ITEM_DROP = 1032,
+	PKT_S_MATCH_ITEM_SOMEONE_PICKUP = 1033,
+	PKT_S_MATCH_ITEM_SOMEONE_MOVE = 1034,
+	PKT_S_MATCH_ITEM_SOMEONE_DROP = 1035,
+	PKT_S_MATCH_SCALE_ON_CHANGED = 1036,
 };
 
 bool Handle_INVALID(const shared_ptr<SessionBase>& session, BYTE* bufer, int numOfBytes);
@@ -49,6 +51,7 @@ bool Handle_S_LOBBY_CHAT(const shared_ptr<SessionBase>& session, ProjectJ::S_LOB
 bool Handle_S_LOBBY_REFRESH_ROOM(const shared_ptr<SessionBase>& session, ProjectJ::S_LOBBY_REFRESH_ROOM& packet);
 bool Handle_S_LOBBY_CREATE_ROOM(const shared_ptr<SessionBase>& session, ProjectJ::S_LOBBY_CREATE_ROOM& packet);
 bool Handle_S_LOBBY_ENTER_ROOM(const shared_ptr<SessionBase>& session, ProjectJ::S_LOBBY_ENTER_ROOM& packet);
+bool Handle_S_ROOM_INFO(const shared_ptr<SessionBase>& session, ProjectJ::S_ROOM_INFO& packet);
 bool Handle_S_ROOM_LEAVE(const shared_ptr<SessionBase>& session, ProjectJ::S_ROOM_LEAVE& packet);
 bool Handle_S_ROOM_OTHER_ENTER(const shared_ptr<SessionBase>& session, ProjectJ::S_ROOM_OTHER_ENTER& packet);
 bool Handle_S_ROOM_OTHER_LEAVE(const shared_ptr<SessionBase>& session, ProjectJ::S_ROOM_OTHER_LEAVE& packet);
@@ -70,7 +73,7 @@ bool Handle_S_MATCH_SCALE_ON_CHANGED(const shared_ptr<SessionBase>& session, Pro
 // 소켓 수신 데이터 처리 및 송신 버퍼 생성 클래스
 // 최초 작성자: 박별
 // 수정자: 
-// 최종 수정일: 2023-11-15 자동 생성
+// 최종 수정일: 2023-11-16 자동 생성
 class ServerPacketHandler
 {
 public:
@@ -85,6 +88,7 @@ public:
 		GPacketHandler[PKT_S_LOBBY_REFRESH_ROOM] = [](shared_ptr<SessionBase> session, BYTE* buffer, int numOfBytes) {return HandlePacket<ProjectJ::S_LOBBY_REFRESH_ROOM>(Handle_S_LOBBY_REFRESH_ROOM, session, buffer, numOfBytes);};
 		GPacketHandler[PKT_S_LOBBY_CREATE_ROOM] = [](shared_ptr<SessionBase> session, BYTE* buffer, int numOfBytes) {return HandlePacket<ProjectJ::S_LOBBY_CREATE_ROOM>(Handle_S_LOBBY_CREATE_ROOM, session, buffer, numOfBytes);};
 		GPacketHandler[PKT_S_LOBBY_ENTER_ROOM] = [](shared_ptr<SessionBase> session, BYTE* buffer, int numOfBytes) {return HandlePacket<ProjectJ::S_LOBBY_ENTER_ROOM>(Handle_S_LOBBY_ENTER_ROOM, session, buffer, numOfBytes);};
+		GPacketHandler[PKT_S_ROOM_INFO] = [](shared_ptr<SessionBase> session, BYTE* buffer, int numOfBytes) {return HandlePacket<ProjectJ::S_ROOM_INFO>(Handle_S_ROOM_INFO, session, buffer, numOfBytes);};
 		GPacketHandler[PKT_S_ROOM_LEAVE] = [](shared_ptr<SessionBase> session, BYTE* buffer, int numOfBytes) {return HandlePacket<ProjectJ::S_ROOM_LEAVE>(Handle_S_ROOM_LEAVE, session, buffer, numOfBytes);};
 		GPacketHandler[PKT_S_ROOM_OTHER_ENTER] = [](shared_ptr<SessionBase> session, BYTE* buffer, int numOfBytes) {return HandlePacket<ProjectJ::S_ROOM_OTHER_ENTER>(Handle_S_ROOM_OTHER_ENTER, session, buffer, numOfBytes);};
 		GPacketHandler[PKT_S_ROOM_OTHER_LEAVE] = [](shared_ptr<SessionBase> session, BYTE* buffer, int numOfBytes) {return HandlePacket<ProjectJ::S_ROOM_OTHER_LEAVE>(Handle_S_ROOM_OTHER_LEAVE, session, buffer, numOfBytes);};
@@ -113,6 +117,7 @@ public:
 	static shared_ptr<SendBuffer> MakeSendBuffer(ProjectJ::C_LOBBY_REFRESH_ROOM& packet) {return MakeSendBuffer(packet, PKT_C_LOBBY_REFRESH_ROOM);}
 	static shared_ptr<SendBuffer> MakeSendBuffer(ProjectJ::C_LOBBY_CREATE_ROOM& packet) {return MakeSendBuffer(packet, PKT_C_LOBBY_CREATE_ROOM);}
 	static shared_ptr<SendBuffer> MakeSendBuffer(ProjectJ::C_LOBBY_ENTER_ROOM& packet) {return MakeSendBuffer(packet, PKT_C_LOBBY_ENTER_ROOM);}
+	static shared_ptr<SendBuffer> MakeSendBuffer(ProjectJ::C_ROOM_READY_TO_RECEIVE& packet) {return MakeSendBuffer(packet, PKT_C_ROOM_READY_TO_RECEIVE);}
 	static shared_ptr<SendBuffer> MakeSendBuffer(ProjectJ::C_ROOM_LEAVE& packet) {return MakeSendBuffer(packet, PKT_C_ROOM_LEAVE);}
 	static shared_ptr<SendBuffer> MakeSendBuffer(ProjectJ::C_ROOM_READY& packet) {return MakeSendBuffer(packet, PKT_C_ROOM_READY);}
 	static shared_ptr<SendBuffer> MakeSendBuffer(ProjectJ::C_ROOM_CHAT& packet) {return MakeSendBuffer(packet, PKT_C_ROOM_CHAT);}

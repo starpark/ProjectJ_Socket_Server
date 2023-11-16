@@ -9,6 +9,7 @@ FPacket_S_LOBBY_CHAT UJPacketHandler::Packet_S_LOBBY_CHAT_Delegate;
 FPacket_S_LOBBY_REFRESH_ROOM UJPacketHandler::Packet_S_LOBBY_REFRESH_ROOM_Delegate;
 FPacket_S_LOBBY_CREATE_ROOM UJPacketHandler::Packet_S_LOBBY_CREATE_ROOM_Delegate;
 FPacket_S_LOBBY_ENTER_ROOM UJPacketHandler::Packet_S_LOBBY_ENTER_ROOM_Delegate;
+FPacket_S_ROOM_INFO UJPacketHandler::Packet_S_ROOM_INFO_Delegate;
 FPacket_S_ROOM_LEAVE UJPacketHandler::Packet_S_ROOM_LEAVE_Delegate;
 FPacket_S_ROOM_OTHER_ENTER UJPacketHandler::Packet_S_ROOM_OTHER_ENTER_Delegate;
 FPacket_S_ROOM_OTHER_LEAVE UJPacketHandler::Packet_S_ROOM_OTHER_LEAVE_Delegate;
@@ -72,6 +73,15 @@ bool Handle_S_LOBBY_ENTER_ROOM(UWorld* World, ProjectJ::S_LOBBY_ENTER_ROOM& Pack
 	if (UJPacketHandler::Packet_S_LOBBY_ENTER_ROOM_Delegate.IsBound())
 	{
 		return UJPacketHandler::Packet_S_LOBBY_ENTER_ROOM_Delegate.Execute(World, Packet, DeltaSeconds);
+	}
+
+	return false;
+}
+bool Handle_S_ROOM_INFO(UWorld* World, ProjectJ::S_ROOM_INFO& Packet, float DeltaSeconds)
+{
+	if (UJPacketHandler::Packet_S_ROOM_INFO_Delegate.IsBound())
+	{
+		return UJPacketHandler::Packet_S_ROOM_INFO_Delegate.Execute(World, Packet, DeltaSeconds);
 	}
 
 	return false;

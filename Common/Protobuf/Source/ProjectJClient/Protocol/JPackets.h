@@ -11,6 +11,7 @@ using JPacketTypes = TVariant<
 	ProjectJ::S_LOBBY_REFRESH_ROOM,
 	ProjectJ::S_LOBBY_CREATE_ROOM,
 	ProjectJ::S_LOBBY_ENTER_ROOM,
+	ProjectJ::S_ROOM_INFO,
 	ProjectJ::S_ROOM_LEAVE,
 	ProjectJ::S_ROOM_OTHER_ENTER,
 	ProjectJ::S_ROOM_OTHER_LEAVE,
@@ -32,7 +33,7 @@ using JPacketTypes = TVariant<
 // 패킷 래핑 클래스
 // 최초 작성자: 박별
 // 수정자: 
-// 최종 수정일: 2023-11-15 자동 생성
+// 최종 수정일: 2023-11-16 자동 생성
 class PROJECTJ_API JPackets
 {
 public:

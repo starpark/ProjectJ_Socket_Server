@@ -120,8 +120,9 @@ struct C_LOBBY_CREATE_ROOMDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 C_LOBBY_CREATE_ROOMDefaultTypeInternal _C_LOBBY_CREATE_ROOM_default_instance_;
 PROTOBUF_CONSTEXPR S_LOBBY_CREATE_ROOM::S_LOBBY_CREATE_ROOM(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.info_)*/nullptr
-  , /*decltype(_impl_.result_)*/false
+    /*decltype(_impl_.result_)*/false
+  , /*decltype(_impl_.room_id_)*/0
+  , /*decltype(_impl_.slot_index_)*/0
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct S_LOBBY_CREATE_ROOMDefaultTypeInternal {
   PROTOBUF_CONSTEXPR S_LOBBY_CREATE_ROOMDefaultTypeInternal()
@@ -148,9 +149,9 @@ struct C_LOBBY_ENTER_ROOMDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 C_LOBBY_ENTER_ROOMDefaultTypeInternal _C_LOBBY_ENTER_ROOM_default_instance_;
 PROTOBUF_CONSTEXPR S_LOBBY_ENTER_ROOM::S_LOBBY_ENTER_ROOM(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.info_)*/nullptr
-  , /*decltype(_impl_.result_)*/false
+    /*decltype(_impl_.result_)*/false
   , /*decltype(_impl_.room_id_)*/0
+  , /*decltype(_impl_.slot_index_)*/0
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct S_LOBBY_ENTER_ROOMDefaultTypeInternal {
   PROTOBUF_CONSTEXPR S_LOBBY_ENTER_ROOMDefaultTypeInternal()
@@ -161,10 +162,39 @@ struct S_LOBBY_ENTER_ROOMDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 S_LOBBY_ENTER_ROOMDefaultTypeInternal _S_LOBBY_ENTER_ROOM_default_instance_;
+PROTOBUF_CONSTEXPR C_ROOM_READY_TO_RECEIVE::C_ROOM_READY_TO_RECEIVE(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.account_id_)*/0
+  , /*decltype(_impl_.room_id_)*/0
+  , /*decltype(_impl_.slot_index_)*/0
+  , /*decltype(_impl_._cached_size_)*/{}} {}
+struct C_ROOM_READY_TO_RECEIVEDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR C_ROOM_READY_TO_RECEIVEDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~C_ROOM_READY_TO_RECEIVEDefaultTypeInternal() {}
+  union {
+    C_ROOM_READY_TO_RECEIVE _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 C_ROOM_READY_TO_RECEIVEDefaultTypeInternal _C_ROOM_READY_TO_RECEIVE_default_instance_;
+PROTOBUF_CONSTEXPR S_ROOM_INFO::S_ROOM_INFO(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.info_)*/nullptr
+  , /*decltype(_impl_._cached_size_)*/{}} {}
+struct S_ROOM_INFODefaultTypeInternal {
+  PROTOBUF_CONSTEXPR S_ROOM_INFODefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~S_ROOM_INFODefaultTypeInternal() {}
+  union {
+    S_ROOM_INFO _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 S_ROOM_INFODefaultTypeInternal _S_ROOM_INFO_default_instance_;
 PROTOBUF_CONSTEXPR C_ROOM_LEAVE::C_ROOM_LEAVE(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.account_id_)*/0
   , /*decltype(_impl_.room_id_)*/0
+  , /*decltype(_impl_.slot_index_)*/0
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct C_ROOM_LEAVEDefaultTypeInternal {
   PROTOBUF_CONSTEXPR C_ROOM_LEAVEDefaultTypeInternal()
@@ -191,7 +221,8 @@ PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORIT
 PROTOBUF_CONSTEXPR S_ROOM_OTHER_ENTER::S_ROOM_OTHER_ENTER(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.other_)*/nullptr
-  , /*decltype(_impl_.info_)*/nullptr
+  , /*decltype(_impl_.room_id_)*/0
+  , /*decltype(_impl_.slot_index_)*/0
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct S_ROOM_OTHER_ENTERDefaultTypeInternal {
   PROTOBUF_CONSTEXPR S_ROOM_OTHER_ENTERDefaultTypeInternal()
@@ -204,8 +235,8 @@ struct S_ROOM_OTHER_ENTERDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 S_ROOM_OTHER_ENTERDefaultTypeInternal _S_ROOM_OTHER_ENTER_default_instance_;
 PROTOBUF_CONSTEXPR S_ROOM_OTHER_LEAVE::S_ROOM_OTHER_LEAVE(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.other_)*/nullptr
-  , /*decltype(_impl_.info_)*/nullptr
+    /*decltype(_impl_.room_id_)*/0
+  , /*decltype(_impl_.slot_index_)*/0
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct S_ROOM_OTHER_LEAVEDefaultTypeInternal {
   PROTOBUF_CONSTEXPR S_ROOM_OTHER_LEAVEDefaultTypeInternal()
@@ -220,6 +251,7 @@ PROTOBUF_CONSTEXPR C_ROOM_READY::C_ROOM_READY(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.account_id_)*/0
   , /*decltype(_impl_.room_id_)*/0
+  , /*decltype(_impl_.slot_index_)*/0
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct C_ROOM_READYDefaultTypeInternal {
   PROTOBUF_CONSTEXPR C_ROOM_READYDefaultTypeInternal()
@@ -232,7 +264,8 @@ struct C_ROOM_READYDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 C_ROOM_READYDefaultTypeInternal _C_ROOM_READY_default_instance_;
 PROTOBUF_CONSTEXPR S_ROOM_READY::S_ROOM_READY(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.info_)*/nullptr
+    /*decltype(_impl_.slot_index_)*/0
+  , /*decltype(_impl_.is_ready_)*/false
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct S_ROOM_READYDefaultTypeInternal {
   PROTOBUF_CONSTEXPR S_ROOM_READYDefaultTypeInternal()
@@ -540,7 +573,7 @@ struct S_MATCH_SCALE_ON_CHANGEDDefaultTypeInternal {
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 S_MATCH_SCALE_ON_CHANGEDDefaultTypeInternal _S_MATCH_SCALE_ON_CHANGED_default_instance_;
 }  // namespace ProjectJ
-static ::_pb::Metadata file_level_metadata_Message_2eproto[36];
+static ::_pb::Metadata file_level_metadata_Message_2eproto[38];
 static constexpr ::_pb::EnumDescriptor const** file_level_enum_descriptors_Message_2eproto = nullptr;
 static constexpr ::_pb::ServiceDescriptor const** file_level_service_descriptors_Message_2eproto = nullptr;
 
@@ -607,7 +640,8 @@ const uint32_t TableStruct_Message_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
   PROTOBUF_FIELD_OFFSET(::ProjectJ::S_LOBBY_CREATE_ROOM, _impl_.result_),
-  PROTOBUF_FIELD_OFFSET(::ProjectJ::S_LOBBY_CREATE_ROOM, _impl_.info_),
+  PROTOBUF_FIELD_OFFSET(::ProjectJ::S_LOBBY_CREATE_ROOM, _impl_.room_id_),
+  PROTOBUF_FIELD_OFFSET(::ProjectJ::S_LOBBY_CREATE_ROOM, _impl_.slot_index_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::ProjectJ::C_LOBBY_ENTER_ROOM, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -624,7 +658,23 @@ const uint32_t TableStruct_Message_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(
   ~0u,  // no _inlined_string_donated_
   PROTOBUF_FIELD_OFFSET(::ProjectJ::S_LOBBY_ENTER_ROOM, _impl_.result_),
   PROTOBUF_FIELD_OFFSET(::ProjectJ::S_LOBBY_ENTER_ROOM, _impl_.room_id_),
-  PROTOBUF_FIELD_OFFSET(::ProjectJ::S_LOBBY_ENTER_ROOM, _impl_.info_),
+  PROTOBUF_FIELD_OFFSET(::ProjectJ::S_LOBBY_ENTER_ROOM, _impl_.slot_index_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::ProjectJ::C_ROOM_READY_TO_RECEIVE, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  ~0u,  // no _inlined_string_donated_
+  PROTOBUF_FIELD_OFFSET(::ProjectJ::C_ROOM_READY_TO_RECEIVE, _impl_.account_id_),
+  PROTOBUF_FIELD_OFFSET(::ProjectJ::C_ROOM_READY_TO_RECEIVE, _impl_.room_id_),
+  PROTOBUF_FIELD_OFFSET(::ProjectJ::C_ROOM_READY_TO_RECEIVE, _impl_.slot_index_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::ProjectJ::S_ROOM_INFO, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  ~0u,  // no _inlined_string_donated_
+  PROTOBUF_FIELD_OFFSET(::ProjectJ::S_ROOM_INFO, _impl_.info_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::ProjectJ::C_ROOM_LEAVE, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -633,6 +683,7 @@ const uint32_t TableStruct_Message_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(
   ~0u,  // no _inlined_string_donated_
   PROTOBUF_FIELD_OFFSET(::ProjectJ::C_ROOM_LEAVE, _impl_.account_id_),
   PROTOBUF_FIELD_OFFSET(::ProjectJ::C_ROOM_LEAVE, _impl_.room_id_),
+  PROTOBUF_FIELD_OFFSET(::ProjectJ::C_ROOM_LEAVE, _impl_.slot_index_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::ProjectJ::S_ROOM_LEAVE, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -646,16 +697,17 @@ const uint32_t TableStruct_Message_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
+  PROTOBUF_FIELD_OFFSET(::ProjectJ::S_ROOM_OTHER_ENTER, _impl_.room_id_),
+  PROTOBUF_FIELD_OFFSET(::ProjectJ::S_ROOM_OTHER_ENTER, _impl_.slot_index_),
   PROTOBUF_FIELD_OFFSET(::ProjectJ::S_ROOM_OTHER_ENTER, _impl_.other_),
-  PROTOBUF_FIELD_OFFSET(::ProjectJ::S_ROOM_OTHER_ENTER, _impl_.info_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::ProjectJ::S_ROOM_OTHER_LEAVE, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::ProjectJ::S_ROOM_OTHER_LEAVE, _impl_.other_),
-  PROTOBUF_FIELD_OFFSET(::ProjectJ::S_ROOM_OTHER_LEAVE, _impl_.info_),
+  PROTOBUF_FIELD_OFFSET(::ProjectJ::S_ROOM_OTHER_LEAVE, _impl_.room_id_),
+  PROTOBUF_FIELD_OFFSET(::ProjectJ::S_ROOM_OTHER_LEAVE, _impl_.slot_index_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::ProjectJ::C_ROOM_READY, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -664,13 +716,15 @@ const uint32_t TableStruct_Message_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(
   ~0u,  // no _inlined_string_donated_
   PROTOBUF_FIELD_OFFSET(::ProjectJ::C_ROOM_READY, _impl_.account_id_),
   PROTOBUF_FIELD_OFFSET(::ProjectJ::C_ROOM_READY, _impl_.room_id_),
+  PROTOBUF_FIELD_OFFSET(::ProjectJ::C_ROOM_READY, _impl_.slot_index_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::ProjectJ::S_ROOM_READY, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::ProjectJ::S_ROOM_READY, _impl_.info_),
+  PROTOBUF_FIELD_OFFSET(::ProjectJ::S_ROOM_READY, _impl_.slot_index_),
+  PROTOBUF_FIELD_OFFSET(::ProjectJ::S_ROOM_READY, _impl_.is_ready_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::ProjectJ::C_ROOM_CHAT, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -857,34 +911,36 @@ static const ::_pbi::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protode
   { 40, -1, -1, sizeof(::ProjectJ::S_LOBBY_REFRESH_ROOM)},
   { 47, -1, -1, sizeof(::ProjectJ::C_LOBBY_CREATE_ROOM)},
   { 55, -1, -1, sizeof(::ProjectJ::S_LOBBY_CREATE_ROOM)},
-  { 63, -1, -1, sizeof(::ProjectJ::C_LOBBY_ENTER_ROOM)},
-  { 71, -1, -1, sizeof(::ProjectJ::S_LOBBY_ENTER_ROOM)},
-  { 80, -1, -1, sizeof(::ProjectJ::C_ROOM_LEAVE)},
-  { 88, -1, -1, sizeof(::ProjectJ::S_ROOM_LEAVE)},
-  { 95, -1, -1, sizeof(::ProjectJ::S_ROOM_OTHER_ENTER)},
-  { 103, -1, -1, sizeof(::ProjectJ::S_ROOM_OTHER_LEAVE)},
-  { 111, -1, -1, sizeof(::ProjectJ::C_ROOM_READY)},
-  { 119, -1, -1, sizeof(::ProjectJ::S_ROOM_READY)},
-  { 126, -1, -1, sizeof(::ProjectJ::C_ROOM_CHAT)},
-  { 136, -1, -1, sizeof(::ProjectJ::S_ROOM_CHAT)},
-  { 146, -1, -1, sizeof(::ProjectJ::S_ROOM_STANDBY_MATCH)},
-  { 153, -1, -1, sizeof(::ProjectJ::S_ROOM_START_MATCH)},
-  { 160, -1, -1, sizeof(::ProjectJ::C_MATCH_READY_TO_RECEIVE)},
-  { 167, -1, -1, sizeof(::ProjectJ::S_MATCH_ALL_READY_TO_RECIEVE)},
-  { 175, -1, -1, sizeof(::ProjectJ::S_MATCH_ITEM_GENERATED)},
-  { 182, -1, -1, sizeof(::ProjectJ::C_MATCH_READY_TO_START)},
-  { 189, -1, -1, sizeof(::ProjectJ::S_MATCH_START)},
-  { 197, -1, -1, sizeof(::ProjectJ::C_MATCH_INFO_MyInfo)},
-  { 205, -1, -1, sizeof(::ProjectJ::C_MATCH_INFO)},
-  { 213, -1, -1, sizeof(::ProjectJ::S_MATCH_INFO)},
-  { 221, -1, -1, sizeof(::ProjectJ::S_MATCH_END)},
-  { 231, -1, -1, sizeof(::ProjectJ::C_MATCH_ITEM_PICKUP)},
-  { 239, -1, -1, sizeof(::ProjectJ::C_MATCH_ITEM_MOVE)},
-  { 251, -1, -1, sizeof(::ProjectJ::C_MATCH_ITEM_DROP)},
-  { 261, -1, -1, sizeof(::ProjectJ::S_MATCH_ITEM_SOMEONE_PICKUP)},
-  { 271, -1, -1, sizeof(::ProjectJ::S_MATCH_ITEM_SOMEONE_MOVE)},
-  { 283, -1, -1, sizeof(::ProjectJ::S_MATCH_ITEM_SOMEONE_DROP)},
-  { 293, -1, -1, sizeof(::ProjectJ::S_MATCH_SCALE_ON_CHANGED)},
+  { 64, -1, -1, sizeof(::ProjectJ::C_LOBBY_ENTER_ROOM)},
+  { 72, -1, -1, sizeof(::ProjectJ::S_LOBBY_ENTER_ROOM)},
+  { 81, -1, -1, sizeof(::ProjectJ::C_ROOM_READY_TO_RECEIVE)},
+  { 90, -1, -1, sizeof(::ProjectJ::S_ROOM_INFO)},
+  { 97, -1, -1, sizeof(::ProjectJ::C_ROOM_LEAVE)},
+  { 106, -1, -1, sizeof(::ProjectJ::S_ROOM_LEAVE)},
+  { 113, -1, -1, sizeof(::ProjectJ::S_ROOM_OTHER_ENTER)},
+  { 122, -1, -1, sizeof(::ProjectJ::S_ROOM_OTHER_LEAVE)},
+  { 130, -1, -1, sizeof(::ProjectJ::C_ROOM_READY)},
+  { 139, -1, -1, sizeof(::ProjectJ::S_ROOM_READY)},
+  { 147, -1, -1, sizeof(::ProjectJ::C_ROOM_CHAT)},
+  { 157, -1, -1, sizeof(::ProjectJ::S_ROOM_CHAT)},
+  { 167, -1, -1, sizeof(::ProjectJ::S_ROOM_STANDBY_MATCH)},
+  { 174, -1, -1, sizeof(::ProjectJ::S_ROOM_START_MATCH)},
+  { 181, -1, -1, sizeof(::ProjectJ::C_MATCH_READY_TO_RECEIVE)},
+  { 188, -1, -1, sizeof(::ProjectJ::S_MATCH_ALL_READY_TO_RECIEVE)},
+  { 196, -1, -1, sizeof(::ProjectJ::S_MATCH_ITEM_GENERATED)},
+  { 203, -1, -1, sizeof(::ProjectJ::C_MATCH_READY_TO_START)},
+  { 210, -1, -1, sizeof(::ProjectJ::S_MATCH_START)},
+  { 218, -1, -1, sizeof(::ProjectJ::C_MATCH_INFO_MyInfo)},
+  { 226, -1, -1, sizeof(::ProjectJ::C_MATCH_INFO)},
+  { 234, -1, -1, sizeof(::ProjectJ::S_MATCH_INFO)},
+  { 242, -1, -1, sizeof(::ProjectJ::S_MATCH_END)},
+  { 252, -1, -1, sizeof(::ProjectJ::C_MATCH_ITEM_PICKUP)},
+  { 260, -1, -1, sizeof(::ProjectJ::C_MATCH_ITEM_MOVE)},
+  { 272, -1, -1, sizeof(::ProjectJ::C_MATCH_ITEM_DROP)},
+  { 282, -1, -1, sizeof(::ProjectJ::S_MATCH_ITEM_SOMEONE_PICKUP)},
+  { 292, -1, -1, sizeof(::ProjectJ::S_MATCH_ITEM_SOMEONE_MOVE)},
+  { 304, -1, -1, sizeof(::ProjectJ::S_MATCH_ITEM_SOMEONE_DROP)},
+  { 314, -1, -1, sizeof(::ProjectJ::S_MATCH_SCALE_ON_CHANGED)},
 };
 
 static const ::_pb::Message* const file_default_instances[] = {
@@ -898,6 +954,8 @@ static const ::_pb::Message* const file_default_instances[] = {
   &::ProjectJ::_S_LOBBY_CREATE_ROOM_default_instance_._instance,
   &::ProjectJ::_C_LOBBY_ENTER_ROOM_default_instance_._instance,
   &::ProjectJ::_S_LOBBY_ENTER_ROOM_default_instance_._instance,
+  &::ProjectJ::_C_ROOM_READY_TO_RECEIVE_default_instance_._instance,
+  &::ProjectJ::_S_ROOM_INFO_default_instance_._instance,
   &::ProjectJ::_C_ROOM_LEAVE_default_instance_._instance,
   &::ProjectJ::_S_ROOM_LEAVE_default_instance_._instance,
   &::ProjectJ::_S_ROOM_OTHER_ENTER_default_instance_._instance,
@@ -937,68 +995,72 @@ const char descriptor_table_protodef_Message_2eproto[] PROTOBUF_SECTION_VARIABLE
   "LOBBY_REFRESH_ROOM\022\022\n\naccount_id\030\001 \001(\005\"5"
   "\n\024S_LOBBY_REFRESH_ROOM\022\035\n\005rooms\030\001 \003(\0132\016."
   "ProjectJ.Room\"8\n\023C_LOBBY_CREATE_ROOM\022\022\n\n"
-  "account_id\030\001 \001(\005\022\r\n\005title\030\002 \001(\t\"G\n\023S_LOB"
-  "BY_CREATE_ROOM\022\016\n\006result\030\001 \001(\010\022 \n\004info\030\002"
-  " \001(\0132\022.ProjectJ.RoomInfo\"9\n\022C_LOBBY_ENTE"
-  "R_ROOM\022\022\n\naccount_id\030\001 \001(\005\022\017\n\007room_id\030\002 "
-  "\001(\005\"W\n\022S_LOBBY_ENTER_ROOM\022\016\n\006result\030\001 \001("
-  "\010\022\017\n\007room_id\030\002 \001(\005\022 \n\004info\030\003 \001(\0132\022.Proje"
-  "ctJ.RoomInfo\"3\n\014C_ROOM_LEAVE\022\022\n\naccount_"
-  "id\030\001 \001(\005\022\017\n\007room_id\030\002 \001(\005\"\036\n\014S_ROOM_LEAV"
-  "E\022\016\n\006result\030\001 \001(\010\"W\n\022S_ROOM_OTHER_ENTER\022"
-  "\037\n\005other\030\001 \001(\0132\020.ProjectJ.Player\022 \n\004info"
-  "\030\002 \001(\0132\022.ProjectJ.RoomInfo\"W\n\022S_ROOM_OTH"
-  "ER_LEAVE\022\037\n\005other\030\001 \001(\0132\020.ProjectJ.Playe"
-  "r\022 \n\004info\030\002 \001(\0132\022.ProjectJ.RoomInfo\"3\n\014C"
-  "_ROOM_READY\022\022\n\naccount_id\030\001 \001(\005\022\017\n\007room_"
-  "id\030\002 \001(\005\"0\n\014S_ROOM_READY\022 \n\004info\030\001 \001(\0132\022"
-  ".ProjectJ.RoomInfo\"R\n\013C_ROOM_CHAT\022\022\n\nacc"
-  "ount_id\030\001 \001(\005\022\020\n\010nickname\030\002 \001(\t\022\017\n\007room_"
-  "id\030\003 \001(\005\022\014\n\004chat\030\004 \001(\t\"R\n\013S_ROOM_CHAT\022\022\n"
-  "\naccount_id\030\001 \001(\005\022\020\n\010nickname\030\002 \001(\t\022\017\n\007r"
-  "oom_id\030\003 \001(\005\022\014\n\004chat\030\004 \001(\t\"%\n\024S_ROOM_STA"
-  "NDBY_MATCH\022\r\n\005count\030\001 \001(\r\"#\n\022S_ROOM_STAR"
-  "T_MATCH\022\r\n\005start\030\001 \001(\010\".\n\030C_MATCH_READY_"
-  "TO_RECEIVE\022\022\n\naccount_id\030\001 \001(\005\"`\n\034S_MATC"
-  "H_ALL_READY_TO_RECIEVE\022\031\n\021your_player_in"
-  "dex\030\001 \001(\005\022%\n\004info\030\002 \001(\0132\027.ProjectJ.Match"
-  "InitInfo\"7\n\026S_MATCH_ITEM_GENERATED\022\035\n\005it"
-  "ems\030\001 \003(\0132\016.ProjectJ.Item\".\n\026C_MATCH_REA"
-  "DY_TO_START\022\024\n\014player_index\030\001 \001(\005\"7\n\rS_M"
-  "ATCH_START\022\020\n\010end_tick\030\001 \001(\004\022\024\n\014current_"
-  "tick\030\002 \001(\004\"\244\001\n\014C_MATCH_INFO\022\024\n\014player_in"
-  "dex\030\001 \001(\005\022+\n\004info\030\002 \001(\0132\035.ProjectJ.C_MAT"
-  "CH_INFO.MyInfo\032Q\n\006MyInfo\022\"\n\010position\030\001 \001"
-  "(\0132\020.ProjectJ.Vector\022#\n\010rotation\030\002 \001(\0132\021"
-  ".ProjectJ.Rotator\"G\n\014S_MATCH_INFO\022\024\n\014cur"
-  "rent_tick\030\001 \001(\004\022!\n\004info\030\002 \001(\0132\023.ProjectJ"
-  ".MatchInfo\"\201\001\n\013S_MATCH_END\022\024\n\014chaser_sco"
-  "re\030\001 \001(\005\022\035\n\025fugitivie_first_score\030\002 \001(\005\022"
-  "\036\n\026fugitivie_second_score\030\003 \001(\005\022\035\n\025fugit"
-  "ivie_third_score\030\004 \001(\005\"\?\n\023C_MATCH_ITEM_P"
-  "ICKUP\022\024\n\014player_index\030\001 \001(\005\022\022\n\nitem_inde"
-  "x\030\002 \001(\005\"\233\001\n\021C_MATCH_ITEM_MOVE\022\024\n\014player_"
-  "index\030\001 \001(\005\022\022\n\nfrom_index\030\002 \001(\005\022\020\n\010to_in"
-  "dex\030\003 \001(\005\022\022\n\nitem_index\030\004 \001(\005\022\035\n\025target_"
-  "top_left_index\030\005 \001(\005\022\027\n\017is_item_rotated\030"
-  "\006 \001(\010\"\232\001\n\021C_MATCH_ITEM_DROP\022\024\n\014player_in"
-  "dex\030\001 \001(\005\022\022\n\nitem_index\030\002 \001(\005\022,\n\022drop_it"
-  "em_position\030\003 \001(\0132\020.ProjectJ.Vector\022-\n\022d"
-  "rop_item_rotation\030\004 \001(\0132\021.ProjectJ.Rotat"
-  "or\"x\n\033S_MATCH_ITEM_SOMEONE_PICKUP\022\024\n\014pla"
-  "yer_index\030\001 \001(\005\022\022\n\nitem_index\030\002 \001(\005\022\026\n\016t"
-  "op_left_index\030\003 \001(\005\022\027\n\017is_item_rotated\030\004"
-  " \001(\010\"\234\001\n\031S_MATCH_ITEM_SOMEONE_MOVE\022\024\n\014pl"
-  "ayer_index\030\001 \001(\005\022\022\n\nfrom_index\030\002 \001(\005\022\020\n\010"
-  "to_index\030\003 \001(\005\022\022\n\nitem_index\030\004 \001(\005\022\026\n\016to"
-  "p_left_index\030\005 \001(\005\022\027\n\017is_item_rotated\030\006 "
-  "\001(\010\"\242\001\n\031S_MATCH_ITEM_SOMEONE_DROP\022\024\n\014pla"
-  "yer_index\030\001 \001(\005\022\022\n\nitem_index\030\002 \001(\005\022,\n\022d"
-  "rop_item_position\030\003 \001(\0132\020.ProjectJ.Vecto"
-  "r\022-\n\022drop_item_rotation\030\004 \001(\0132\021.ProjectJ"
-  ".Rotator\"]\n\030S_MATCH_SCALE_ON_CHANGED\022\023\n\013"
-  "scale_index\030\001 \001(\005\022\026\n\016current_weight\030\002 \001("
-  "\005\022\024\n\014is_operating\030\003 \001(\010b\006proto3"
+  "account_id\030\001 \001(\005\022\r\n\005title\030\002 \001(\t\"J\n\023S_LOB"
+  "BY_CREATE_ROOM\022\016\n\006result\030\001 \001(\010\022\017\n\007room_i"
+  "d\030\002 \001(\005\022\022\n\nslot_index\030\003 \001(\005\"9\n\022C_LOBBY_E"
+  "NTER_ROOM\022\022\n\naccount_id\030\001 \001(\005\022\017\n\007room_id"
+  "\030\002 \001(\005\"I\n\022S_LOBBY_ENTER_ROOM\022\016\n\006result\030\001"
+  " \001(\010\022\017\n\007room_id\030\002 \001(\005\022\022\n\nslot_index\030\003 \001("
+  "\005\"R\n\027C_ROOM_READY_TO_RECEIVE\022\022\n\naccount_"
+  "id\030\001 \001(\005\022\017\n\007room_id\030\002 \001(\005\022\022\n\nslot_index\030"
+  "\003 \001(\005\"/\n\013S_ROOM_INFO\022 \n\004info\030\001 \001(\0132\022.Pro"
+  "jectJ.RoomInfo\"G\n\014C_ROOM_LEAVE\022\022\n\naccoun"
+  "t_id\030\001 \001(\005\022\017\n\007room_id\030\002 \001(\005\022\022\n\nslot_inde"
+  "x\030\003 \001(\005\"\036\n\014S_ROOM_LEAVE\022\016\n\006result\030\001 \001(\010\""
+  "Z\n\022S_ROOM_OTHER_ENTER\022\017\n\007room_id\030\001 \001(\005\022\022"
+  "\n\nslot_index\030\002 \001(\005\022\037\n\005other\030\003 \001(\0132\020.Proj"
+  "ectJ.Player\"9\n\022S_ROOM_OTHER_LEAVE\022\017\n\007roo"
+  "m_id\030\001 \001(\005\022\022\n\nslot_index\030\002 \001(\005\"G\n\014C_ROOM"
+  "_READY\022\022\n\naccount_id\030\001 \001(\005\022\017\n\007room_id\030\002 "
+  "\001(\005\022\022\n\nslot_index\030\003 \001(\005\"4\n\014S_ROOM_READY\022"
+  "\022\n\nslot_index\030\001 \001(\005\022\020\n\010is_ready\030\002 \001(\010\"R\n"
+  "\013C_ROOM_CHAT\022\022\n\naccount_id\030\001 \001(\005\022\020\n\010nick"
+  "name\030\002 \001(\t\022\017\n\007room_id\030\003 \001(\005\022\014\n\004chat\030\004 \001("
+  "\t\"R\n\013S_ROOM_CHAT\022\022\n\naccount_id\030\001 \001(\005\022\020\n\010"
+  "nickname\030\002 \001(\t\022\017\n\007room_id\030\003 \001(\005\022\014\n\004chat\030"
+  "\004 \001(\t\"%\n\024S_ROOM_STANDBY_MATCH\022\r\n\005count\030\001"
+  " \001(\r\"#\n\022S_ROOM_START_MATCH\022\r\n\005start\030\001 \001("
+  "\010\".\n\030C_MATCH_READY_TO_RECEIVE\022\022\n\naccount"
+  "_id\030\001 \001(\005\"`\n\034S_MATCH_ALL_READY_TO_RECIEV"
+  "E\022\031\n\021your_player_index\030\001 \001(\005\022%\n\004info\030\002 \001"
+  "(\0132\027.ProjectJ.MatchInitInfo\"7\n\026S_MATCH_I"
+  "TEM_GENERATED\022\035\n\005items\030\001 \003(\0132\016.ProjectJ."
+  "Item\".\n\026C_MATCH_READY_TO_START\022\024\n\014player"
+  "_index\030\001 \001(\005\"7\n\rS_MATCH_START\022\020\n\010end_tic"
+  "k\030\001 \001(\004\022\024\n\014current_tick\030\002 \001(\004\"\244\001\n\014C_MATC"
+  "H_INFO\022\024\n\014player_index\030\001 \001(\005\022+\n\004info\030\002 \001"
+  "(\0132\035.ProjectJ.C_MATCH_INFO.MyInfo\032Q\n\006MyI"
+  "nfo\022\"\n\010position\030\001 \001(\0132\020.ProjectJ.Vector\022"
+  "#\n\010rotation\030\002 \001(\0132\021.ProjectJ.Rotator\"G\n\014"
+  "S_MATCH_INFO\022\024\n\014current_tick\030\001 \001(\004\022!\n\004in"
+  "fo\030\002 \001(\0132\023.ProjectJ.MatchInfo\"\201\001\n\013S_MATC"
+  "H_END\022\024\n\014chaser_score\030\001 \001(\005\022\035\n\025fugitivie"
+  "_first_score\030\002 \001(\005\022\036\n\026fugitivie_second_s"
+  "core\030\003 \001(\005\022\035\n\025fugitivie_third_score\030\004 \001("
+  "\005\"\?\n\023C_MATCH_ITEM_PICKUP\022\024\n\014player_index"
+  "\030\001 \001(\005\022\022\n\nitem_index\030\002 \001(\005\"\233\001\n\021C_MATCH_I"
+  "TEM_MOVE\022\024\n\014player_index\030\001 \001(\005\022\022\n\nfrom_i"
+  "ndex\030\002 \001(\005\022\020\n\010to_index\030\003 \001(\005\022\022\n\nitem_ind"
+  "ex\030\004 \001(\005\022\035\n\025target_top_left_index\030\005 \001(\005\022"
+  "\027\n\017is_item_rotated\030\006 \001(\010\"\232\001\n\021C_MATCH_ITE"
+  "M_DROP\022\024\n\014player_index\030\001 \001(\005\022\022\n\nitem_ind"
+  "ex\030\002 \001(\005\022,\n\022drop_item_position\030\003 \001(\0132\020.P"
+  "rojectJ.Vector\022-\n\022drop_item_rotation\030\004 \001"
+  "(\0132\021.ProjectJ.Rotator\"x\n\033S_MATCH_ITEM_SO"
+  "MEONE_PICKUP\022\024\n\014player_index\030\001 \001(\005\022\022\n\nit"
+  "em_index\030\002 \001(\005\022\026\n\016top_left_index\030\003 \001(\005\022\027"
+  "\n\017is_item_rotated\030\004 \001(\010\"\234\001\n\031S_MATCH_ITEM"
+  "_SOMEONE_MOVE\022\024\n\014player_index\030\001 \001(\005\022\022\n\nf"
+  "rom_index\030\002 \001(\005\022\020\n\010to_index\030\003 \001(\005\022\022\n\nite"
+  "m_index\030\004 \001(\005\022\026\n\016top_left_index\030\005 \001(\005\022\027\n"
+  "\017is_item_rotated\030\006 \001(\010\"\242\001\n\031S_MATCH_ITEM_"
+  "SOMEONE_DROP\022\024\n\014player_index\030\001 \001(\005\022\022\n\nit"
+  "em_index\030\002 \001(\005\022,\n\022drop_item_position\030\003 \001"
+  "(\0132\020.ProjectJ.Vector\022-\n\022drop_item_rotati"
+  "on\030\004 \001(\0132\021.ProjectJ.Rotator\"]\n\030S_MATCH_S"
+  "CALE_ON_CHANGED\022\023\n\013scale_index\030\001 \001(\005\022\026\n\016"
+  "current_weight\030\002 \001(\005\022\024\n\014is_operating\030\003 \001"
+  "(\010b\006proto3"
   ;
 static const ::_pbi::DescriptorTable* const descriptor_table_Message_2eproto_deps[2] = {
   &::descriptor_table_Enum_2eproto,
@@ -1006,9 +1068,9 @@ static const ::_pbi::DescriptorTable* const descriptor_table_Message_2eproto_dep
 };
 static ::_pbi::once_flag descriptor_table_Message_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_Message_2eproto = {
-    false, false, 2871, descriptor_table_protodef_Message_2eproto,
+    false, false, 3010, descriptor_table_protodef_Message_2eproto,
     "Message.proto",
-    &descriptor_table_Message_2eproto_once, descriptor_table_Message_2eproto_deps, 2, 36,
+    &descriptor_table_Message_2eproto_once, descriptor_table_Message_2eproto_deps, 2, 38,
     schemas, file_default_instances, TableStruct_Message_2eproto::offsets,
     file_level_metadata_Message_2eproto, file_level_enum_descriptors_Message_2eproto,
     file_level_service_descriptors_Message_2eproto,
@@ -2589,19 +2651,8 @@ void C_LOBBY_CREATE_ROOM::InternalSwap(C_LOBBY_CREATE_ROOM* other) {
 
 class S_LOBBY_CREATE_ROOM::_Internal {
  public:
-  static const ::ProjectJ::RoomInfo& info(const S_LOBBY_CREATE_ROOM* msg);
 };
 
-const ::ProjectJ::RoomInfo&
-S_LOBBY_CREATE_ROOM::_Internal::info(const S_LOBBY_CREATE_ROOM* msg) {
-  return *msg->_impl_.info_;
-}
-void S_LOBBY_CREATE_ROOM::clear_info() {
-  if (GetArenaForAllocation() == nullptr && _impl_.info_ != nullptr) {
-    delete _impl_.info_;
-  }
-  _impl_.info_ = nullptr;
-}
 S_LOBBY_CREATE_ROOM::S_LOBBY_CREATE_ROOM(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
@@ -2612,15 +2663,15 @@ S_LOBBY_CREATE_ROOM::S_LOBBY_CREATE_ROOM(const S_LOBBY_CREATE_ROOM& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
   S_LOBBY_CREATE_ROOM* const _this = this; (void)_this;
   new (&_impl_) Impl_{
-      decltype(_impl_.info_){nullptr}
-    , decltype(_impl_.result_){}
+      decltype(_impl_.result_){}
+    , decltype(_impl_.room_id_){}
+    , decltype(_impl_.slot_index_){}
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  if (from._internal_has_info()) {
-    _this->_impl_.info_ = new ::ProjectJ::RoomInfo(*from._impl_.info_);
-  }
-  _this->_impl_.result_ = from._impl_.result_;
+  ::memcpy(&_impl_.result_, &from._impl_.result_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.slot_index_) -
+    reinterpret_cast<char*>(&_impl_.result_)) + sizeof(_impl_.slot_index_));
   // @@protoc_insertion_point(copy_constructor:ProjectJ.S_LOBBY_CREATE_ROOM)
 }
 
@@ -2629,8 +2680,9 @@ inline void S_LOBBY_CREATE_ROOM::SharedCtor(
   (void)arena;
   (void)is_message_owned;
   new (&_impl_) Impl_{
-      decltype(_impl_.info_){nullptr}
-    , decltype(_impl_.result_){false}
+      decltype(_impl_.result_){false}
+    , decltype(_impl_.room_id_){0}
+    , decltype(_impl_.slot_index_){0}
     , /*decltype(_impl_._cached_size_)*/{}
   };
 }
@@ -2646,7 +2698,6 @@ S_LOBBY_CREATE_ROOM::~S_LOBBY_CREATE_ROOM() {
 
 inline void S_LOBBY_CREATE_ROOM::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  if (this != internal_default_instance()) delete _impl_.info_;
 }
 
 void S_LOBBY_CREATE_ROOM::SetCachedSize(int size) const {
@@ -2659,11 +2710,9 @@ void S_LOBBY_CREATE_ROOM::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  if (GetArenaForAllocation() == nullptr && _impl_.info_ != nullptr) {
-    delete _impl_.info_;
-  }
-  _impl_.info_ = nullptr;
-  _impl_.result_ = false;
+  ::memset(&_impl_.result_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&_impl_.slot_index_) -
+      reinterpret_cast<char*>(&_impl_.result_)) + sizeof(_impl_.slot_index_));
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -2681,10 +2730,18 @@ const char* S_LOBBY_CREATE_ROOM::_InternalParse(const char* ptr, ::_pbi::ParseCo
         } else
           goto handle_unusual;
         continue;
-      // .ProjectJ.RoomInfo info = 2;
+      // int32 room_id = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
-          ptr = ctx->ParseMessage(_internal_mutable_info(), ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+          _impl_.room_id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // int32 slot_index = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+          _impl_.slot_index_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -2724,11 +2781,16 @@ uint8_t* S_LOBBY_CREATE_ROOM::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteBoolToArray(1, this->_internal_result(), target);
   }
 
-  // .ProjectJ.RoomInfo info = 2;
-  if (this->_internal_has_info()) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(2, _Internal::info(this),
-        _Internal::info(this).GetCachedSize(), target, stream);
+  // int32 room_id = 2;
+  if (this->_internal_room_id() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(2, this->_internal_room_id(), target);
+  }
+
+  // int32 slot_index = 3;
+  if (this->_internal_slot_index() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(3, this->_internal_slot_index(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -2747,16 +2809,19 @@ size_t S_LOBBY_CREATE_ROOM::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // .ProjectJ.RoomInfo info = 2;
-  if (this->_internal_has_info()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *_impl_.info_);
-  }
-
   // bool result = 1;
   if (this->_internal_result() != 0) {
     total_size += 1 + 1;
+  }
+
+  // int32 room_id = 2;
+  if (this->_internal_room_id() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_room_id());
+  }
+
+  // int32 slot_index = 3;
+  if (this->_internal_slot_index() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_slot_index());
   }
 
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
@@ -2777,12 +2842,14 @@ void S_LOBBY_CREATE_ROOM::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, co
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from._internal_has_info()) {
-    _this->_internal_mutable_info()->::ProjectJ::RoomInfo::MergeFrom(
-        from._internal_info());
-  }
   if (from._internal_result() != 0) {
     _this->_internal_set_result(from._internal_result());
+  }
+  if (from._internal_room_id() != 0) {
+    _this->_internal_set_room_id(from._internal_room_id());
+  }
+  if (from._internal_slot_index() != 0) {
+    _this->_internal_set_slot_index(from._internal_slot_index());
   }
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
@@ -2802,11 +2869,11 @@ void S_LOBBY_CREATE_ROOM::InternalSwap(S_LOBBY_CREATE_ROOM* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(S_LOBBY_CREATE_ROOM, _impl_.result_)
-      + sizeof(S_LOBBY_CREATE_ROOM::_impl_.result_)
-      - PROTOBUF_FIELD_OFFSET(S_LOBBY_CREATE_ROOM, _impl_.info_)>(
-          reinterpret_cast<char*>(&_impl_.info_),
-          reinterpret_cast<char*>(&other->_impl_.info_));
+      PROTOBUF_FIELD_OFFSET(S_LOBBY_CREATE_ROOM, _impl_.slot_index_)
+      + sizeof(S_LOBBY_CREATE_ROOM::_impl_.slot_index_)
+      - PROTOBUF_FIELD_OFFSET(S_LOBBY_CREATE_ROOM, _impl_.result_)>(
+          reinterpret_cast<char*>(&_impl_.result_),
+          reinterpret_cast<char*>(&other->_impl_.result_));
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata S_LOBBY_CREATE_ROOM::GetMetadata() const {
@@ -3030,19 +3097,8 @@ void C_LOBBY_ENTER_ROOM::InternalSwap(C_LOBBY_ENTER_ROOM* other) {
 
 class S_LOBBY_ENTER_ROOM::_Internal {
  public:
-  static const ::ProjectJ::RoomInfo& info(const S_LOBBY_ENTER_ROOM* msg);
 };
 
-const ::ProjectJ::RoomInfo&
-S_LOBBY_ENTER_ROOM::_Internal::info(const S_LOBBY_ENTER_ROOM* msg) {
-  return *msg->_impl_.info_;
-}
-void S_LOBBY_ENTER_ROOM::clear_info() {
-  if (GetArenaForAllocation() == nullptr && _impl_.info_ != nullptr) {
-    delete _impl_.info_;
-  }
-  _impl_.info_ = nullptr;
-}
 S_LOBBY_ENTER_ROOM::S_LOBBY_ENTER_ROOM(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
@@ -3053,18 +3109,15 @@ S_LOBBY_ENTER_ROOM::S_LOBBY_ENTER_ROOM(const S_LOBBY_ENTER_ROOM& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
   S_LOBBY_ENTER_ROOM* const _this = this; (void)_this;
   new (&_impl_) Impl_{
-      decltype(_impl_.info_){nullptr}
-    , decltype(_impl_.result_){}
+      decltype(_impl_.result_){}
     , decltype(_impl_.room_id_){}
+    , decltype(_impl_.slot_index_){}
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  if (from._internal_has_info()) {
-    _this->_impl_.info_ = new ::ProjectJ::RoomInfo(*from._impl_.info_);
-  }
   ::memcpy(&_impl_.result_, &from._impl_.result_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.room_id_) -
-    reinterpret_cast<char*>(&_impl_.result_)) + sizeof(_impl_.room_id_));
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.slot_index_) -
+    reinterpret_cast<char*>(&_impl_.result_)) + sizeof(_impl_.slot_index_));
   // @@protoc_insertion_point(copy_constructor:ProjectJ.S_LOBBY_ENTER_ROOM)
 }
 
@@ -3073,9 +3126,9 @@ inline void S_LOBBY_ENTER_ROOM::SharedCtor(
   (void)arena;
   (void)is_message_owned;
   new (&_impl_) Impl_{
-      decltype(_impl_.info_){nullptr}
-    , decltype(_impl_.result_){false}
+      decltype(_impl_.result_){false}
     , decltype(_impl_.room_id_){0}
+    , decltype(_impl_.slot_index_){0}
     , /*decltype(_impl_._cached_size_)*/{}
   };
 }
@@ -3091,7 +3144,6 @@ S_LOBBY_ENTER_ROOM::~S_LOBBY_ENTER_ROOM() {
 
 inline void S_LOBBY_ENTER_ROOM::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  if (this != internal_default_instance()) delete _impl_.info_;
 }
 
 void S_LOBBY_ENTER_ROOM::SetCachedSize(int size) const {
@@ -3104,13 +3156,9 @@ void S_LOBBY_ENTER_ROOM::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  if (GetArenaForAllocation() == nullptr && _impl_.info_ != nullptr) {
-    delete _impl_.info_;
-  }
-  _impl_.info_ = nullptr;
   ::memset(&_impl_.result_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&_impl_.room_id_) -
-      reinterpret_cast<char*>(&_impl_.result_)) + sizeof(_impl_.room_id_));
+      reinterpret_cast<char*>(&_impl_.slot_index_) -
+      reinterpret_cast<char*>(&_impl_.result_)) + sizeof(_impl_.slot_index_));
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -3136,10 +3184,10 @@ const char* S_LOBBY_ENTER_ROOM::_InternalParse(const char* ptr, ::_pbi::ParseCon
         } else
           goto handle_unusual;
         continue;
-      // .ProjectJ.RoomInfo info = 3;
+      // int32 slot_index = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
-          ptr = ctx->ParseMessage(_internal_mutable_info(), ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+          _impl_.slot_index_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -3185,11 +3233,10 @@ uint8_t* S_LOBBY_ENTER_ROOM::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteInt32ToArray(2, this->_internal_room_id(), target);
   }
 
-  // .ProjectJ.RoomInfo info = 3;
-  if (this->_internal_has_info()) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(3, _Internal::info(this),
-        _Internal::info(this).GetCachedSize(), target, stream);
+  // int32 slot_index = 3;
+  if (this->_internal_slot_index() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(3, this->_internal_slot_index(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -3208,13 +3255,6 @@ size_t S_LOBBY_ENTER_ROOM::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // .ProjectJ.RoomInfo info = 3;
-  if (this->_internal_has_info()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *_impl_.info_);
-  }
-
   // bool result = 1;
   if (this->_internal_result() != 0) {
     total_size += 1 + 1;
@@ -3223,6 +3263,11 @@ size_t S_LOBBY_ENTER_ROOM::ByteSizeLong() const {
   // int32 room_id = 2;
   if (this->_internal_room_id() != 0) {
     total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_room_id());
+  }
+
+  // int32 slot_index = 3;
+  if (this->_internal_slot_index() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_slot_index());
   }
 
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
@@ -3243,15 +3288,14 @@ void S_LOBBY_ENTER_ROOM::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, con
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from._internal_has_info()) {
-    _this->_internal_mutable_info()->::ProjectJ::RoomInfo::MergeFrom(
-        from._internal_info());
-  }
   if (from._internal_result() != 0) {
     _this->_internal_set_result(from._internal_result());
   }
   if (from._internal_room_id() != 0) {
     _this->_internal_set_room_id(from._internal_room_id());
+  }
+  if (from._internal_slot_index() != 0) {
+    _this->_internal_set_slot_index(from._internal_slot_index());
   }
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
@@ -3271,17 +3315,451 @@ void S_LOBBY_ENTER_ROOM::InternalSwap(S_LOBBY_ENTER_ROOM* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(S_LOBBY_ENTER_ROOM, _impl_.room_id_)
-      + sizeof(S_LOBBY_ENTER_ROOM::_impl_.room_id_)
-      - PROTOBUF_FIELD_OFFSET(S_LOBBY_ENTER_ROOM, _impl_.info_)>(
-          reinterpret_cast<char*>(&_impl_.info_),
-          reinterpret_cast<char*>(&other->_impl_.info_));
+      PROTOBUF_FIELD_OFFSET(S_LOBBY_ENTER_ROOM, _impl_.slot_index_)
+      + sizeof(S_LOBBY_ENTER_ROOM::_impl_.slot_index_)
+      - PROTOBUF_FIELD_OFFSET(S_LOBBY_ENTER_ROOM, _impl_.result_)>(
+          reinterpret_cast<char*>(&_impl_.result_),
+          reinterpret_cast<char*>(&other->_impl_.result_));
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata S_LOBBY_ENTER_ROOM::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2eproto_getter, &descriptor_table_Message_2eproto_once,
       file_level_metadata_Message_2eproto[9]);
+}
+
+// ===================================================================
+
+class C_ROOM_READY_TO_RECEIVE::_Internal {
+ public:
+};
+
+C_ROOM_READY_TO_RECEIVE::C_ROOM_READY_TO_RECEIVE(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:ProjectJ.C_ROOM_READY_TO_RECEIVE)
+}
+C_ROOM_READY_TO_RECEIVE::C_ROOM_READY_TO_RECEIVE(const C_ROOM_READY_TO_RECEIVE& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  C_ROOM_READY_TO_RECEIVE* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.account_id_){}
+    , decltype(_impl_.room_id_){}
+    , decltype(_impl_.slot_index_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  ::memcpy(&_impl_.account_id_, &from._impl_.account_id_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.slot_index_) -
+    reinterpret_cast<char*>(&_impl_.account_id_)) + sizeof(_impl_.slot_index_));
+  // @@protoc_insertion_point(copy_constructor:ProjectJ.C_ROOM_READY_TO_RECEIVE)
+}
+
+inline void C_ROOM_READY_TO_RECEIVE::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.account_id_){0}
+    , decltype(_impl_.room_id_){0}
+    , decltype(_impl_.slot_index_){0}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+}
+
+C_ROOM_READY_TO_RECEIVE::~C_ROOM_READY_TO_RECEIVE() {
+  // @@protoc_insertion_point(destructor:ProjectJ.C_ROOM_READY_TO_RECEIVE)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void C_ROOM_READY_TO_RECEIVE::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+}
+
+void C_ROOM_READY_TO_RECEIVE::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void C_ROOM_READY_TO_RECEIVE::Clear() {
+// @@protoc_insertion_point(message_clear_start:ProjectJ.C_ROOM_READY_TO_RECEIVE)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  ::memset(&_impl_.account_id_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&_impl_.slot_index_) -
+      reinterpret_cast<char*>(&_impl_.account_id_)) + sizeof(_impl_.slot_index_));
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* C_ROOM_READY_TO_RECEIVE::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // int32 account_id = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          _impl_.account_id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // int32 room_id = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+          _impl_.room_id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // int32 slot_index = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+          _impl_.slot_index_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* C_ROOM_READY_TO_RECEIVE::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:ProjectJ.C_ROOM_READY_TO_RECEIVE)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // int32 account_id = 1;
+  if (this->_internal_account_id() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(1, this->_internal_account_id(), target);
+  }
+
+  // int32 room_id = 2;
+  if (this->_internal_room_id() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(2, this->_internal_room_id(), target);
+  }
+
+  // int32 slot_index = 3;
+  if (this->_internal_slot_index() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(3, this->_internal_slot_index(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:ProjectJ.C_ROOM_READY_TO_RECEIVE)
+  return target;
+}
+
+size_t C_ROOM_READY_TO_RECEIVE::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:ProjectJ.C_ROOM_READY_TO_RECEIVE)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // int32 account_id = 1;
+  if (this->_internal_account_id() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_account_id());
+  }
+
+  // int32 room_id = 2;
+  if (this->_internal_room_id() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_room_id());
+  }
+
+  // int32 slot_index = 3;
+  if (this->_internal_slot_index() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_slot_index());
+  }
+
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
+}
+
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData C_ROOM_READY_TO_RECEIVE::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
+    C_ROOM_READY_TO_RECEIVE::MergeImpl
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*C_ROOM_READY_TO_RECEIVE::GetClassData() const { return &_class_data_; }
+
+
+void C_ROOM_READY_TO_RECEIVE::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<C_ROOM_READY_TO_RECEIVE*>(&to_msg);
+  auto& from = static_cast<const C_ROOM_READY_TO_RECEIVE&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:ProjectJ.C_ROOM_READY_TO_RECEIVE)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_account_id() != 0) {
+    _this->_internal_set_account_id(from._internal_account_id());
+  }
+  if (from._internal_room_id() != 0) {
+    _this->_internal_set_room_id(from._internal_room_id());
+  }
+  if (from._internal_slot_index() != 0) {
+    _this->_internal_set_slot_index(from._internal_slot_index());
+  }
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void C_ROOM_READY_TO_RECEIVE::CopyFrom(const C_ROOM_READY_TO_RECEIVE& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:ProjectJ.C_ROOM_READY_TO_RECEIVE)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool C_ROOM_READY_TO_RECEIVE::IsInitialized() const {
+  return true;
+}
+
+void C_ROOM_READY_TO_RECEIVE::InternalSwap(C_ROOM_READY_TO_RECEIVE* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(C_ROOM_READY_TO_RECEIVE, _impl_.slot_index_)
+      + sizeof(C_ROOM_READY_TO_RECEIVE::_impl_.slot_index_)
+      - PROTOBUF_FIELD_OFFSET(C_ROOM_READY_TO_RECEIVE, _impl_.account_id_)>(
+          reinterpret_cast<char*>(&_impl_.account_id_),
+          reinterpret_cast<char*>(&other->_impl_.account_id_));
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata C_ROOM_READY_TO_RECEIVE::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
+      &descriptor_table_Message_2eproto_getter, &descriptor_table_Message_2eproto_once,
+      file_level_metadata_Message_2eproto[10]);
+}
+
+// ===================================================================
+
+class S_ROOM_INFO::_Internal {
+ public:
+  static const ::ProjectJ::RoomInfo& info(const S_ROOM_INFO* msg);
+};
+
+const ::ProjectJ::RoomInfo&
+S_ROOM_INFO::_Internal::info(const S_ROOM_INFO* msg) {
+  return *msg->_impl_.info_;
+}
+void S_ROOM_INFO::clear_info() {
+  if (GetArenaForAllocation() == nullptr && _impl_.info_ != nullptr) {
+    delete _impl_.info_;
+  }
+  _impl_.info_ = nullptr;
+}
+S_ROOM_INFO::S_ROOM_INFO(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:ProjectJ.S_ROOM_INFO)
+}
+S_ROOM_INFO::S_ROOM_INFO(const S_ROOM_INFO& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  S_ROOM_INFO* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.info_){nullptr}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  if (from._internal_has_info()) {
+    _this->_impl_.info_ = new ::ProjectJ::RoomInfo(*from._impl_.info_);
+  }
+  // @@protoc_insertion_point(copy_constructor:ProjectJ.S_ROOM_INFO)
+}
+
+inline void S_ROOM_INFO::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.info_){nullptr}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+}
+
+S_ROOM_INFO::~S_ROOM_INFO() {
+  // @@protoc_insertion_point(destructor:ProjectJ.S_ROOM_INFO)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void S_ROOM_INFO::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  if (this != internal_default_instance()) delete _impl_.info_;
+}
+
+void S_ROOM_INFO::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void S_ROOM_INFO::Clear() {
+// @@protoc_insertion_point(message_clear_start:ProjectJ.S_ROOM_INFO)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  if (GetArenaForAllocation() == nullptr && _impl_.info_ != nullptr) {
+    delete _impl_.info_;
+  }
+  _impl_.info_ = nullptr;
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* S_ROOM_INFO::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // .ProjectJ.RoomInfo info = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          ptr = ctx->ParseMessage(_internal_mutable_info(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* S_ROOM_INFO::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:ProjectJ.S_ROOM_INFO)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // .ProjectJ.RoomInfo info = 1;
+  if (this->_internal_has_info()) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(1, _Internal::info(this),
+        _Internal::info(this).GetCachedSize(), target, stream);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:ProjectJ.S_ROOM_INFO)
+  return target;
+}
+
+size_t S_ROOM_INFO::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:ProjectJ.S_ROOM_INFO)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // .ProjectJ.RoomInfo info = 1;
+  if (this->_internal_has_info()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *_impl_.info_);
+  }
+
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
+}
+
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData S_ROOM_INFO::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
+    S_ROOM_INFO::MergeImpl
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*S_ROOM_INFO::GetClassData() const { return &_class_data_; }
+
+
+void S_ROOM_INFO::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<S_ROOM_INFO*>(&to_msg);
+  auto& from = static_cast<const S_ROOM_INFO&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:ProjectJ.S_ROOM_INFO)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_has_info()) {
+    _this->_internal_mutable_info()->::ProjectJ::RoomInfo::MergeFrom(
+        from._internal_info());
+  }
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void S_ROOM_INFO::CopyFrom(const S_ROOM_INFO& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:ProjectJ.S_ROOM_INFO)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool S_ROOM_INFO::IsInitialized() const {
+  return true;
+}
+
+void S_ROOM_INFO::InternalSwap(S_ROOM_INFO* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_impl_.info_, other->_impl_.info_);
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata S_ROOM_INFO::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
+      &descriptor_table_Message_2eproto_getter, &descriptor_table_Message_2eproto_once,
+      file_level_metadata_Message_2eproto[11]);
 }
 
 // ===================================================================
@@ -3302,12 +3780,13 @@ C_ROOM_LEAVE::C_ROOM_LEAVE(const C_ROOM_LEAVE& from)
   new (&_impl_) Impl_{
       decltype(_impl_.account_id_){}
     , decltype(_impl_.room_id_){}
+    , decltype(_impl_.slot_index_){}
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   ::memcpy(&_impl_.account_id_, &from._impl_.account_id_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.room_id_) -
-    reinterpret_cast<char*>(&_impl_.account_id_)) + sizeof(_impl_.room_id_));
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.slot_index_) -
+    reinterpret_cast<char*>(&_impl_.account_id_)) + sizeof(_impl_.slot_index_));
   // @@protoc_insertion_point(copy_constructor:ProjectJ.C_ROOM_LEAVE)
 }
 
@@ -3318,6 +3797,7 @@ inline void C_ROOM_LEAVE::SharedCtor(
   new (&_impl_) Impl_{
       decltype(_impl_.account_id_){0}
     , decltype(_impl_.room_id_){0}
+    , decltype(_impl_.slot_index_){0}
     , /*decltype(_impl_._cached_size_)*/{}
   };
 }
@@ -3346,8 +3826,8 @@ void C_ROOM_LEAVE::Clear() {
   (void) cached_has_bits;
 
   ::memset(&_impl_.account_id_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&_impl_.room_id_) -
-      reinterpret_cast<char*>(&_impl_.account_id_)) + sizeof(_impl_.room_id_));
+      reinterpret_cast<char*>(&_impl_.slot_index_) -
+      reinterpret_cast<char*>(&_impl_.account_id_)) + sizeof(_impl_.slot_index_));
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -3369,6 +3849,14 @@ const char* C_ROOM_LEAVE::_InternalParse(const char* ptr, ::_pbi::ParseContext* 
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
           _impl_.room_id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // int32 slot_index = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+          _impl_.slot_index_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -3414,6 +3902,12 @@ uint8_t* C_ROOM_LEAVE::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteInt32ToArray(2, this->_internal_room_id(), target);
   }
 
+  // int32 slot_index = 3;
+  if (this->_internal_slot_index() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(3, this->_internal_slot_index(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
@@ -3440,6 +3934,11 @@ size_t C_ROOM_LEAVE::ByteSizeLong() const {
     total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_room_id());
   }
 
+  // int32 slot_index = 3;
+  if (this->_internal_slot_index() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_slot_index());
+  }
+
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
@@ -3464,6 +3963,9 @@ void C_ROOM_LEAVE::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::P
   if (from._internal_room_id() != 0) {
     _this->_internal_set_room_id(from._internal_room_id());
   }
+  if (from._internal_slot_index() != 0) {
+    _this->_internal_set_slot_index(from._internal_slot_index());
+  }
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
@@ -3482,8 +3984,8 @@ void C_ROOM_LEAVE::InternalSwap(C_ROOM_LEAVE* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(C_ROOM_LEAVE, _impl_.room_id_)
-      + sizeof(C_ROOM_LEAVE::_impl_.room_id_)
+      PROTOBUF_FIELD_OFFSET(C_ROOM_LEAVE, _impl_.slot_index_)
+      + sizeof(C_ROOM_LEAVE::_impl_.slot_index_)
       - PROTOBUF_FIELD_OFFSET(C_ROOM_LEAVE, _impl_.account_id_)>(
           reinterpret_cast<char*>(&_impl_.account_id_),
           reinterpret_cast<char*>(&other->_impl_.account_id_));
@@ -3492,7 +3994,7 @@ void C_ROOM_LEAVE::InternalSwap(C_ROOM_LEAVE* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata C_ROOM_LEAVE::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2eproto_getter, &descriptor_table_Message_2eproto_once,
-      file_level_metadata_Message_2eproto[10]);
+      file_level_metadata_Message_2eproto[12]);
 }
 
 // ===================================================================
@@ -3670,7 +4172,7 @@ void S_ROOM_LEAVE::InternalSwap(S_ROOM_LEAVE* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata S_ROOM_LEAVE::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2eproto_getter, &descriptor_table_Message_2eproto_once,
-      file_level_metadata_Message_2eproto[11]);
+      file_level_metadata_Message_2eproto[13]);
 }
 
 // ===================================================================
@@ -3678,28 +4180,17 @@ void S_ROOM_LEAVE::InternalSwap(S_ROOM_LEAVE* other) {
 class S_ROOM_OTHER_ENTER::_Internal {
  public:
   static const ::ProjectJ::Player& other(const S_ROOM_OTHER_ENTER* msg);
-  static const ::ProjectJ::RoomInfo& info(const S_ROOM_OTHER_ENTER* msg);
 };
 
 const ::ProjectJ::Player&
 S_ROOM_OTHER_ENTER::_Internal::other(const S_ROOM_OTHER_ENTER* msg) {
   return *msg->_impl_.other_;
 }
-const ::ProjectJ::RoomInfo&
-S_ROOM_OTHER_ENTER::_Internal::info(const S_ROOM_OTHER_ENTER* msg) {
-  return *msg->_impl_.info_;
-}
 void S_ROOM_OTHER_ENTER::clear_other() {
   if (GetArenaForAllocation() == nullptr && _impl_.other_ != nullptr) {
     delete _impl_.other_;
   }
   _impl_.other_ = nullptr;
-}
-void S_ROOM_OTHER_ENTER::clear_info() {
-  if (GetArenaForAllocation() == nullptr && _impl_.info_ != nullptr) {
-    delete _impl_.info_;
-  }
-  _impl_.info_ = nullptr;
 }
 S_ROOM_OTHER_ENTER::S_ROOM_OTHER_ENTER(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
@@ -3712,16 +4203,17 @@ S_ROOM_OTHER_ENTER::S_ROOM_OTHER_ENTER(const S_ROOM_OTHER_ENTER& from)
   S_ROOM_OTHER_ENTER* const _this = this; (void)_this;
   new (&_impl_) Impl_{
       decltype(_impl_.other_){nullptr}
-    , decltype(_impl_.info_){nullptr}
+    , decltype(_impl_.room_id_){}
+    , decltype(_impl_.slot_index_){}
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   if (from._internal_has_other()) {
     _this->_impl_.other_ = new ::ProjectJ::Player(*from._impl_.other_);
   }
-  if (from._internal_has_info()) {
-    _this->_impl_.info_ = new ::ProjectJ::RoomInfo(*from._impl_.info_);
-  }
+  ::memcpy(&_impl_.room_id_, &from._impl_.room_id_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.slot_index_) -
+    reinterpret_cast<char*>(&_impl_.room_id_)) + sizeof(_impl_.slot_index_));
   // @@protoc_insertion_point(copy_constructor:ProjectJ.S_ROOM_OTHER_ENTER)
 }
 
@@ -3731,7 +4223,8 @@ inline void S_ROOM_OTHER_ENTER::SharedCtor(
   (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_.other_){nullptr}
-    , decltype(_impl_.info_){nullptr}
+    , decltype(_impl_.room_id_){0}
+    , decltype(_impl_.slot_index_){0}
     , /*decltype(_impl_._cached_size_)*/{}
   };
 }
@@ -3748,7 +4241,6 @@ S_ROOM_OTHER_ENTER::~S_ROOM_OTHER_ENTER() {
 inline void S_ROOM_OTHER_ENTER::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   if (this != internal_default_instance()) delete _impl_.other_;
-  if (this != internal_default_instance()) delete _impl_.info_;
 }
 
 void S_ROOM_OTHER_ENTER::SetCachedSize(int size) const {
@@ -3765,10 +4257,9 @@ void S_ROOM_OTHER_ENTER::Clear() {
     delete _impl_.other_;
   }
   _impl_.other_ = nullptr;
-  if (GetArenaForAllocation() == nullptr && _impl_.info_ != nullptr) {
-    delete _impl_.info_;
-  }
-  _impl_.info_ = nullptr;
+  ::memset(&_impl_.room_id_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&_impl_.slot_index_) -
+      reinterpret_cast<char*>(&_impl_.room_id_)) + sizeof(_impl_.slot_index_));
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -3778,18 +4269,26 @@ const char* S_ROOM_OTHER_ENTER::_InternalParse(const char* ptr, ::_pbi::ParseCon
     uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // .ProjectJ.Player other = 1;
+      // int32 room_id = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
-          ptr = ctx->ParseMessage(_internal_mutable_other(), ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          _impl_.room_id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
-      // .ProjectJ.RoomInfo info = 2;
+      // int32 slot_index = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
-          ptr = ctx->ParseMessage(_internal_mutable_info(), ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+          _impl_.slot_index_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // .ProjectJ.Player other = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+          ptr = ctx->ParseMessage(_internal_mutable_other(), ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -3823,18 +4322,23 @@ uint8_t* S_ROOM_OTHER_ENTER::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // .ProjectJ.Player other = 1;
-  if (this->_internal_has_other()) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(1, _Internal::other(this),
-        _Internal::other(this).GetCachedSize(), target, stream);
+  // int32 room_id = 1;
+  if (this->_internal_room_id() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(1, this->_internal_room_id(), target);
   }
 
-  // .ProjectJ.RoomInfo info = 2;
-  if (this->_internal_has_info()) {
+  // int32 slot_index = 2;
+  if (this->_internal_slot_index() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(2, this->_internal_slot_index(), target);
+  }
+
+  // .ProjectJ.Player other = 3;
+  if (this->_internal_has_other()) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(2, _Internal::info(this),
-        _Internal::info(this).GetCachedSize(), target, stream);
+      InternalWriteMessage(3, _Internal::other(this),
+        _Internal::other(this).GetCachedSize(), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -3853,18 +4357,21 @@ size_t S_ROOM_OTHER_ENTER::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // .ProjectJ.Player other = 1;
+  // .ProjectJ.Player other = 3;
   if (this->_internal_has_other()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
         *_impl_.other_);
   }
 
-  // .ProjectJ.RoomInfo info = 2;
-  if (this->_internal_has_info()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *_impl_.info_);
+  // int32 room_id = 1;
+  if (this->_internal_room_id() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_room_id());
+  }
+
+  // int32 slot_index = 2;
+  if (this->_internal_slot_index() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_slot_index());
   }
 
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
@@ -3889,9 +4396,11 @@ void S_ROOM_OTHER_ENTER::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, con
     _this->_internal_mutable_other()->::ProjectJ::Player::MergeFrom(
         from._internal_other());
   }
-  if (from._internal_has_info()) {
-    _this->_internal_mutable_info()->::ProjectJ::RoomInfo::MergeFrom(
-        from._internal_info());
+  if (from._internal_room_id() != 0) {
+    _this->_internal_set_room_id(from._internal_room_id());
+  }
+  if (from._internal_slot_index() != 0) {
+    _this->_internal_set_slot_index(from._internal_slot_index());
   }
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
@@ -3911,8 +4420,8 @@ void S_ROOM_OTHER_ENTER::InternalSwap(S_ROOM_OTHER_ENTER* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(S_ROOM_OTHER_ENTER, _impl_.info_)
-      + sizeof(S_ROOM_OTHER_ENTER::_impl_.info_)
+      PROTOBUF_FIELD_OFFSET(S_ROOM_OTHER_ENTER, _impl_.slot_index_)
+      + sizeof(S_ROOM_OTHER_ENTER::_impl_.slot_index_)
       - PROTOBUF_FIELD_OFFSET(S_ROOM_OTHER_ENTER, _impl_.other_)>(
           reinterpret_cast<char*>(&_impl_.other_),
           reinterpret_cast<char*>(&other->_impl_.other_));
@@ -3921,37 +4430,15 @@ void S_ROOM_OTHER_ENTER::InternalSwap(S_ROOM_OTHER_ENTER* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata S_ROOM_OTHER_ENTER::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2eproto_getter, &descriptor_table_Message_2eproto_once,
-      file_level_metadata_Message_2eproto[12]);
+      file_level_metadata_Message_2eproto[14]);
 }
 
 // ===================================================================
 
 class S_ROOM_OTHER_LEAVE::_Internal {
  public:
-  static const ::ProjectJ::Player& other(const S_ROOM_OTHER_LEAVE* msg);
-  static const ::ProjectJ::RoomInfo& info(const S_ROOM_OTHER_LEAVE* msg);
 };
 
-const ::ProjectJ::Player&
-S_ROOM_OTHER_LEAVE::_Internal::other(const S_ROOM_OTHER_LEAVE* msg) {
-  return *msg->_impl_.other_;
-}
-const ::ProjectJ::RoomInfo&
-S_ROOM_OTHER_LEAVE::_Internal::info(const S_ROOM_OTHER_LEAVE* msg) {
-  return *msg->_impl_.info_;
-}
-void S_ROOM_OTHER_LEAVE::clear_other() {
-  if (GetArenaForAllocation() == nullptr && _impl_.other_ != nullptr) {
-    delete _impl_.other_;
-  }
-  _impl_.other_ = nullptr;
-}
-void S_ROOM_OTHER_LEAVE::clear_info() {
-  if (GetArenaForAllocation() == nullptr && _impl_.info_ != nullptr) {
-    delete _impl_.info_;
-  }
-  _impl_.info_ = nullptr;
-}
 S_ROOM_OTHER_LEAVE::S_ROOM_OTHER_LEAVE(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
@@ -3962,17 +4449,14 @@ S_ROOM_OTHER_LEAVE::S_ROOM_OTHER_LEAVE(const S_ROOM_OTHER_LEAVE& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
   S_ROOM_OTHER_LEAVE* const _this = this; (void)_this;
   new (&_impl_) Impl_{
-      decltype(_impl_.other_){nullptr}
-    , decltype(_impl_.info_){nullptr}
+      decltype(_impl_.room_id_){}
+    , decltype(_impl_.slot_index_){}
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  if (from._internal_has_other()) {
-    _this->_impl_.other_ = new ::ProjectJ::Player(*from._impl_.other_);
-  }
-  if (from._internal_has_info()) {
-    _this->_impl_.info_ = new ::ProjectJ::RoomInfo(*from._impl_.info_);
-  }
+  ::memcpy(&_impl_.room_id_, &from._impl_.room_id_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.slot_index_) -
+    reinterpret_cast<char*>(&_impl_.room_id_)) + sizeof(_impl_.slot_index_));
   // @@protoc_insertion_point(copy_constructor:ProjectJ.S_ROOM_OTHER_LEAVE)
 }
 
@@ -3981,8 +4465,8 @@ inline void S_ROOM_OTHER_LEAVE::SharedCtor(
   (void)arena;
   (void)is_message_owned;
   new (&_impl_) Impl_{
-      decltype(_impl_.other_){nullptr}
-    , decltype(_impl_.info_){nullptr}
+      decltype(_impl_.room_id_){0}
+    , decltype(_impl_.slot_index_){0}
     , /*decltype(_impl_._cached_size_)*/{}
   };
 }
@@ -3998,8 +4482,6 @@ S_ROOM_OTHER_LEAVE::~S_ROOM_OTHER_LEAVE() {
 
 inline void S_ROOM_OTHER_LEAVE::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  if (this != internal_default_instance()) delete _impl_.other_;
-  if (this != internal_default_instance()) delete _impl_.info_;
 }
 
 void S_ROOM_OTHER_LEAVE::SetCachedSize(int size) const {
@@ -4012,14 +4494,9 @@ void S_ROOM_OTHER_LEAVE::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  if (GetArenaForAllocation() == nullptr && _impl_.other_ != nullptr) {
-    delete _impl_.other_;
-  }
-  _impl_.other_ = nullptr;
-  if (GetArenaForAllocation() == nullptr && _impl_.info_ != nullptr) {
-    delete _impl_.info_;
-  }
-  _impl_.info_ = nullptr;
+  ::memset(&_impl_.room_id_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&_impl_.slot_index_) -
+      reinterpret_cast<char*>(&_impl_.room_id_)) + sizeof(_impl_.slot_index_));
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -4029,18 +4506,18 @@ const char* S_ROOM_OTHER_LEAVE::_InternalParse(const char* ptr, ::_pbi::ParseCon
     uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // .ProjectJ.Player other = 1;
+      // int32 room_id = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
-          ptr = ctx->ParseMessage(_internal_mutable_other(), ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          _impl_.room_id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
-      // .ProjectJ.RoomInfo info = 2;
+      // int32 slot_index = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
-          ptr = ctx->ParseMessage(_internal_mutable_info(), ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+          _impl_.slot_index_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -4074,18 +4551,16 @@ uint8_t* S_ROOM_OTHER_LEAVE::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // .ProjectJ.Player other = 1;
-  if (this->_internal_has_other()) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(1, _Internal::other(this),
-        _Internal::other(this).GetCachedSize(), target, stream);
+  // int32 room_id = 1;
+  if (this->_internal_room_id() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(1, this->_internal_room_id(), target);
   }
 
-  // .ProjectJ.RoomInfo info = 2;
-  if (this->_internal_has_info()) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(2, _Internal::info(this),
-        _Internal::info(this).GetCachedSize(), target, stream);
+  // int32 slot_index = 2;
+  if (this->_internal_slot_index() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(2, this->_internal_slot_index(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -4104,18 +4579,14 @@ size_t S_ROOM_OTHER_LEAVE::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // .ProjectJ.Player other = 1;
-  if (this->_internal_has_other()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *_impl_.other_);
+  // int32 room_id = 1;
+  if (this->_internal_room_id() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_room_id());
   }
 
-  // .ProjectJ.RoomInfo info = 2;
-  if (this->_internal_has_info()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *_impl_.info_);
+  // int32 slot_index = 2;
+  if (this->_internal_slot_index() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_slot_index());
   }
 
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
@@ -4136,13 +4607,11 @@ void S_ROOM_OTHER_LEAVE::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, con
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from._internal_has_other()) {
-    _this->_internal_mutable_other()->::ProjectJ::Player::MergeFrom(
-        from._internal_other());
+  if (from._internal_room_id() != 0) {
+    _this->_internal_set_room_id(from._internal_room_id());
   }
-  if (from._internal_has_info()) {
-    _this->_internal_mutable_info()->::ProjectJ::RoomInfo::MergeFrom(
-        from._internal_info());
+  if (from._internal_slot_index() != 0) {
+    _this->_internal_set_slot_index(from._internal_slot_index());
   }
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
@@ -4162,17 +4631,17 @@ void S_ROOM_OTHER_LEAVE::InternalSwap(S_ROOM_OTHER_LEAVE* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(S_ROOM_OTHER_LEAVE, _impl_.info_)
-      + sizeof(S_ROOM_OTHER_LEAVE::_impl_.info_)
-      - PROTOBUF_FIELD_OFFSET(S_ROOM_OTHER_LEAVE, _impl_.other_)>(
-          reinterpret_cast<char*>(&_impl_.other_),
-          reinterpret_cast<char*>(&other->_impl_.other_));
+      PROTOBUF_FIELD_OFFSET(S_ROOM_OTHER_LEAVE, _impl_.slot_index_)
+      + sizeof(S_ROOM_OTHER_LEAVE::_impl_.slot_index_)
+      - PROTOBUF_FIELD_OFFSET(S_ROOM_OTHER_LEAVE, _impl_.room_id_)>(
+          reinterpret_cast<char*>(&_impl_.room_id_),
+          reinterpret_cast<char*>(&other->_impl_.room_id_));
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata S_ROOM_OTHER_LEAVE::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2eproto_getter, &descriptor_table_Message_2eproto_once,
-      file_level_metadata_Message_2eproto[13]);
+      file_level_metadata_Message_2eproto[15]);
 }
 
 // ===================================================================
@@ -4193,12 +4662,13 @@ C_ROOM_READY::C_ROOM_READY(const C_ROOM_READY& from)
   new (&_impl_) Impl_{
       decltype(_impl_.account_id_){}
     , decltype(_impl_.room_id_){}
+    , decltype(_impl_.slot_index_){}
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   ::memcpy(&_impl_.account_id_, &from._impl_.account_id_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.room_id_) -
-    reinterpret_cast<char*>(&_impl_.account_id_)) + sizeof(_impl_.room_id_));
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.slot_index_) -
+    reinterpret_cast<char*>(&_impl_.account_id_)) + sizeof(_impl_.slot_index_));
   // @@protoc_insertion_point(copy_constructor:ProjectJ.C_ROOM_READY)
 }
 
@@ -4209,6 +4679,7 @@ inline void C_ROOM_READY::SharedCtor(
   new (&_impl_) Impl_{
       decltype(_impl_.account_id_){0}
     , decltype(_impl_.room_id_){0}
+    , decltype(_impl_.slot_index_){0}
     , /*decltype(_impl_._cached_size_)*/{}
   };
 }
@@ -4237,8 +4708,8 @@ void C_ROOM_READY::Clear() {
   (void) cached_has_bits;
 
   ::memset(&_impl_.account_id_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&_impl_.room_id_) -
-      reinterpret_cast<char*>(&_impl_.account_id_)) + sizeof(_impl_.room_id_));
+      reinterpret_cast<char*>(&_impl_.slot_index_) -
+      reinterpret_cast<char*>(&_impl_.account_id_)) + sizeof(_impl_.slot_index_));
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -4260,6 +4731,14 @@ const char* C_ROOM_READY::_InternalParse(const char* ptr, ::_pbi::ParseContext* 
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
           _impl_.room_id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // int32 slot_index = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+          _impl_.slot_index_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -4305,6 +4784,12 @@ uint8_t* C_ROOM_READY::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteInt32ToArray(2, this->_internal_room_id(), target);
   }
 
+  // int32 slot_index = 3;
+  if (this->_internal_slot_index() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(3, this->_internal_slot_index(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
@@ -4331,6 +4816,11 @@ size_t C_ROOM_READY::ByteSizeLong() const {
     total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_room_id());
   }
 
+  // int32 slot_index = 3;
+  if (this->_internal_slot_index() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_slot_index());
+  }
+
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
@@ -4355,6 +4845,9 @@ void C_ROOM_READY::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::P
   if (from._internal_room_id() != 0) {
     _this->_internal_set_room_id(from._internal_room_id());
   }
+  if (from._internal_slot_index() != 0) {
+    _this->_internal_set_slot_index(from._internal_slot_index());
+  }
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
@@ -4373,8 +4866,8 @@ void C_ROOM_READY::InternalSwap(C_ROOM_READY* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(C_ROOM_READY, _impl_.room_id_)
-      + sizeof(C_ROOM_READY::_impl_.room_id_)
+      PROTOBUF_FIELD_OFFSET(C_ROOM_READY, _impl_.slot_index_)
+      + sizeof(C_ROOM_READY::_impl_.slot_index_)
       - PROTOBUF_FIELD_OFFSET(C_ROOM_READY, _impl_.account_id_)>(
           reinterpret_cast<char*>(&_impl_.account_id_),
           reinterpret_cast<char*>(&other->_impl_.account_id_));
@@ -4383,26 +4876,15 @@ void C_ROOM_READY::InternalSwap(C_ROOM_READY* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata C_ROOM_READY::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2eproto_getter, &descriptor_table_Message_2eproto_once,
-      file_level_metadata_Message_2eproto[14]);
+      file_level_metadata_Message_2eproto[16]);
 }
 
 // ===================================================================
 
 class S_ROOM_READY::_Internal {
  public:
-  static const ::ProjectJ::RoomInfo& info(const S_ROOM_READY* msg);
 };
 
-const ::ProjectJ::RoomInfo&
-S_ROOM_READY::_Internal::info(const S_ROOM_READY* msg) {
-  return *msg->_impl_.info_;
-}
-void S_ROOM_READY::clear_info() {
-  if (GetArenaForAllocation() == nullptr && _impl_.info_ != nullptr) {
-    delete _impl_.info_;
-  }
-  _impl_.info_ = nullptr;
-}
 S_ROOM_READY::S_ROOM_READY(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
@@ -4413,13 +4895,14 @@ S_ROOM_READY::S_ROOM_READY(const S_ROOM_READY& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
   S_ROOM_READY* const _this = this; (void)_this;
   new (&_impl_) Impl_{
-      decltype(_impl_.info_){nullptr}
+      decltype(_impl_.slot_index_){}
+    , decltype(_impl_.is_ready_){}
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  if (from._internal_has_info()) {
-    _this->_impl_.info_ = new ::ProjectJ::RoomInfo(*from._impl_.info_);
-  }
+  ::memcpy(&_impl_.slot_index_, &from._impl_.slot_index_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.is_ready_) -
+    reinterpret_cast<char*>(&_impl_.slot_index_)) + sizeof(_impl_.is_ready_));
   // @@protoc_insertion_point(copy_constructor:ProjectJ.S_ROOM_READY)
 }
 
@@ -4428,7 +4911,8 @@ inline void S_ROOM_READY::SharedCtor(
   (void)arena;
   (void)is_message_owned;
   new (&_impl_) Impl_{
-      decltype(_impl_.info_){nullptr}
+      decltype(_impl_.slot_index_){0}
+    , decltype(_impl_.is_ready_){false}
     , /*decltype(_impl_._cached_size_)*/{}
   };
 }
@@ -4444,7 +4928,6 @@ S_ROOM_READY::~S_ROOM_READY() {
 
 inline void S_ROOM_READY::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  if (this != internal_default_instance()) delete _impl_.info_;
 }
 
 void S_ROOM_READY::SetCachedSize(int size) const {
@@ -4457,10 +4940,9 @@ void S_ROOM_READY::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  if (GetArenaForAllocation() == nullptr && _impl_.info_ != nullptr) {
-    delete _impl_.info_;
-  }
-  _impl_.info_ = nullptr;
+  ::memset(&_impl_.slot_index_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&_impl_.is_ready_) -
+      reinterpret_cast<char*>(&_impl_.slot_index_)) + sizeof(_impl_.is_ready_));
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -4470,10 +4952,18 @@ const char* S_ROOM_READY::_InternalParse(const char* ptr, ::_pbi::ParseContext* 
     uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // .ProjectJ.RoomInfo info = 1;
+      // int32 slot_index = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
-          ptr = ctx->ParseMessage(_internal_mutable_info(), ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          _impl_.slot_index_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // bool is_ready = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+          _impl_.is_ready_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -4507,11 +4997,16 @@ uint8_t* S_ROOM_READY::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // .ProjectJ.RoomInfo info = 1;
-  if (this->_internal_has_info()) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(1, _Internal::info(this),
-        _Internal::info(this).GetCachedSize(), target, stream);
+  // int32 slot_index = 1;
+  if (this->_internal_slot_index() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(1, this->_internal_slot_index(), target);
+  }
+
+  // bool is_ready = 2;
+  if (this->_internal_is_ready() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(2, this->_internal_is_ready(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -4530,11 +5025,14 @@ size_t S_ROOM_READY::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // .ProjectJ.RoomInfo info = 1;
-  if (this->_internal_has_info()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *_impl_.info_);
+  // int32 slot_index = 1;
+  if (this->_internal_slot_index() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_slot_index());
+  }
+
+  // bool is_ready = 2;
+  if (this->_internal_is_ready() != 0) {
+    total_size += 1 + 1;
   }
 
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
@@ -4555,9 +5053,11 @@ void S_ROOM_READY::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::P
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from._internal_has_info()) {
-    _this->_internal_mutable_info()->::ProjectJ::RoomInfo::MergeFrom(
-        from._internal_info());
+  if (from._internal_slot_index() != 0) {
+    _this->_internal_set_slot_index(from._internal_slot_index());
+  }
+  if (from._internal_is_ready() != 0) {
+    _this->_internal_set_is_ready(from._internal_is_ready());
   }
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
@@ -4576,13 +5076,18 @@ bool S_ROOM_READY::IsInitialized() const {
 void S_ROOM_READY::InternalSwap(S_ROOM_READY* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_impl_.info_, other->_impl_.info_);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(S_ROOM_READY, _impl_.is_ready_)
+      + sizeof(S_ROOM_READY::_impl_.is_ready_)
+      - PROTOBUF_FIELD_OFFSET(S_ROOM_READY, _impl_.slot_index_)>(
+          reinterpret_cast<char*>(&_impl_.slot_index_),
+          reinterpret_cast<char*>(&other->_impl_.slot_index_));
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata S_ROOM_READY::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2eproto_getter, &descriptor_table_Message_2eproto_once,
-      file_level_metadata_Message_2eproto[15]);
+      file_level_metadata_Message_2eproto[17]);
 }
 
 // ===================================================================
@@ -4895,7 +5400,7 @@ void C_ROOM_CHAT::InternalSwap(C_ROOM_CHAT* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata C_ROOM_CHAT::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2eproto_getter, &descriptor_table_Message_2eproto_once,
-      file_level_metadata_Message_2eproto[16]);
+      file_level_metadata_Message_2eproto[18]);
 }
 
 // ===================================================================
@@ -5208,7 +5713,7 @@ void S_ROOM_CHAT::InternalSwap(S_ROOM_CHAT* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata S_ROOM_CHAT::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2eproto_getter, &descriptor_table_Message_2eproto_once,
-      file_level_metadata_Message_2eproto[17]);
+      file_level_metadata_Message_2eproto[19]);
 }
 
 // ===================================================================
@@ -5386,7 +5891,7 @@ void S_ROOM_STANDBY_MATCH::InternalSwap(S_ROOM_STANDBY_MATCH* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata S_ROOM_STANDBY_MATCH::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2eproto_getter, &descriptor_table_Message_2eproto_once,
-      file_level_metadata_Message_2eproto[18]);
+      file_level_metadata_Message_2eproto[20]);
 }
 
 // ===================================================================
@@ -5564,7 +6069,7 @@ void S_ROOM_START_MATCH::InternalSwap(S_ROOM_START_MATCH* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata S_ROOM_START_MATCH::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2eproto_getter, &descriptor_table_Message_2eproto_once,
-      file_level_metadata_Message_2eproto[19]);
+      file_level_metadata_Message_2eproto[21]);
 }
 
 // ===================================================================
@@ -5742,7 +6247,7 @@ void C_MATCH_READY_TO_RECEIVE::InternalSwap(C_MATCH_READY_TO_RECEIVE* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata C_MATCH_READY_TO_RECEIVE::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2eproto_getter, &descriptor_table_Message_2eproto_once,
-      file_level_metadata_Message_2eproto[20]);
+      file_level_metadata_Message_2eproto[22]);
 }
 
 // ===================================================================
@@ -5972,7 +6477,7 @@ void S_MATCH_ALL_READY_TO_RECIEVE::InternalSwap(S_MATCH_ALL_READY_TO_RECIEVE* ot
 ::PROTOBUF_NAMESPACE_ID::Metadata S_MATCH_ALL_READY_TO_RECIEVE::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2eproto_getter, &descriptor_table_Message_2eproto_once,
-      file_level_metadata_Message_2eproto[21]);
+      file_level_metadata_Message_2eproto[23]);
 }
 
 // ===================================================================
@@ -6160,7 +6665,7 @@ void S_MATCH_ITEM_GENERATED::InternalSwap(S_MATCH_ITEM_GENERATED* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata S_MATCH_ITEM_GENERATED::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2eproto_getter, &descriptor_table_Message_2eproto_once,
-      file_level_metadata_Message_2eproto[22]);
+      file_level_metadata_Message_2eproto[24]);
 }
 
 // ===================================================================
@@ -6338,7 +6843,7 @@ void C_MATCH_READY_TO_START::InternalSwap(C_MATCH_READY_TO_START* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata C_MATCH_READY_TO_START::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2eproto_getter, &descriptor_table_Message_2eproto_once,
-      file_level_metadata_Message_2eproto[23]);
+      file_level_metadata_Message_2eproto[25]);
 }
 
 // ===================================================================
@@ -6549,7 +7054,7 @@ void S_MATCH_START::InternalSwap(S_MATCH_START* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata S_MATCH_START::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2eproto_getter, &descriptor_table_Message_2eproto_once,
-      file_level_metadata_Message_2eproto[24]);
+      file_level_metadata_Message_2eproto[26]);
 }
 
 // ===================================================================
@@ -6800,7 +7305,7 @@ void C_MATCH_INFO_MyInfo::InternalSwap(C_MATCH_INFO_MyInfo* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata C_MATCH_INFO_MyInfo::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2eproto_getter, &descriptor_table_Message_2eproto_once,
-      file_level_metadata_Message_2eproto[25]);
+      file_level_metadata_Message_2eproto[27]);
 }
 
 // ===================================================================
@@ -7024,7 +7529,7 @@ void C_MATCH_INFO::InternalSwap(C_MATCH_INFO* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata C_MATCH_INFO::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2eproto_getter, &descriptor_table_Message_2eproto_once,
-      file_level_metadata_Message_2eproto[26]);
+      file_level_metadata_Message_2eproto[28]);
 }
 
 // ===================================================================
@@ -7254,7 +7759,7 @@ void S_MATCH_INFO::InternalSwap(S_MATCH_INFO* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata S_MATCH_INFO::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2eproto_getter, &descriptor_table_Message_2eproto_once,
-      file_level_metadata_Message_2eproto[27]);
+      file_level_metadata_Message_2eproto[29]);
 }
 
 // ===================================================================
@@ -7513,7 +8018,7 @@ void S_MATCH_END::InternalSwap(S_MATCH_END* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata S_MATCH_END::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2eproto_getter, &descriptor_table_Message_2eproto_once,
-      file_level_metadata_Message_2eproto[28]);
+      file_level_metadata_Message_2eproto[30]);
 }
 
 // ===================================================================
@@ -7724,7 +8229,7 @@ void C_MATCH_ITEM_PICKUP::InternalSwap(C_MATCH_ITEM_PICKUP* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata C_MATCH_ITEM_PICKUP::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2eproto_getter, &descriptor_table_Message_2eproto_once,
-      file_level_metadata_Message_2eproto[29]);
+      file_level_metadata_Message_2eproto[31]);
 }
 
 // ===================================================================
@@ -8031,7 +8536,7 @@ void C_MATCH_ITEM_MOVE::InternalSwap(C_MATCH_ITEM_MOVE* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata C_MATCH_ITEM_MOVE::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2eproto_getter, &descriptor_table_Message_2eproto_once,
-      file_level_metadata_Message_2eproto[30]);
+      file_level_metadata_Message_2eproto[32]);
 }
 
 // ===================================================================
@@ -8336,7 +8841,7 @@ void C_MATCH_ITEM_DROP::InternalSwap(C_MATCH_ITEM_DROP* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata C_MATCH_ITEM_DROP::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2eproto_getter, &descriptor_table_Message_2eproto_once,
-      file_level_metadata_Message_2eproto[31]);
+      file_level_metadata_Message_2eproto[33]);
 }
 
 // ===================================================================
@@ -8595,7 +9100,7 @@ void S_MATCH_ITEM_SOMEONE_PICKUP::InternalSwap(S_MATCH_ITEM_SOMEONE_PICKUP* othe
 ::PROTOBUF_NAMESPACE_ID::Metadata S_MATCH_ITEM_SOMEONE_PICKUP::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2eproto_getter, &descriptor_table_Message_2eproto_once,
-      file_level_metadata_Message_2eproto[32]);
+      file_level_metadata_Message_2eproto[34]);
 }
 
 // ===================================================================
@@ -8902,7 +9407,7 @@ void S_MATCH_ITEM_SOMEONE_MOVE::InternalSwap(S_MATCH_ITEM_SOMEONE_MOVE* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata S_MATCH_ITEM_SOMEONE_MOVE::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2eproto_getter, &descriptor_table_Message_2eproto_once,
-      file_level_metadata_Message_2eproto[33]);
+      file_level_metadata_Message_2eproto[35]);
 }
 
 // ===================================================================
@@ -9207,7 +9712,7 @@ void S_MATCH_ITEM_SOMEONE_DROP::InternalSwap(S_MATCH_ITEM_SOMEONE_DROP* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata S_MATCH_ITEM_SOMEONE_DROP::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2eproto_getter, &descriptor_table_Message_2eproto_once,
-      file_level_metadata_Message_2eproto[34]);
+      file_level_metadata_Message_2eproto[36]);
 }
 
 // ===================================================================
@@ -9442,7 +9947,7 @@ void S_MATCH_SCALE_ON_CHANGED::InternalSwap(S_MATCH_SCALE_ON_CHANGED* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata S_MATCH_SCALE_ON_CHANGED::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2eproto_getter, &descriptor_table_Message_2eproto_once,
-      file_level_metadata_Message_2eproto[35]);
+      file_level_metadata_Message_2eproto[37]);
 }
 
 // @@protoc_insertion_point(namespace_scope)
@@ -9487,6 +9992,14 @@ Arena::CreateMaybeMessage< ::ProjectJ::C_LOBBY_ENTER_ROOM >(Arena* arena) {
 template<> PROTOBUF_NOINLINE ::ProjectJ::S_LOBBY_ENTER_ROOM*
 Arena::CreateMaybeMessage< ::ProjectJ::S_LOBBY_ENTER_ROOM >(Arena* arena) {
   return Arena::CreateMessageInternal< ::ProjectJ::S_LOBBY_ENTER_ROOM >(arena);
+}
+template<> PROTOBUF_NOINLINE ::ProjectJ::C_ROOM_READY_TO_RECEIVE*
+Arena::CreateMaybeMessage< ::ProjectJ::C_ROOM_READY_TO_RECEIVE >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::ProjectJ::C_ROOM_READY_TO_RECEIVE >(arena);
+}
+template<> PROTOBUF_NOINLINE ::ProjectJ::S_ROOM_INFO*
+Arena::CreateMaybeMessage< ::ProjectJ::S_ROOM_INFO >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::ProjectJ::S_ROOM_INFO >(arena);
 }
 template<> PROTOBUF_NOINLINE ::ProjectJ::C_ROOM_LEAVE*
 Arena::CreateMaybeMessage< ::ProjectJ::C_ROOM_LEAVE >(Arena* arena) {

@@ -29,8 +29,8 @@ bool Handle_C_VERIFY_TOKEN(const shared_ptr<SessionBase>& session, ProjectJ::C_V
 
 #ifdef _DEBUG
 	GLogHelper->Print(LogCategory::Log_INFO,
-	                  L"Authentication attempts: %s\n",
-	                  UTF8_TO_WCHAR(gameSession->GetNetAddress().GetIpAddress().c_str()));
+	                  L"Authentication attempts: %s:%hu\n",
+	                  UTF8_TO_WCHAR(gameSession->GetNetAddress().GetIpAddress().c_str()), gameSession->GetNetAddress().GetPort());
 #endif
 
 	ProjectJ::S_VERIFY_TOKEN verifyPacket;
@@ -81,8 +81,10 @@ bool Handle_C_VERIFY_TOKEN(const shared_ptr<SessionBase>& session, ProjectJ::C_V
 				throw 4;
 			}
 
-			GLogHelper->Print(LogCategory::Log_SUCCESS, L"Authentication Success: %s %s\n",
+			GLogHelper->Print(LogCategory::Log_SUCCESS, L"Authentication Success: %s:%hu AccountID: %d Nickname: %s\n",
 			                  UTF8_TO_WCHAR(gameSession->GetNetAddress().GetIpAddress().c_str()),
+			                  gameSession->GetNetAddress().GetPort(),
+			                  gameSession->GetID(),
 			                  UTF8_TO_WCHAR(gameSession->GetNickname().c_str()));
 
 
@@ -179,6 +181,10 @@ bool Handle_C_LOBBY_REFRESH_ROOM(const shared_ptr<SessionBase>& session, Project
 			ProjectJ::S_LOBBY_REFRESH_ROOM sendPacket;
 			for (auto room : rooms)
 			{
+				if (room->GetState() == RoomState::INVALID)
+				{
+					continue;
+				}
 				auto roomData = sendPacket.add_rooms();
 				roomData->set_id(room->GetID());
 				roomData->set_title(room->GetTitle());
@@ -213,13 +219,15 @@ bool Handle_C_LOBBY_CREATE_ROOM(const shared_ptr<SessionBase>& session, ProjectJ
 		{
 			if (newRoom)
 			{
-				newRoom->DoTaskCallback(&Room::Enter, [newRoom, gameSession](bool success)
+				newRoom->DoTaskCallback(&Room::Enter, [newRoom, gameSession](int slotIndex)
 				{
-					if (success)
+					if (slotIndex != INVALID_SLOT_INDEX && slotIndex < MAX_PLAYER_NUMBER)
 					{
 						ProjectJ::S_LOBBY_CREATE_ROOM sendPacket;
+
 						sendPacket.set_result(true);
-						sendPacket.set_allocated_info(newRoom->MakeRoomInfo());
+						sendPacket.set_room_id(newRoom->GetID());
+						sendPacket.set_slot_index(slotIndex);
 
 						auto sendBuffer = GamePacketHandler::MakeSendBuffer(sendPacket);
 						gameSession->Send(sendBuffer);
@@ -230,7 +238,7 @@ bool Handle_C_LOBBY_CREATE_ROOM(const shared_ptr<SessionBase>& session, ProjectJ
 			{
 				ProjectJ::S_LOBBY_CREATE_ROOM sendPacket;
 				sendPacket.set_result(false);
-				sendPacket.clear_info();
+				sendPacket.set_slot_index(INVALID_SLOT_INDEX);
 
 				auto sendBuffer = GamePacketHandler::MakeSendBuffer(sendPacket);
 				gameSession->Send(sendBuffer);
@@ -241,7 +249,7 @@ bool Handle_C_LOBBY_CREATE_ROOM(const shared_ptr<SessionBase>& session, ProjectJ
 	{
 		ProjectJ::S_LOBBY_CREATE_ROOM sendPacket;
 		sendPacket.set_result(false);
-		sendPacket.clear_info();
+		sendPacket.set_slot_index(INVALID_SLOT_INDEX);
 
 		auto sendBuffer = GamePacketHandler::MakeSendBuffer(sendPacket);
 		session->Send(sendBuffer);
@@ -268,21 +276,21 @@ bool Handle_C_LOBBY_ENTER_ROOM(const shared_ptr<SessionBase>& session, ProjectJ:
 		{
 			if (room)
 			{
-				room->DoTaskCallback(&Room::Enter, [room, gameSession](bool success)
+				room->DoTaskCallback(&Room::Enter, [room, gameSession](int slotIndex)
 				{
 					ProjectJ::S_LOBBY_ENTER_ROOM sendPacket;
 
-					if (success)
+					if (slotIndex != INVALID_SLOT_INDEX && slotIndex < MAX_PLAYER_NUMBER)
 					{
 						sendPacket.set_result(true);
-						sendPacket.set_allocated_info(room->MakeRoomInfo());
 						sendPacket.set_room_id(room->GetID());
+						sendPacket.set_slot_index(slotIndex);
 					}
 					else
 					{
 						sendPacket.set_result(false);
-						sendPacket.clear_info();
-						sendPacket.clear_room_id();
+						sendPacket.set_room_id(INVALID_ROOM_ID);
+						sendPacket.set_slot_index(INVALID_SLOT_INDEX);
 					}
 
 					auto sendBuffer = GamePacketHandler::MakeSendBuffer(sendPacket);
@@ -292,12 +300,13 @@ bool Handle_C_LOBBY_ENTER_ROOM(const shared_ptr<SessionBase>& session, ProjectJ:
 			else
 			{
 				GLogHelper->Print(LogCategory::Log_INFO,
-				                  L"%s Accessed an Invalid Room.\n",
+				                  L"%s Accessed An Invalid Room.\n",
 				                  UTF8_TO_WCHAR(gameSession->GetNickname().c_str()));
 
 				ProjectJ::S_LOBBY_ENTER_ROOM sendPacket;
 				sendPacket.set_result(false);
-				sendPacket.clear_info();
+				sendPacket.set_room_id(INVALID_ROOM_ID);
+				sendPacket.set_slot_index(INVALID_SLOT_INDEX);
 
 				auto sendBuffer = GamePacketHandler::MakeSendBuffer(sendPacket);
 				gameSession->Send(sendBuffer);
@@ -322,6 +331,30 @@ bool Handle_C_LOBBY_ENTER_ROOM(const shared_ptr<SessionBase>& session, ProjectJ:
 	return true;
 }
 
+bool Handle_C_ROOM_READY_TO_RECEIVE(const shared_ptr<SessionBase>& session, ProjectJ::C_ROOM_READY_TO_RECEIVE& packet)
+{
+	shared_ptr<GameSession> gameSession = static_pointer_cast<GameSession>(session);
+	shared_ptr<Room> room = gameSession->TryGetRoom();
+
+	if (!gameSession && gameSession->IsVerified() == false || gameSession->GetID() != packet.account_id())
+	{
+		gameSession->Disconnect();
+		return false;
+	}
+
+	if (room)
+	{
+		room->DoTaskAsync(&Room::SessionReadyToReceive, gameSession);
+	}
+	else
+	{
+		session->Disconnect();
+		return false;
+	}
+
+	return true;
+}
+
 bool Handle_C_ROOM_LEAVE(const shared_ptr<SessionBase>& session, ProjectJ::C_ROOM_LEAVE& packet)
 {
 	shared_ptr<GameSession> gameSession = static_pointer_cast<GameSession>(session);
@@ -338,7 +371,7 @@ bool Handle_C_ROOM_LEAVE(const shared_ptr<SessionBase>& session, ProjectJ::C_ROO
 		if (room->GetID() != packet.room_id())
 		{
 			GLogHelper->Print(LogCategory::Log_INFO,
-			                  L"%s Try to Leaved an Invalid Room. Origin: #%d Request: #%d\n",
+			                  L"%s Try To Leaved An Invalid Room. Target: #%d Received: #%d\n",
 			                  UTF8_TO_WCHAR(gameSession->GetNickname().c_str()), room->GetID(), packet.room_id());
 
 			session->Disconnect();
@@ -348,11 +381,11 @@ bool Handle_C_ROOM_LEAVE(const shared_ptr<SessionBase>& session, ProjectJ::C_ROO
 		room->DoTaskCallback(&Room::Leave, [gameSession](int index)
 		{
 			ProjectJ::S_ROOM_LEAVE sendPacket;
-			sendPacket.set_result(index > INVALID_ROOM_SLOT ? true : false);
+			sendPacket.set_result(index > INVALID_SLOT_INDEX ? true : false);
 
 			auto sendBuffer = GamePacketHandler::MakeSendBuffer(sendPacket);
 			gameSession->Send(sendBuffer);
-		}, gameSession);
+		}, gameSession, packet.slot_index());
 	}
 	else
 	{
@@ -376,7 +409,7 @@ bool Handle_C_ROOM_READY(const shared_ptr<SessionBase>& session, ProjectJ::C_ROO
 
 	if (room)
 	{
-		room->DoTaskAsync(&Room::ToggleReady, gameSession);
+		room->DoTaskAsync(&Room::ToggleReady, gameSession, packet.slot_index());
 	}
 
 	return true;
@@ -396,7 +429,7 @@ bool Handle_C_ROOM_CHAT(const shared_ptr<SessionBase>& session, ProjectJ::C_ROOM
 	if (room)
 	{
 		GLogHelper->Print(LogCategory::Log_INFO,
-		                  L"%s Chatted in Room#%d: %s\n",
+		                  L"%s Chatted In Room#%d: %s\n",
 		                  UTF8_TO_WCHAR(gameSession->GetNickname().c_str()),
 		                  room->GetID(),
 		                  UTF8_TO_WCHAR(packet.chat().c_str()));

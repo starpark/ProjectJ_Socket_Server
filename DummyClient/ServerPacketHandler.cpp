@@ -44,8 +44,11 @@ bool Handle_S_LOBBY_CREATE_ROOM(const shared_ptr<SessionBase>& session, ProjectJ
 	if (packet.result())
 	{
 		clientSession->PrintNickname();
-		cout << "방 생성 성공/ 방 번호: " << packet.info().room_id() << endl;
-		clientSession->roomID = packet.info().room_id();
+		cout << "방 생성 성공/ 방 번호: " << packet.room_id() << endl;
+		clientSession->roomID = packet.room_id();
+		clientSession->roomSlotIndex = packet.slot_index();
+
+		clientSession->TestRoomReadyToReceive();
 	}
 	return true;
 }
@@ -57,14 +60,27 @@ bool Handle_S_LOBBY_ENTER_ROOM(const shared_ptr<SessionBase>& session, ProjectJ:
 	if (packet.result())
 	{
 		clientSession->PrintNickname();
-		cout << packet.info().room_id() << "번 방 입장 성공 " << endl;
-		clientSession->roomID = packet.info().room_id();
+		cout << packet.room_id() << "번 방 입장 성공 " << endl;
+		clientSession->roomID = packet.room_id();
+		clientSession->roomSlotIndex = packet.slot_index();
+
+		clientSession->TestRoomReadyToReceive();
 	}
 	else
 	{
 		clientSession->PrintNickname();
-		cout << packet.info().room_id() << "번 방 입장 실패 " << endl;
+		cout << packet.room_id() << "번 방 입장 실패 " << endl;
 	}
+	return true;
+}
+
+bool Handle_S_ROOM_INFO(const shared_ptr<SessionBase>& session, ProjectJ::S_ROOM_INFO& packet)
+{
+	cout << "추격자: " << packet.info().chaser().player().nickname() << endl;
+	cout << "도망자1: " << packet.info().fugitive_first().player().nickname() << endl;
+	cout << "도망자2: " << packet.info().fugitive_second().player().nickname() << endl;
+	cout << "도망자3: " << packet.info().fugitive_third().player().nickname() << endl;
+
 	return true;
 }
 
@@ -73,22 +89,30 @@ bool Handle_S_ROOM_LEAVE(const shared_ptr<SessionBase>& session, ProjectJ::S_ROO
 	auto clientSession = static_pointer_cast<ClientSession>(session);
 	if (packet.result())
 	{
+		cout << "대기방 퇴장 성공" << endl;
 	}
 	return true;
 }
 
 bool Handle_S_ROOM_OTHER_ENTER(const shared_ptr<SessionBase>& session, ProjectJ::S_ROOM_OTHER_ENTER& packet)
 {
+	auto clientSession = static_pointer_cast<ClientSession>(session);
+	cout << clientSession->roomID << "번 방: 슬롯 " << packet.slot_index() << "에 " << packet.other().nickname() << "입장" << endl;
+
 	return true;
 }
 
 bool Handle_S_ROOM_OTHER_LEAVE(const shared_ptr<SessionBase>& session, ProjectJ::S_ROOM_OTHER_LEAVE& packet)
 {
+	auto clientSession = static_pointer_cast<ClientSession>(session);
+	cout << clientSession->roomID << "번 방: 슬롯 " << packet.slot_index() << " 퇴장" << endl;
 	return true;
 }
 
 bool Handle_S_ROOM_READY(const shared_ptr<SessionBase>& session, ProjectJ::S_ROOM_READY& packet)
 {
+	auto clientSession = static_pointer_cast<ClientSession>(session);
+	cout << clientSession->roomID << "번 방: 슬롯 " << packet.slot_index() << " 레디: " << packet.is_ready() << endl;
 	return true;
 }
 
@@ -140,6 +164,11 @@ bool Handle_S_MATCH_INFO(const shared_ptr<SessionBase>& session, ProjectJ::S_MAT
 
 bool Handle_S_MATCH_END(const shared_ptr<SessionBase>& session, ProjectJ::S_MATCH_END& packet)
 {
+	auto clientSession = static_pointer_cast<ClientSession>(session);
+
+	clientSession->TestRoomReadyToReceive();
+	clientSession->TestRoomReady();
+
 	return true;
 }
 

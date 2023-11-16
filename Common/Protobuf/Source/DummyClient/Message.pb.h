@@ -90,6 +90,9 @@ extern C_ROOM_LEAVEDefaultTypeInternal _C_ROOM_LEAVE_default_instance_;
 class C_ROOM_READY;
 struct C_ROOM_READYDefaultTypeInternal;
 extern C_ROOM_READYDefaultTypeInternal _C_ROOM_READY_default_instance_;
+class C_ROOM_READY_TO_RECEIVE;
+struct C_ROOM_READY_TO_RECEIVEDefaultTypeInternal;
+extern C_ROOM_READY_TO_RECEIVEDefaultTypeInternal _C_ROOM_READY_TO_RECEIVE_default_instance_;
 class C_VERIFY_TOKEN;
 struct C_VERIFY_TOKENDefaultTypeInternal;
 extern C_VERIFY_TOKENDefaultTypeInternal _C_VERIFY_TOKEN_default_instance_;
@@ -135,6 +138,9 @@ extern S_MATCH_STARTDefaultTypeInternal _S_MATCH_START_default_instance_;
 class S_ROOM_CHAT;
 struct S_ROOM_CHATDefaultTypeInternal;
 extern S_ROOM_CHATDefaultTypeInternal _S_ROOM_CHAT_default_instance_;
+class S_ROOM_INFO;
+struct S_ROOM_INFODefaultTypeInternal;
+extern S_ROOM_INFODefaultTypeInternal _S_ROOM_INFO_default_instance_;
 class S_ROOM_LEAVE;
 struct S_ROOM_LEAVEDefaultTypeInternal;
 extern S_ROOM_LEAVEDefaultTypeInternal _S_ROOM_LEAVE_default_instance_;
@@ -172,6 +178,7 @@ template<> ::ProjectJ::C_MATCH_READY_TO_START* Arena::CreateMaybeMessage<::Proje
 template<> ::ProjectJ::C_ROOM_CHAT* Arena::CreateMaybeMessage<::ProjectJ::C_ROOM_CHAT>(Arena*);
 template<> ::ProjectJ::C_ROOM_LEAVE* Arena::CreateMaybeMessage<::ProjectJ::C_ROOM_LEAVE>(Arena*);
 template<> ::ProjectJ::C_ROOM_READY* Arena::CreateMaybeMessage<::ProjectJ::C_ROOM_READY>(Arena*);
+template<> ::ProjectJ::C_ROOM_READY_TO_RECEIVE* Arena::CreateMaybeMessage<::ProjectJ::C_ROOM_READY_TO_RECEIVE>(Arena*);
 template<> ::ProjectJ::C_VERIFY_TOKEN* Arena::CreateMaybeMessage<::ProjectJ::C_VERIFY_TOKEN>(Arena*);
 template<> ::ProjectJ::S_LOBBY_CHAT* Arena::CreateMaybeMessage<::ProjectJ::S_LOBBY_CHAT>(Arena*);
 template<> ::ProjectJ::S_LOBBY_CREATE_ROOM* Arena::CreateMaybeMessage<::ProjectJ::S_LOBBY_CREATE_ROOM>(Arena*);
@@ -187,6 +194,7 @@ template<> ::ProjectJ::S_MATCH_ITEM_SOMEONE_PICKUP* Arena::CreateMaybeMessage<::
 template<> ::ProjectJ::S_MATCH_SCALE_ON_CHANGED* Arena::CreateMaybeMessage<::ProjectJ::S_MATCH_SCALE_ON_CHANGED>(Arena*);
 template<> ::ProjectJ::S_MATCH_START* Arena::CreateMaybeMessage<::ProjectJ::S_MATCH_START>(Arena*);
 template<> ::ProjectJ::S_ROOM_CHAT* Arena::CreateMaybeMessage<::ProjectJ::S_ROOM_CHAT>(Arena*);
+template<> ::ProjectJ::S_ROOM_INFO* Arena::CreateMaybeMessage<::ProjectJ::S_ROOM_INFO>(Arena*);
 template<> ::ProjectJ::S_ROOM_LEAVE* Arena::CreateMaybeMessage<::ProjectJ::S_ROOM_LEAVE>(Arena*);
 template<> ::ProjectJ::S_ROOM_OTHER_ENTER* Arena::CreateMaybeMessage<::ProjectJ::S_ROOM_OTHER_ENTER>(Arena*);
 template<> ::ProjectJ::S_ROOM_OTHER_LEAVE* Arena::CreateMaybeMessage<::ProjectJ::S_ROOM_OTHER_LEAVE>(Arena*);
@@ -1461,27 +1469,10 @@ class S_LOBBY_CREATE_ROOM final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kInfoFieldNumber = 2,
     kResultFieldNumber = 1,
+    kRoomIdFieldNumber = 2,
+    kSlotIndexFieldNumber = 3,
   };
-  // .ProjectJ.RoomInfo info = 2;
-  bool has_info() const;
-  private:
-  bool _internal_has_info() const;
-  public:
-  void clear_info();
-  const ::ProjectJ::RoomInfo& info() const;
-  PROTOBUF_NODISCARD ::ProjectJ::RoomInfo* release_info();
-  ::ProjectJ::RoomInfo* mutable_info();
-  void set_allocated_info(::ProjectJ::RoomInfo* info);
-  private:
-  const ::ProjectJ::RoomInfo& _internal_info() const;
-  ::ProjectJ::RoomInfo* _internal_mutable_info();
-  public:
-  void unsafe_arena_set_allocated_info(
-      ::ProjectJ::RoomInfo* info);
-  ::ProjectJ::RoomInfo* unsafe_arena_release_info();
-
   // bool result = 1;
   void clear_result();
   bool result() const;
@@ -1489,6 +1480,24 @@ class S_LOBBY_CREATE_ROOM final :
   private:
   bool _internal_result() const;
   void _internal_set_result(bool value);
+  public:
+
+  // int32 room_id = 2;
+  void clear_room_id();
+  int32_t room_id() const;
+  void set_room_id(int32_t value);
+  private:
+  int32_t _internal_room_id() const;
+  void _internal_set_room_id(int32_t value);
+  public:
+
+  // int32 slot_index = 3;
+  void clear_slot_index();
+  int32_t slot_index() const;
+  void set_slot_index(int32_t value);
+  private:
+  int32_t _internal_slot_index() const;
+  void _internal_set_slot_index(int32_t value);
   public:
 
   // @@protoc_insertion_point(class_scope:ProjectJ.S_LOBBY_CREATE_ROOM)
@@ -1499,8 +1508,9 @@ class S_LOBBY_CREATE_ROOM final :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   struct Impl_ {
-    ::ProjectJ::RoomInfo* info_;
     bool result_;
+    int32_t room_id_;
+    int32_t slot_index_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -1788,28 +1798,10 @@ class S_LOBBY_ENTER_ROOM final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kInfoFieldNumber = 3,
     kResultFieldNumber = 1,
     kRoomIdFieldNumber = 2,
+    kSlotIndexFieldNumber = 3,
   };
-  // .ProjectJ.RoomInfo info = 3;
-  bool has_info() const;
-  private:
-  bool _internal_has_info() const;
-  public:
-  void clear_info();
-  const ::ProjectJ::RoomInfo& info() const;
-  PROTOBUF_NODISCARD ::ProjectJ::RoomInfo* release_info();
-  ::ProjectJ::RoomInfo* mutable_info();
-  void set_allocated_info(::ProjectJ::RoomInfo* info);
-  private:
-  const ::ProjectJ::RoomInfo& _internal_info() const;
-  ::ProjectJ::RoomInfo* _internal_mutable_info();
-  public:
-  void unsafe_arena_set_allocated_info(
-      ::ProjectJ::RoomInfo* info);
-  ::ProjectJ::RoomInfo* unsafe_arena_release_info();
-
   // bool result = 1;
   void clear_result();
   bool result() const;
@@ -1828,6 +1820,15 @@ class S_LOBBY_ENTER_ROOM final :
   void _internal_set_room_id(int32_t value);
   public:
 
+  // int32 slot_index = 3;
+  void clear_slot_index();
+  int32_t slot_index() const;
+  void set_slot_index(int32_t value);
+  private:
+  int32_t _internal_slot_index() const;
+  void _internal_set_slot_index(int32_t value);
+  public:
+
   // @@protoc_insertion_point(class_scope:ProjectJ.S_LOBBY_ENTER_ROOM)
  private:
   class _Internal;
@@ -1836,9 +1837,336 @@ class S_LOBBY_ENTER_ROOM final :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   struct Impl_ {
-    ::ProjectJ::RoomInfo* info_;
     bool result_;
     int32_t room_id_;
+    int32_t slot_index_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_Message_2eproto;
+};
+// -------------------------------------------------------------------
+
+class C_ROOM_READY_TO_RECEIVE final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:ProjectJ.C_ROOM_READY_TO_RECEIVE) */ {
+ public:
+  inline C_ROOM_READY_TO_RECEIVE() : C_ROOM_READY_TO_RECEIVE(nullptr) {}
+  ~C_ROOM_READY_TO_RECEIVE() override;
+  explicit PROTOBUF_CONSTEXPR C_ROOM_READY_TO_RECEIVE(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  C_ROOM_READY_TO_RECEIVE(const C_ROOM_READY_TO_RECEIVE& from);
+  C_ROOM_READY_TO_RECEIVE(C_ROOM_READY_TO_RECEIVE&& from) noexcept
+    : C_ROOM_READY_TO_RECEIVE() {
+    *this = ::std::move(from);
+  }
+
+  inline C_ROOM_READY_TO_RECEIVE& operator=(const C_ROOM_READY_TO_RECEIVE& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline C_ROOM_READY_TO_RECEIVE& operator=(C_ROOM_READY_TO_RECEIVE&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const C_ROOM_READY_TO_RECEIVE& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const C_ROOM_READY_TO_RECEIVE* internal_default_instance() {
+    return reinterpret_cast<const C_ROOM_READY_TO_RECEIVE*>(
+               &_C_ROOM_READY_TO_RECEIVE_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    10;
+
+  friend void swap(C_ROOM_READY_TO_RECEIVE& a, C_ROOM_READY_TO_RECEIVE& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(C_ROOM_READY_TO_RECEIVE* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(C_ROOM_READY_TO_RECEIVE* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  C_ROOM_READY_TO_RECEIVE* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<C_ROOM_READY_TO_RECEIVE>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const C_ROOM_READY_TO_RECEIVE& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom( const C_ROOM_READY_TO_RECEIVE& from) {
+    C_ROOM_READY_TO_RECEIVE::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(C_ROOM_READY_TO_RECEIVE* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "ProjectJ.C_ROOM_READY_TO_RECEIVE";
+  }
+  protected:
+  explicit C_ROOM_READY_TO_RECEIVE(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kAccountIdFieldNumber = 1,
+    kRoomIdFieldNumber = 2,
+    kSlotIndexFieldNumber = 3,
+  };
+  // int32 account_id = 1;
+  void clear_account_id();
+  int32_t account_id() const;
+  void set_account_id(int32_t value);
+  private:
+  int32_t _internal_account_id() const;
+  void _internal_set_account_id(int32_t value);
+  public:
+
+  // int32 room_id = 2;
+  void clear_room_id();
+  int32_t room_id() const;
+  void set_room_id(int32_t value);
+  private:
+  int32_t _internal_room_id() const;
+  void _internal_set_room_id(int32_t value);
+  public:
+
+  // int32 slot_index = 3;
+  void clear_slot_index();
+  int32_t slot_index() const;
+  void set_slot_index(int32_t value);
+  private:
+  int32_t _internal_slot_index() const;
+  void _internal_set_slot_index(int32_t value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:ProjectJ.C_ROOM_READY_TO_RECEIVE)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    int32_t account_id_;
+    int32_t room_id_;
+    int32_t slot_index_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_Message_2eproto;
+};
+// -------------------------------------------------------------------
+
+class S_ROOM_INFO final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:ProjectJ.S_ROOM_INFO) */ {
+ public:
+  inline S_ROOM_INFO() : S_ROOM_INFO(nullptr) {}
+  ~S_ROOM_INFO() override;
+  explicit PROTOBUF_CONSTEXPR S_ROOM_INFO(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  S_ROOM_INFO(const S_ROOM_INFO& from);
+  S_ROOM_INFO(S_ROOM_INFO&& from) noexcept
+    : S_ROOM_INFO() {
+    *this = ::std::move(from);
+  }
+
+  inline S_ROOM_INFO& operator=(const S_ROOM_INFO& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline S_ROOM_INFO& operator=(S_ROOM_INFO&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const S_ROOM_INFO& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const S_ROOM_INFO* internal_default_instance() {
+    return reinterpret_cast<const S_ROOM_INFO*>(
+               &_S_ROOM_INFO_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    11;
+
+  friend void swap(S_ROOM_INFO& a, S_ROOM_INFO& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(S_ROOM_INFO* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(S_ROOM_INFO* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  S_ROOM_INFO* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<S_ROOM_INFO>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const S_ROOM_INFO& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom( const S_ROOM_INFO& from) {
+    S_ROOM_INFO::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(S_ROOM_INFO* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "ProjectJ.S_ROOM_INFO";
+  }
+  protected:
+  explicit S_ROOM_INFO(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kInfoFieldNumber = 1,
+  };
+  // .ProjectJ.RoomInfo info = 1;
+  bool has_info() const;
+  private:
+  bool _internal_has_info() const;
+  public:
+  void clear_info();
+  const ::ProjectJ::RoomInfo& info() const;
+  PROTOBUF_NODISCARD ::ProjectJ::RoomInfo* release_info();
+  ::ProjectJ::RoomInfo* mutable_info();
+  void set_allocated_info(::ProjectJ::RoomInfo* info);
+  private:
+  const ::ProjectJ::RoomInfo& _internal_info() const;
+  ::ProjectJ::RoomInfo* _internal_mutable_info();
+  public:
+  void unsafe_arena_set_allocated_info(
+      ::ProjectJ::RoomInfo* info);
+  ::ProjectJ::RoomInfo* unsafe_arena_release_info();
+
+  // @@protoc_insertion_point(class_scope:ProjectJ.S_ROOM_INFO)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    ::ProjectJ::RoomInfo* info_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -1894,7 +2222,7 @@ class C_ROOM_LEAVE final :
                &_C_ROOM_LEAVE_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    10;
+    12;
 
   friend void swap(C_ROOM_LEAVE& a, C_ROOM_LEAVE& b) {
     a.Swap(&b);
@@ -1969,6 +2297,7 @@ class C_ROOM_LEAVE final :
   enum : int {
     kAccountIdFieldNumber = 1,
     kRoomIdFieldNumber = 2,
+    kSlotIndexFieldNumber = 3,
   };
   // int32 account_id = 1;
   void clear_account_id();
@@ -1988,6 +2317,15 @@ class C_ROOM_LEAVE final :
   void _internal_set_room_id(int32_t value);
   public:
 
+  // int32 slot_index = 3;
+  void clear_slot_index();
+  int32_t slot_index() const;
+  void set_slot_index(int32_t value);
+  private:
+  int32_t _internal_slot_index() const;
+  void _internal_set_slot_index(int32_t value);
+  public:
+
   // @@protoc_insertion_point(class_scope:ProjectJ.C_ROOM_LEAVE)
  private:
   class _Internal;
@@ -1998,6 +2336,7 @@ class C_ROOM_LEAVE final :
   struct Impl_ {
     int32_t account_id_;
     int32_t room_id_;
+    int32_t slot_index_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -2053,7 +2392,7 @@ class S_ROOM_LEAVE final :
                &_S_ROOM_LEAVE_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    11;
+    13;
 
   friend void swap(S_ROOM_LEAVE& a, S_ROOM_LEAVE& b) {
     a.Swap(&b);
@@ -2201,7 +2540,7 @@ class S_ROOM_OTHER_ENTER final :
                &_S_ROOM_OTHER_ENTER_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    12;
+    14;
 
   friend void swap(S_ROOM_OTHER_ENTER& a, S_ROOM_OTHER_ENTER& b) {
     a.Swap(&b);
@@ -2274,10 +2613,11 @@ class S_ROOM_OTHER_ENTER final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kOtherFieldNumber = 1,
-    kInfoFieldNumber = 2,
+    kOtherFieldNumber = 3,
+    kRoomIdFieldNumber = 1,
+    kSlotIndexFieldNumber = 2,
   };
-  // .ProjectJ.Player other = 1;
+  // .ProjectJ.Player other = 3;
   bool has_other() const;
   private:
   bool _internal_has_other() const;
@@ -2295,23 +2635,23 @@ class S_ROOM_OTHER_ENTER final :
       ::ProjectJ::Player* other);
   ::ProjectJ::Player* unsafe_arena_release_other();
 
-  // .ProjectJ.RoomInfo info = 2;
-  bool has_info() const;
+  // int32 room_id = 1;
+  void clear_room_id();
+  int32_t room_id() const;
+  void set_room_id(int32_t value);
   private:
-  bool _internal_has_info() const;
+  int32_t _internal_room_id() const;
+  void _internal_set_room_id(int32_t value);
   public:
-  void clear_info();
-  const ::ProjectJ::RoomInfo& info() const;
-  PROTOBUF_NODISCARD ::ProjectJ::RoomInfo* release_info();
-  ::ProjectJ::RoomInfo* mutable_info();
-  void set_allocated_info(::ProjectJ::RoomInfo* info);
+
+  // int32 slot_index = 2;
+  void clear_slot_index();
+  int32_t slot_index() const;
+  void set_slot_index(int32_t value);
   private:
-  const ::ProjectJ::RoomInfo& _internal_info() const;
-  ::ProjectJ::RoomInfo* _internal_mutable_info();
+  int32_t _internal_slot_index() const;
+  void _internal_set_slot_index(int32_t value);
   public:
-  void unsafe_arena_set_allocated_info(
-      ::ProjectJ::RoomInfo* info);
-  ::ProjectJ::RoomInfo* unsafe_arena_release_info();
 
   // @@protoc_insertion_point(class_scope:ProjectJ.S_ROOM_OTHER_ENTER)
  private:
@@ -2322,7 +2662,8 @@ class S_ROOM_OTHER_ENTER final :
   typedef void DestructorSkippable_;
   struct Impl_ {
     ::ProjectJ::Player* other_;
-    ::ProjectJ::RoomInfo* info_;
+    int32_t room_id_;
+    int32_t slot_index_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -2378,7 +2719,7 @@ class S_ROOM_OTHER_LEAVE final :
                &_S_ROOM_OTHER_LEAVE_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    13;
+    15;
 
   friend void swap(S_ROOM_OTHER_LEAVE& a, S_ROOM_OTHER_LEAVE& b) {
     a.Swap(&b);
@@ -2451,44 +2792,26 @@ class S_ROOM_OTHER_LEAVE final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kOtherFieldNumber = 1,
-    kInfoFieldNumber = 2,
+    kRoomIdFieldNumber = 1,
+    kSlotIndexFieldNumber = 2,
   };
-  // .ProjectJ.Player other = 1;
-  bool has_other() const;
+  // int32 room_id = 1;
+  void clear_room_id();
+  int32_t room_id() const;
+  void set_room_id(int32_t value);
   private:
-  bool _internal_has_other() const;
+  int32_t _internal_room_id() const;
+  void _internal_set_room_id(int32_t value);
   public:
-  void clear_other();
-  const ::ProjectJ::Player& other() const;
-  PROTOBUF_NODISCARD ::ProjectJ::Player* release_other();
-  ::ProjectJ::Player* mutable_other();
-  void set_allocated_other(::ProjectJ::Player* other);
-  private:
-  const ::ProjectJ::Player& _internal_other() const;
-  ::ProjectJ::Player* _internal_mutable_other();
-  public:
-  void unsafe_arena_set_allocated_other(
-      ::ProjectJ::Player* other);
-  ::ProjectJ::Player* unsafe_arena_release_other();
 
-  // .ProjectJ.RoomInfo info = 2;
-  bool has_info() const;
+  // int32 slot_index = 2;
+  void clear_slot_index();
+  int32_t slot_index() const;
+  void set_slot_index(int32_t value);
   private:
-  bool _internal_has_info() const;
+  int32_t _internal_slot_index() const;
+  void _internal_set_slot_index(int32_t value);
   public:
-  void clear_info();
-  const ::ProjectJ::RoomInfo& info() const;
-  PROTOBUF_NODISCARD ::ProjectJ::RoomInfo* release_info();
-  ::ProjectJ::RoomInfo* mutable_info();
-  void set_allocated_info(::ProjectJ::RoomInfo* info);
-  private:
-  const ::ProjectJ::RoomInfo& _internal_info() const;
-  ::ProjectJ::RoomInfo* _internal_mutable_info();
-  public:
-  void unsafe_arena_set_allocated_info(
-      ::ProjectJ::RoomInfo* info);
-  ::ProjectJ::RoomInfo* unsafe_arena_release_info();
 
   // @@protoc_insertion_point(class_scope:ProjectJ.S_ROOM_OTHER_LEAVE)
  private:
@@ -2498,8 +2821,8 @@ class S_ROOM_OTHER_LEAVE final :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   struct Impl_ {
-    ::ProjectJ::Player* other_;
-    ::ProjectJ::RoomInfo* info_;
+    int32_t room_id_;
+    int32_t slot_index_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -2555,7 +2878,7 @@ class C_ROOM_READY final :
                &_C_ROOM_READY_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    14;
+    16;
 
   friend void swap(C_ROOM_READY& a, C_ROOM_READY& b) {
     a.Swap(&b);
@@ -2630,6 +2953,7 @@ class C_ROOM_READY final :
   enum : int {
     kAccountIdFieldNumber = 1,
     kRoomIdFieldNumber = 2,
+    kSlotIndexFieldNumber = 3,
   };
   // int32 account_id = 1;
   void clear_account_id();
@@ -2649,6 +2973,15 @@ class C_ROOM_READY final :
   void _internal_set_room_id(int32_t value);
   public:
 
+  // int32 slot_index = 3;
+  void clear_slot_index();
+  int32_t slot_index() const;
+  void set_slot_index(int32_t value);
+  private:
+  int32_t _internal_slot_index() const;
+  void _internal_set_slot_index(int32_t value);
+  public:
+
   // @@protoc_insertion_point(class_scope:ProjectJ.C_ROOM_READY)
  private:
   class _Internal;
@@ -2659,6 +2992,7 @@ class C_ROOM_READY final :
   struct Impl_ {
     int32_t account_id_;
     int32_t room_id_;
+    int32_t slot_index_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -2714,7 +3048,7 @@ class S_ROOM_READY final :
                &_S_ROOM_READY_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    15;
+    17;
 
   friend void swap(S_ROOM_READY& a, S_ROOM_READY& b) {
     a.Swap(&b);
@@ -2787,25 +3121,26 @@ class S_ROOM_READY final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kInfoFieldNumber = 1,
+    kSlotIndexFieldNumber = 1,
+    kIsReadyFieldNumber = 2,
   };
-  // .ProjectJ.RoomInfo info = 1;
-  bool has_info() const;
+  // int32 slot_index = 1;
+  void clear_slot_index();
+  int32_t slot_index() const;
+  void set_slot_index(int32_t value);
   private:
-  bool _internal_has_info() const;
+  int32_t _internal_slot_index() const;
+  void _internal_set_slot_index(int32_t value);
   public:
-  void clear_info();
-  const ::ProjectJ::RoomInfo& info() const;
-  PROTOBUF_NODISCARD ::ProjectJ::RoomInfo* release_info();
-  ::ProjectJ::RoomInfo* mutable_info();
-  void set_allocated_info(::ProjectJ::RoomInfo* info);
+
+  // bool is_ready = 2;
+  void clear_is_ready();
+  bool is_ready() const;
+  void set_is_ready(bool value);
   private:
-  const ::ProjectJ::RoomInfo& _internal_info() const;
-  ::ProjectJ::RoomInfo* _internal_mutable_info();
+  bool _internal_is_ready() const;
+  void _internal_set_is_ready(bool value);
   public:
-  void unsafe_arena_set_allocated_info(
-      ::ProjectJ::RoomInfo* info);
-  ::ProjectJ::RoomInfo* unsafe_arena_release_info();
 
   // @@protoc_insertion_point(class_scope:ProjectJ.S_ROOM_READY)
  private:
@@ -2815,7 +3150,8 @@ class S_ROOM_READY final :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   struct Impl_ {
-    ::ProjectJ::RoomInfo* info_;
+    int32_t slot_index_;
+    bool is_ready_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -2871,7 +3207,7 @@ class C_ROOM_CHAT final :
                &_C_ROOM_CHAT_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    16;
+    18;
 
   friend void swap(C_ROOM_CHAT& a, C_ROOM_CHAT& b) {
     a.Swap(&b);
@@ -3062,7 +3398,7 @@ class S_ROOM_CHAT final :
                &_S_ROOM_CHAT_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    17;
+    19;
 
   friend void swap(S_ROOM_CHAT& a, S_ROOM_CHAT& b) {
     a.Swap(&b);
@@ -3253,7 +3589,7 @@ class S_ROOM_STANDBY_MATCH final :
                &_S_ROOM_STANDBY_MATCH_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    18;
+    20;
 
   friend void swap(S_ROOM_STANDBY_MATCH& a, S_ROOM_STANDBY_MATCH& b) {
     a.Swap(&b);
@@ -3401,7 +3737,7 @@ class S_ROOM_START_MATCH final :
                &_S_ROOM_START_MATCH_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    19;
+    21;
 
   friend void swap(S_ROOM_START_MATCH& a, S_ROOM_START_MATCH& b) {
     a.Swap(&b);
@@ -3549,7 +3885,7 @@ class C_MATCH_READY_TO_RECEIVE final :
                &_C_MATCH_READY_TO_RECEIVE_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    20;
+    22;
 
   friend void swap(C_MATCH_READY_TO_RECEIVE& a, C_MATCH_READY_TO_RECEIVE& b) {
     a.Swap(&b);
@@ -3697,7 +4033,7 @@ class S_MATCH_ALL_READY_TO_RECIEVE final :
                &_S_MATCH_ALL_READY_TO_RECIEVE_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    21;
+    23;
 
   friend void swap(S_MATCH_ALL_READY_TO_RECIEVE& a, S_MATCH_ALL_READY_TO_RECIEVE& b) {
     a.Swap(&b);
@@ -3865,7 +4201,7 @@ class S_MATCH_ITEM_GENERATED final :
                &_S_MATCH_ITEM_GENERATED_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    22;
+    24;
 
   friend void swap(S_MATCH_ITEM_GENERATED& a, S_MATCH_ITEM_GENERATED& b) {
     a.Swap(&b);
@@ -4022,7 +4358,7 @@ class C_MATCH_READY_TO_START final :
                &_C_MATCH_READY_TO_START_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    23;
+    25;
 
   friend void swap(C_MATCH_READY_TO_START& a, C_MATCH_READY_TO_START& b) {
     a.Swap(&b);
@@ -4170,7 +4506,7 @@ class S_MATCH_START final :
                &_S_MATCH_START_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    24;
+    26;
 
   friend void swap(S_MATCH_START& a, S_MATCH_START& b) {
     a.Swap(&b);
@@ -4329,7 +4665,7 @@ class C_MATCH_INFO_MyInfo final :
                &_C_MATCH_INFO_MyInfo_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    25;
+    27;
 
   friend void swap(C_MATCH_INFO_MyInfo& a, C_MATCH_INFO_MyInfo& b) {
     a.Swap(&b);
@@ -4506,7 +4842,7 @@ class C_MATCH_INFO final :
                &_C_MATCH_INFO_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    26;
+    28;
 
   friend void swap(C_MATCH_INFO& a, C_MATCH_INFO& b) {
     a.Swap(&b);
@@ -4676,7 +5012,7 @@ class S_MATCH_INFO final :
                &_S_MATCH_INFO_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    27;
+    29;
 
   friend void swap(S_MATCH_INFO& a, S_MATCH_INFO& b) {
     a.Swap(&b);
@@ -4844,7 +5180,7 @@ class S_MATCH_END final :
                &_S_MATCH_END_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    28;
+    30;
 
   friend void swap(S_MATCH_END& a, S_MATCH_END& b) {
     a.Swap(&b);
@@ -5025,7 +5361,7 @@ class C_MATCH_ITEM_PICKUP final :
                &_C_MATCH_ITEM_PICKUP_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    29;
+    31;
 
   friend void swap(C_MATCH_ITEM_PICKUP& a, C_MATCH_ITEM_PICKUP& b) {
     a.Swap(&b);
@@ -5184,7 +5520,7 @@ class C_MATCH_ITEM_MOVE final :
                &_C_MATCH_ITEM_MOVE_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    30;
+    32;
 
   friend void swap(C_MATCH_ITEM_MOVE& a, C_MATCH_ITEM_MOVE& b) {
     a.Swap(&b);
@@ -5387,7 +5723,7 @@ class C_MATCH_ITEM_DROP final :
                &_C_MATCH_ITEM_DROP_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    31;
+    33;
 
   friend void swap(C_MATCH_ITEM_DROP& a, C_MATCH_ITEM_DROP& b) {
     a.Swap(&b);
@@ -5586,7 +5922,7 @@ class S_MATCH_ITEM_SOMEONE_PICKUP final :
                &_S_MATCH_ITEM_SOMEONE_PICKUP_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    32;
+    34;
 
   friend void swap(S_MATCH_ITEM_SOMEONE_PICKUP& a, S_MATCH_ITEM_SOMEONE_PICKUP& b) {
     a.Swap(&b);
@@ -5767,7 +6103,7 @@ class S_MATCH_ITEM_SOMEONE_MOVE final :
                &_S_MATCH_ITEM_SOMEONE_MOVE_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    33;
+    35;
 
   friend void swap(S_MATCH_ITEM_SOMEONE_MOVE& a, S_MATCH_ITEM_SOMEONE_MOVE& b) {
     a.Swap(&b);
@@ -5970,7 +6306,7 @@ class S_MATCH_ITEM_SOMEONE_DROP final :
                &_S_MATCH_ITEM_SOMEONE_DROP_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    34;
+    36;
 
   friend void swap(S_MATCH_ITEM_SOMEONE_DROP& a, S_MATCH_ITEM_SOMEONE_DROP& b) {
     a.Swap(&b);
@@ -6169,7 +6505,7 @@ class S_MATCH_SCALE_ON_CHANGED final :
                &_S_MATCH_SCALE_ON_CHANGED_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    35;
+    37;
 
   friend void swap(S_MATCH_SCALE_ON_CHANGED& a, S_MATCH_SCALE_ON_CHANGED& b) {
     a.Swap(&b);
@@ -6805,89 +7141,44 @@ inline void S_LOBBY_CREATE_ROOM::set_result(bool value) {
   // @@protoc_insertion_point(field_set:ProjectJ.S_LOBBY_CREATE_ROOM.result)
 }
 
-// .ProjectJ.RoomInfo info = 2;
-inline bool S_LOBBY_CREATE_ROOM::_internal_has_info() const {
-  return this != internal_default_instance() && _impl_.info_ != nullptr;
+// int32 room_id = 2;
+inline void S_LOBBY_CREATE_ROOM::clear_room_id() {
+  _impl_.room_id_ = 0;
 }
-inline bool S_LOBBY_CREATE_ROOM::has_info() const {
-  return _internal_has_info();
+inline int32_t S_LOBBY_CREATE_ROOM::_internal_room_id() const {
+  return _impl_.room_id_;
 }
-inline const ::ProjectJ::RoomInfo& S_LOBBY_CREATE_ROOM::_internal_info() const {
-  const ::ProjectJ::RoomInfo* p = _impl_.info_;
-  return p != nullptr ? *p : reinterpret_cast<const ::ProjectJ::RoomInfo&>(
-      ::ProjectJ::_RoomInfo_default_instance_);
+inline int32_t S_LOBBY_CREATE_ROOM::room_id() const {
+  // @@protoc_insertion_point(field_get:ProjectJ.S_LOBBY_CREATE_ROOM.room_id)
+  return _internal_room_id();
 }
-inline const ::ProjectJ::RoomInfo& S_LOBBY_CREATE_ROOM::info() const {
-  // @@protoc_insertion_point(field_get:ProjectJ.S_LOBBY_CREATE_ROOM.info)
-  return _internal_info();
-}
-inline void S_LOBBY_CREATE_ROOM::unsafe_arena_set_allocated_info(
-    ::ProjectJ::RoomInfo* info) {
-  if (GetArenaForAllocation() == nullptr) {
-    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.info_);
-  }
-  _impl_.info_ = info;
-  if (info) {
-    
-  } else {
-    
-  }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:ProjectJ.S_LOBBY_CREATE_ROOM.info)
-}
-inline ::ProjectJ::RoomInfo* S_LOBBY_CREATE_ROOM::release_info() {
+inline void S_LOBBY_CREATE_ROOM::_internal_set_room_id(int32_t value) {
   
-  ::ProjectJ::RoomInfo* temp = _impl_.info_;
-  _impl_.info_ = nullptr;
-#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
-  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
-  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  if (GetArenaForAllocation() == nullptr) { delete old; }
-#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
-  if (GetArenaForAllocation() != nullptr) {
-    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  }
-#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
-  return temp;
+  _impl_.room_id_ = value;
 }
-inline ::ProjectJ::RoomInfo* S_LOBBY_CREATE_ROOM::unsafe_arena_release_info() {
-  // @@protoc_insertion_point(field_release:ProjectJ.S_LOBBY_CREATE_ROOM.info)
+inline void S_LOBBY_CREATE_ROOM::set_room_id(int32_t value) {
+  _internal_set_room_id(value);
+  // @@protoc_insertion_point(field_set:ProjectJ.S_LOBBY_CREATE_ROOM.room_id)
+}
+
+// int32 slot_index = 3;
+inline void S_LOBBY_CREATE_ROOM::clear_slot_index() {
+  _impl_.slot_index_ = 0;
+}
+inline int32_t S_LOBBY_CREATE_ROOM::_internal_slot_index() const {
+  return _impl_.slot_index_;
+}
+inline int32_t S_LOBBY_CREATE_ROOM::slot_index() const {
+  // @@protoc_insertion_point(field_get:ProjectJ.S_LOBBY_CREATE_ROOM.slot_index)
+  return _internal_slot_index();
+}
+inline void S_LOBBY_CREATE_ROOM::_internal_set_slot_index(int32_t value) {
   
-  ::ProjectJ::RoomInfo* temp = _impl_.info_;
-  _impl_.info_ = nullptr;
-  return temp;
+  _impl_.slot_index_ = value;
 }
-inline ::ProjectJ::RoomInfo* S_LOBBY_CREATE_ROOM::_internal_mutable_info() {
-  
-  if (_impl_.info_ == nullptr) {
-    auto* p = CreateMaybeMessage<::ProjectJ::RoomInfo>(GetArenaForAllocation());
-    _impl_.info_ = p;
-  }
-  return _impl_.info_;
-}
-inline ::ProjectJ::RoomInfo* S_LOBBY_CREATE_ROOM::mutable_info() {
-  ::ProjectJ::RoomInfo* _msg = _internal_mutable_info();
-  // @@protoc_insertion_point(field_mutable:ProjectJ.S_LOBBY_CREATE_ROOM.info)
-  return _msg;
-}
-inline void S_LOBBY_CREATE_ROOM::set_allocated_info(::ProjectJ::RoomInfo* info) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
-  if (message_arena == nullptr) {
-    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.info_);
-  }
-  if (info) {
-    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
-                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(info));
-    if (message_arena != submessage_arena) {
-      info = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-          message_arena, info, submessage_arena);
-    }
-    
-  } else {
-    
-  }
-  _impl_.info_ = info;
-  // @@protoc_insertion_point(field_set_allocated:ProjectJ.S_LOBBY_CREATE_ROOM.info)
+inline void S_LOBBY_CREATE_ROOM::set_slot_index(int32_t value) {
+  _internal_set_slot_index(value);
+  // @@protoc_insertion_point(field_set:ProjectJ.S_LOBBY_CREATE_ROOM.slot_index)
 }
 
 // -------------------------------------------------------------------
@@ -6978,23 +7269,111 @@ inline void S_LOBBY_ENTER_ROOM::set_room_id(int32_t value) {
   // @@protoc_insertion_point(field_set:ProjectJ.S_LOBBY_ENTER_ROOM.room_id)
 }
 
-// .ProjectJ.RoomInfo info = 3;
-inline bool S_LOBBY_ENTER_ROOM::_internal_has_info() const {
+// int32 slot_index = 3;
+inline void S_LOBBY_ENTER_ROOM::clear_slot_index() {
+  _impl_.slot_index_ = 0;
+}
+inline int32_t S_LOBBY_ENTER_ROOM::_internal_slot_index() const {
+  return _impl_.slot_index_;
+}
+inline int32_t S_LOBBY_ENTER_ROOM::slot_index() const {
+  // @@protoc_insertion_point(field_get:ProjectJ.S_LOBBY_ENTER_ROOM.slot_index)
+  return _internal_slot_index();
+}
+inline void S_LOBBY_ENTER_ROOM::_internal_set_slot_index(int32_t value) {
+  
+  _impl_.slot_index_ = value;
+}
+inline void S_LOBBY_ENTER_ROOM::set_slot_index(int32_t value) {
+  _internal_set_slot_index(value);
+  // @@protoc_insertion_point(field_set:ProjectJ.S_LOBBY_ENTER_ROOM.slot_index)
+}
+
+// -------------------------------------------------------------------
+
+// C_ROOM_READY_TO_RECEIVE
+
+// int32 account_id = 1;
+inline void C_ROOM_READY_TO_RECEIVE::clear_account_id() {
+  _impl_.account_id_ = 0;
+}
+inline int32_t C_ROOM_READY_TO_RECEIVE::_internal_account_id() const {
+  return _impl_.account_id_;
+}
+inline int32_t C_ROOM_READY_TO_RECEIVE::account_id() const {
+  // @@protoc_insertion_point(field_get:ProjectJ.C_ROOM_READY_TO_RECEIVE.account_id)
+  return _internal_account_id();
+}
+inline void C_ROOM_READY_TO_RECEIVE::_internal_set_account_id(int32_t value) {
+  
+  _impl_.account_id_ = value;
+}
+inline void C_ROOM_READY_TO_RECEIVE::set_account_id(int32_t value) {
+  _internal_set_account_id(value);
+  // @@protoc_insertion_point(field_set:ProjectJ.C_ROOM_READY_TO_RECEIVE.account_id)
+}
+
+// int32 room_id = 2;
+inline void C_ROOM_READY_TO_RECEIVE::clear_room_id() {
+  _impl_.room_id_ = 0;
+}
+inline int32_t C_ROOM_READY_TO_RECEIVE::_internal_room_id() const {
+  return _impl_.room_id_;
+}
+inline int32_t C_ROOM_READY_TO_RECEIVE::room_id() const {
+  // @@protoc_insertion_point(field_get:ProjectJ.C_ROOM_READY_TO_RECEIVE.room_id)
+  return _internal_room_id();
+}
+inline void C_ROOM_READY_TO_RECEIVE::_internal_set_room_id(int32_t value) {
+  
+  _impl_.room_id_ = value;
+}
+inline void C_ROOM_READY_TO_RECEIVE::set_room_id(int32_t value) {
+  _internal_set_room_id(value);
+  // @@protoc_insertion_point(field_set:ProjectJ.C_ROOM_READY_TO_RECEIVE.room_id)
+}
+
+// int32 slot_index = 3;
+inline void C_ROOM_READY_TO_RECEIVE::clear_slot_index() {
+  _impl_.slot_index_ = 0;
+}
+inline int32_t C_ROOM_READY_TO_RECEIVE::_internal_slot_index() const {
+  return _impl_.slot_index_;
+}
+inline int32_t C_ROOM_READY_TO_RECEIVE::slot_index() const {
+  // @@protoc_insertion_point(field_get:ProjectJ.C_ROOM_READY_TO_RECEIVE.slot_index)
+  return _internal_slot_index();
+}
+inline void C_ROOM_READY_TO_RECEIVE::_internal_set_slot_index(int32_t value) {
+  
+  _impl_.slot_index_ = value;
+}
+inline void C_ROOM_READY_TO_RECEIVE::set_slot_index(int32_t value) {
+  _internal_set_slot_index(value);
+  // @@protoc_insertion_point(field_set:ProjectJ.C_ROOM_READY_TO_RECEIVE.slot_index)
+}
+
+// -------------------------------------------------------------------
+
+// S_ROOM_INFO
+
+// .ProjectJ.RoomInfo info = 1;
+inline bool S_ROOM_INFO::_internal_has_info() const {
   return this != internal_default_instance() && _impl_.info_ != nullptr;
 }
-inline bool S_LOBBY_ENTER_ROOM::has_info() const {
+inline bool S_ROOM_INFO::has_info() const {
   return _internal_has_info();
 }
-inline const ::ProjectJ::RoomInfo& S_LOBBY_ENTER_ROOM::_internal_info() const {
+inline const ::ProjectJ::RoomInfo& S_ROOM_INFO::_internal_info() const {
   const ::ProjectJ::RoomInfo* p = _impl_.info_;
   return p != nullptr ? *p : reinterpret_cast<const ::ProjectJ::RoomInfo&>(
       ::ProjectJ::_RoomInfo_default_instance_);
 }
-inline const ::ProjectJ::RoomInfo& S_LOBBY_ENTER_ROOM::info() const {
-  // @@protoc_insertion_point(field_get:ProjectJ.S_LOBBY_ENTER_ROOM.info)
+inline const ::ProjectJ::RoomInfo& S_ROOM_INFO::info() const {
+  // @@protoc_insertion_point(field_get:ProjectJ.S_ROOM_INFO.info)
   return _internal_info();
 }
-inline void S_LOBBY_ENTER_ROOM::unsafe_arena_set_allocated_info(
+inline void S_ROOM_INFO::unsafe_arena_set_allocated_info(
     ::ProjectJ::RoomInfo* info) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.info_);
@@ -7005,9 +7384,9 @@ inline void S_LOBBY_ENTER_ROOM::unsafe_arena_set_allocated_info(
   } else {
     
   }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:ProjectJ.S_LOBBY_ENTER_ROOM.info)
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:ProjectJ.S_ROOM_INFO.info)
 }
-inline ::ProjectJ::RoomInfo* S_LOBBY_ENTER_ROOM::release_info() {
+inline ::ProjectJ::RoomInfo* S_ROOM_INFO::release_info() {
   
   ::ProjectJ::RoomInfo* temp = _impl_.info_;
   _impl_.info_ = nullptr;
@@ -7022,14 +7401,14 @@ inline ::ProjectJ::RoomInfo* S_LOBBY_ENTER_ROOM::release_info() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::ProjectJ::RoomInfo* S_LOBBY_ENTER_ROOM::unsafe_arena_release_info() {
-  // @@protoc_insertion_point(field_release:ProjectJ.S_LOBBY_ENTER_ROOM.info)
+inline ::ProjectJ::RoomInfo* S_ROOM_INFO::unsafe_arena_release_info() {
+  // @@protoc_insertion_point(field_release:ProjectJ.S_ROOM_INFO.info)
   
   ::ProjectJ::RoomInfo* temp = _impl_.info_;
   _impl_.info_ = nullptr;
   return temp;
 }
-inline ::ProjectJ::RoomInfo* S_LOBBY_ENTER_ROOM::_internal_mutable_info() {
+inline ::ProjectJ::RoomInfo* S_ROOM_INFO::_internal_mutable_info() {
   
   if (_impl_.info_ == nullptr) {
     auto* p = CreateMaybeMessage<::ProjectJ::RoomInfo>(GetArenaForAllocation());
@@ -7037,12 +7416,12 @@ inline ::ProjectJ::RoomInfo* S_LOBBY_ENTER_ROOM::_internal_mutable_info() {
   }
   return _impl_.info_;
 }
-inline ::ProjectJ::RoomInfo* S_LOBBY_ENTER_ROOM::mutable_info() {
+inline ::ProjectJ::RoomInfo* S_ROOM_INFO::mutable_info() {
   ::ProjectJ::RoomInfo* _msg = _internal_mutable_info();
-  // @@protoc_insertion_point(field_mutable:ProjectJ.S_LOBBY_ENTER_ROOM.info)
+  // @@protoc_insertion_point(field_mutable:ProjectJ.S_ROOM_INFO.info)
   return _msg;
 }
-inline void S_LOBBY_ENTER_ROOM::set_allocated_info(::ProjectJ::RoomInfo* info) {
+inline void S_ROOM_INFO::set_allocated_info(::ProjectJ::RoomInfo* info) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.info_);
@@ -7060,7 +7439,7 @@ inline void S_LOBBY_ENTER_ROOM::set_allocated_info(::ProjectJ::RoomInfo* info) {
     
   }
   _impl_.info_ = info;
-  // @@protoc_insertion_point(field_set_allocated:ProjectJ.S_LOBBY_ENTER_ROOM.info)
+  // @@protoc_insertion_point(field_set_allocated:ProjectJ.S_ROOM_INFO.info)
 }
 
 // -------------------------------------------------------------------
@@ -7107,6 +7486,26 @@ inline void C_ROOM_LEAVE::set_room_id(int32_t value) {
   // @@protoc_insertion_point(field_set:ProjectJ.C_ROOM_LEAVE.room_id)
 }
 
+// int32 slot_index = 3;
+inline void C_ROOM_LEAVE::clear_slot_index() {
+  _impl_.slot_index_ = 0;
+}
+inline int32_t C_ROOM_LEAVE::_internal_slot_index() const {
+  return _impl_.slot_index_;
+}
+inline int32_t C_ROOM_LEAVE::slot_index() const {
+  // @@protoc_insertion_point(field_get:ProjectJ.C_ROOM_LEAVE.slot_index)
+  return _internal_slot_index();
+}
+inline void C_ROOM_LEAVE::_internal_set_slot_index(int32_t value) {
+  
+  _impl_.slot_index_ = value;
+}
+inline void C_ROOM_LEAVE::set_slot_index(int32_t value) {
+  _internal_set_slot_index(value);
+  // @@protoc_insertion_point(field_set:ProjectJ.C_ROOM_LEAVE.slot_index)
+}
+
 // -------------------------------------------------------------------
 
 // S_ROOM_LEAVE
@@ -7135,7 +7534,47 @@ inline void S_ROOM_LEAVE::set_result(bool value) {
 
 // S_ROOM_OTHER_ENTER
 
-// .ProjectJ.Player other = 1;
+// int32 room_id = 1;
+inline void S_ROOM_OTHER_ENTER::clear_room_id() {
+  _impl_.room_id_ = 0;
+}
+inline int32_t S_ROOM_OTHER_ENTER::_internal_room_id() const {
+  return _impl_.room_id_;
+}
+inline int32_t S_ROOM_OTHER_ENTER::room_id() const {
+  // @@protoc_insertion_point(field_get:ProjectJ.S_ROOM_OTHER_ENTER.room_id)
+  return _internal_room_id();
+}
+inline void S_ROOM_OTHER_ENTER::_internal_set_room_id(int32_t value) {
+  
+  _impl_.room_id_ = value;
+}
+inline void S_ROOM_OTHER_ENTER::set_room_id(int32_t value) {
+  _internal_set_room_id(value);
+  // @@protoc_insertion_point(field_set:ProjectJ.S_ROOM_OTHER_ENTER.room_id)
+}
+
+// int32 slot_index = 2;
+inline void S_ROOM_OTHER_ENTER::clear_slot_index() {
+  _impl_.slot_index_ = 0;
+}
+inline int32_t S_ROOM_OTHER_ENTER::_internal_slot_index() const {
+  return _impl_.slot_index_;
+}
+inline int32_t S_ROOM_OTHER_ENTER::slot_index() const {
+  // @@protoc_insertion_point(field_get:ProjectJ.S_ROOM_OTHER_ENTER.slot_index)
+  return _internal_slot_index();
+}
+inline void S_ROOM_OTHER_ENTER::_internal_set_slot_index(int32_t value) {
+  
+  _impl_.slot_index_ = value;
+}
+inline void S_ROOM_OTHER_ENTER::set_slot_index(int32_t value) {
+  _internal_set_slot_index(value);
+  // @@protoc_insertion_point(field_set:ProjectJ.S_ROOM_OTHER_ENTER.slot_index)
+}
+
+// .ProjectJ.Player other = 3;
 inline bool S_ROOM_OTHER_ENTER::_internal_has_other() const {
   return this != internal_default_instance() && _impl_.other_ != nullptr;
 }
@@ -7220,263 +7659,48 @@ inline void S_ROOM_OTHER_ENTER::set_allocated_other(::ProjectJ::Player* other) {
   // @@protoc_insertion_point(field_set_allocated:ProjectJ.S_ROOM_OTHER_ENTER.other)
 }
 
-// .ProjectJ.RoomInfo info = 2;
-inline bool S_ROOM_OTHER_ENTER::_internal_has_info() const {
-  return this != internal_default_instance() && _impl_.info_ != nullptr;
-}
-inline bool S_ROOM_OTHER_ENTER::has_info() const {
-  return _internal_has_info();
-}
-inline const ::ProjectJ::RoomInfo& S_ROOM_OTHER_ENTER::_internal_info() const {
-  const ::ProjectJ::RoomInfo* p = _impl_.info_;
-  return p != nullptr ? *p : reinterpret_cast<const ::ProjectJ::RoomInfo&>(
-      ::ProjectJ::_RoomInfo_default_instance_);
-}
-inline const ::ProjectJ::RoomInfo& S_ROOM_OTHER_ENTER::info() const {
-  // @@protoc_insertion_point(field_get:ProjectJ.S_ROOM_OTHER_ENTER.info)
-  return _internal_info();
-}
-inline void S_ROOM_OTHER_ENTER::unsafe_arena_set_allocated_info(
-    ::ProjectJ::RoomInfo* info) {
-  if (GetArenaForAllocation() == nullptr) {
-    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.info_);
-  }
-  _impl_.info_ = info;
-  if (info) {
-    
-  } else {
-    
-  }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:ProjectJ.S_ROOM_OTHER_ENTER.info)
-}
-inline ::ProjectJ::RoomInfo* S_ROOM_OTHER_ENTER::release_info() {
-  
-  ::ProjectJ::RoomInfo* temp = _impl_.info_;
-  _impl_.info_ = nullptr;
-#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
-  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
-  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  if (GetArenaForAllocation() == nullptr) { delete old; }
-#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
-  if (GetArenaForAllocation() != nullptr) {
-    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  }
-#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
-  return temp;
-}
-inline ::ProjectJ::RoomInfo* S_ROOM_OTHER_ENTER::unsafe_arena_release_info() {
-  // @@protoc_insertion_point(field_release:ProjectJ.S_ROOM_OTHER_ENTER.info)
-  
-  ::ProjectJ::RoomInfo* temp = _impl_.info_;
-  _impl_.info_ = nullptr;
-  return temp;
-}
-inline ::ProjectJ::RoomInfo* S_ROOM_OTHER_ENTER::_internal_mutable_info() {
-  
-  if (_impl_.info_ == nullptr) {
-    auto* p = CreateMaybeMessage<::ProjectJ::RoomInfo>(GetArenaForAllocation());
-    _impl_.info_ = p;
-  }
-  return _impl_.info_;
-}
-inline ::ProjectJ::RoomInfo* S_ROOM_OTHER_ENTER::mutable_info() {
-  ::ProjectJ::RoomInfo* _msg = _internal_mutable_info();
-  // @@protoc_insertion_point(field_mutable:ProjectJ.S_ROOM_OTHER_ENTER.info)
-  return _msg;
-}
-inline void S_ROOM_OTHER_ENTER::set_allocated_info(::ProjectJ::RoomInfo* info) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
-  if (message_arena == nullptr) {
-    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.info_);
-  }
-  if (info) {
-    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
-                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(info));
-    if (message_arena != submessage_arena) {
-      info = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-          message_arena, info, submessage_arena);
-    }
-    
-  } else {
-    
-  }
-  _impl_.info_ = info;
-  // @@protoc_insertion_point(field_set_allocated:ProjectJ.S_ROOM_OTHER_ENTER.info)
-}
-
 // -------------------------------------------------------------------
 
 // S_ROOM_OTHER_LEAVE
 
-// .ProjectJ.Player other = 1;
-inline bool S_ROOM_OTHER_LEAVE::_internal_has_other() const {
-  return this != internal_default_instance() && _impl_.other_ != nullptr;
+// int32 room_id = 1;
+inline void S_ROOM_OTHER_LEAVE::clear_room_id() {
+  _impl_.room_id_ = 0;
 }
-inline bool S_ROOM_OTHER_LEAVE::has_other() const {
-  return _internal_has_other();
+inline int32_t S_ROOM_OTHER_LEAVE::_internal_room_id() const {
+  return _impl_.room_id_;
 }
-inline const ::ProjectJ::Player& S_ROOM_OTHER_LEAVE::_internal_other() const {
-  const ::ProjectJ::Player* p = _impl_.other_;
-  return p != nullptr ? *p : reinterpret_cast<const ::ProjectJ::Player&>(
-      ::ProjectJ::_Player_default_instance_);
+inline int32_t S_ROOM_OTHER_LEAVE::room_id() const {
+  // @@protoc_insertion_point(field_get:ProjectJ.S_ROOM_OTHER_LEAVE.room_id)
+  return _internal_room_id();
 }
-inline const ::ProjectJ::Player& S_ROOM_OTHER_LEAVE::other() const {
-  // @@protoc_insertion_point(field_get:ProjectJ.S_ROOM_OTHER_LEAVE.other)
-  return _internal_other();
-}
-inline void S_ROOM_OTHER_LEAVE::unsafe_arena_set_allocated_other(
-    ::ProjectJ::Player* other) {
-  if (GetArenaForAllocation() == nullptr) {
-    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.other_);
-  }
-  _impl_.other_ = other;
-  if (other) {
-    
-  } else {
-    
-  }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:ProjectJ.S_ROOM_OTHER_LEAVE.other)
-}
-inline ::ProjectJ::Player* S_ROOM_OTHER_LEAVE::release_other() {
+inline void S_ROOM_OTHER_LEAVE::_internal_set_room_id(int32_t value) {
   
-  ::ProjectJ::Player* temp = _impl_.other_;
-  _impl_.other_ = nullptr;
-#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
-  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
-  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  if (GetArenaForAllocation() == nullptr) { delete old; }
-#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
-  if (GetArenaForAllocation() != nullptr) {
-    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  }
-#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
-  return temp;
+  _impl_.room_id_ = value;
 }
-inline ::ProjectJ::Player* S_ROOM_OTHER_LEAVE::unsafe_arena_release_other() {
-  // @@protoc_insertion_point(field_release:ProjectJ.S_ROOM_OTHER_LEAVE.other)
-  
-  ::ProjectJ::Player* temp = _impl_.other_;
-  _impl_.other_ = nullptr;
-  return temp;
-}
-inline ::ProjectJ::Player* S_ROOM_OTHER_LEAVE::_internal_mutable_other() {
-  
-  if (_impl_.other_ == nullptr) {
-    auto* p = CreateMaybeMessage<::ProjectJ::Player>(GetArenaForAllocation());
-    _impl_.other_ = p;
-  }
-  return _impl_.other_;
-}
-inline ::ProjectJ::Player* S_ROOM_OTHER_LEAVE::mutable_other() {
-  ::ProjectJ::Player* _msg = _internal_mutable_other();
-  // @@protoc_insertion_point(field_mutable:ProjectJ.S_ROOM_OTHER_LEAVE.other)
-  return _msg;
-}
-inline void S_ROOM_OTHER_LEAVE::set_allocated_other(::ProjectJ::Player* other) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
-  if (message_arena == nullptr) {
-    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.other_);
-  }
-  if (other) {
-    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
-                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(other));
-    if (message_arena != submessage_arena) {
-      other = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-          message_arena, other, submessage_arena);
-    }
-    
-  } else {
-    
-  }
-  _impl_.other_ = other;
-  // @@protoc_insertion_point(field_set_allocated:ProjectJ.S_ROOM_OTHER_LEAVE.other)
+inline void S_ROOM_OTHER_LEAVE::set_room_id(int32_t value) {
+  _internal_set_room_id(value);
+  // @@protoc_insertion_point(field_set:ProjectJ.S_ROOM_OTHER_LEAVE.room_id)
 }
 
-// .ProjectJ.RoomInfo info = 2;
-inline bool S_ROOM_OTHER_LEAVE::_internal_has_info() const {
-  return this != internal_default_instance() && _impl_.info_ != nullptr;
+// int32 slot_index = 2;
+inline void S_ROOM_OTHER_LEAVE::clear_slot_index() {
+  _impl_.slot_index_ = 0;
 }
-inline bool S_ROOM_OTHER_LEAVE::has_info() const {
-  return _internal_has_info();
+inline int32_t S_ROOM_OTHER_LEAVE::_internal_slot_index() const {
+  return _impl_.slot_index_;
 }
-inline const ::ProjectJ::RoomInfo& S_ROOM_OTHER_LEAVE::_internal_info() const {
-  const ::ProjectJ::RoomInfo* p = _impl_.info_;
-  return p != nullptr ? *p : reinterpret_cast<const ::ProjectJ::RoomInfo&>(
-      ::ProjectJ::_RoomInfo_default_instance_);
+inline int32_t S_ROOM_OTHER_LEAVE::slot_index() const {
+  // @@protoc_insertion_point(field_get:ProjectJ.S_ROOM_OTHER_LEAVE.slot_index)
+  return _internal_slot_index();
 }
-inline const ::ProjectJ::RoomInfo& S_ROOM_OTHER_LEAVE::info() const {
-  // @@protoc_insertion_point(field_get:ProjectJ.S_ROOM_OTHER_LEAVE.info)
-  return _internal_info();
-}
-inline void S_ROOM_OTHER_LEAVE::unsafe_arena_set_allocated_info(
-    ::ProjectJ::RoomInfo* info) {
-  if (GetArenaForAllocation() == nullptr) {
-    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.info_);
-  }
-  _impl_.info_ = info;
-  if (info) {
-    
-  } else {
-    
-  }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:ProjectJ.S_ROOM_OTHER_LEAVE.info)
-}
-inline ::ProjectJ::RoomInfo* S_ROOM_OTHER_LEAVE::release_info() {
+inline void S_ROOM_OTHER_LEAVE::_internal_set_slot_index(int32_t value) {
   
-  ::ProjectJ::RoomInfo* temp = _impl_.info_;
-  _impl_.info_ = nullptr;
-#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
-  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
-  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  if (GetArenaForAllocation() == nullptr) { delete old; }
-#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
-  if (GetArenaForAllocation() != nullptr) {
-    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  }
-#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
-  return temp;
+  _impl_.slot_index_ = value;
 }
-inline ::ProjectJ::RoomInfo* S_ROOM_OTHER_LEAVE::unsafe_arena_release_info() {
-  // @@protoc_insertion_point(field_release:ProjectJ.S_ROOM_OTHER_LEAVE.info)
-  
-  ::ProjectJ::RoomInfo* temp = _impl_.info_;
-  _impl_.info_ = nullptr;
-  return temp;
-}
-inline ::ProjectJ::RoomInfo* S_ROOM_OTHER_LEAVE::_internal_mutable_info() {
-  
-  if (_impl_.info_ == nullptr) {
-    auto* p = CreateMaybeMessage<::ProjectJ::RoomInfo>(GetArenaForAllocation());
-    _impl_.info_ = p;
-  }
-  return _impl_.info_;
-}
-inline ::ProjectJ::RoomInfo* S_ROOM_OTHER_LEAVE::mutable_info() {
-  ::ProjectJ::RoomInfo* _msg = _internal_mutable_info();
-  // @@protoc_insertion_point(field_mutable:ProjectJ.S_ROOM_OTHER_LEAVE.info)
-  return _msg;
-}
-inline void S_ROOM_OTHER_LEAVE::set_allocated_info(::ProjectJ::RoomInfo* info) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
-  if (message_arena == nullptr) {
-    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.info_);
-  }
-  if (info) {
-    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
-                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(info));
-    if (message_arena != submessage_arena) {
-      info = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-          message_arena, info, submessage_arena);
-    }
-    
-  } else {
-    
-  }
-  _impl_.info_ = info;
-  // @@protoc_insertion_point(field_set_allocated:ProjectJ.S_ROOM_OTHER_LEAVE.info)
+inline void S_ROOM_OTHER_LEAVE::set_slot_index(int32_t value) {
+  _internal_set_slot_index(value);
+  // @@protoc_insertion_point(field_set:ProjectJ.S_ROOM_OTHER_LEAVE.slot_index)
 }
 
 // -------------------------------------------------------------------
@@ -7523,93 +7747,68 @@ inline void C_ROOM_READY::set_room_id(int32_t value) {
   // @@protoc_insertion_point(field_set:ProjectJ.C_ROOM_READY.room_id)
 }
 
+// int32 slot_index = 3;
+inline void C_ROOM_READY::clear_slot_index() {
+  _impl_.slot_index_ = 0;
+}
+inline int32_t C_ROOM_READY::_internal_slot_index() const {
+  return _impl_.slot_index_;
+}
+inline int32_t C_ROOM_READY::slot_index() const {
+  // @@protoc_insertion_point(field_get:ProjectJ.C_ROOM_READY.slot_index)
+  return _internal_slot_index();
+}
+inline void C_ROOM_READY::_internal_set_slot_index(int32_t value) {
+  
+  _impl_.slot_index_ = value;
+}
+inline void C_ROOM_READY::set_slot_index(int32_t value) {
+  _internal_set_slot_index(value);
+  // @@protoc_insertion_point(field_set:ProjectJ.C_ROOM_READY.slot_index)
+}
+
 // -------------------------------------------------------------------
 
 // S_ROOM_READY
 
-// .ProjectJ.RoomInfo info = 1;
-inline bool S_ROOM_READY::_internal_has_info() const {
-  return this != internal_default_instance() && _impl_.info_ != nullptr;
+// int32 slot_index = 1;
+inline void S_ROOM_READY::clear_slot_index() {
+  _impl_.slot_index_ = 0;
 }
-inline bool S_ROOM_READY::has_info() const {
-  return _internal_has_info();
+inline int32_t S_ROOM_READY::_internal_slot_index() const {
+  return _impl_.slot_index_;
 }
-inline const ::ProjectJ::RoomInfo& S_ROOM_READY::_internal_info() const {
-  const ::ProjectJ::RoomInfo* p = _impl_.info_;
-  return p != nullptr ? *p : reinterpret_cast<const ::ProjectJ::RoomInfo&>(
-      ::ProjectJ::_RoomInfo_default_instance_);
+inline int32_t S_ROOM_READY::slot_index() const {
+  // @@protoc_insertion_point(field_get:ProjectJ.S_ROOM_READY.slot_index)
+  return _internal_slot_index();
 }
-inline const ::ProjectJ::RoomInfo& S_ROOM_READY::info() const {
-  // @@protoc_insertion_point(field_get:ProjectJ.S_ROOM_READY.info)
-  return _internal_info();
-}
-inline void S_ROOM_READY::unsafe_arena_set_allocated_info(
-    ::ProjectJ::RoomInfo* info) {
-  if (GetArenaForAllocation() == nullptr) {
-    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.info_);
-  }
-  _impl_.info_ = info;
-  if (info) {
-    
-  } else {
-    
-  }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:ProjectJ.S_ROOM_READY.info)
-}
-inline ::ProjectJ::RoomInfo* S_ROOM_READY::release_info() {
+inline void S_ROOM_READY::_internal_set_slot_index(int32_t value) {
   
-  ::ProjectJ::RoomInfo* temp = _impl_.info_;
-  _impl_.info_ = nullptr;
-#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
-  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
-  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  if (GetArenaForAllocation() == nullptr) { delete old; }
-#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
-  if (GetArenaForAllocation() != nullptr) {
-    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  }
-#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
-  return temp;
+  _impl_.slot_index_ = value;
 }
-inline ::ProjectJ::RoomInfo* S_ROOM_READY::unsafe_arena_release_info() {
-  // @@protoc_insertion_point(field_release:ProjectJ.S_ROOM_READY.info)
+inline void S_ROOM_READY::set_slot_index(int32_t value) {
+  _internal_set_slot_index(value);
+  // @@protoc_insertion_point(field_set:ProjectJ.S_ROOM_READY.slot_index)
+}
+
+// bool is_ready = 2;
+inline void S_ROOM_READY::clear_is_ready() {
+  _impl_.is_ready_ = false;
+}
+inline bool S_ROOM_READY::_internal_is_ready() const {
+  return _impl_.is_ready_;
+}
+inline bool S_ROOM_READY::is_ready() const {
+  // @@protoc_insertion_point(field_get:ProjectJ.S_ROOM_READY.is_ready)
+  return _internal_is_ready();
+}
+inline void S_ROOM_READY::_internal_set_is_ready(bool value) {
   
-  ::ProjectJ::RoomInfo* temp = _impl_.info_;
-  _impl_.info_ = nullptr;
-  return temp;
+  _impl_.is_ready_ = value;
 }
-inline ::ProjectJ::RoomInfo* S_ROOM_READY::_internal_mutable_info() {
-  
-  if (_impl_.info_ == nullptr) {
-    auto* p = CreateMaybeMessage<::ProjectJ::RoomInfo>(GetArenaForAllocation());
-    _impl_.info_ = p;
-  }
-  return _impl_.info_;
-}
-inline ::ProjectJ::RoomInfo* S_ROOM_READY::mutable_info() {
-  ::ProjectJ::RoomInfo* _msg = _internal_mutable_info();
-  // @@protoc_insertion_point(field_mutable:ProjectJ.S_ROOM_READY.info)
-  return _msg;
-}
-inline void S_ROOM_READY::set_allocated_info(::ProjectJ::RoomInfo* info) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
-  if (message_arena == nullptr) {
-    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.info_);
-  }
-  if (info) {
-    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
-                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(info));
-    if (message_arena != submessage_arena) {
-      info = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-          message_arena, info, submessage_arena);
-    }
-    
-  } else {
-    
-  }
-  _impl_.info_ = info;
-  // @@protoc_insertion_point(field_set_allocated:ProjectJ.S_ROOM_READY.info)
+inline void S_ROOM_READY::set_is_ready(bool value) {
+  _internal_set_is_ready(value);
+  // @@protoc_insertion_point(field_set:ProjectJ.S_ROOM_READY.is_ready)
 }
 
 // -------------------------------------------------------------------
@@ -9542,6 +9741,10 @@ inline void S_MATCH_SCALE_ON_CHANGED::set_is_operating(bool value) {
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

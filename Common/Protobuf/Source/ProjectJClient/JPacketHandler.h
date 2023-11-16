@@ -23,31 +23,33 @@ enum : uint16
 	PKT_S_LOBBY_CREATE_ROOM = 1007,
 	PKT_C_LOBBY_ENTER_ROOM = 1008,
 	PKT_S_LOBBY_ENTER_ROOM = 1009,
-	PKT_C_ROOM_LEAVE = 1010,
-	PKT_S_ROOM_LEAVE = 1011,
-	PKT_S_ROOM_OTHER_ENTER = 1012,
-	PKT_S_ROOM_OTHER_LEAVE = 1013,
-	PKT_C_ROOM_READY = 1014,
-	PKT_S_ROOM_READY = 1015,
-	PKT_C_ROOM_CHAT = 1016,
-	PKT_S_ROOM_CHAT = 1017,
-	PKT_S_ROOM_STANDBY_MATCH = 1018,
-	PKT_S_ROOM_START_MATCH = 1019,
-	PKT_C_MATCH_READY_TO_RECEIVE = 1020,
-	PKT_S_MATCH_ALL_READY_TO_RECIEVE = 1021,
-	PKT_S_MATCH_ITEM_GENERATED = 1022,
-	PKT_C_MATCH_READY_TO_START = 1023,
-	PKT_S_MATCH_START = 1024,
-	PKT_C_MATCH_INFO = 1025,
-	PKT_S_MATCH_INFO = 1026,
-	PKT_S_MATCH_END = 1027,
-	PKT_C_MATCH_ITEM_PICKUP = 1028,
-	PKT_C_MATCH_ITEM_MOVE = 1029,
-	PKT_C_MATCH_ITEM_DROP = 1030,
-	PKT_S_MATCH_ITEM_SOMEONE_PICKUP = 1031,
-	PKT_S_MATCH_ITEM_SOMEONE_MOVE = 1032,
-	PKT_S_MATCH_ITEM_SOMEONE_DROP = 1033,
-	PKT_S_MATCH_SCALE_ON_CHANGED = 1034,
+	PKT_C_ROOM_READY_TO_RECEIVE = 1010,
+	PKT_S_ROOM_INFO = 1011,
+	PKT_C_ROOM_LEAVE = 1012,
+	PKT_S_ROOM_LEAVE = 1013,
+	PKT_S_ROOM_OTHER_ENTER = 1014,
+	PKT_S_ROOM_OTHER_LEAVE = 1015,
+	PKT_C_ROOM_READY = 1016,
+	PKT_S_ROOM_READY = 1017,
+	PKT_C_ROOM_CHAT = 1018,
+	PKT_S_ROOM_CHAT = 1019,
+	PKT_S_ROOM_STANDBY_MATCH = 1020,
+	PKT_S_ROOM_START_MATCH = 1021,
+	PKT_C_MATCH_READY_TO_RECEIVE = 1022,
+	PKT_S_MATCH_ALL_READY_TO_RECIEVE = 1023,
+	PKT_S_MATCH_ITEM_GENERATED = 1024,
+	PKT_C_MATCH_READY_TO_START = 1025,
+	PKT_S_MATCH_START = 1026,
+	PKT_C_MATCH_INFO = 1027,
+	PKT_S_MATCH_INFO = 1028,
+	PKT_S_MATCH_END = 1029,
+	PKT_C_MATCH_ITEM_PICKUP = 1030,
+	PKT_C_MATCH_ITEM_MOVE = 1031,
+	PKT_C_MATCH_ITEM_DROP = 1032,
+	PKT_S_MATCH_ITEM_SOMEONE_PICKUP = 1033,
+	PKT_S_MATCH_ITEM_SOMEONE_MOVE = 1034,
+	PKT_S_MATCH_ITEM_SOMEONE_DROP = 1035,
+	PKT_S_MATCH_SCALE_ON_CHANGED = 1036,
 };
 
 // RecvThread 전용 패킷 가공 함수
@@ -71,6 +73,8 @@ bool Handle_S_LOBBY_CREATE_ROOM(UWorld* World, ProjectJ::S_LOBBY_CREATE_ROOM& Pa
 DECLARE_DELEGATE_RetVal_ThreeParams(bool, FPacket_S_LOBBY_CREATE_ROOM, UWorld*, ProjectJ::S_LOBBY_CREATE_ROOM&, float);
 bool Handle_S_LOBBY_ENTER_ROOM(UWorld* World, ProjectJ::S_LOBBY_ENTER_ROOM& Packet, float DeltaSeconds);
 DECLARE_DELEGATE_RetVal_ThreeParams(bool, FPacket_S_LOBBY_ENTER_ROOM, UWorld*, ProjectJ::S_LOBBY_ENTER_ROOM&, float);
+bool Handle_S_ROOM_INFO(UWorld* World, ProjectJ::S_ROOM_INFO& Packet, float DeltaSeconds);
+DECLARE_DELEGATE_RetVal_ThreeParams(bool, FPacket_S_ROOM_INFO, UWorld*, ProjectJ::S_ROOM_INFO&, float);
 bool Handle_S_ROOM_LEAVE(UWorld* World, ProjectJ::S_ROOM_LEAVE& Packet, float DeltaSeconds);
 DECLARE_DELEGATE_RetVal_ThreeParams(bool, FPacket_S_ROOM_LEAVE, UWorld*, ProjectJ::S_ROOM_LEAVE&, float);
 bool Handle_S_ROOM_OTHER_ENTER(UWorld* World, ProjectJ::S_ROOM_OTHER_ENTER& Packet, float DeltaSeconds);
@@ -107,7 +111,7 @@ DECLARE_DELEGATE_RetVal_ThreeParams(bool, FPacket_S_MATCH_SCALE_ON_CHANGED, UWor
 // 소켓 수신 데이터 처리 및 송신 버퍼 생성 클래스
 // 최초 작성자: 박별
 // 수정자: 
-// 최종 수정일: 2023-11-15 자동 생성
+// 최종 수정일: 2023-11-16 자동 생성
 class PROJECTJ_API UJPacketHandler : public UObject
 {
 public:
@@ -129,6 +133,7 @@ public:
 		GPacketProcessor[PKT_S_LOBBY_REFRESH_ROOM] = [](UWorld* World, const TSharedPtr<JPackets>& PacketPtr, float DeltaSeconds) {return ProcessPacket<ProjectJ::S_LOBBY_REFRESH_ROOM>(Handle_S_LOBBY_REFRESH_ROOM, World, PacketPtr, DeltaSeconds);};
 		GPacketProcessor[PKT_S_LOBBY_CREATE_ROOM] = [](UWorld* World, const TSharedPtr<JPackets>& PacketPtr, float DeltaSeconds) {return ProcessPacket<ProjectJ::S_LOBBY_CREATE_ROOM>(Handle_S_LOBBY_CREATE_ROOM, World, PacketPtr, DeltaSeconds);};
 		GPacketProcessor[PKT_S_LOBBY_ENTER_ROOM] = [](UWorld* World, const TSharedPtr<JPackets>& PacketPtr, float DeltaSeconds) {return ProcessPacket<ProjectJ::S_LOBBY_ENTER_ROOM>(Handle_S_LOBBY_ENTER_ROOM, World, PacketPtr, DeltaSeconds);};
+		GPacketProcessor[PKT_S_ROOM_INFO] = [](UWorld* World, const TSharedPtr<JPackets>& PacketPtr, float DeltaSeconds) {return ProcessPacket<ProjectJ::S_ROOM_INFO>(Handle_S_ROOM_INFO, World, PacketPtr, DeltaSeconds);};
 		GPacketProcessor[PKT_S_ROOM_LEAVE] = [](UWorld* World, const TSharedPtr<JPackets>& PacketPtr, float DeltaSeconds) {return ProcessPacket<ProjectJ::S_ROOM_LEAVE>(Handle_S_ROOM_LEAVE, World, PacketPtr, DeltaSeconds);};
 		GPacketProcessor[PKT_S_ROOM_OTHER_ENTER] = [](UWorld* World, const TSharedPtr<JPackets>& PacketPtr, float DeltaSeconds) {return ProcessPacket<ProjectJ::S_ROOM_OTHER_ENTER>(Handle_S_ROOM_OTHER_ENTER, World, PacketPtr, DeltaSeconds);};
 		GPacketProcessor[PKT_S_ROOM_OTHER_LEAVE] = [](UWorld* World, const TSharedPtr<JPackets>& PacketPtr, float DeltaSeconds) {return ProcessPacket<ProjectJ::S_ROOM_OTHER_LEAVE>(Handle_S_ROOM_OTHER_LEAVE, World, PacketPtr, DeltaSeconds);};
@@ -152,6 +157,7 @@ public:
 		GPacketHandler[PKT_S_LOBBY_REFRESH_ROOM] = [](uint16 TypeCode, uint8* Buffer, int32 Size) {return HandlePacket<ProjectJ::S_LOBBY_REFRESH_ROOM>(TypeCode, Buffer, Size);};
 		GPacketHandler[PKT_S_LOBBY_CREATE_ROOM] = [](uint16 TypeCode, uint8* Buffer, int32 Size) {return HandlePacket<ProjectJ::S_LOBBY_CREATE_ROOM>(TypeCode, Buffer, Size);};
 		GPacketHandler[PKT_S_LOBBY_ENTER_ROOM] = [](uint16 TypeCode, uint8* Buffer, int32 Size) {return HandlePacket<ProjectJ::S_LOBBY_ENTER_ROOM>(TypeCode, Buffer, Size);};
+		GPacketHandler[PKT_S_ROOM_INFO] = [](uint16 TypeCode, uint8* Buffer, int32 Size) {return HandlePacket<ProjectJ::S_ROOM_INFO>(TypeCode, Buffer, Size);};
 		GPacketHandler[PKT_S_ROOM_LEAVE] = [](uint16 TypeCode, uint8* Buffer, int32 Size) {return HandlePacket<ProjectJ::S_ROOM_LEAVE>(TypeCode, Buffer, Size);};
 		GPacketHandler[PKT_S_ROOM_OTHER_ENTER] = [](uint16 TypeCode, uint8* Buffer, int32 Size) {return HandlePacket<ProjectJ::S_ROOM_OTHER_ENTER>(TypeCode, Buffer, Size);};
 		GPacketHandler[PKT_S_ROOM_OTHER_LEAVE] = [](uint16 TypeCode, uint8* Buffer, int32 Size) {return HandlePacket<ProjectJ::S_ROOM_OTHER_LEAVE>(TypeCode, Buffer, Size);};
@@ -219,6 +225,10 @@ public:
 	// Packet: C_LOBBY_ENTER_ROOM 객체
 	// 생성된 FJSendBuffer 스마트포인터 반환
 	static TSharedPtr<FJSendBuffer> MakeSendBuffer(ProjectJ::C_LOBBY_ENTER_ROOM& Packet) {return MakeSendBuffer(Packet, PKT_C_LOBBY_ENTER_ROOM);}
+	// C_ROOM_READY_TO_RECEIVE를 직렬화한 FJSendBuffer 생성 함수
+	// Packet: C_ROOM_READY_TO_RECEIVE 객체
+	// 생성된 FJSendBuffer 스마트포인터 반환
+	static TSharedPtr<FJSendBuffer> MakeSendBuffer(ProjectJ::C_ROOM_READY_TO_RECEIVE& Packet) {return MakeSendBuffer(Packet, PKT_C_ROOM_READY_TO_RECEIVE);}
 	// C_ROOM_LEAVE를 직렬화한 FJSendBuffer 생성 함수
 	// Packet: C_ROOM_LEAVE 객체
 	// 생성된 FJSendBuffer 스마트포인터 반환
@@ -332,6 +342,7 @@ public:
 	static FPacket_S_LOBBY_REFRESH_ROOM Packet_S_LOBBY_REFRESH_ROOM_Delegate;
 	static FPacket_S_LOBBY_CREATE_ROOM Packet_S_LOBBY_CREATE_ROOM_Delegate;
 	static FPacket_S_LOBBY_ENTER_ROOM Packet_S_LOBBY_ENTER_ROOM_Delegate;
+	static FPacket_S_ROOM_INFO Packet_S_ROOM_INFO_Delegate;
 	static FPacket_S_ROOM_LEAVE Packet_S_ROOM_LEAVE_Delegate;
 	static FPacket_S_ROOM_OTHER_ENTER Packet_S_ROOM_OTHER_ENTER_Delegate;
 	static FPacket_S_ROOM_OTHER_LEAVE Packet_S_ROOM_OTHER_LEAVE_Delegate;
