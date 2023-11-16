@@ -24,7 +24,7 @@ public:
 	Item(int id, int index, int weight, Point size, Vector vector, Rotator rotate)
 		: id_(id), index_(index), weight_(weight), size_(size), position_(vector), rotation_(rotate)
 	{
-		ownerID_.store(EMPTY_OWNER_ID);
+		ownerFlag_.store(EMPTY_OWNER_ID);
 	}
 
 	const int id_;
@@ -42,5 +42,5 @@ public:
 	// 상위 4 비트: 소유 여부 FFFF: 누군가 소유 중/ 0000: 아무도 소유중이 아님
 	// 상위 12 비트: 현재 조작중인 player index
 	// 하위 16 비트: 현재 소유중인 player index
-	atomic<UINT32> ownerID_; // TODO
+	atomic<UINT32> ownerFlag_; // TODO
 };

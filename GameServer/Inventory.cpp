@@ -15,7 +15,7 @@ Inventory::~Inventory()
 bool Inventory::TryAddItem(const shared_ptr<Item>& item)
 {
 	WRITE_LOCK;
-	if (owningItems_.find(item->index_) != owningItems_.end() || item->ownerID_.load() != Item::EMPTY_OWNER_ID)
+	if (owningItems_.find(item->index_) != owningItems_.end() || item->ownerFlag_.load() != Item::EMPTY_OWNER_ID)
 	{
 		return false;
 	}

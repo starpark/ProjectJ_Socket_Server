@@ -291,7 +291,7 @@ void Match::PlayerReadyToReceive(shared_ptr<GameSession> session)
 		item->set_width(newItem->size_.x);
 		item->set_height(newItem->size_.y);
 		item->set_weight(newItem->weight_);
-		item->set_is_owned(newItem->ownerID_.load() == Item::EMPTY_OWNER_ID);
+		item->set_is_owned(newItem->ownerFlag_.load() == Item::EMPTY_OWNER_ID);
 
 		auto position = new ProjectJ::Vector;
 		position->set_x(newItem->position_.x);
@@ -305,7 +305,7 @@ void Match::PlayerReadyToReceive(shared_ptr<GameSession> session)
 		rotation->set_yaw(newItem->rotation_.yaw);
 		item->set_allocated_world_rotation(rotation);
 
-		item->set_onwer_player_index(newItem->ownerID_);
+		item->set_onwer_player_index(newItem->ownerFlag_);
 		item->set_is_rotated(newItem->bIsRotated_);
 	}
 
@@ -354,14 +354,14 @@ void Match::PlayerPickUpItem(const shared_ptr<GameSession>& session, int playerI
 
 	UINT32 expected = Item::EMPTY_OWNER_ID;
 	const UINT32 desired = ((playerIndex << Item::OWNERSHIP_INDEX) & Item::OWNERSHIP_ID_MASK);
-	if (item->ownerID_.compare_exchange_strong(expected, desired, memory_order_acquire) == false)
+	if (item->ownerFlag_.compare_exchange_strong(expected, desired, memory_order_acquire) == false)
 	{
 		return;
 	}
 
 	if (player->TryAddItem(item))
 	{
-		item->ownerID_.store(((playerIndex & Item::OWNER_ID_MASK) | Item::OWNED_MASK), memory_order_release);
+		item->ownerFlag_.store(((playerIndex & Item::OWNER_ID_MASK) | Item::OWNED_MASK), memory_order_release);
 
 		ProjectJ::S_MATCH_ITEM_SOMEONE_PICKUP sendPacket;
 
@@ -375,7 +375,7 @@ void Match::PlayerPickUpItem(const shared_ptr<GameSession>& session, int playerI
 	}
 	else
 	{
-		item->ownerID_.store(Item::EMPTY_OWNER_ID, memory_order_release);
+		item->ownerFlag_.store(Item::EMPTY_OWNER_ID, memory_order_release);
 	}
 }
 
@@ -404,14 +404,14 @@ void Match::PlayerMoveItem(const shared_ptr<GameSession>& session, int playerInd
 
 	UINT32 expected = ((fromIndex & Item::OWNER_ID_MASK) | Item::OWNED_MASK);
 	const UINT32 desired = (((playerIndex << Item::OWNERSHIP_INDEX) & Item::OWNERSHIP_ID_MASK) | expected);
-	if (item->ownerID_.compare_exchange_strong(expected, desired, memory_order_acquire) == false)
+	if (item->ownerFlag_.compare_exchange_strong(expected, desired, memory_order_acquire) == false)
 	{
 		return;
 	}
 
 	if (from->RelocateItem(to, item, targetTopLeftIndex, isRotated))
 	{
-		item->ownerID_.store(((toIndex & Item::OWNER_ID_MASK) | Item::OWNED_MASK), memory_order_release);
+		item->ownerFlag_.store(((toIndex & Item::OWNER_ID_MASK) | Item::OWNED_MASK), memory_order_release);
 
 		ProjectJ::S_MATCH_ITEM_SOMEONE_MOVE sendPacket;
 
@@ -452,7 +452,7 @@ void Match::PlayerMoveItem(const shared_ptr<GameSession>& session, int playerInd
 	}
 	else
 	{
-		item->ownerID_.store(((fromIndex & Item::OWNER_ID_MASK) | Item::OWNED_MASK), memory_order_release);
+		item->ownerFlag_.store(((fromIndex & Item::OWNER_ID_MASK) | Item::OWNED_MASK), memory_order_release);
 	}
 }
 
@@ -471,17 +471,17 @@ void Match::PlayerDropItem(const shared_ptr<GameSession>& session, int playerInd
 		return;
 	}
 
-	const UINT32 origin = item->ownerID_.load();
+	const UINT32 origin = item->ownerFlag_.load();
 	UINT32 expected = ((playerIndex & Item::OWNER_ID_MASK) | Item::OWNED_MASK);
 	const UINT32 desired = (((playerIndex << Item::OWNERSHIP_INDEX) & Item::OWNERSHIP_ID_MASK) | expected);
-	if(item->ownerID_.compare_exchange_strong(expected, desired, memory_order_acquire) == false)
+	if(item->ownerFlag_.compare_exchange_strong(expected, desired, memory_order_acquire) == false)
 	{
 		return;
 	}
 
 	if(player->DropItem(item, position, rotation))
 	{
-		item->ownerID_.store(Item::EMPTY_OWNER_ID, memory_order_release);
+		item->ownerFlag_.store(Item::EMPTY_OWNER_ID, memory_order_release);
 
 		ProjectJ::S_MATCH_ITEM_SOMEONE_DROP sendPacket;
 
@@ -495,7 +495,7 @@ void Match::PlayerDropItem(const shared_ptr<GameSession>& session, int playerInd
 	}
 	else
 	{
-		item->ownerID_.store((origin & (Item::OWNED_MASK | Item::OWNER_ID_MASK)), memory_order_release);
+		item->ownerFlag_.store((origin & (Item::OWNED_MASK | Item::OWNER_ID_MASK)), memory_order_release);
 	}
 }
 
