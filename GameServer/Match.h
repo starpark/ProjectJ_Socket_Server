@@ -51,9 +51,9 @@ public:
 public:
 	void PlayerReadyToReceive(shared_ptr<GameSession> session);
 	void PlayerReadyToStart(shared_ptr<GameSession> session);
-	void PlayerPickupItem(int playerIndex, int itemIndex);
-	void PlayerMoveItem(int playerIndex, int fromIndex, int toIndex, int itemIndex, int targetTopLeftIndex, bool isRotated);
-	void PlayerDropItem(int playerIndex, int itemIndex, ProjectJ::Vector position, ProjectJ::Rotator rotation);
+	void PlayerPickUpItem(const shared_ptr<GameSession>& session, int playerIndex, int itemIndex);
+	void PlayerMoveItem(const shared_ptr<GameSession>& session, int playerIndex, int fromIndex, int toIndex, int itemIndex, int targetTopLeftIndex, bool isRotated);
+	void PlayerDropItem(const shared_ptr<GameSession>& session, int playerIndex, int itemIndex, ProjectJ::Vector position, ProjectJ::Rotator rotation);
 
 private:
 	void PlayerBackToRoom();
