@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 class SendBuffer
 {
@@ -56,6 +56,4 @@ private:
 private:
 	USE_LOCK;
 	stack<shared_ptr<SendBufferBlock>> sendBufferBlocks_;
-	BYTE* currentChunk_;
-	int currentUseSize_;
 };
