@@ -7,7 +7,6 @@
 
 GameSession::GameSession()
 {
-	// 	GLogHelper->WriteLog(LogCategory::Log_TEMP, L"GameSession()\n");
 }
 
 GameSession::~GameSession()
@@ -79,13 +78,15 @@ ProjectJ::Player* GameSession::MakePlayer()
 
 void GameSession::OnConnected()
 {
-	// GLogHelper->SetTimer(LogCategory::Log_INFO, L"OnConnected %s\n", netAddress_.GetIpAddressW().c_str());
+	GLogHelper->Print(LogCategory::Log_INFO, L"OnConnected %s:%hu\n", netAddress_.GetIpAddressW().c_str(), netAddress_.GetPort());
 }
 
 void GameSession::OnDisconnect()
 {
-	GLogHelper->Print(LogCategory::Log_INFO, L"OnDisconnect %s\n", netAddress_.GetIpAddressW().c_str());
+	GLogHelper->Print(LogCategory::Log_INFO, L"OnDisconnect %s:%hu\n", netAddress_.GetIpAddressW().c_str(), netAddress_.GetPort());
 	shared_ptr<GameSession> gameSession = static_pointer_cast<GameSession>(shared_from_this());
+
+	// Clean up used contents
 
 	if (auto match = match_.lock())
 	{
@@ -97,7 +98,13 @@ void GameSession::OnDisconnect()
 	{
 		if (auto room = room_.lock())
 		{
-			room->DoTaskAsync(&Room::Leave, gameSession);
+			room->DoTaskCallback(&Room::GetSlotIndex, [room, gameSession](int slotIndex)
+			{
+				if (slotIndex != INVALID_SLOT_INDEX && slotIndex < MAX_PLAYER_NUMBER)
+				{
+					room->Leave(gameSession, slotIndex);
+				}
+			}, gameSession);
 		}
 		ProcessLeaveLobby();
 	}
@@ -105,8 +112,6 @@ void GameSession::OnDisconnect()
 
 int GameSession::OnRecv(BYTE* buffer, int numOfBytes)
 {
-	// GLogHelper->SetTimer(LogCategory::Log_TEMP, L"OnRecv\n");
-
 	int processLen = 0;
 	while (true)
 	{
@@ -133,5 +138,4 @@ int GameSession::OnRecv(BYTE* buffer, int numOfBytes)
 
 void GameSession::OnSend(int numOfBytes)
 {
-	// GLogHelper->WriteLog(LogCategory::Log_TEMP, L"OnSend\n");
 }
