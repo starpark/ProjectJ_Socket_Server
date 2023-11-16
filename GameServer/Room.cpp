@@ -15,7 +15,7 @@ Room::Room(int roomNumber, string title, shared_ptr<GameSession> hostSession, sh
 
 Room::~Room()
 {
-	GLogHelper->Print(LogCategory::Log_INFO, L"~Room()\n");
+	GLogHelper->Print(LogCategory::Log_INFO, L"~Room()#%d\n", roomID_);
 	sessionSlots_.clear();
 	match_ = nullptr;
 }
