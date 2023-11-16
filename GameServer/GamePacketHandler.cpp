@@ -441,7 +441,7 @@ bool Handle_C_MATCH_ITEM_PICKUP(const shared_ptr<SessionBase>& session, ProjectJ
 
 	if (match)
 	{
-		match->PlayerPickupItem(packet.player_index(), packet.item_index());
+		match->PlayerPickUpItem(gameSession, packet.player_index(), packet.item_index());
 	}
 
 	return true;
@@ -454,7 +454,8 @@ bool Handle_C_MATCH_ITEM_MOVE(const shared_ptr<SessionBase>& session, ProjectJ::
 
 	if (match)
 	{
-		match->PlayerMoveItem(packet.player_index(),
+		match->PlayerMoveItem(gameSession,
+		                      packet.player_index(),
 		                      packet.from_index(),
 		                      packet.to_index(),
 		                      packet.item_index(),
@@ -471,6 +472,11 @@ bool Handle_C_MATCH_ITEM_DROP(const shared_ptr<SessionBase>& session, ProjectJ::
 
 	if (match)
 	{
+		match->PlayerDropItem(gameSession,
+		                      packet.player_index(),
+		                      packet.item_index(),
+		                      packet.drop_item_position(),
+		                      packet.drop_item_rotation());
 	}
 	return true;
 }

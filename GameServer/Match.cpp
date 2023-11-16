@@ -337,7 +337,7 @@ void Match::PlayerReadyToStart(shared_ptr<GameSession> session)
 	Start();
 }
 
-void Match::PlayerPickupItem(int playerIndex, int itemIndex)
+void Match::PlayerPickUpItem(const shared_ptr<GameSession>& session, int playerIndex, int itemIndex)
 {
 	if (playerIndex < 0 || playerIndex >= MAX_PLAYER_NUMBER || itemIndex < 0 || itemIndex >= items_.size())
 	{
@@ -347,13 +347,13 @@ void Match::PlayerPickupItem(int playerIndex, int itemIndex)
 	shared_ptr<Player>& player = players_[playerIndex].first;
 	shared_ptr<Item>& item = items_[itemIndex];
 
-	if (player->GetIndex() != playerIndex)
+	if (player != session->GetPlayer())
 	{
 		return;
 	}
 
 	UINT32 expected = Item::EMPTY_OWNER_ID;
-	const UINT32 desired = ((playerIndex << 16) & Item::OWNERSHIP_ID_MASK);
+	const UINT32 desired = ((playerIndex << Item::OWNERSHIP_INDEX) & Item::OWNERSHIP_ID_MASK);
 	if (item->ownerID_.compare_exchange_strong(expected, desired, memory_order_acquire) == false)
 	{
 		return;
@@ -379,7 +379,7 @@ void Match::PlayerPickupItem(int playerIndex, int itemIndex)
 	}
 }
 
-void Match::PlayerMoveItem(int playerIndex, int fromIndex, int toIndex, int itemIndex, int targetTopLeftIndex, bool isRotated)
+void Match::PlayerMoveItem(const shared_ptr<GameSession>& session, int playerIndex, int fromIndex, int toIndex, int itemIndex, int targetTopLeftIndex, bool isRotated)
 {
 	if (fromIndex < 0 || fromIndex >= MAX_INVENTORY_INDEX || toIndex < 0 || toIndex >= MAX_INVENTORY_INDEX ||
 		itemIndex < 0 || itemIndex >= items_.size())
@@ -387,6 +387,8 @@ void Match::PlayerMoveItem(int playerIndex, int fromIndex, int toIndex, int item
 		return;
 	}
 
+	
+	shared_ptr<Player>& player = players_[playerIndex].first;
 	shared_ptr<Inventory> from = fromIndex < SCALE_INDEX_PREFIX
 		                             ? players_[fromIndex].first->GetInventory()
 		                             : scales_[fromIndex % SCALE_INDEX_PREFIX]->GetInventory();
@@ -395,13 +397,13 @@ void Match::PlayerMoveItem(int playerIndex, int fromIndex, int toIndex, int item
 		                           : scales_[toIndex % SCALE_INDEX_PREFIX]->GetInventory();
 	shared_ptr<Item>& item = items_[itemIndex];
 
-	if (fromIndex != from->GetIndex() || toIndex != to->GetIndex())
+	if (fromIndex != from->GetIndex() || toIndex != to->GetIndex() || player != session->GetPlayer())
 	{
 		return;
 	}
 
 	UINT32 expected = ((fromIndex & Item::OWNER_ID_MASK) | Item::OWNED_MASK);
-	const UINT32 desired = ((playerIndex << 16) | expected);
+	const UINT32 desired = (((playerIndex << Item::OWNERSHIP_INDEX) & Item::OWNERSHIP_ID_MASK) | expected);
 	if (item->ownerID_.compare_exchange_strong(expected, desired, memory_order_acquire) == false)
 	{
 		return;
@@ -454,8 +456,47 @@ void Match::PlayerMoveItem(int playerIndex, int fromIndex, int toIndex, int item
 	}
 }
 
-void Match::PlayerDropItem(int playerIndex, int itemIndex, ProjectJ::Vector position, ProjectJ::Rotator rotation)
+void Match::PlayerDropItem(const shared_ptr<GameSession>& session, int playerIndex, int itemIndex, ProjectJ::Vector position, ProjectJ::Rotator rotation)
 {
+	if (playerIndex < 0 || playerIndex >= MAX_PLAYER_NUMBER || itemIndex < 0 || itemIndex >= items_.size())
+	{
+		return;
+	}
+
+	shared_ptr<Player>& player = players_[playerIndex].first;
+	shared_ptr<Item>& item = items_[itemIndex];
+
+	if (player != session->GetPlayer())
+	{
+		return;
+	}
+
+	const UINT32 origin = item->ownerID_.load();
+	UINT32 expected = ((playerIndex & Item::OWNER_ID_MASK) | Item::OWNED_MASK);
+	const UINT32 desired = (((playerIndex << Item::OWNERSHIP_INDEX) & Item::OWNERSHIP_ID_MASK) | expected);
+	if(item->ownerID_.compare_exchange_strong(expected, desired, memory_order_acquire) == false)
+	{
+		return;
+	}
+
+	if(player->DropItem(item, position, rotation))
+	{
+		item->ownerID_.store(Item::EMPTY_OWNER_ID, memory_order_release);
+
+		ProjectJ::S_MATCH_ITEM_SOMEONE_DROP sendPacket;
+
+		sendPacket.set_item_index(itemIndex);
+		sendPacket.set_player_index(playerIndex);
+		sendPacket.set_allocated_drop_item_position(new ProjectJ::Vector(position));
+		sendPacket.set_allocated_drop_item_rotation(new ProjectJ::Rotator(rotation));
+
+		auto sendBuffer = GamePacketHandler::MakeSendBuffer(sendPacket);
+		Broadcast(sendBuffer);
+	}
+	else
+	{
+		item->ownerID_.store((origin & (Item::OWNED_MASK | Item::OWNER_ID_MASK)), memory_order_release);
+	}
 }
 
 
