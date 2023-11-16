@@ -30,6 +30,11 @@ struct TimerData
 	{
 	}
 
+	~TimerData()
+	{
+		ObjectPool<TimerTask>::Push(taskData);
+	}
+
 	bool operator<(const TimerData& other) const
 	{
 		return executeTick > other.executeTick;
@@ -51,18 +56,19 @@ public:
 	~TimerTaskManager();
 
 	template <typename ObjectType, typename RetValType, typename... Args>
-	TimerHandle AddTimer(UINT64 delayTick, bool isLoop, shared_ptr<ObjectType> object,
+	TimerHandle AddTimer(UINT64 delayTick, bool isLoop, ObjectType* inObject,
 	                     RetValType (ObjectType::* memberFunc)(Args ...),
 	                     Args&&... args)
 	{
 		static_assert(is_base_of_v<CommandTaskObject, ObjectType>, "The object must inherit from CommandTaskObject.");
 
+		shared_ptr<ObjectType> object = static_pointer_cast<ObjectType>(inObject->shared_from_this());
 		shared_ptr<CommandTask> task = ObjectPool<CommandTask>::MakeShared(
-			static_pointer_cast<ObjectType>(object), memberFunc, forward<Args>(args)...);
+			object, memberFunc, forward<Args>(args)...);
 		TimerTask* timerTask = ObjectPool<TimerTask>::Pop(object, task);
 
 		UINT64 nowTick = GetTickCount64();
-		auto newTimerElement = make_shared<TimerData>(isLoop, delayTick, nowTick + delayTick, timerTask);
+		auto newTimerElement = ObjectPool<TimerData>::MakeShared(isLoop, delayTick, nowTick + delayTick, timerTask);
 		addedElements_.Push(newTimerElement);
 
 		return newTimerElement;
