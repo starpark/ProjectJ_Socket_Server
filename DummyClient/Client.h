@@ -54,6 +54,7 @@ public:
 	void TestCreateRoom(string title);
 	void TestLeaveRoom();
 	void TestEnterRoom(int roomID);
+	void TestRoomReadyToReceive();
 	void TestLobbyChat(string msg);
 	void TestRefreshRoomList();
 	void TestRoomReady();
@@ -66,6 +67,7 @@ public:
 
 	int roomID = -1;
 	bool isRoom = false;
+	int roomSlotIndex = -1;
 	vector<int> roomList;
 	string nickname;
 	string name;

@@ -57,6 +57,7 @@ void ClientSession::TestLeaveRoom()
 	ProjectJ::C_ROOM_LEAVE packet;
 	packet.set_account_id(id);
 	packet.set_room_id(roomID);
+	packet.set_slot_index(roomSlotIndex);
 	auto sendBuffer = ServerPacketHandler::MakeSendBuffer(packet);
 	Send(sendBuffer);
 }
@@ -68,6 +69,17 @@ void ClientSession::TestEnterRoom(int roomID)
 	packet.set_account_id(id);
 	packet.set_room_id(roomID);
 	auto sendBuffer = ServerPacketHandler::MakeSendBuffer(packet);
+	Send(sendBuffer);
+}
+
+void ClientSession::TestRoomReadyToReceive()
+{
+	ProjectJ::C_ROOM_READY_TO_RECEIVE sendPacket;
+	sendPacket.set_account_id(id);
+	sendPacket.set_room_id(roomID);
+	sendPacket.set_slot_index(roomSlotIndex);
+
+	auto sendBuffer = ServerPacketHandler::MakeSendBuffer(sendPacket);
 	Send(sendBuffer);
 }
 
@@ -94,6 +106,7 @@ void ClientSession::TestRoomReady()
 	ProjectJ::C_ROOM_READY packet;
 	packet.set_account_id(id);
 	packet.set_room_id(roomID);
+	packet.set_slot_index(roomSlotIndex);
 	auto sendBuffer = ServerPacketHandler::MakeSendBuffer(packet);
 	Send(sendBuffer);
 }
