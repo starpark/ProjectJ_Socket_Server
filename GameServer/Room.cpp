@@ -32,85 +32,17 @@ vector<pair<shared_ptr<GameSession>, bool>> Room::GetRoomInfo()
 	return roomInfo;
 }
 
-bool Room::Enter(shared_ptr<GameSession> session)
-{
-	if (numberOfPlayers_ == INVALID_ROOM || numberOfPlayers_ == MAX_PLAYER_NUMBER || state_ != RoomState::WAITING)
-	{
-		GLogHelper->Print(LogCategory::Log_INFO, L"%s Fail to Enter Room#%d\n", UTF8_TO_WCHAR(session->GetNickname().c_str()), roomID_);
-		return false;
-	}
-
-	for (int i = 0; i < MAX_PLAYER_NUMBER; i++)
-	{
-		if (sessionSlots_[i].first == nullptr)
-		{
-			sessionSlots_[i].first = session;
-			sessionSlots_[i].second = false;
-
-			session->ProcessEnterRoom(GetRoomPtr());
-
-			numberOfPlayers_++;
-
-			GLogHelper->Print(LogCategory::Log_INFO, L"%s Entered Room#%d\n", UTF8_TO_WCHAR(session->GetNickname().c_str()), roomID_);
-
-			{
-				ProjectJ::S_ROOM_OTHER_ENTER sendPacket;
-				sendPacket.set_allocated_info(MakeRoomInfo());
-				sendPacket.set_allocated_other(session->MakePlayer());
-
-				auto sendBuffer = GamePacketHandler::MakeSendBuffer(sendPacket);
-				BroadcastWithoutSelf(sendBuffer, session);
-			}
-
-			return true;
-		}
-	}
-
-	GLogHelper->Print(LogCategory::Log_INFO, L"%s Fail to Enter Room#%d\n", UTF8_TO_WCHAR(session->GetNickname().c_str()), roomID_);
-
-	return false;
-}
-
-int Room::Leave(shared_ptr<GameSession> session)
+int Room::GetSlotIndex(shared_ptr<GameSession> session)
 {
 	for (int i = 0; i < MAX_PLAYER_NUMBER; i++)
 	{
 		if (sessionSlots_[i].first == session)
 		{
-			sessionSlots_[i].first = nullptr;
-			sessionSlots_[i].second = false;
-
-			session->ProcessLeaveRoom();
-
-			numberOfPlayers_--;
-
-			GLogHelper->Print(LogCategory::Log_INFO, L"%s Leaved Room#%d\n", UTF8_TO_WCHAR(session->GetNickname().c_str()), roomID_);
-
-			if (numberOfPlayers_ == 0)
-			{
-				numberOfPlayers_ = INVALID_ROOM;
-				if (auto lobby = GetLobby())
-				{
-					lobby->DoTaskAsync(&Lobby::DestroyRoom, roomID_);
-				}
-			}
-			else
-			{
-				ProjectJ::S_ROOM_OTHER_LEAVE leavePacket;
-				leavePacket.set_allocated_other(session->MakePlayer());
-				leavePacket.set_allocated_info(MakeRoomInfo());
-
-				auto sendBuffer = GamePacketHandler::MakeSendBuffer(leavePacket);
-				BroadcastHere(sendBuffer);
-			}
-
 			return i;
 		}
 	}
 
-	GLogHelper->Print(LogCategory::Log_INFO, L"%s Fail to Leave Room#%d\n", UTF8_TO_WCHAR(session->GetNickname().c_str()), roomID_);
-
-	return -1;
+	return INVALID_SLOT_INDEX;
 }
 
 ProjectJ::RoomInfo* Room::MakeRoomInfo()
@@ -173,6 +105,7 @@ ProjectJ::RoomInfo* Room::MakeRoomInfo()
 			player->set_account_id(info[2].first->GetID());
 			player->set_nickname(info[2].first->GetNickname());
 			fugitive->set_allocated_player(player);
+			fugitive->set_is_ready(info[2].second);
 		}
 		else
 		{
@@ -193,6 +126,7 @@ ProjectJ::RoomInfo* Room::MakeRoomInfo()
 			player->set_account_id(info[3].first->GetID());
 			player->set_nickname(info[3].first->GetNickname());
 			fugitive->set_allocated_player(player);
+			fugitive->set_is_ready(info[3].second);
 		}
 		else
 		{
@@ -204,6 +138,133 @@ ProjectJ::RoomInfo* Room::MakeRoomInfo()
 	}
 
 	return roomInfo;
+}
+
+int Room::Enter(shared_ptr<GameSession> session)
+{
+	if (state_ == RoomState::INVALID)
+	{
+		GLogHelper->Print(LogCategory::Log_INFO, L"%s Fail To Enter Room#%d: Invalid Room\n", UTF8_TO_WCHAR(session->GetNickname().c_str()), roomID_);
+
+		return INVALID_SLOT_INDEX;
+	}
+	if (numberOfPlayers_ == MAX_PLAYER_NUMBER)
+	{
+		GLogHelper->Print(LogCategory::Log_INFO, L"%s Fail To Enter Room#%d: Room Is Full\n", UTF8_TO_WCHAR(session->GetNickname().c_str()), roomID_);
+
+		return INVALID_SLOT_INDEX;
+	}
+	if (state_ != RoomState::WAITING)
+	{
+		GLogHelper->Print(LogCategory::Log_INFO,
+		                  L"%s Fail To Enter Room#%d: Room State Is Not Waiting\n",
+		                  UTF8_TO_WCHAR(session->GetNickname().c_str()),
+		                  roomID_);
+
+		return INVALID_SLOT_INDEX;
+	}
+
+
+	for (int i = 0; i < MAX_PLAYER_NUMBER; i++)
+	{
+		if (sessionSlots_[i].first == nullptr)
+		{
+			GLogHelper->Print(LogCategory::Log_INFO, L"%s Entered Room#%d\n", UTF8_TO_WCHAR(session->GetNickname().c_str()), roomID_);
+
+			sessionSlots_[i].first = session;
+			sessionSlots_[i].second = false;
+
+			session->ProcessEnterRoom(GetRoomPtr());
+
+			numberOfPlayers_++;
+
+			{
+				ProjectJ::S_ROOM_OTHER_ENTER sendPacket;
+
+				sendPacket.set_room_id(roomID_);
+				sendPacket.set_slot_index(i);
+				sendPacket.set_allocated_other(session->MakePlayer());
+
+				auto sendBuffer = GamePacketHandler::MakeSendBuffer(sendPacket);
+				BroadcastWithoutSelf(sendBuffer, session);
+			}
+
+			return i;
+		}
+	}
+
+	GLogHelper->Print(LogCategory::Log_INFO, L"%s Fail To Enter Room#%d: Unexpected Error\n", UTF8_TO_WCHAR(session->GetNickname().c_str()), roomID_);
+
+	return INVALID_SLOT_INDEX;
+}
+
+int Room::Leave(shared_ptr<GameSession> session, int slotIndex)
+{
+	if (slotIndex < 0 || slotIndex > MAX_PLAYER_NUMBER)
+	{
+		GLogHelper->Print(LogCategory::Log_INFO,
+		                  L"%s Fail To Leave Room#%d: Invalid Slot Index %d\n",
+		                  UTF8_TO_WCHAR(session->GetNickname().c_str()),
+		                  roomID_,
+		                  slotIndex);
+
+		return INVALID_SLOT_INDEX;
+	}
+	if (sessionSlots_[slotIndex].first != session)
+	{
+		GLogHelper->Print(LogCategory::Log_INFO,
+		                  L"%s Fail To Leave Room#%d: Session Doesn't Match The Slot Index#%d\n",
+		                  UTF8_TO_WCHAR(session->GetNickname().c_str()),
+		                  roomID_,
+		                  slotIndex);
+
+		return INVALID_SLOT_INDEX;
+	}
+
+	GLogHelper->Print(LogCategory::Log_INFO, L"%s Leaved Room#%d\n", UTF8_TO_WCHAR(session->GetNickname().c_str()), roomID_);
+
+	sessionSlots_[slotIndex].first = nullptr;
+	sessionSlots_[slotIndex].second = false;
+	numberOfPlayers_--;
+
+	session->ProcessLeaveRoom();
+
+	if (numberOfPlayers_ == 0)
+	{
+		state_ = RoomState::INVALID;
+
+		if (auto lobby = GetLobby())
+		{
+			lobby->DoTaskAsync(&Lobby::DestroyRoom, roomID_);
+		}
+	}
+	else
+	{
+		ProjectJ::S_ROOM_OTHER_LEAVE leavePacket;
+
+		leavePacket.set_room_id(roomID_);
+		leavePacket.set_slot_index(slotIndex);
+
+		auto sendBuffer = GamePacketHandler::MakeSendBuffer(leavePacket);
+		BroadcastHere(sendBuffer);
+	}
+
+	return slotIndex;
+}
+
+void Room::SessionReadyToReceive(shared_ptr<GameSession> session)
+{
+	GLogHelper->Print(LogCategory::Log_INFO,
+	                  L"%s Ready To Receive In Room#%d\n",
+	                  UTF8_TO_WCHAR(session->GetNickname().c_str()),
+	                  GetID());
+
+	ProjectJ::S_ROOM_INFO sendPacket;
+
+	sendPacket.set_allocated_info(MakeRoomInfo());
+
+	auto sendBuffer = GamePacketHandler::MakeSendBuffer(sendPacket);
+	session->Send(sendBuffer);
 }
 
 void Room::BroadcastHere(shared_ptr<SendBuffer> sendBuffer)
@@ -248,21 +309,34 @@ bool Room::ChangePlayerPosition(shared_ptr<GameSession> session, int currentNumb
 	return true;
 }
 
-void Room::ToggleReady(shared_ptr<GameSession> session)
+void Room::ToggleReady(shared_ptr<GameSession> session, int slotIndex)
 {
-	for (int i = 0; i < MAX_PLAYER_NUMBER; i++)
+	if (slotIndex < 0 || slotIndex > MAX_PLAYER_NUMBER || sessionSlots_[slotIndex].first != session)
 	{
-		if (sessionSlots_[i].first == session)
-		{
-			sessionSlots_[i].second ^= true;
-		}
+		GLogHelper->Print(LogCategory::Log_INFO, L"%s Try To Invalid Slot Index#%d In Room#%d\n",
+		                  UTF8_TO_WCHAR(session->GetNickname().c_str()),
+		                  slotIndex,
+		                  roomID_);
+
+		return;
 	}
+
+	sessionSlots_[slotIndex].second ^= true;
+
+	GLogHelper->Print(LogCategory::Log_INFO, L"%s Slot#%d %s In Room#%d\n",
+	                  UTF8_TO_WCHAR(session->GetNickname().c_str()),
+	                  slotIndex,
+	                  (sessionSlots_[slotIndex].second == true ? L"Ready" : L"Unready"),
+	                  roomID_);
 
 	ProjectJ::S_ROOM_READY sendPacket;
 
-	sendPacket.set_allocated_info(MakeRoomInfo());
+	sendPacket.set_slot_index(slotIndex);
+	sendPacket.set_is_ready(sessionSlots_[slotIndex].second);
+
 	auto sendBuffer = GamePacketHandler::MakeSendBuffer(sendPacket);
 	BroadcastHere(sendBuffer);
+
 	StandByMatch(STANDBY_COUNT);
 }
 
@@ -298,7 +372,7 @@ void Room::StandByMatch(int count)
 		else
 		{
 			shared_ptr<Room> room = static_pointer_cast<Room>(shared_from_this());
-			GTimerTaskManager->AddTimer(1000, false, room, &Room::StandByMatch, count - 1);
+			GTimerTaskManager->AddTimer(1000, false, this, &Room::StandByMatch, count - 1);
 		}
 	}
 	else
@@ -330,6 +404,11 @@ void Room::StartMatch()
 void Room::EndMatch()
 {
 	state_ = RoomState::WAITING;
+	for (auto& session : sessionSlots_)
+	{
+		session.second = false;
+	}
+
 	match_ = nullptr;
 }
 
