@@ -37,7 +37,7 @@ void TimerTaskManager::Distribute()
 		while (TimerElementPtr addedElement = addedElements_.Pop())
 		{
 			UINT64 state = addedElement->state.load(std::memory_order_relaxed);
-			if (GetThreadId(state) == 0)
+			if (GetThreadId(state) == 0 && state == DefaultState)
 			{
 				elements_.push_back(move(addedElement));
 			}
@@ -60,21 +60,19 @@ void TimerTaskManager::Distribute()
 	{
 		for (; elementIdx < elements_.size(); ++elementIdx)
 		{
-			TimerElementPtr element = elements_[elementIdx];
+			TimerElementPtr& element = elements_[elementIdx];
 			UINT64 prevState = element->state.fetch_add(currentThreadId, std::memory_order_acquire);
 
 			ASSERT_CRASH(GetThreadId(prevState) == 0);
 
 			auto ClearExecutionFlag = [currentThreadId](TimerElementPtr& element)
 			{
-				return static_cast<UINT8>(element->state.fetch_sub(currentThreadId, std::memory_order_release) -
-					currentThreadId);
+				return static_cast<UINT8>(element->state.fetch_sub(currentThreadId, std::memory_order_release) - currentThreadId);
 			};
 
 			if (prevState == RemovedState)
 			{
 				ClearExecutionFlag(element);
-				ObjectPool<TimerTask>::Push(element->taskData);
 
 				continue;
 			}
@@ -92,7 +90,7 @@ void TimerTaskManager::Distribute()
 				object->Push(element->taskData->task, true);
 
 				prevState = ClearExecutionFlag(element);
-				if (prevState != RemovedState && element->isLoop)
+				if (prevState != RemovedState && element->isLoop == true)
 				{
 					ASSERT_CRASH(prevState == DefaultState);
 					element->executeTick = currentTick + element->delayTick;
@@ -102,7 +100,6 @@ void TimerTaskManager::Distribute()
 			else
 			{
 				prevState = ClearExecutionFlag(element);
-				ObjectPool<TimerTask>::Push(element->taskData);
 				ASSERT_CRASH(prevState == DefaultState || prevState == RemovedState);
 			}
 		}
@@ -111,9 +108,5 @@ void TimerTaskManager::Distribute()
 	while (elementIdx < elements_.size());
 
 	elements_.clear();
-	{
-		vector<TimerElementPtr> temp = move(timerElements);
-		timerElements = move(elements_);
-		elements_ = move(temp);
-	}
+	elements_ = move(timerElements);
 }
