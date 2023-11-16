@@ -146,9 +146,6 @@
     <ClCompile Include="LogHelper.cpp">
       <Filter>Utils</Filter>
     </ClCompile>
-    <ClCompile Include="DeadLockProfiler.cpp">
-      <Filter>Thread</Filter>
-    </ClCompile>
     <ClCompile Include="TickTask.cpp">
       <Filter>Task</Filter>
     </ClCompile>
@@ -169,6 +166,9 @@
     </ClCompile>
     <ClCompile Include="Types.cpp">
       <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="DeadLockProfiler.cpp">
+      <Filter>Thread</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
