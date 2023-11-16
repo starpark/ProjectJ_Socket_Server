@@ -33,18 +33,21 @@ public:
 
 	shared_ptr<Lobby> TryGetLobby()
 	{
+		READ_LOCK;
 		if (state_ == SessionState::LOBBY) return lobby_.lock();
 		return nullptr;
 	}
 
 	shared_ptr<Room> TryGetRoom()
 	{
+		READ_LOCK;
 		if (state_ == SessionState::ROOM) return room_.lock();
 		return nullptr;
 	}
 
 	shared_ptr<Match> TryGetMatch()
 	{
+		READ_LOCK;
 		if (state_ == SessionState::MATCH) return match_.lock();
 		return nullptr;
 	}
