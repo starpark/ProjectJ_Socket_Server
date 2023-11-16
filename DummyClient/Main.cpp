@@ -3,32 +3,30 @@
 
 #define TEST_PORT 55141
 #define LIVE_PORT 3000
-#define SESSION_COUNT 10
+#define SESSION_COUNT 480
 
 int main(int argc, char* argv[])
 {
-	ServerPacketHandler::Init();
-
 	this_thread::sleep_for(1s);
 
+	ServerPacketHandler::Init();
 	auto service = make_shared<ClientService>(
 		NetAddress(L"127.0.0.1", TEST_PORT),
 		[=]() { return make_shared<ClientSession>(); },
 		SESSION_COUNT
 	);
 
-	vector<thread> threads;
 	if (service->Init())
 	{
 		for (int i = 0; i < 2; i++)
 		{
-			threads.push_back(thread([=]()
+			GThreadManager->Launch([&]()
 			{
 				while (true)
 				{
 					service->GetIocpMain()->WorkThread();
 				}
-			}));
+			});
 		}
 	}
 	else
@@ -37,15 +35,56 @@ int main(int argc, char* argv[])
 	}
 
 	this_thread::sleep_for(5s);
+	auto sessions = service->GetSessions();
 
-	auto sessions = service->GetSessionsRef();
-	vector<shared_ptr<ClientSession>> cSessions;
-	int index = 1;
-	if (argc > 1)
+	int threadCount = 6;
+	int offset = sessions.size() / threadCount;
+	for (int i = 0; i < threadCount; i++)
 	{
-		index = strtol(argv[1], NULL, 10);
+		GThreadManager->Launch([sessions, i, offset]()
+		{
+			int start = i * offset;
+			int end = (i + 1) * offset;
+
+			for (int k = start; k < end; k++)
+			{
+				sessions[k]->TestCreateAccount("MyTest", k);
+				sessions[k]->TestLoginHttp("MyTest", k);
+				this_thread::sleep_for(100ms);
+				if (sessions[k]->token.empty() == false)
+				{
+					sessions[k]->TestVerifyToken();
+				}
+				else
+				{
+					cout << "Error" << endl;
+				}
+			}
+
+			int clientPerTest = 4;
+			for (int k = 0; k < offset / clientPerTest; k++)
+			{
+				int p = k * clientPerTest + start;
+
+				sessions[p]->TestCreateRoom(u8"테스트 방 " + to_string(p));
+				this_thread::sleep_for(2s);
+				int roomId = sessions[p]->roomID;
+				sessions[p + 1]->TestEnterRoom(roomId);
+				sessions[p + 2]->TestEnterRoom(roomId);
+				sessions[p + 3]->TestEnterRoom(roomId);
+
+				this_thread::sleep_for(2s);
+				sessions[p]->TestRoomReady();
+				sessions[p + 1]->TestRoomReady();
+				sessions[p + 2]->TestRoomReady();
+				sessions[p + 3]->TestRoomReady();
+			}
+
+			while (true);
+		});
 	}
-	for (auto session : sessions)
+
+	/*for (auto session : sessions)
 	{
 		auto cSession = static_pointer_cast<ClientSession>(session);
 		cSession->TestCreateAccount("MyTest", index);
@@ -59,10 +98,25 @@ int main(int argc, char* argv[])
 		++index;
 	}
 
-	vector<thread> testThread;
+	int clientPerTest = 3;
+	for (int i = 0; i < cSessions.size() / clientPerTest; i++)
+	{
+		cSessions[i * clientPerTest]->TestCreateRoom(u8"한글 테스트 방" + to_string(i));
+		this_thread::sleep_for(3s);
+		int roomId = cSessions[i * clientPerTest]->roomID;
+		cSessions[i * clientPerTest + 1]->TestEnterRoom(roomId);
+		cSessions[i * clientPerTest + 2]->TestEnterRoom(roomId);
+		//cSessions[i * clientPerTest + 3]->TestEnterRoom(roomId);
+
+		this_thread::sleep_for(3s);
+		cSessions[i * clientPerTest]->TestRoomReady();
+		cSessions[i * clientPerTest + 1]->TestRoomReady();
+		cSessions[i * clientPerTest + 2]->TestRoomReady();
+		//cSessions[i * clientPerTest + 3]->TestRoomReady();
+	}*/
 
 
-	while (true)
+	/*while (true)
 	{
 		int clientPerTest = 3;
 		for (int i = 0; i < cSessions.size() / clientPerTest; i++)
@@ -102,7 +156,7 @@ int main(int argc, char* argv[])
 
 			this_thread::sleep_for(50ms);
 		}
-	}
+	}*/
 
 	/*
 	threads.push_back(thread([&]()
@@ -216,13 +270,5 @@ int main(int argc, char* argv[])
 	}
 	*/
 
-	for (thread& t : threads)
-	{
-		t.join();
-	}
-
-	for (thread& t : testThread)
-	{
-		t.join();
-	}
+	GThreadManager->Join();
 }
