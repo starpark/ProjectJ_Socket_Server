@@ -34,21 +34,21 @@ public:
 	shared_ptr<Lobby> TryGetLobby()
 	{
 		READ_LOCK;
-		if (state_ == SessionState::LOBBY) return lobby_.lock();
+		if (state_.load() == SessionState::LOBBY) return lobby_.lock();
 		return nullptr;
 	}
 
 	shared_ptr<Room> TryGetRoom()
 	{
 		READ_LOCK;
-		if (state_ == SessionState::ROOM) return room_.lock();
+		if (state_.load() == SessionState::ROOM) return room_.lock();
 		return nullptr;
 	}
 
 	shared_ptr<Match> TryGetMatch()
 	{
 		READ_LOCK;
-		if (state_ == SessionState::MATCH) return match_.lock();
+		if (state_.load() == SessionState::MATCH) return match_.lock();
 		return nullptr;
 	}
 
@@ -93,20 +93,3 @@ protected:
 	weak_ptr<Room> room_;
 	weak_ptr<Match> match_;
 };
-
-/*
-class GameSessionMananger
-{
-public:
-	void Add(shared_ptr<GameSession> session);
-	void Remove(shared_ptr<GameSession> session);
-	void Broadcast(shared_ptr<SendBuffer> sendBuffer);
-	void Broadcast(SessionState state, shared_ptr<SendBuffer> sendBuffer);
-
-private:
-	USE_LOCK;
-	set<shared_ptr<GameSession>> sessions_;
-};
-
-extern GameSessionMananger GSessionManager;
-*/
