@@ -23,10 +23,10 @@ class Match : public CommandTaskObject
 {
 	enum : UINT64
 	{
+		START_TIME_OUT = 1000 * 60 * 1,
 		MATCH_END_TICK = 1000 * 60 * 15
 	};
 
-	// State
 public:
 	Match(shared_ptr<Room> owner);
 	~Match() override;
@@ -43,6 +43,7 @@ public:
 	          shared_ptr<GameSession> fugitiveThird);
 	void Start();
 	void End();
+	void StartTimeOut();
 	bool CheckPlayersState();
 	void PlayerStateChanged(const shared_ptr<GameSession>& session, ProjectJ::MatchPlayerState state);
 	void PlayerDisconnected(const shared_ptr<GameSession>& session);
@@ -52,19 +53,22 @@ public:
 	void PlayerReadyToReceive(shared_ptr<GameSession> session);
 	void PlayerReadyToStart(shared_ptr<GameSession> session);
 	void PlayerPickUpItem(const shared_ptr<GameSession>& session, int playerIndex, int itemIndex);
-	void PlayerMoveItem(const shared_ptr<GameSession>& session, int playerIndex, int fromIndex, int toIndex, int itemIndex, int targetTopLeftIndex, bool isRotated);
-	void PlayerDropItem(const shared_ptr<GameSession>& session, int playerIndex, int itemIndex, ProjectJ::Vector position, ProjectJ::Rotator rotation);
+	void PlayerMoveItem(const shared_ptr<GameSession>& session, int playerIndex, int fromIndex, int toIndex, int itemIndex, int targetTopLeftIndex,
+	                    bool isRotated);
+	void PlayerDropItem(const shared_ptr<GameSession>& session, int playerIndex, int itemIndex, ProjectJ::Vector position,
+	                    ProjectJ::Rotator rotation);
 
 private:
 	void PlayerBackToRoom();
 
 private:
 	USE_LOCK;
-	atomic<bool> matchStated_ = false;
+	bool isMatchStarted_ = false;
 	UINT64 matchEndTick_ = 0;
 	shared_ptr<Room> ownerRoom_;
 	vector<pair<shared_ptr<Player>, ProjectJ::MatchPlayerState>> players_;
 	vector<shared_ptr<Scale>> scales_;
 	vector<shared_ptr<Item>> items_;
 	TimerHandle tickHandle_;
+	TimerHandle timeOutHandle_;
 };

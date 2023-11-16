@@ -14,10 +14,10 @@ Match::Match(shared_ptr<Room> owner)
 
 Match::~Match()
 {
+	// Call After End
+
 	GLogHelper->Print(LogCategory::Log_INFO, L"~Match()\n");
 	ownerRoom_ = nullptr;
-	players_.clear();
-	items_.clear();
 }
 
 ProjectJ::PlayerInfo* Match::GetPlayerInfo(int playerIndex)
@@ -86,7 +86,7 @@ void Match::Init(shared_ptr<GameSession> chaser, shared_ptr<GameSession> fugitiv
                  shared_ptr<GameSession> fugitiveSecond,
                  shared_ptr<GameSession> fugitiveThird)
 {
-	GLogHelper->Print(LogCategory::Log_INFO, L"Room#%d Init Match \n", ownerRoom_->GetID());
+	GLogHelper->Print(LogCategory::Log_INFO, L"Room#%d Match Initialized\n", ownerRoom_->GetID());
 	shared_ptr<Match> thisPtr = static_pointer_cast<Match>(shared_from_this());
 
 	constexpr int row = 15;
@@ -135,12 +135,16 @@ void Match::Init(shared_ptr<GameSession> chaser, shared_ptr<GameSession> fugitiv
 		shared_ptr<Item> newItem = DataManager::GenerateItem(i, spawnData[i].position_, spawnData[i].rotation_);
 		items_.push_back(newItem);
 	}
+
+	timeOutHandle_ = GTimerTaskManager->AddTimer(START_TIME_OUT, false, this, &Match::StartTimeOut);
 }
 
 
 void Match::Start()
 {
 	GLogHelper->Print(LogCategory::Log_INFO, L"Room#%d Match Start \n", ownerRoom_->GetID());
+	GTimerTaskManager->RemoveTimer(timeOutHandle_);
+
 	const UINT64 currentTick = GetTickCount64();
 	matchEndTick_ = currentTick + MATCH_END_TICK;
 
@@ -152,28 +156,42 @@ void Match::Start()
 	Broadcast(sendBuffer);
 
 	// TODO TICK
-	tickHandle_ = GTimerTaskManager->AddTimer(10, true, GetMatchPtr(), &Match::Tick);
+	tickHandle_ = GTimerTaskManager->AddTimer(10, true, this, &Match::Tick);
 }
 
 void Match::End()
 {
-	GLogHelper->Print(LogCategory::Log_INFO, L"Room#%d Match End\n", ownerRoom_->GetID());
+	GLogHelper->Print(LogCategory::Log_INFO, L"Room#%d Match Ended\n", ownerRoom_->GetID());
 
 	GTimerTaskManager->RemoveTimer(tickHandle_);
+	GTimerTaskManager->RemoveTimer(timeOutHandle_);
+
+	isMatchStarted_ = false;
+	PlayerBackToRoom();
+
+	ProjectJ::S_MATCH_END sendPacket;
 
 	// TODO Score Calculation
-	if (matchStated_.load() == true)
-	{
-		matchStated_.store(false);
-	}
+	sendPacket.set_chaser_score(0);
+	sendPacket.set_fugitivie_first_score(1);
+	sendPacket.set_fugitivie_first_score(2);
+	sendPacket.set_fugitivie_first_score(3);
 
-	PlayerBackToRoom();
-	players_.clear();
-	items_.clear();
+	auto sendBuffer = GamePacketHandler::MakeSendBuffer(sendPacket);
+	Broadcast(sendBuffer);
 
-	ownerRoom_->SetState(RoomState::WAITING);
 	ownerRoom_->EndMatch();
-	ownerRoom_ = nullptr;
+	players_.clear();
+}
+
+void Match::StartTimeOut()
+{
+	if (isMatchStarted_ == false)
+	{
+		GLogHelper->Print(LogCategory::Log_INFO, L"Room#%d Match Start Time Out\n", ownerRoom_->GetID());
+
+		End();
+	}
 }
 
 bool Match::CheckPlayersState()
@@ -291,7 +309,7 @@ void Match::PlayerReadyToReceive(shared_ptr<GameSession> session)
 		item->set_width(newItem->size_.x);
 		item->set_height(newItem->size_.y);
 		item->set_weight(newItem->weight_);
-		item->set_is_owned(newItem->ownerFlag_.load() == Item::EMPTY_OWNER_ID);
+		item->set_is_owned(false);
 
 		auto position = new ProjectJ::Vector;
 		position->set_x(newItem->position_.x);
@@ -305,7 +323,7 @@ void Match::PlayerReadyToReceive(shared_ptr<GameSession> session)
 		rotation->set_yaw(newItem->rotation_.yaw);
 		item->set_allocated_world_rotation(rotation);
 
-		item->set_onwer_player_index(newItem->ownerFlag_);
+		item->set_onwer_player_index(UINT32_MAX);
 		item->set_is_rotated(newItem->bIsRotated_);
 	}
 
@@ -379,7 +397,8 @@ void Match::PlayerPickUpItem(const shared_ptr<GameSession>& session, int playerI
 	}
 }
 
-void Match::PlayerMoveItem(const shared_ptr<GameSession>& session, int playerIndex, int fromIndex, int toIndex, int itemIndex, int targetTopLeftIndex, bool isRotated)
+void Match::PlayerMoveItem(const shared_ptr<GameSession>& session, int playerIndex, int fromIndex, int toIndex, int itemIndex, int targetTopLeftIndex,
+                           bool isRotated)
 {
 	if (fromIndex < 0 || fromIndex >= MAX_INVENTORY_INDEX || toIndex < 0 || toIndex >= MAX_INVENTORY_INDEX ||
 		itemIndex < 0 || itemIndex >= items_.size())
@@ -387,7 +406,7 @@ void Match::PlayerMoveItem(const shared_ptr<GameSession>& session, int playerInd
 		return;
 	}
 
-	
+
 	shared_ptr<Player>& player = players_[playerIndex].first;
 	shared_ptr<Inventory> from = fromIndex < SCALE_INDEX_PREFIX
 		                             ? players_[fromIndex].first->GetInventory()
@@ -456,7 +475,8 @@ void Match::PlayerMoveItem(const shared_ptr<GameSession>& session, int playerInd
 	}
 }
 
-void Match::PlayerDropItem(const shared_ptr<GameSession>& session, int playerIndex, int itemIndex, ProjectJ::Vector position, ProjectJ::Rotator rotation)
+void Match::PlayerDropItem(const shared_ptr<GameSession>& session, int playerIndex, int itemIndex, ProjectJ::Vector position,
+                           ProjectJ::Rotator rotation)
 {
 	if (playerIndex < 0 || playerIndex >= MAX_PLAYER_NUMBER || itemIndex < 0 || itemIndex >= items_.size())
 	{
@@ -474,12 +494,12 @@ void Match::PlayerDropItem(const shared_ptr<GameSession>& session, int playerInd
 	const UINT32 origin = item->ownerFlag_.load();
 	UINT32 expected = ((playerIndex & Item::OWNER_ID_MASK) | Item::OWNED_MASK);
 	const UINT32 desired = (((playerIndex << Item::OWNERSHIP_INDEX) & Item::OWNERSHIP_ID_MASK) | expected);
-	if(item->ownerFlag_.compare_exchange_strong(expected, desired, memory_order_acquire) == false)
+	if (item->ownerFlag_.compare_exchange_strong(expected, desired, memory_order_acquire) == false)
 	{
 		return;
 	}
 
-	if(player->DropItem(item, position, rotation))
+	if (player->DropItem(item, position, rotation))
 	{
 		item->ownerFlag_.store(Item::EMPTY_OWNER_ID, memory_order_release);
 
@@ -552,4 +572,6 @@ void Match::PlayerBackToRoom()
 			player.second = ProjectJ::MatchPlayerState::NONE;
 		}
 	}
+
+	// TODO Def Back To Room Packet
 }
