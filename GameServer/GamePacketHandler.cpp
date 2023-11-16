@@ -137,7 +137,7 @@ bool Handle_C_LOBBY_CHAT(const shared_ptr<SessionBase>& session, ProjectJ::C_LOB
 		                  UTF8_TO_WCHAR(gameSession->GetNickname().c_str()),
 		                  UTF8_TO_WCHAR(packet.chat().c_str()));
 
-		lobby->DoTaskAsync([&lobby, &gameSession, &packet]()
+		lobby->DoTaskAsync([lobby, gameSession, packet]()
 		{
 			ProjectJ::S_LOBBY_CHAT sendPacket;
 			sendPacket.set_nickname(gameSession->GetNickname());
@@ -306,6 +306,15 @@ bool Handle_C_LOBBY_ENTER_ROOM(const shared_ptr<SessionBase>& session, ProjectJ:
 	}
 	else
 	{
+		if (auto room = gameSession->TryGetRoom())
+		{
+			GLogHelper->Print(LogCategory::Log_INFO,
+			                  L"%s Already In Room#%d, But Requested Enter To Room#%d.\n",
+			                  UTF8_TO_WCHAR(gameSession->GetNickname().c_str()), room->GetID(), packet.room_id());
+
+			return false;
+		}
+
 		gameSession->Disconnect();
 		return false;
 	}
@@ -318,7 +327,7 @@ bool Handle_C_ROOM_LEAVE(const shared_ptr<SessionBase>& session, ProjectJ::C_ROO
 	shared_ptr<GameSession> gameSession = static_pointer_cast<GameSession>(session);
 	shared_ptr<Room> room = gameSession->TryGetRoom();
 
-	if (!gameSession && gameSession->IsVerified() == false)
+	if (!gameSession && gameSession->IsVerified() == false || gameSession->GetID() != packet.account_id())
 	{
 		gameSession->Disconnect();
 		return false;
@@ -328,6 +337,10 @@ bool Handle_C_ROOM_LEAVE(const shared_ptr<SessionBase>& session, ProjectJ::C_ROO
 	{
 		if (room->GetID() != packet.room_id())
 		{
+			GLogHelper->Print(LogCategory::Log_INFO,
+			                  L"%s Try to Leaved an Invalid Room. Origin: #%d Request: #%d\n",
+			                  UTF8_TO_WCHAR(gameSession->GetNickname().c_str()), room->GetID(), packet.room_id());
+
 			session->Disconnect();
 			return false;
 		}
