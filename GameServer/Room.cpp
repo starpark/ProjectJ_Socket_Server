@@ -9,13 +9,13 @@
 Room::Room(int roomNumber, string title, shared_ptr<GameSession> hostSession, shared_ptr<Lobby> lobby)
 	: roomID_(roomNumber), title_(move(title)), lobby_(lobby)
 {
-	GLogHelper->Print(LogCategory::Log_INFO, L"Room()#%d\n", roomID_);
+	GLogHelper->Print(LogCategory::LOG_INFO, L"Room()#%d\n", roomID_);
 	sessionSlots_.assign(4, make_pair(nullptr, false));
 }
 
 Room::~Room()
 {
-	GLogHelper->Print(LogCategory::Log_INFO, L"~Room()#%d\n", roomID_);
+	GLogHelper->Print(LogCategory::LOG_INFO, L"~Room()#%d\n", roomID_);
 	sessionSlots_.clear();
 	match_ = nullptr;
 }
@@ -144,19 +144,19 @@ int Room::Enter(shared_ptr<GameSession> session)
 {
 	if (state_ == RoomState::INVALID)
 	{
-		GLogHelper->Print(LogCategory::Log_INFO, L"%s Fail To Enter Room#%d: Invalid Room\n", UTF8_TO_WCHAR(session->GetNickname().c_str()), roomID_);
+		GLogHelper->Print(LogCategory::LOG_INFO, L"%s Fail To Enter Room#%d: Invalid Room\n", UTF8_TO_WCHAR(session->GetNickname().c_str()), roomID_);
 
 		return INVALID_SLOT_INDEX;
 	}
 	if (numberOfPlayers_ == MAX_PLAYER_NUMBER)
 	{
-		GLogHelper->Print(LogCategory::Log_INFO, L"%s Fail To Enter Room#%d: Room Is Full\n", UTF8_TO_WCHAR(session->GetNickname().c_str()), roomID_);
+		GLogHelper->Print(LogCategory::LOG_INFO, L"%s Fail To Enter Room#%d: Room Is Full\n", UTF8_TO_WCHAR(session->GetNickname().c_str()), roomID_);
 
 		return INVALID_SLOT_INDEX;
 	}
 	if (state_ != RoomState::WAITING)
 	{
-		GLogHelper->Print(LogCategory::Log_INFO,
+		GLogHelper->Print(LogCategory::LOG_INFO,
 		                  L"%s Fail To Enter Room#%d: Room State Is Not Waiting\n",
 		                  UTF8_TO_WCHAR(session->GetNickname().c_str()),
 		                  roomID_);
@@ -169,7 +169,7 @@ int Room::Enter(shared_ptr<GameSession> session)
 	{
 		if (sessionSlots_[i].first == nullptr)
 		{
-			GLogHelper->Print(LogCategory::Log_INFO, L"%s Entered Room#%d\n", UTF8_TO_WCHAR(session->GetNickname().c_str()), roomID_);
+			GLogHelper->Print(LogCategory::LOG_INFO, L"%s Entered Room#%d\n", UTF8_TO_WCHAR(session->GetNickname().c_str()), roomID_);
 
 			sessionSlots_[i].first = session;
 			sessionSlots_[i].second = false;
@@ -193,7 +193,7 @@ int Room::Enter(shared_ptr<GameSession> session)
 		}
 	}
 
-	GLogHelper->Print(LogCategory::Log_INFO, L"%s Fail To Enter Room#%d: Unexpected Error\n", UTF8_TO_WCHAR(session->GetNickname().c_str()), roomID_);
+	GLogHelper->Print(LogCategory::LOG_INFO, L"%s Fail To Enter Room#%d: Unexpected Error\n", UTF8_TO_WCHAR(session->GetNickname().c_str()), roomID_);
 
 	return INVALID_SLOT_INDEX;
 }
@@ -202,7 +202,7 @@ int Room::Leave(shared_ptr<GameSession> session, int slotIndex)
 {
 	if (slotIndex < 0 || slotIndex > MAX_PLAYER_NUMBER)
 	{
-		GLogHelper->Print(LogCategory::Log_INFO,
+		GLogHelper->Print(LogCategory::LOG_INFO,
 		                  L"%s Fail To Leave Room#%d: Invalid Slot Index %d\n",
 		                  UTF8_TO_WCHAR(session->GetNickname().c_str()),
 		                  roomID_,
@@ -212,7 +212,7 @@ int Room::Leave(shared_ptr<GameSession> session, int slotIndex)
 	}
 	if (sessionSlots_[slotIndex].first != session)
 	{
-		GLogHelper->Print(LogCategory::Log_INFO,
+		GLogHelper->Print(LogCategory::LOG_INFO,
 		                  L"%s Fail To Leave Room#%d: Session Doesn't Match The Slot Index#%d\n",
 		                  UTF8_TO_WCHAR(session->GetNickname().c_str()),
 		                  roomID_,
@@ -221,7 +221,7 @@ int Room::Leave(shared_ptr<GameSession> session, int slotIndex)
 		return INVALID_SLOT_INDEX;
 	}
 
-	GLogHelper->Print(LogCategory::Log_INFO, L"%s Leaved Room#%d\n", UTF8_TO_WCHAR(session->GetNickname().c_str()), roomID_);
+	GLogHelper->Print(LogCategory::LOG_INFO, L"%s Leaved Room#%d\n", UTF8_TO_WCHAR(session->GetNickname().c_str()), roomID_);
 
 	sessionSlots_[slotIndex].first = nullptr;
 	sessionSlots_[slotIndex].second = false;
@@ -254,7 +254,7 @@ int Room::Leave(shared_ptr<GameSession> session, int slotIndex)
 
 void Room::SessionReadyToReceive(shared_ptr<GameSession> session)
 {
-	GLogHelper->Print(LogCategory::Log_INFO,
+	GLogHelper->Print(LogCategory::LOG_INFO,
 	                  L"%s Ready To Receive In Room#%d\n",
 	                  UTF8_TO_WCHAR(session->GetNickname().c_str()),
 	                  GetID());
@@ -313,7 +313,7 @@ void Room::ToggleReady(shared_ptr<GameSession> session, int slotIndex)
 {
 	if (slotIndex < 0 || slotIndex > MAX_PLAYER_NUMBER || sessionSlots_[slotIndex].first != session)
 	{
-		GLogHelper->Print(LogCategory::Log_INFO, L"%s Try To Invalid Slot Index#%d In Room#%d\n",
+		GLogHelper->Print(LogCategory::LOG_INFO, L"%s Try To Invalid Slot Index#%d In Room#%d\n",
 		                  UTF8_TO_WCHAR(session->GetNickname().c_str()),
 		                  slotIndex,
 		                  roomID_);
@@ -323,7 +323,7 @@ void Room::ToggleReady(shared_ptr<GameSession> session, int slotIndex)
 
 	sessionSlots_[slotIndex].second ^= true;
 
-	GLogHelper->Print(LogCategory::Log_INFO, L"%s Slot#%d %s In Room#%d\n",
+	GLogHelper->Print(LogCategory::LOG_INFO, L"%s Slot#%d %s In Room#%d\n",
 	                  UTF8_TO_WCHAR(session->GetNickname().c_str()),
 	                  slotIndex,
 	                  (sessionSlots_[slotIndex].second == true ? L"Ready" : L"Unready"),
