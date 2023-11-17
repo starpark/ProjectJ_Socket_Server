@@ -325,7 +325,7 @@ void Match::PlayerReadyToReceive(shared_ptr<GameSession> session)
 		rotation->set_yaw(newItem->rotation_.yaw);
 		item->set_allocated_world_rotation(rotation);
 
-		item->set_onwer_player_index(UINT32_MAX);
+		item->set_onwer_player_index(INVALID_ITEM_OWNER_ID);
 		item->set_is_rotated(newItem->bIsRotated_);
 	}
 
