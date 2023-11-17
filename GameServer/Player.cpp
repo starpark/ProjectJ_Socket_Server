@@ -4,15 +4,14 @@
 #include "GameSession.h"
 
 
-Player::Player(int index, int row, int column, int maxWeight, const shared_ptr<Match>& match)
-	: Inventory(index, row, column, maxWeight), match_(match)
+Player::Player(int index, int row, int column, int maxWeight, int sessionID, string nickname)
+	: Inventory(index, row, column, maxWeight), sessionID_(sessionID), nickname_(nickname)
 {
 }
 
 Player::~Player()
 {
-	GLogHelper->Print(LogCategory::Log_INFO, L"~Player()\n");
-	match_ = nullptr;
+	GLogHelper->Print(LogCategory::LOG_INFO, L"~Player()\n");
 }
 
 
