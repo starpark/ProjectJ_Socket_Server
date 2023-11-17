@@ -13,34 +13,36 @@ struct Item
 {
 	enum : UINT32
 	{
-		OWNERSHIP_INDEX = 16,
+		HANDLE_PLAYER_INDEX = 16,
 		EMPTY_OWNER_ID = 0x0000'0000,
-		OWNED_MASK = 0xF000'0000,
-		OWNERSHIP_ID_MASK = 0x0FFF'0000,
-		OWNER_ID_MASK = 0x0000'FFFF,
+		HANDLE_MASK = 0xF000'0000,
+		HANDLE_PLAYER_MASK = 0x0FFF'0000,
+		OWNED_MASK = 0x0000'F000,
+		OWNER_PLAYER_MASK = 0x0000'0FFF
 	};
 
 public:
-	Item(int id, int index, int weight, Point size, Vector vector, Rotator rotate)
-		: id_(id), index_(index), weight_(weight), size_(size), position_(vector), rotation_(rotate)
+	Item(int inId, int inIndex, int inWeight, Point inSize, Vector inVector, Rotator inRotate)
+		: id(inId), index(inIndex), weight(inWeight), size(inSize), position(inVector), rotation(inRotate)
 	{
-		ownerFlag_.store(EMPTY_OWNER_ID);
+		ownerFlag.store(EMPTY_OWNER_ID);
 	}
 
-	const int id_;
-	const int index_;
-	const int weight_;
-	const Point size_;
+	const int id;
+	const int index;
+	const int weight;
+	const Point size;
 
-	Vector position_;
-	Rotator rotation_;
+	Vector position;
+	Rotator rotation;
 
-	int topLeftIndex_ = INVALID_TOP_LEFT_INDEX;
-	bool bIsRotated_ = false;
-	// 0: chaser, 1~3: fugitive, 4-7: scale
-	// [0000][0000 0000 0000][0000 0000 0000 0000]
-	// 상위 4 비트: 소유 여부 FFFF: 누군가 소유 중/ 0000: 아무도 소유중이 아님
-	// 상위 12 비트: 현재 조작중인 player index
-	// 하위 16 비트: 현재 소유중인 player index
-	atomic<UINT32> ownerFlag_; // TODO
+	// index 는 chaser - 0, fugitive - 1 ~ 3, scale 4 ~ 7 로 배정 
+	// [0000][0000 0000 0000] [0000][0000 0000 0000]
+	// 1 ~ 4	4 비트: 조작 여부 FFFF: 누군가 조작 중/ 0000: 아무도 조작중이 아님
+	// 5 ~ 16	12 비트: 현재 조작중인 player index
+	// 17 ~ 20	4 비트: 소유 여부 FFFF: 누군가 소우 중 / 0000: 아무도 소유중이 아님
+	// 21 ~ 32	12 비트: 현재 소유중인 player index
+	atomic<UINT32> ownerFlag; // TODO
+	int topLeftIndex = INVALID_TOP_LEFT_INDEX;
+	bool bIsRotated = false;
 };
