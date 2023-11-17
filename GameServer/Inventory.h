@@ -1,6 +1,19 @@
 #pragma once
 #include "Item.h"
 
+enum class InventoryErrorCode : UINT8
+{
+	SUCCESS = 0,
+	ALREADY_HAVE = 10,
+	EXCEEDING_WEIGHT_LIMITS = 11,
+	NO_EMPTY_SPACE = 12,
+	FROM_DOES_NOT_HAVE = 20,
+	TO_EXCEEDING_WEIGHT_LIMITS = 21,
+	TO_NO_EMPTY_SPACE = 22,
+	DO_NOT_HAVE = 30,
+
+};
+
 class Inventory : public enable_shared_from_this<Inventory>
 {
 	enum
@@ -17,11 +30,11 @@ public:
 	int GetCurrentWeight() const { return currentWeight_; }
 	int GetMaxWeight() const { return maxWeight_; }
 	int GetIndex() const { return index_; }
-	void PrintTest();
 
-	bool TryAddItem(const shared_ptr<Item>& item);
-	bool RelocateItem(const shared_ptr<Inventory>& to, const shared_ptr<Item>& item, int slotIndex, bool isRotated);
-	bool DropItem(const shared_ptr<Item>& item, ProjectJ::Vector vector, ProjectJ::Rotator rotate);
+	InventoryErrorCode TryAddItem(const shared_ptr<Item>& item);
+	InventoryErrorCode RelocateItem(const shared_ptr<Inventory>& to, const shared_ptr<Item>& item, int slotIndex, bool isRotated);
+	InventoryErrorCode DropItem(const shared_ptr<Item>& item, ProjectJ::Vector vector, ProjectJ::Rotator rotate);
+	static const wchar_t* GetErrorWhat(InventoryErrorCode errorCode);
 
 protected:
 	Point IndexToPoint(int index) { return {index % column_, index / column_}; }

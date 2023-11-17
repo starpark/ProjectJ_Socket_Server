@@ -12,111 +12,95 @@ Inventory::~Inventory()
 	owningItems_.clear();
 }
 
-bool Inventory::TryAddItem(const shared_ptr<Item>& item)
+InventoryErrorCode Inventory::TryAddItem(const shared_ptr<Item>& item)
 {
 	WRITE_LOCK;
-	if (owningItems_.find(item->index_) != owningItems_.end() || item->ownerFlag_.load() != Item::EMPTY_OWNER_ID)
+	if (owningItems_.find(item->index) != owningItems_.end())
 	{
-		return false;
+		return InventoryErrorCode::ALREADY_HAVE;
 	}
+	UINT32 flag = item->ownerFlag.load();
 
-	if (CheckWeightLimit(item->weight_) == false)
+	if (CheckWeightLimit(item->weight) == false)
 	{
-		return false;
+		return InventoryErrorCode::EXCEEDING_WEIGHT_LIMITS;
 	}
 
 	for (int slotIndex = 0; slotIndex < row_ * column_; slotIndex++)
 	{
 		if (CheckValidSlot(item, slotIndex, false))
 		{
-			item->topLeftIndex_ = slotIndex;
-			item->bIsRotated_ = false;
+			item->topLeftIndex = slotIndex;
+			item->bIsRotated = false;
 
 			AddItemAt(item, slotIndex);
 
-			return true;
+			return InventoryErrorCode::SUCCESS;
 		}
 
 		if (CheckValidSlot(item, slotIndex, true))
 		{
-			item->topLeftIndex_ = slotIndex;
-			item->bIsRotated_ = true;
+			item->topLeftIndex = slotIndex;
+			item->bIsRotated = true;
 
 			AddItemAt(item, slotIndex);
 
-			return true;
+			return InventoryErrorCode::SUCCESS;
 		}
 	}
 
-	return false;
+	return InventoryErrorCode::ALREADY_HAVE;
 }
 
-bool Inventory::RelocateItem(const shared_ptr<Inventory>& to, const shared_ptr<Item>& item, int slotIndex, bool isRotated)
+InventoryErrorCode Inventory::RelocateItem(const shared_ptr<Inventory>& to, const shared_ptr<Item>& item, int slotIndex, bool isRotated)
 {
 	WRITE_LOCK;
-	if (owningItems_.find(item->index_) == owningItems_.end())
+	if (owningItems_.find(item->index) == owningItems_.end())
 	{
-		return false;
+		return InventoryErrorCode::FROM_DOES_NOT_HAVE;
 	}
 
 	PickUpItem(item);
 
-	if (to->CheckValidSlot(item, slotIndex, isRotated) && to->CheckWeightLimit(item->weight_))
+	if (to->CheckValidSlot(item, slotIndex, isRotated))
 	{
-		item->topLeftIndex_ = slotIndex;
-		item->bIsRotated_ = isRotated;
-
-		to->AddItemAt(item, slotIndex);
-
-		return true;
-	}
-
-	AddItemAt(item, item->topLeftIndex_);
-
-	return false;
-}
-
-bool Inventory::DropItem(const shared_ptr<Item>& item, ProjectJ::Vector vector, ProjectJ::Rotator rotate)
-{
-	WRITE_LOCK;
-	if (owningItems_.find(item->index_) == owningItems_.end())
-	{
-		return false;
-	}
-
-	PickUpItem(item);
-
-	return true;
-}
-
-void Inventory::PrintTest()
-{
-	for (int rowIndex = 0; rowIndex < row_; rowIndex++)
-	{
-		for (int columnIndex = 0; columnIndex < column_; columnIndex++)
+		if(to->CheckWeightLimit(item->weight))
 		{
-			int slotIndex = PointToIndex({columnIndex, rowIndex});
-			cout << inventorySlots_[slotIndex] << " ";
+			item->topLeftIndex = slotIndex;
+			item->bIsRotated = isRotated;
+
+			to->AddItemAt(item, slotIndex);
+
+			return InventoryErrorCode::SUCCESS;
 		}
-		cout << endl;
+		else
+		{
+			return InventoryErrorCode::TO_EXCEEDING_WEIGHT_LIMITS;
+		}
 	}
-	cout << endl;
 
-	cout << "소유중인 아이템: ";
-	for (auto items : owningItems_)
-	{
-		cout << items.first << " ";
-	}
-	cout << endl;
+	AddItemAt(item, item->topLeftIndex);
 
-	cout << "현재 무게/최대 무게: " << currentWeight_ << "/" << maxWeight_ << endl;
+	throw InventoryErrorCode::TO_NO_EMPTY_SPACE;
 }
 
+InventoryErrorCode Inventory::DropItem(const shared_ptr<Item>& item, ProjectJ::Vector vector, ProjectJ::Rotator rotate)
+{
+	WRITE_LOCK;
+	if (owningItems_.find(item->index) == owningItems_.end())
+	{
+		return InventoryErrorCode::DO_NOT_HAVE;
+	}
+
+	PickUpItem(item);
+
+	return InventoryErrorCode::SUCCESS;
+}
 
 bool Inventory::CheckValidSlot(const shared_ptr<Item>& item, int slotIndex, bool isRotated)
 {
 	Point tile = IndexToPoint(slotIndex);
-	Point size = item->size_;
+	Point size = item->size;
 	if (isRotated)
 	{
 		swap(size.x, size.y);
@@ -159,9 +143,9 @@ void Inventory::RelocateItemAt(const shared_ptr<Item>& item, int slotIndex)
 void Inventory::AddItemAt(const shared_ptr<Item>& item, int slotIndex)
 {
 	Point tile = IndexToPoint(slotIndex);
-	Point size = item->size_;
+	Point size = item->size;
 
-	if (item->bIsRotated_)
+	if (item->bIsRotated)
 	{
 		swap(size.x, size.y);
 	}
@@ -170,7 +154,7 @@ void Inventory::AddItemAt(const shared_ptr<Item>& item, int slotIndex)
 	{
 		for (int columnIndex = 0; columnIndex < size.x; columnIndex++)
 		{
-			inventorySlots_[PointToIndex({tile.x + columnIndex, tile.y + rowIndex})] = item->id_;
+			inventorySlots_[PointToIndex({tile.x + columnIndex, tile.y + rowIndex})] = item->id;
 		}
 	}
 
@@ -179,10 +163,10 @@ void Inventory::AddItemAt(const shared_ptr<Item>& item, int slotIndex)
 
 void Inventory::PickUpItem(shared_ptr<Item> item)
 {
-	Point tile = IndexToPoint(item->topLeftIndex_);
-	Point size = item->size_;
+	Point tile = IndexToPoint(item->topLeftIndex);
+	Point size = item->size;
 
-	if (item->bIsRotated_)
+	if (item->bIsRotated)
 	{
 		swap(size.x, size.y);
 	}
@@ -192,7 +176,7 @@ void Inventory::PickUpItem(shared_ptr<Item> item)
 		for (int columnIndex = 0; columnIndex < size.x; columnIndex++)
 		{
 			int slotIndex = PointToIndex({tile.x + columnIndex, tile.y + rowIndex});
-			if (inventorySlots_[slotIndex] != item->id_)
+			if (inventorySlots_[slotIndex] != item->id)
 			{
 				// TODO ERROR
 			}
@@ -206,12 +190,37 @@ void Inventory::PickUpItem(shared_ptr<Item> item)
 
 void Inventory::AcquireItem(const shared_ptr<Item>& item)
 {
-	owningItems_.insert({item->index_, item});
-	currentWeight_ += item->weight_;
+	owningItems_.insert({item->index, item});
+	currentWeight_ += item->weight;
 }
 
 void Inventory::ReleaseItem(const shared_ptr<Item>& item)
 {
-	owningItems_.erase(item->index_);
-	currentWeight_ -= item->weight_;
+	owningItems_.erase(item->index);
+	currentWeight_ -= item->weight;
+}
+
+const wchar_t* Inventory::GetErrorWhat(InventoryErrorCode errorCode)
+{
+	switch (errorCode)
+	{
+	case InventoryErrorCode::SUCCESS:
+		return L"No Error";
+	case InventoryErrorCode::ALREADY_HAVE:
+		return L"Already Have The Item";
+	case InventoryErrorCode::EXCEEDING_WEIGHT_LIMITS:
+		return L"Exceeding Inventory Weight Limits";
+	case InventoryErrorCode::NO_EMPTY_SPACE:
+		return L"There Are No Empty Spaces In The Inventory";
+	case InventoryErrorCode::FROM_DOES_NOT_HAVE:
+		return L"From's Inventory Doesn't Have ITem";
+	case InventoryErrorCode::TO_EXCEEDING_WEIGHT_LIMITS:
+		return L"Exceeding To's Inventory Weight Limits";
+	case InventoryErrorCode::TO_NO_EMPTY_SPACE:
+		return L"There Are No Empty Spaces In To's Inventory";
+	case InventoryErrorCode::DO_NOT_HAVE:
+		return L"Don't Have The Item";
+	default:
+		return L"Unexpected Error";
+	}
 }
