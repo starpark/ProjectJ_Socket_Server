@@ -29,10 +29,10 @@ bool GameService::Init()
 {
 	if (Service::Init() == false)
 	{
-		GLogHelper->Print(LogCategory::Log_ERROR, L"The ProjectJ Server Failed to Start\n");
+		GLogHelper->Print(LogCategory::LOG_ERROR, L"The ProjectJ Server Failed to Start\n");
 		return false;
 	}
-	GLogHelper->Print(LogCategory::Log_SUCCESS, L"Successfully Start The ProjectJ Server Host: %s Port: %d \n",
+	GLogHelper->Print(LogCategory::LOG_SUCCESS, L"Successfully Start The ProjectJ Server Host: %s Port: %d \n",
 	                  GetNetAddress().GetIpAddressW().c_str(), GetNetAddress().GetPort());
 	auto thisService = static_pointer_cast<GameService>(shared_from_this());
 	lobby_ = make_shared<Lobby>(thisService);

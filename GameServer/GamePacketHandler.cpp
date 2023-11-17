@@ -28,7 +28,7 @@ bool Handle_C_VERIFY_TOKEN(const shared_ptr<SessionBase>& session, ProjectJ::C_V
 	                             issuer("ProjectJ API Server"), verify(true));
 
 #ifdef _DEBUG
-	GLogHelper->Print(LogCategory::Log_INFO,
+	GLogHelper->Print(LogCategory::LOG_INFO,
 	                  L"Authentication attempts: %s:%hu\n",
 	                  UTF8_TO_WCHAR(gameSession->GetNetAddress().GetIpAddress().c_str()), gameSession->GetNetAddress().GetPort());
 #endif
@@ -81,7 +81,7 @@ bool Handle_C_VERIFY_TOKEN(const shared_ptr<SessionBase>& session, ProjectJ::C_V
 				throw 4;
 			}
 
-			GLogHelper->Print(LogCategory::Log_SUCCESS, L"Authentication Success: %s:%hu AccountID: %d Nickname: %s\n",
+			GLogHelper->Print(LogCategory::LOG_SUCCESS, L"Authentication Success: %s:%hu AccountID: %d Nickname: %s\n",
 			                  UTF8_TO_WCHAR(gameSession->GetNetAddress().GetIpAddress().c_str()),
 			                  gameSession->GetNetAddress().GetPort(),
 			                  gameSession->GetID(),
@@ -94,17 +94,17 @@ bool Handle_C_VERIFY_TOKEN(const shared_ptr<SessionBase>& session, ProjectJ::C_V
 		catch (nlohmann::json::exception& e)
 		{
 			// parsing type error
-			GLogHelper->Print(LogCategory::Log_WARN, L"Authentication Failure: %s\n", UTF8_TO_WCHAR(e.what()));
+			GLogHelper->Print(LogCategory::LOG_WARN, L"Authentication Failure: %s\n", UTF8_TO_WCHAR(e.what()));
 			verifyPacket.set_result(false);
 		}
 		catch (int e)
 		{
-			GLogHelper->Print(LogCategory::Log_WARN, L"Authentication Failure: Error Number %d\n", e);
+			GLogHelper->Print(LogCategory::LOG_WARN, L"Authentication Failure: Error Number %d\n", e);
 			verifyPacket.set_result(false);
 		}
 		catch (...)
 		{
-			GLogHelper->Print(LogCategory::Log_WARN, L"Authentication Failure: Unexpected Error\n");
+			GLogHelper->Print(LogCategory::LOG_WARN, L"Authentication Failure: Unexpected Error\n");
 			verifyPacket.set_result(false);
 		}
 		break;
@@ -134,7 +134,7 @@ bool Handle_C_LOBBY_CHAT(const shared_ptr<SessionBase>& session, ProjectJ::C_LOB
 
 	if (lobby)
 	{
-		GLogHelper->Print(LogCategory::Log_INFO,
+		GLogHelper->Print(LogCategory::LOG_INFO,
 		                  L"%s Chatted in Lobby: %s\n",
 		                  UTF8_TO_WCHAR(gameSession->GetNickname().c_str()),
 		                  UTF8_TO_WCHAR(packet.chat().c_str()));
@@ -172,7 +172,7 @@ bool Handle_C_LOBBY_REFRESH_ROOM(const shared_ptr<SessionBase>& session, Project
 
 	if (lobby)
 	{
-		GLogHelper->Print(LogCategory::Log_INFO,
+		GLogHelper->Print(LogCategory::LOG_INFO,
 		                  L"%s#%d Has Refreshed Room List\n",
 		                  UTF8_TO_WCHAR(gameSession->GetNickname().c_str()), gameSession->GetID());
 
@@ -299,7 +299,7 @@ bool Handle_C_LOBBY_ENTER_ROOM(const shared_ptr<SessionBase>& session, ProjectJ:
 			}
 			else
 			{
-				GLogHelper->Print(LogCategory::Log_INFO,
+				GLogHelper->Print(LogCategory::LOG_INFO,
 				                  L"%s Accessed An Invalid Room.\n",
 				                  UTF8_TO_WCHAR(gameSession->GetNickname().c_str()));
 
@@ -317,7 +317,7 @@ bool Handle_C_LOBBY_ENTER_ROOM(const shared_ptr<SessionBase>& session, ProjectJ:
 	{
 		if (auto room = gameSession->TryGetRoom())
 		{
-			GLogHelper->Print(LogCategory::Log_INFO,
+			GLogHelper->Print(LogCategory::LOG_INFO,
 			                  L"%s Already In Room#%d, But Requested Enter To Room#%d.\n",
 			                  UTF8_TO_WCHAR(gameSession->GetNickname().c_str()), room->GetID(), packet.room_id());
 
@@ -370,7 +370,7 @@ bool Handle_C_ROOM_LEAVE(const shared_ptr<SessionBase>& session, ProjectJ::C_ROO
 	{
 		if (room->GetID() != packet.room_id())
 		{
-			GLogHelper->Print(LogCategory::Log_INFO,
+			GLogHelper->Print(LogCategory::LOG_INFO,
 			                  L"%s Try To Leaved An Invalid Room. Target: #%d Received: #%d\n",
 			                  UTF8_TO_WCHAR(gameSession->GetNickname().c_str()), room->GetID(), packet.room_id());
 
@@ -428,7 +428,7 @@ bool Handle_C_ROOM_CHAT(const shared_ptr<SessionBase>& session, ProjectJ::C_ROOM
 
 	if (room)
 	{
-		GLogHelper->Print(LogCategory::Log_INFO,
+		GLogHelper->Print(LogCategory::LOG_INFO,
 		                  L"%s Chatted In Room#%d: %s\n",
 		                  UTF8_TO_WCHAR(gameSession->GetNickname().c_str()),
 		                  room->GetID(),

@@ -17,7 +17,7 @@ bool DataManager::Init()
 		LoadItemSpawnData();
 		LoadCharacterSpawnData();
 
-		GLogHelper->Print(LogCategory::Log_SUCCESS,
+		GLogHelper->Print(LogCategory::LOG_SUCCESS,
 		                  L"Item Data Version: %s / Date: %s / Total Items: %d items / Total Item Spawn Points: %d points\n",
 		                  UTF8_TO_WCHAR(itemDataVersion_.c_str()), UTF8_TO_WCHAR(itemDataUpdatedDate_.c_str()), itemData_.size(),
 		                  itemSpawnData_.size());
@@ -26,17 +26,17 @@ bool DataManager::Init()
 	}
 	catch (const std::exception& e)
 	{
-		GLogHelper->Print(LogCategory::Log_ERROR,
+		GLogHelper->Print(LogCategory::LOG_ERROR,
 		                  L"DataManager Init Failure: %s\n",
 		                  UTF8_TO_WCHAR(e.what()));
 	}
 	catch (const wchar_t* e)
 	{
-		GLogHelper->Print(LogCategory::Log_ERROR, L"DataManager Init Failure: %s\n", e);
+		GLogHelper->Print(LogCategory::LOG_ERROR, L"DataManager Init Failure: %s\n", e);
 	}
 	catch (...)
 	{
-		GLogHelper->Print(LogCategory::Log_ERROR, L"DataManager Init Failure: Unexpected Error\n");
+		GLogHelper->Print(LogCategory::LOG_ERROR, L"DataManager Init Failure: Unexpected Error\n");
 	}
 	return false;
 }

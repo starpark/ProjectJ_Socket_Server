@@ -33,10 +33,10 @@ int main()
 	if (false == GDBConnection->Connect(
 		L"Driver={ODBC Driver 17 for SQL Server}; Server=localhost; Database=ProjectJ; UID=admin; PWD=q1w2e3r4;"))
 	{
-		GLogHelper->Print(LogCategory::Log_ERROR, L"DB Connection Failure\n");
+		GLogHelper->Print(LogCategory::LOG_ERROR, L"DB Connection Failure\n");
 		return 0;
 	}
-	GLogHelper->Print(LogCategory::Log_SUCCESS, L"DB Connection Success\n");
+	GLogHelper->Print(LogCategory::LOG_SUCCESS, L"DB Connection Success\n");
 
 	if (DataManager::Init() == false)
 	{

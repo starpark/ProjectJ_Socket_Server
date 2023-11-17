@@ -11,7 +11,7 @@ GameSession::GameSession()
 
 GameSession::~GameSession()
 {
-	GLogHelper->Print(LogCategory::Log_INFO, L"~GameSession()\n");
+	GLogHelper->Print(LogCategory::LOG_INFO, L"~GameSession()\n");
 
 	player_.reset();
 	lobby_.reset();
@@ -78,12 +78,12 @@ ProjectJ::Player* GameSession::MakePlayer()
 
 void GameSession::OnConnected()
 {
-	GLogHelper->Print(LogCategory::Log_INFO, L"OnConnected %s:%hu\n", netAddress_.GetIpAddressW().c_str(), netAddress_.GetPort());
+	GLogHelper->Print(LogCategory::LOG_INFO, L"OnConnected %s:%hu\n", netAddress_.GetIpAddressW().c_str(), netAddress_.GetPort());
 }
 
 void GameSession::OnDisconnect()
 {
-	GLogHelper->Print(LogCategory::Log_INFO, L"OnDisconnect %s:%hu\n", netAddress_.GetIpAddressW().c_str(), netAddress_.GetPort());
+	GLogHelper->Print(LogCategory::LOG_INFO, L"OnDisconnect %s:%hu\n", netAddress_.GetIpAddressW().c_str(), netAddress_.GetPort());
 	shared_ptr<GameSession> gameSession = static_pointer_cast<GameSession>(shared_from_this());
 
 	// Clean up used contents
