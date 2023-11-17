@@ -158,7 +158,7 @@ void Match::Start()
 	Broadcast(sendBuffer);
 
 	// TODO TICK
-	tickHandle_ = GTimerTaskManager->AddTimer(10, true, this, &Match::Tick);
+	tickHandle_ = GTimerTaskManager->AddTimer(15, true, this, &Match::Tick);
 }
 
 void Match::End()
