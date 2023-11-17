@@ -55,6 +55,8 @@ ProjectJ::PlayerInfo* Match::GetPlayerInfo(int playerIndex)
 	playerInfo->set_allocated_player(player);
 	playerInfo->set_allocated_position(position);
 	playerInfo->set_allocated_rotation(rotation);
+
+	return playerInfo;
 }
 
 void Match::Tick()
