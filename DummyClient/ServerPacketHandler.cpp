@@ -138,22 +138,60 @@ bool Handle_S_ROOM_START_MATCH(const shared_ptr<SessionBase>& session, ProjectJ:
 	auto clientSession = static_pointer_cast<ClientSession>(session);
 	clientSession->PrintNickname();
 	cout << clientSession->roomID << "번 방 게임 시작 " << endl;
+
+	if(packet.start())
+	{
+		ProjectJ::C_MATCH_READY_TO_RECEIVE sendPacket;
+
+		sendPacket.set_account_id(clientSession->id);
+
+		auto sendBuffer = ServerPacketHandler::MakeSendBuffer(sendPacket);
+		session->Send(sendBuffer);
+	}
+	
 	return true;
 }
 
 bool Handle_S_MATCH_ALL_READY_TO_RECIEVE(const shared_ptr<SessionBase>& session, ProjectJ::S_MATCH_ALL_READY_TO_RECIEVE& packet)
 {
+	auto clientSession = static_pointer_cast<ClientSession>(session);
+
+	clientSession->matchIndex = packet.your_player_index();
+
 	return true;
 }
 
 bool Handle_S_MATCH_ITEM_GENERATED(const shared_ptr<SessionBase>& session, ProjectJ::S_MATCH_ITEM_GENERATED& packet)
 {
-	cout << packet.ByteSizeLong() << endl;
+	auto clientSession = static_pointer_cast<ClientSession>(session);
+
+	for(auto& item : packet.items())
+	{
+		cout << "Item#" << item.id() << "생성된 아이템" << endl;
+	}
+
+	ProjectJ::C_MATCH_READY_TO_START sendPacket;
+	sendPacket.set_player_index(clientSession->matchIndex);
+	auto sendBuffer = ServerPacketHandler::MakeSendBuffer(sendPacket);
+	session->Send(sendBuffer);
+
 	return true;
 }
 
 bool Handle_S_MATCH_START(const shared_ptr<SessionBase>& session, ProjectJ::S_MATCH_START& packet)
 {
+	auto clientSession = static_pointer_cast<ClientSession>(session);
+	for(int i = 0; i < 5; i++)
+	{
+		ProjectJ::C_MATCH_ITEM_PICKUP sendPacket;
+
+		sendPacket.set_item_index(i);
+		sendPacket.set_player_index(clientSession->matchIndex);
+
+		auto sendBuffer = ServerPacketHandler::MakeSendBuffer(sendPacket);
+		session->Send(sendBuffer);
+	}
+
 	return true;
 }
 
@@ -166,6 +204,7 @@ bool Handle_S_MATCH_END(const shared_ptr<SessionBase>& session, ProjectJ::S_MATC
 {
 	auto clientSession = static_pointer_cast<ClientSession>(session);
 
+	this_thread::sleep_for(1s);
 	clientSession->TestRoomReadyToReceive();
 	clientSession->TestRoomReady();
 
@@ -174,6 +213,8 @@ bool Handle_S_MATCH_END(const shared_ptr<SessionBase>& session, ProjectJ::S_MATC
 
 bool Handle_S_MATCH_ITEM_SOMEONE_PICKUP(const shared_ptr<SessionBase>& session, ProjectJ::S_MATCH_ITEM_SOMEONE_PICKUP& packet)
 {
+	cout << "Player#" << packet.player_index() << "Item#" << packet.item_index() << " 아이템 획득" << endl;
+ 
 	return true;
 }
 

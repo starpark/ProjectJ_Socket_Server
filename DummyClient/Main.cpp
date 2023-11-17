@@ -3,7 +3,7 @@
 
 #define TEST_PORT 55141
 #define LIVE_PORT 3000
-#define SESSION_COUNT 480
+#define SESSION_COUNT 200
 
 int main(int argc, char* argv[])
 {
@@ -18,7 +18,7 @@ int main(int argc, char* argv[])
 
 	if (service->Init())
 	{
-		for (int i = 0; i < 2; i++)
+		for (int i = 0; i < 4; i++)
 		{
 			GThreadManager->Launch([&]()
 			{
@@ -37,7 +37,7 @@ int main(int argc, char* argv[])
 	this_thread::sleep_for(5s);
 	auto sessions = service->GetSessions();
 
-	int threadCount = 6;
+	int threadCount = 5;
 	int offset = sessions.size() / threadCount;
 	for (int i = 0; i < threadCount; i++)
 	{

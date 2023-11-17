@@ -68,6 +68,7 @@ public:
 	int roomID = -1;
 	bool isRoom = false;
 	int roomSlotIndex = -1;
+	int matchIndex = -1;
 	vector<int> roomList;
 	string nickname;
 	string name;
