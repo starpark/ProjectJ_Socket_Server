@@ -63,7 +63,8 @@ private:
 
 private:
 	USE_LOCK;
-	bool isMatchStarted_ = false;
+	atomic<bool> isMatchStarted_ = false;
+	atomic<bool> isMatchEnded_ = false;
 	UINT64 matchEndTick_ = 0;
 	shared_ptr<Room> ownerRoom_;
 	// 플레이어 인덱스 0 ~ 3
