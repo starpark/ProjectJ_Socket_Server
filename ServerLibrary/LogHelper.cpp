@@ -63,19 +63,19 @@ void LogHelper::Write()
 
 		switch (log.category)
 		{
-		case LogCategory::Log_INFO:
+		case LogCategory::LOG_INFO:
 			logString += L"[Info] ";
 			break;
-		case LogCategory::Log_TEMP:
+		case LogCategory::LOG_TEMP:
 			logString += L"[Temp] ";
 			break;
-		case LogCategory::Log_ERROR:
+		case LogCategory::LOG_ERROR:
 			logString += L"[Error] ";
 			break;
-		case LogCategory::Log_WARN:
+		case LogCategory::LOG_WARN:
 			logString += L"[Warn] ";
 			break;
-		case LogCategory::Log_SUCCESS:
+		case LogCategory::LOG_SUCCESS:
 			logString += L"[Success] ";
 			break;
 		}
@@ -87,7 +87,7 @@ void LogHelper::Write()
 		fflush(stdout);
 #endif
 
-		SetColor(LogCategory::Log_INFO);
+		SetColor(LogCategory::LOG_INFO);
 
 		if (logFile_.is_open())
 		{
@@ -110,7 +110,7 @@ void LogHelper::WriteStdOut(LogCategory category, const WCHAR* format, ...)
 
 	fflush(stdout);
 
-	SetColor(LogCategory::Log_INFO);
+	SetColor(LogCategory::LOG_INFO);
 }
 
 void LogHelper::SetColor(LogCategory category)

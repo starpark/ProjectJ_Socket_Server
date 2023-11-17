@@ -5,11 +5,11 @@
 
 enum class LogCategory : uint8_t
 {
-	Log_INFO,
-	Log_TEMP,
-	Log_ERROR,
-	Log_WARN,
-	Log_SUCCESS
+	LOG_INFO,
+	LOG_TEMP,
+	LOG_ERROR,
+	LOG_WARN,
+	LOG_SUCCESS,
 };
 
 enum
@@ -19,7 +19,7 @@ enum
 
 struct LogWrapper
 {
-	LogCategory category = LogCategory::Log_TEMP;
+	LogCategory category = LogCategory::LOG_TEMP;
 	wstring buffer;
 };
 
