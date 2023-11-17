@@ -36,7 +36,6 @@ void CommandTaskObject::Execute()
 		const int taskCount = static_cast<int>(tasks.size());
 		for (int i = 0; i < taskCount; i++)
 		{
-			WRITE_LOCK;
 			tasks[i]->Execute();
 		}
 

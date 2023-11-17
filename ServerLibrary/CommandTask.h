@@ -66,12 +66,6 @@ public:
 		Push(ObjectPool<CommandTask>::MakeShared(move(command)));
 	}
 
-	void DoTaskSync(CommandType&& command)
-	{
-		WRITE_LOCK;
-		command();
-	}
-
 	template <typename ObjectType, typename RetValType, typename... Args>
 	void DoTaskAsync(RetValType (ObjectType::* memberFunc)(Args ...), Args ... args)
 	{
@@ -100,16 +94,6 @@ public:
 		);
 	}
 
-	template <typename ObjectType, typename RetValType, typename... Args>
-	RetValType DoTaskSync(RetValType (ObjectType::* memberFunc)(Args ...), Args ... args)
-	{
-		static_assert(is_base_of_v<CommandTaskObject, ObjectType>, "The object must inherit from CommandTaskObject.");
-
-		shared_ptr<ObjectType> object = static_pointer_cast<ObjectType>(shared_from_this());
-		WRITE_LOCK;
-		return (object.get()->*memberFunc)(args...);
-	}
-
 	void Push(CommandTaskRef task, bool pushOnly = false);
 	void Execute();
 
@@ -117,9 +101,6 @@ public:
 protected:
 	atomic<int> taskCount_ = 0;
 	LockQueue<CommandTaskRef> tasks_;
-
-private:
-	USE_LOCK;
 };
 
 using CommandTaskObjectRef = shared_ptr<CommandTaskObject>;
