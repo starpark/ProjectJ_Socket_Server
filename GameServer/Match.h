@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "Scale.h"
 #include "Item.h"
 
@@ -66,7 +66,9 @@ private:
 	bool isMatchStarted_ = false;
 	UINT64 matchEndTick_ = 0;
 	shared_ptr<Room> ownerRoom_;
+	// 플레이어 인덱스 0 ~ 3
 	vector<pair<shared_ptr<Player>, ProjectJ::MatchPlayerState>> players_;
+	// 저울 인덱스 4 ~ 7
 	vector<shared_ptr<Scale>> scales_;
 	vector<shared_ptr<Item>> items_;
 	TimerHandle tickHandle_;
