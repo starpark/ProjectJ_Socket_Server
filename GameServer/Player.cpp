@@ -17,11 +17,11 @@ Player::~Player()
 
 void Player::SetInfo(ProjectJ::Vector position, ProjectJ::Rotator rotation)
 {
-	worldPosition_.x = position.x();
-	worldPosition_.y = position.y();
-	worldPosition_.z = position.z();
+	worldPosition_.x_ = position.x();
+	worldPosition_.y_ = position.y();
+	worldPosition_.z_ = position.z();
 
-	worldRotation_.pitch = rotation.pitch();
-	worldRotation_.roll = rotation.roll();
-	worldRotation_.yaw = rotation.yaw();
+	worldRotation_.pitch_ = rotation.pitch();
+	worldRotation_.roll_ = rotation.roll();
+	worldRotation_.yaw_ = rotation.yaw();
 }
