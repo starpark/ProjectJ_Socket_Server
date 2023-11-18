@@ -60,6 +60,12 @@ extern C_LOBBY_ENTER_ROOMDefaultTypeInternal _C_LOBBY_ENTER_ROOM_default_instanc
 class C_LOBBY_REFRESH_ROOM;
 struct C_LOBBY_REFRESH_ROOMDefaultTypeInternal;
 extern C_LOBBY_REFRESH_ROOMDefaultTypeInternal _C_LOBBY_REFRESH_ROOM_default_instance_;
+class C_MATCH_CHASER_ATTACK;
+struct C_MATCH_CHASER_ATTACKDefaultTypeInternal;
+extern C_MATCH_CHASER_ATTACKDefaultTypeInternal _C_MATCH_CHASER_ATTACK_default_instance_;
+class C_MATCH_CHASER_HIT;
+struct C_MATCH_CHASER_HITDefaultTypeInternal;
+extern C_MATCH_CHASER_HITDefaultTypeInternal _C_MATCH_CHASER_HIT_default_instance_;
 class C_MATCH_INFO;
 struct C_MATCH_INFODefaultTypeInternal;
 extern C_MATCH_INFODefaultTypeInternal _C_MATCH_INFO_default_instance_;
@@ -111,6 +117,12 @@ extern S_LOBBY_REFRESH_ROOMDefaultTypeInternal _S_LOBBY_REFRESH_ROOM_default_ins
 class S_MATCH_ALL_READY_TO_RECIEVE;
 struct S_MATCH_ALL_READY_TO_RECIEVEDefaultTypeInternal;
 extern S_MATCH_ALL_READY_TO_RECIEVEDefaultTypeInternal _S_MATCH_ALL_READY_TO_RECIEVE_default_instance_;
+class S_MATCH_CHASER_ATTACK;
+struct S_MATCH_CHASER_ATTACKDefaultTypeInternal;
+extern S_MATCH_CHASER_ATTACKDefaultTypeInternal _S_MATCH_CHASER_ATTACK_default_instance_;
+class S_MATCH_CHASER_HIT;
+struct S_MATCH_CHASER_HITDefaultTypeInternal;
+extern S_MATCH_CHASER_HITDefaultTypeInternal _S_MATCH_CHASER_HIT_default_instance_;
 class S_MATCH_END;
 struct S_MATCH_ENDDefaultTypeInternal;
 extern S_MATCH_ENDDefaultTypeInternal _S_MATCH_END_default_instance_;
@@ -168,6 +180,8 @@ template<> ::ProjectJ::C_LOBBY_CHAT* Arena::CreateMaybeMessage<::ProjectJ::C_LOB
 template<> ::ProjectJ::C_LOBBY_CREATE_ROOM* Arena::CreateMaybeMessage<::ProjectJ::C_LOBBY_CREATE_ROOM>(Arena*);
 template<> ::ProjectJ::C_LOBBY_ENTER_ROOM* Arena::CreateMaybeMessage<::ProjectJ::C_LOBBY_ENTER_ROOM>(Arena*);
 template<> ::ProjectJ::C_LOBBY_REFRESH_ROOM* Arena::CreateMaybeMessage<::ProjectJ::C_LOBBY_REFRESH_ROOM>(Arena*);
+template<> ::ProjectJ::C_MATCH_CHASER_ATTACK* Arena::CreateMaybeMessage<::ProjectJ::C_MATCH_CHASER_ATTACK>(Arena*);
+template<> ::ProjectJ::C_MATCH_CHASER_HIT* Arena::CreateMaybeMessage<::ProjectJ::C_MATCH_CHASER_HIT>(Arena*);
 template<> ::ProjectJ::C_MATCH_INFO* Arena::CreateMaybeMessage<::ProjectJ::C_MATCH_INFO>(Arena*);
 template<> ::ProjectJ::C_MATCH_INFO_MyInfo* Arena::CreateMaybeMessage<::ProjectJ::C_MATCH_INFO_MyInfo>(Arena*);
 template<> ::ProjectJ::C_MATCH_ITEM_DROP* Arena::CreateMaybeMessage<::ProjectJ::C_MATCH_ITEM_DROP>(Arena*);
@@ -185,6 +199,8 @@ template<> ::ProjectJ::S_LOBBY_CREATE_ROOM* Arena::CreateMaybeMessage<::ProjectJ
 template<> ::ProjectJ::S_LOBBY_ENTER_ROOM* Arena::CreateMaybeMessage<::ProjectJ::S_LOBBY_ENTER_ROOM>(Arena*);
 template<> ::ProjectJ::S_LOBBY_REFRESH_ROOM* Arena::CreateMaybeMessage<::ProjectJ::S_LOBBY_REFRESH_ROOM>(Arena*);
 template<> ::ProjectJ::S_MATCH_ALL_READY_TO_RECIEVE* Arena::CreateMaybeMessage<::ProjectJ::S_MATCH_ALL_READY_TO_RECIEVE>(Arena*);
+template<> ::ProjectJ::S_MATCH_CHASER_ATTACK* Arena::CreateMaybeMessage<::ProjectJ::S_MATCH_CHASER_ATTACK>(Arena*);
+template<> ::ProjectJ::S_MATCH_CHASER_HIT* Arena::CreateMaybeMessage<::ProjectJ::S_MATCH_CHASER_HIT>(Arena*);
 template<> ::ProjectJ::S_MATCH_END* Arena::CreateMaybeMessage<::ProjectJ::S_MATCH_END>(Arena*);
 template<> ::ProjectJ::S_MATCH_INFO* Arena::CreateMaybeMessage<::ProjectJ::S_MATCH_INFO>(Arena*);
 template<> ::ProjectJ::S_MATCH_ITEM_GENERATED* Arena::CreateMaybeMessage<::ProjectJ::S_MATCH_ITEM_GENERATED>(Arena*);
@@ -6625,6 +6641,718 @@ class S_MATCH_SCALE_ON_CHANGED final :
   union { Impl_ _impl_; };
   friend struct ::TableStruct_Message_2eproto;
 };
+// -------------------------------------------------------------------
+
+class C_MATCH_CHASER_ATTACK final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:ProjectJ.C_MATCH_CHASER_ATTACK) */ {
+ public:
+  inline C_MATCH_CHASER_ATTACK() : C_MATCH_CHASER_ATTACK(nullptr) {}
+  ~C_MATCH_CHASER_ATTACK() override;
+  explicit PROTOBUF_CONSTEXPR C_MATCH_CHASER_ATTACK(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  C_MATCH_CHASER_ATTACK(const C_MATCH_CHASER_ATTACK& from);
+  C_MATCH_CHASER_ATTACK(C_MATCH_CHASER_ATTACK&& from) noexcept
+    : C_MATCH_CHASER_ATTACK() {
+    *this = ::std::move(from);
+  }
+
+  inline C_MATCH_CHASER_ATTACK& operator=(const C_MATCH_CHASER_ATTACK& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline C_MATCH_CHASER_ATTACK& operator=(C_MATCH_CHASER_ATTACK&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const C_MATCH_CHASER_ATTACK& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const C_MATCH_CHASER_ATTACK* internal_default_instance() {
+    return reinterpret_cast<const C_MATCH_CHASER_ATTACK*>(
+               &_C_MATCH_CHASER_ATTACK_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    38;
+
+  friend void swap(C_MATCH_CHASER_ATTACK& a, C_MATCH_CHASER_ATTACK& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(C_MATCH_CHASER_ATTACK* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(C_MATCH_CHASER_ATTACK* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  C_MATCH_CHASER_ATTACK* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<C_MATCH_CHASER_ATTACK>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const C_MATCH_CHASER_ATTACK& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom( const C_MATCH_CHASER_ATTACK& from) {
+    C_MATCH_CHASER_ATTACK::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(C_MATCH_CHASER_ATTACK* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "ProjectJ.C_MATCH_CHASER_ATTACK";
+  }
+  protected:
+  explicit C_MATCH_CHASER_ATTACK(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kAttackPositionFieldNumber = 1,
+    kAttackRotationFieldNumber = 2,
+  };
+  // .ProjectJ.Vector attack_position = 1;
+  bool has_attack_position() const;
+  private:
+  bool _internal_has_attack_position() const;
+  public:
+  void clear_attack_position();
+  const ::ProjectJ::Vector& attack_position() const;
+  PROTOBUF_NODISCARD ::ProjectJ::Vector* release_attack_position();
+  ::ProjectJ::Vector* mutable_attack_position();
+  void set_allocated_attack_position(::ProjectJ::Vector* attack_position);
+  private:
+  const ::ProjectJ::Vector& _internal_attack_position() const;
+  ::ProjectJ::Vector* _internal_mutable_attack_position();
+  public:
+  void unsafe_arena_set_allocated_attack_position(
+      ::ProjectJ::Vector* attack_position);
+  ::ProjectJ::Vector* unsafe_arena_release_attack_position();
+
+  // .ProjectJ.Rotator attack_rotation = 2;
+  bool has_attack_rotation() const;
+  private:
+  bool _internal_has_attack_rotation() const;
+  public:
+  void clear_attack_rotation();
+  const ::ProjectJ::Rotator& attack_rotation() const;
+  PROTOBUF_NODISCARD ::ProjectJ::Rotator* release_attack_rotation();
+  ::ProjectJ::Rotator* mutable_attack_rotation();
+  void set_allocated_attack_rotation(::ProjectJ::Rotator* attack_rotation);
+  private:
+  const ::ProjectJ::Rotator& _internal_attack_rotation() const;
+  ::ProjectJ::Rotator* _internal_mutable_attack_rotation();
+  public:
+  void unsafe_arena_set_allocated_attack_rotation(
+      ::ProjectJ::Rotator* attack_rotation);
+  ::ProjectJ::Rotator* unsafe_arena_release_attack_rotation();
+
+  // @@protoc_insertion_point(class_scope:ProjectJ.C_MATCH_CHASER_ATTACK)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    ::ProjectJ::Vector* attack_position_;
+    ::ProjectJ::Rotator* attack_rotation_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_Message_2eproto;
+};
+// -------------------------------------------------------------------
+
+class S_MATCH_CHASER_ATTACK final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:ProjectJ.S_MATCH_CHASER_ATTACK) */ {
+ public:
+  inline S_MATCH_CHASER_ATTACK() : S_MATCH_CHASER_ATTACK(nullptr) {}
+  ~S_MATCH_CHASER_ATTACK() override;
+  explicit PROTOBUF_CONSTEXPR S_MATCH_CHASER_ATTACK(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  S_MATCH_CHASER_ATTACK(const S_MATCH_CHASER_ATTACK& from);
+  S_MATCH_CHASER_ATTACK(S_MATCH_CHASER_ATTACK&& from) noexcept
+    : S_MATCH_CHASER_ATTACK() {
+    *this = ::std::move(from);
+  }
+
+  inline S_MATCH_CHASER_ATTACK& operator=(const S_MATCH_CHASER_ATTACK& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline S_MATCH_CHASER_ATTACK& operator=(S_MATCH_CHASER_ATTACK&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const S_MATCH_CHASER_ATTACK& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const S_MATCH_CHASER_ATTACK* internal_default_instance() {
+    return reinterpret_cast<const S_MATCH_CHASER_ATTACK*>(
+               &_S_MATCH_CHASER_ATTACK_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    39;
+
+  friend void swap(S_MATCH_CHASER_ATTACK& a, S_MATCH_CHASER_ATTACK& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(S_MATCH_CHASER_ATTACK* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(S_MATCH_CHASER_ATTACK* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  S_MATCH_CHASER_ATTACK* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<S_MATCH_CHASER_ATTACK>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const S_MATCH_CHASER_ATTACK& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom( const S_MATCH_CHASER_ATTACK& from) {
+    S_MATCH_CHASER_ATTACK::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(S_MATCH_CHASER_ATTACK* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "ProjectJ.S_MATCH_CHASER_ATTACK";
+  }
+  protected:
+  explicit S_MATCH_CHASER_ATTACK(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kAttackPositionFieldNumber = 1,
+    kAttackRotationFieldNumber = 2,
+  };
+  // .ProjectJ.Vector attack_position = 1;
+  bool has_attack_position() const;
+  private:
+  bool _internal_has_attack_position() const;
+  public:
+  void clear_attack_position();
+  const ::ProjectJ::Vector& attack_position() const;
+  PROTOBUF_NODISCARD ::ProjectJ::Vector* release_attack_position();
+  ::ProjectJ::Vector* mutable_attack_position();
+  void set_allocated_attack_position(::ProjectJ::Vector* attack_position);
+  private:
+  const ::ProjectJ::Vector& _internal_attack_position() const;
+  ::ProjectJ::Vector* _internal_mutable_attack_position();
+  public:
+  void unsafe_arena_set_allocated_attack_position(
+      ::ProjectJ::Vector* attack_position);
+  ::ProjectJ::Vector* unsafe_arena_release_attack_position();
+
+  // .ProjectJ.Rotator attack_rotation = 2;
+  bool has_attack_rotation() const;
+  private:
+  bool _internal_has_attack_rotation() const;
+  public:
+  void clear_attack_rotation();
+  const ::ProjectJ::Rotator& attack_rotation() const;
+  PROTOBUF_NODISCARD ::ProjectJ::Rotator* release_attack_rotation();
+  ::ProjectJ::Rotator* mutable_attack_rotation();
+  void set_allocated_attack_rotation(::ProjectJ::Rotator* attack_rotation);
+  private:
+  const ::ProjectJ::Rotator& _internal_attack_rotation() const;
+  ::ProjectJ::Rotator* _internal_mutable_attack_rotation();
+  public:
+  void unsafe_arena_set_allocated_attack_rotation(
+      ::ProjectJ::Rotator* attack_rotation);
+  ::ProjectJ::Rotator* unsafe_arena_release_attack_rotation();
+
+  // @@protoc_insertion_point(class_scope:ProjectJ.S_MATCH_CHASER_ATTACK)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    ::ProjectJ::Vector* attack_position_;
+    ::ProjectJ::Rotator* attack_rotation_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_Message_2eproto;
+};
+// -------------------------------------------------------------------
+
+class C_MATCH_CHASER_HIT final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:ProjectJ.C_MATCH_CHASER_HIT) */ {
+ public:
+  inline C_MATCH_CHASER_HIT() : C_MATCH_CHASER_HIT(nullptr) {}
+  ~C_MATCH_CHASER_HIT() override;
+  explicit PROTOBUF_CONSTEXPR C_MATCH_CHASER_HIT(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  C_MATCH_CHASER_HIT(const C_MATCH_CHASER_HIT& from);
+  C_MATCH_CHASER_HIT(C_MATCH_CHASER_HIT&& from) noexcept
+    : C_MATCH_CHASER_HIT() {
+    *this = ::std::move(from);
+  }
+
+  inline C_MATCH_CHASER_HIT& operator=(const C_MATCH_CHASER_HIT& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline C_MATCH_CHASER_HIT& operator=(C_MATCH_CHASER_HIT&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const C_MATCH_CHASER_HIT& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const C_MATCH_CHASER_HIT* internal_default_instance() {
+    return reinterpret_cast<const C_MATCH_CHASER_HIT*>(
+               &_C_MATCH_CHASER_HIT_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    40;
+
+  friend void swap(C_MATCH_CHASER_HIT& a, C_MATCH_CHASER_HIT& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(C_MATCH_CHASER_HIT* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(C_MATCH_CHASER_HIT* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  C_MATCH_CHASER_HIT* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<C_MATCH_CHASER_HIT>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const C_MATCH_CHASER_HIT& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom( const C_MATCH_CHASER_HIT& from) {
+    C_MATCH_CHASER_HIT::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(C_MATCH_CHASER_HIT* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "ProjectJ.C_MATCH_CHASER_HIT";
+  }
+  protected:
+  explicit C_MATCH_CHASER_HIT(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kAttackPositionFieldNumber = 1,
+    kAttackRotationFieldNumber = 2,
+    kHitPlayerIndexFieldNumber = 3,
+  };
+  // .ProjectJ.Vector attack_position = 1;
+  bool has_attack_position() const;
+  private:
+  bool _internal_has_attack_position() const;
+  public:
+  void clear_attack_position();
+  const ::ProjectJ::Vector& attack_position() const;
+  PROTOBUF_NODISCARD ::ProjectJ::Vector* release_attack_position();
+  ::ProjectJ::Vector* mutable_attack_position();
+  void set_allocated_attack_position(::ProjectJ::Vector* attack_position);
+  private:
+  const ::ProjectJ::Vector& _internal_attack_position() const;
+  ::ProjectJ::Vector* _internal_mutable_attack_position();
+  public:
+  void unsafe_arena_set_allocated_attack_position(
+      ::ProjectJ::Vector* attack_position);
+  ::ProjectJ::Vector* unsafe_arena_release_attack_position();
+
+  // .ProjectJ.Rotator attack_rotation = 2;
+  bool has_attack_rotation() const;
+  private:
+  bool _internal_has_attack_rotation() const;
+  public:
+  void clear_attack_rotation();
+  const ::ProjectJ::Rotator& attack_rotation() const;
+  PROTOBUF_NODISCARD ::ProjectJ::Rotator* release_attack_rotation();
+  ::ProjectJ::Rotator* mutable_attack_rotation();
+  void set_allocated_attack_rotation(::ProjectJ::Rotator* attack_rotation);
+  private:
+  const ::ProjectJ::Rotator& _internal_attack_rotation() const;
+  ::ProjectJ::Rotator* _internal_mutable_attack_rotation();
+  public:
+  void unsafe_arena_set_allocated_attack_rotation(
+      ::ProjectJ::Rotator* attack_rotation);
+  ::ProjectJ::Rotator* unsafe_arena_release_attack_rotation();
+
+  // int32 hit_player_index = 3;
+  void clear_hit_player_index();
+  int32_t hit_player_index() const;
+  void set_hit_player_index(int32_t value);
+  private:
+  int32_t _internal_hit_player_index() const;
+  void _internal_set_hit_player_index(int32_t value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:ProjectJ.C_MATCH_CHASER_HIT)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    ::ProjectJ::Vector* attack_position_;
+    ::ProjectJ::Rotator* attack_rotation_;
+    int32_t hit_player_index_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_Message_2eproto;
+};
+// -------------------------------------------------------------------
+
+class S_MATCH_CHASER_HIT final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:ProjectJ.S_MATCH_CHASER_HIT) */ {
+ public:
+  inline S_MATCH_CHASER_HIT() : S_MATCH_CHASER_HIT(nullptr) {}
+  ~S_MATCH_CHASER_HIT() override;
+  explicit PROTOBUF_CONSTEXPR S_MATCH_CHASER_HIT(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  S_MATCH_CHASER_HIT(const S_MATCH_CHASER_HIT& from);
+  S_MATCH_CHASER_HIT(S_MATCH_CHASER_HIT&& from) noexcept
+    : S_MATCH_CHASER_HIT() {
+    *this = ::std::move(from);
+  }
+
+  inline S_MATCH_CHASER_HIT& operator=(const S_MATCH_CHASER_HIT& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline S_MATCH_CHASER_HIT& operator=(S_MATCH_CHASER_HIT&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const S_MATCH_CHASER_HIT& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const S_MATCH_CHASER_HIT* internal_default_instance() {
+    return reinterpret_cast<const S_MATCH_CHASER_HIT*>(
+               &_S_MATCH_CHASER_HIT_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    41;
+
+  friend void swap(S_MATCH_CHASER_HIT& a, S_MATCH_CHASER_HIT& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(S_MATCH_CHASER_HIT* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(S_MATCH_CHASER_HIT* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  S_MATCH_CHASER_HIT* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<S_MATCH_CHASER_HIT>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const S_MATCH_CHASER_HIT& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom( const S_MATCH_CHASER_HIT& from) {
+    S_MATCH_CHASER_HIT::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(S_MATCH_CHASER_HIT* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "ProjectJ.S_MATCH_CHASER_HIT";
+  }
+  protected:
+  explicit S_MATCH_CHASER_HIT(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kResultFieldNumber = 1,
+    kHitPlayerIndexFieldNumber = 2,
+    kChangedStateFieldNumber = 3,
+  };
+  // bool result = 1;
+  void clear_result();
+  bool result() const;
+  void set_result(bool value);
+  private:
+  bool _internal_result() const;
+  void _internal_set_result(bool value);
+  public:
+
+  // int32 hit_player_index = 2;
+  void clear_hit_player_index();
+  int32_t hit_player_index() const;
+  void set_hit_player_index(int32_t value);
+  private:
+  int32_t _internal_hit_player_index() const;
+  void _internal_set_hit_player_index(int32_t value);
+  public:
+
+  // .ProjectJ.MatchPlayerState changed_state = 3;
+  void clear_changed_state();
+  ::ProjectJ::MatchPlayerState changed_state() const;
+  void set_changed_state(::ProjectJ::MatchPlayerState value);
+  private:
+  ::ProjectJ::MatchPlayerState _internal_changed_state() const;
+  void _internal_set_changed_state(::ProjectJ::MatchPlayerState value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:ProjectJ.S_MATCH_CHASER_HIT)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    bool result_;
+    int32_t hit_player_index_;
+    int changed_state_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_Message_2eproto;
+};
 // ===================================================================
 
 
@@ -9738,9 +10466,623 @@ inline void S_MATCH_SCALE_ON_CHANGED::set_is_operating(bool value) {
   // @@protoc_insertion_point(field_set:ProjectJ.S_MATCH_SCALE_ON_CHANGED.is_operating)
 }
 
+// -------------------------------------------------------------------
+
+// C_MATCH_CHASER_ATTACK
+
+// .ProjectJ.Vector attack_position = 1;
+inline bool C_MATCH_CHASER_ATTACK::_internal_has_attack_position() const {
+  return this != internal_default_instance() && _impl_.attack_position_ != nullptr;
+}
+inline bool C_MATCH_CHASER_ATTACK::has_attack_position() const {
+  return _internal_has_attack_position();
+}
+inline const ::ProjectJ::Vector& C_MATCH_CHASER_ATTACK::_internal_attack_position() const {
+  const ::ProjectJ::Vector* p = _impl_.attack_position_;
+  return p != nullptr ? *p : reinterpret_cast<const ::ProjectJ::Vector&>(
+      ::ProjectJ::_Vector_default_instance_);
+}
+inline const ::ProjectJ::Vector& C_MATCH_CHASER_ATTACK::attack_position() const {
+  // @@protoc_insertion_point(field_get:ProjectJ.C_MATCH_CHASER_ATTACK.attack_position)
+  return _internal_attack_position();
+}
+inline void C_MATCH_CHASER_ATTACK::unsafe_arena_set_allocated_attack_position(
+    ::ProjectJ::Vector* attack_position) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.attack_position_);
+  }
+  _impl_.attack_position_ = attack_position;
+  if (attack_position) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:ProjectJ.C_MATCH_CHASER_ATTACK.attack_position)
+}
+inline ::ProjectJ::Vector* C_MATCH_CHASER_ATTACK::release_attack_position() {
+  
+  ::ProjectJ::Vector* temp = _impl_.attack_position_;
+  _impl_.attack_position_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::ProjectJ::Vector* C_MATCH_CHASER_ATTACK::unsafe_arena_release_attack_position() {
+  // @@protoc_insertion_point(field_release:ProjectJ.C_MATCH_CHASER_ATTACK.attack_position)
+  
+  ::ProjectJ::Vector* temp = _impl_.attack_position_;
+  _impl_.attack_position_ = nullptr;
+  return temp;
+}
+inline ::ProjectJ::Vector* C_MATCH_CHASER_ATTACK::_internal_mutable_attack_position() {
+  
+  if (_impl_.attack_position_ == nullptr) {
+    auto* p = CreateMaybeMessage<::ProjectJ::Vector>(GetArenaForAllocation());
+    _impl_.attack_position_ = p;
+  }
+  return _impl_.attack_position_;
+}
+inline ::ProjectJ::Vector* C_MATCH_CHASER_ATTACK::mutable_attack_position() {
+  ::ProjectJ::Vector* _msg = _internal_mutable_attack_position();
+  // @@protoc_insertion_point(field_mutable:ProjectJ.C_MATCH_CHASER_ATTACK.attack_position)
+  return _msg;
+}
+inline void C_MATCH_CHASER_ATTACK::set_allocated_attack_position(::ProjectJ::Vector* attack_position) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.attack_position_);
+  }
+  if (attack_position) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
+                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(attack_position));
+    if (message_arena != submessage_arena) {
+      attack_position = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, attack_position, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  _impl_.attack_position_ = attack_position;
+  // @@protoc_insertion_point(field_set_allocated:ProjectJ.C_MATCH_CHASER_ATTACK.attack_position)
+}
+
+// .ProjectJ.Rotator attack_rotation = 2;
+inline bool C_MATCH_CHASER_ATTACK::_internal_has_attack_rotation() const {
+  return this != internal_default_instance() && _impl_.attack_rotation_ != nullptr;
+}
+inline bool C_MATCH_CHASER_ATTACK::has_attack_rotation() const {
+  return _internal_has_attack_rotation();
+}
+inline const ::ProjectJ::Rotator& C_MATCH_CHASER_ATTACK::_internal_attack_rotation() const {
+  const ::ProjectJ::Rotator* p = _impl_.attack_rotation_;
+  return p != nullptr ? *p : reinterpret_cast<const ::ProjectJ::Rotator&>(
+      ::ProjectJ::_Rotator_default_instance_);
+}
+inline const ::ProjectJ::Rotator& C_MATCH_CHASER_ATTACK::attack_rotation() const {
+  // @@protoc_insertion_point(field_get:ProjectJ.C_MATCH_CHASER_ATTACK.attack_rotation)
+  return _internal_attack_rotation();
+}
+inline void C_MATCH_CHASER_ATTACK::unsafe_arena_set_allocated_attack_rotation(
+    ::ProjectJ::Rotator* attack_rotation) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.attack_rotation_);
+  }
+  _impl_.attack_rotation_ = attack_rotation;
+  if (attack_rotation) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:ProjectJ.C_MATCH_CHASER_ATTACK.attack_rotation)
+}
+inline ::ProjectJ::Rotator* C_MATCH_CHASER_ATTACK::release_attack_rotation() {
+  
+  ::ProjectJ::Rotator* temp = _impl_.attack_rotation_;
+  _impl_.attack_rotation_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::ProjectJ::Rotator* C_MATCH_CHASER_ATTACK::unsafe_arena_release_attack_rotation() {
+  // @@protoc_insertion_point(field_release:ProjectJ.C_MATCH_CHASER_ATTACK.attack_rotation)
+  
+  ::ProjectJ::Rotator* temp = _impl_.attack_rotation_;
+  _impl_.attack_rotation_ = nullptr;
+  return temp;
+}
+inline ::ProjectJ::Rotator* C_MATCH_CHASER_ATTACK::_internal_mutable_attack_rotation() {
+  
+  if (_impl_.attack_rotation_ == nullptr) {
+    auto* p = CreateMaybeMessage<::ProjectJ::Rotator>(GetArenaForAllocation());
+    _impl_.attack_rotation_ = p;
+  }
+  return _impl_.attack_rotation_;
+}
+inline ::ProjectJ::Rotator* C_MATCH_CHASER_ATTACK::mutable_attack_rotation() {
+  ::ProjectJ::Rotator* _msg = _internal_mutable_attack_rotation();
+  // @@protoc_insertion_point(field_mutable:ProjectJ.C_MATCH_CHASER_ATTACK.attack_rotation)
+  return _msg;
+}
+inline void C_MATCH_CHASER_ATTACK::set_allocated_attack_rotation(::ProjectJ::Rotator* attack_rotation) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.attack_rotation_);
+  }
+  if (attack_rotation) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
+                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(attack_rotation));
+    if (message_arena != submessage_arena) {
+      attack_rotation = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, attack_rotation, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  _impl_.attack_rotation_ = attack_rotation;
+  // @@protoc_insertion_point(field_set_allocated:ProjectJ.C_MATCH_CHASER_ATTACK.attack_rotation)
+}
+
+// -------------------------------------------------------------------
+
+// S_MATCH_CHASER_ATTACK
+
+// .ProjectJ.Vector attack_position = 1;
+inline bool S_MATCH_CHASER_ATTACK::_internal_has_attack_position() const {
+  return this != internal_default_instance() && _impl_.attack_position_ != nullptr;
+}
+inline bool S_MATCH_CHASER_ATTACK::has_attack_position() const {
+  return _internal_has_attack_position();
+}
+inline const ::ProjectJ::Vector& S_MATCH_CHASER_ATTACK::_internal_attack_position() const {
+  const ::ProjectJ::Vector* p = _impl_.attack_position_;
+  return p != nullptr ? *p : reinterpret_cast<const ::ProjectJ::Vector&>(
+      ::ProjectJ::_Vector_default_instance_);
+}
+inline const ::ProjectJ::Vector& S_MATCH_CHASER_ATTACK::attack_position() const {
+  // @@protoc_insertion_point(field_get:ProjectJ.S_MATCH_CHASER_ATTACK.attack_position)
+  return _internal_attack_position();
+}
+inline void S_MATCH_CHASER_ATTACK::unsafe_arena_set_allocated_attack_position(
+    ::ProjectJ::Vector* attack_position) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.attack_position_);
+  }
+  _impl_.attack_position_ = attack_position;
+  if (attack_position) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:ProjectJ.S_MATCH_CHASER_ATTACK.attack_position)
+}
+inline ::ProjectJ::Vector* S_MATCH_CHASER_ATTACK::release_attack_position() {
+  
+  ::ProjectJ::Vector* temp = _impl_.attack_position_;
+  _impl_.attack_position_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::ProjectJ::Vector* S_MATCH_CHASER_ATTACK::unsafe_arena_release_attack_position() {
+  // @@protoc_insertion_point(field_release:ProjectJ.S_MATCH_CHASER_ATTACK.attack_position)
+  
+  ::ProjectJ::Vector* temp = _impl_.attack_position_;
+  _impl_.attack_position_ = nullptr;
+  return temp;
+}
+inline ::ProjectJ::Vector* S_MATCH_CHASER_ATTACK::_internal_mutable_attack_position() {
+  
+  if (_impl_.attack_position_ == nullptr) {
+    auto* p = CreateMaybeMessage<::ProjectJ::Vector>(GetArenaForAllocation());
+    _impl_.attack_position_ = p;
+  }
+  return _impl_.attack_position_;
+}
+inline ::ProjectJ::Vector* S_MATCH_CHASER_ATTACK::mutable_attack_position() {
+  ::ProjectJ::Vector* _msg = _internal_mutable_attack_position();
+  // @@protoc_insertion_point(field_mutable:ProjectJ.S_MATCH_CHASER_ATTACK.attack_position)
+  return _msg;
+}
+inline void S_MATCH_CHASER_ATTACK::set_allocated_attack_position(::ProjectJ::Vector* attack_position) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.attack_position_);
+  }
+  if (attack_position) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
+                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(attack_position));
+    if (message_arena != submessage_arena) {
+      attack_position = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, attack_position, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  _impl_.attack_position_ = attack_position;
+  // @@protoc_insertion_point(field_set_allocated:ProjectJ.S_MATCH_CHASER_ATTACK.attack_position)
+}
+
+// .ProjectJ.Rotator attack_rotation = 2;
+inline bool S_MATCH_CHASER_ATTACK::_internal_has_attack_rotation() const {
+  return this != internal_default_instance() && _impl_.attack_rotation_ != nullptr;
+}
+inline bool S_MATCH_CHASER_ATTACK::has_attack_rotation() const {
+  return _internal_has_attack_rotation();
+}
+inline const ::ProjectJ::Rotator& S_MATCH_CHASER_ATTACK::_internal_attack_rotation() const {
+  const ::ProjectJ::Rotator* p = _impl_.attack_rotation_;
+  return p != nullptr ? *p : reinterpret_cast<const ::ProjectJ::Rotator&>(
+      ::ProjectJ::_Rotator_default_instance_);
+}
+inline const ::ProjectJ::Rotator& S_MATCH_CHASER_ATTACK::attack_rotation() const {
+  // @@protoc_insertion_point(field_get:ProjectJ.S_MATCH_CHASER_ATTACK.attack_rotation)
+  return _internal_attack_rotation();
+}
+inline void S_MATCH_CHASER_ATTACK::unsafe_arena_set_allocated_attack_rotation(
+    ::ProjectJ::Rotator* attack_rotation) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.attack_rotation_);
+  }
+  _impl_.attack_rotation_ = attack_rotation;
+  if (attack_rotation) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:ProjectJ.S_MATCH_CHASER_ATTACK.attack_rotation)
+}
+inline ::ProjectJ::Rotator* S_MATCH_CHASER_ATTACK::release_attack_rotation() {
+  
+  ::ProjectJ::Rotator* temp = _impl_.attack_rotation_;
+  _impl_.attack_rotation_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::ProjectJ::Rotator* S_MATCH_CHASER_ATTACK::unsafe_arena_release_attack_rotation() {
+  // @@protoc_insertion_point(field_release:ProjectJ.S_MATCH_CHASER_ATTACK.attack_rotation)
+  
+  ::ProjectJ::Rotator* temp = _impl_.attack_rotation_;
+  _impl_.attack_rotation_ = nullptr;
+  return temp;
+}
+inline ::ProjectJ::Rotator* S_MATCH_CHASER_ATTACK::_internal_mutable_attack_rotation() {
+  
+  if (_impl_.attack_rotation_ == nullptr) {
+    auto* p = CreateMaybeMessage<::ProjectJ::Rotator>(GetArenaForAllocation());
+    _impl_.attack_rotation_ = p;
+  }
+  return _impl_.attack_rotation_;
+}
+inline ::ProjectJ::Rotator* S_MATCH_CHASER_ATTACK::mutable_attack_rotation() {
+  ::ProjectJ::Rotator* _msg = _internal_mutable_attack_rotation();
+  // @@protoc_insertion_point(field_mutable:ProjectJ.S_MATCH_CHASER_ATTACK.attack_rotation)
+  return _msg;
+}
+inline void S_MATCH_CHASER_ATTACK::set_allocated_attack_rotation(::ProjectJ::Rotator* attack_rotation) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.attack_rotation_);
+  }
+  if (attack_rotation) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
+                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(attack_rotation));
+    if (message_arena != submessage_arena) {
+      attack_rotation = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, attack_rotation, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  _impl_.attack_rotation_ = attack_rotation;
+  // @@protoc_insertion_point(field_set_allocated:ProjectJ.S_MATCH_CHASER_ATTACK.attack_rotation)
+}
+
+// -------------------------------------------------------------------
+
+// C_MATCH_CHASER_HIT
+
+// .ProjectJ.Vector attack_position = 1;
+inline bool C_MATCH_CHASER_HIT::_internal_has_attack_position() const {
+  return this != internal_default_instance() && _impl_.attack_position_ != nullptr;
+}
+inline bool C_MATCH_CHASER_HIT::has_attack_position() const {
+  return _internal_has_attack_position();
+}
+inline const ::ProjectJ::Vector& C_MATCH_CHASER_HIT::_internal_attack_position() const {
+  const ::ProjectJ::Vector* p = _impl_.attack_position_;
+  return p != nullptr ? *p : reinterpret_cast<const ::ProjectJ::Vector&>(
+      ::ProjectJ::_Vector_default_instance_);
+}
+inline const ::ProjectJ::Vector& C_MATCH_CHASER_HIT::attack_position() const {
+  // @@protoc_insertion_point(field_get:ProjectJ.C_MATCH_CHASER_HIT.attack_position)
+  return _internal_attack_position();
+}
+inline void C_MATCH_CHASER_HIT::unsafe_arena_set_allocated_attack_position(
+    ::ProjectJ::Vector* attack_position) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.attack_position_);
+  }
+  _impl_.attack_position_ = attack_position;
+  if (attack_position) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:ProjectJ.C_MATCH_CHASER_HIT.attack_position)
+}
+inline ::ProjectJ::Vector* C_MATCH_CHASER_HIT::release_attack_position() {
+  
+  ::ProjectJ::Vector* temp = _impl_.attack_position_;
+  _impl_.attack_position_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::ProjectJ::Vector* C_MATCH_CHASER_HIT::unsafe_arena_release_attack_position() {
+  // @@protoc_insertion_point(field_release:ProjectJ.C_MATCH_CHASER_HIT.attack_position)
+  
+  ::ProjectJ::Vector* temp = _impl_.attack_position_;
+  _impl_.attack_position_ = nullptr;
+  return temp;
+}
+inline ::ProjectJ::Vector* C_MATCH_CHASER_HIT::_internal_mutable_attack_position() {
+  
+  if (_impl_.attack_position_ == nullptr) {
+    auto* p = CreateMaybeMessage<::ProjectJ::Vector>(GetArenaForAllocation());
+    _impl_.attack_position_ = p;
+  }
+  return _impl_.attack_position_;
+}
+inline ::ProjectJ::Vector* C_MATCH_CHASER_HIT::mutable_attack_position() {
+  ::ProjectJ::Vector* _msg = _internal_mutable_attack_position();
+  // @@protoc_insertion_point(field_mutable:ProjectJ.C_MATCH_CHASER_HIT.attack_position)
+  return _msg;
+}
+inline void C_MATCH_CHASER_HIT::set_allocated_attack_position(::ProjectJ::Vector* attack_position) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.attack_position_);
+  }
+  if (attack_position) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
+                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(attack_position));
+    if (message_arena != submessage_arena) {
+      attack_position = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, attack_position, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  _impl_.attack_position_ = attack_position;
+  // @@protoc_insertion_point(field_set_allocated:ProjectJ.C_MATCH_CHASER_HIT.attack_position)
+}
+
+// .ProjectJ.Rotator attack_rotation = 2;
+inline bool C_MATCH_CHASER_HIT::_internal_has_attack_rotation() const {
+  return this != internal_default_instance() && _impl_.attack_rotation_ != nullptr;
+}
+inline bool C_MATCH_CHASER_HIT::has_attack_rotation() const {
+  return _internal_has_attack_rotation();
+}
+inline const ::ProjectJ::Rotator& C_MATCH_CHASER_HIT::_internal_attack_rotation() const {
+  const ::ProjectJ::Rotator* p = _impl_.attack_rotation_;
+  return p != nullptr ? *p : reinterpret_cast<const ::ProjectJ::Rotator&>(
+      ::ProjectJ::_Rotator_default_instance_);
+}
+inline const ::ProjectJ::Rotator& C_MATCH_CHASER_HIT::attack_rotation() const {
+  // @@protoc_insertion_point(field_get:ProjectJ.C_MATCH_CHASER_HIT.attack_rotation)
+  return _internal_attack_rotation();
+}
+inline void C_MATCH_CHASER_HIT::unsafe_arena_set_allocated_attack_rotation(
+    ::ProjectJ::Rotator* attack_rotation) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.attack_rotation_);
+  }
+  _impl_.attack_rotation_ = attack_rotation;
+  if (attack_rotation) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:ProjectJ.C_MATCH_CHASER_HIT.attack_rotation)
+}
+inline ::ProjectJ::Rotator* C_MATCH_CHASER_HIT::release_attack_rotation() {
+  
+  ::ProjectJ::Rotator* temp = _impl_.attack_rotation_;
+  _impl_.attack_rotation_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::ProjectJ::Rotator* C_MATCH_CHASER_HIT::unsafe_arena_release_attack_rotation() {
+  // @@protoc_insertion_point(field_release:ProjectJ.C_MATCH_CHASER_HIT.attack_rotation)
+  
+  ::ProjectJ::Rotator* temp = _impl_.attack_rotation_;
+  _impl_.attack_rotation_ = nullptr;
+  return temp;
+}
+inline ::ProjectJ::Rotator* C_MATCH_CHASER_HIT::_internal_mutable_attack_rotation() {
+  
+  if (_impl_.attack_rotation_ == nullptr) {
+    auto* p = CreateMaybeMessage<::ProjectJ::Rotator>(GetArenaForAllocation());
+    _impl_.attack_rotation_ = p;
+  }
+  return _impl_.attack_rotation_;
+}
+inline ::ProjectJ::Rotator* C_MATCH_CHASER_HIT::mutable_attack_rotation() {
+  ::ProjectJ::Rotator* _msg = _internal_mutable_attack_rotation();
+  // @@protoc_insertion_point(field_mutable:ProjectJ.C_MATCH_CHASER_HIT.attack_rotation)
+  return _msg;
+}
+inline void C_MATCH_CHASER_HIT::set_allocated_attack_rotation(::ProjectJ::Rotator* attack_rotation) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.attack_rotation_);
+  }
+  if (attack_rotation) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
+                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(attack_rotation));
+    if (message_arena != submessage_arena) {
+      attack_rotation = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, attack_rotation, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  _impl_.attack_rotation_ = attack_rotation;
+  // @@protoc_insertion_point(field_set_allocated:ProjectJ.C_MATCH_CHASER_HIT.attack_rotation)
+}
+
+// int32 hit_player_index = 3;
+inline void C_MATCH_CHASER_HIT::clear_hit_player_index() {
+  _impl_.hit_player_index_ = 0;
+}
+inline int32_t C_MATCH_CHASER_HIT::_internal_hit_player_index() const {
+  return _impl_.hit_player_index_;
+}
+inline int32_t C_MATCH_CHASER_HIT::hit_player_index() const {
+  // @@protoc_insertion_point(field_get:ProjectJ.C_MATCH_CHASER_HIT.hit_player_index)
+  return _internal_hit_player_index();
+}
+inline void C_MATCH_CHASER_HIT::_internal_set_hit_player_index(int32_t value) {
+  
+  _impl_.hit_player_index_ = value;
+}
+inline void C_MATCH_CHASER_HIT::set_hit_player_index(int32_t value) {
+  _internal_set_hit_player_index(value);
+  // @@protoc_insertion_point(field_set:ProjectJ.C_MATCH_CHASER_HIT.hit_player_index)
+}
+
+// -------------------------------------------------------------------
+
+// S_MATCH_CHASER_HIT
+
+// bool result = 1;
+inline void S_MATCH_CHASER_HIT::clear_result() {
+  _impl_.result_ = false;
+}
+inline bool S_MATCH_CHASER_HIT::_internal_result() const {
+  return _impl_.result_;
+}
+inline bool S_MATCH_CHASER_HIT::result() const {
+  // @@protoc_insertion_point(field_get:ProjectJ.S_MATCH_CHASER_HIT.result)
+  return _internal_result();
+}
+inline void S_MATCH_CHASER_HIT::_internal_set_result(bool value) {
+  
+  _impl_.result_ = value;
+}
+inline void S_MATCH_CHASER_HIT::set_result(bool value) {
+  _internal_set_result(value);
+  // @@protoc_insertion_point(field_set:ProjectJ.S_MATCH_CHASER_HIT.result)
+}
+
+// int32 hit_player_index = 2;
+inline void S_MATCH_CHASER_HIT::clear_hit_player_index() {
+  _impl_.hit_player_index_ = 0;
+}
+inline int32_t S_MATCH_CHASER_HIT::_internal_hit_player_index() const {
+  return _impl_.hit_player_index_;
+}
+inline int32_t S_MATCH_CHASER_HIT::hit_player_index() const {
+  // @@protoc_insertion_point(field_get:ProjectJ.S_MATCH_CHASER_HIT.hit_player_index)
+  return _internal_hit_player_index();
+}
+inline void S_MATCH_CHASER_HIT::_internal_set_hit_player_index(int32_t value) {
+  
+  _impl_.hit_player_index_ = value;
+}
+inline void S_MATCH_CHASER_HIT::set_hit_player_index(int32_t value) {
+  _internal_set_hit_player_index(value);
+  // @@protoc_insertion_point(field_set:ProjectJ.S_MATCH_CHASER_HIT.hit_player_index)
+}
+
+// .ProjectJ.MatchPlayerState changed_state = 3;
+inline void S_MATCH_CHASER_HIT::clear_changed_state() {
+  _impl_.changed_state_ = 0;
+}
+inline ::ProjectJ::MatchPlayerState S_MATCH_CHASER_HIT::_internal_changed_state() const {
+  return static_cast< ::ProjectJ::MatchPlayerState >(_impl_.changed_state_);
+}
+inline ::ProjectJ::MatchPlayerState S_MATCH_CHASER_HIT::changed_state() const {
+  // @@protoc_insertion_point(field_get:ProjectJ.S_MATCH_CHASER_HIT.changed_state)
+  return _internal_changed_state();
+}
+inline void S_MATCH_CHASER_HIT::_internal_set_changed_state(::ProjectJ::MatchPlayerState value) {
+  
+  _impl_.changed_state_ = value;
+}
+inline void S_MATCH_CHASER_HIT::set_changed_state(::ProjectJ::MatchPlayerState value) {
+  _internal_set_changed_state(value);
+  // @@protoc_insertion_point(field_set:ProjectJ.S_MATCH_CHASER_HIT.changed_state)
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

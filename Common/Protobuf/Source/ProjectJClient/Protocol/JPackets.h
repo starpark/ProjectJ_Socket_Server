@@ -27,13 +27,15 @@ using JPacketTypes = TVariant<
 	ProjectJ::S_MATCH_ITEM_SOMEONE_PICKUP,
 	ProjectJ::S_MATCH_ITEM_SOMEONE_MOVE,
 	ProjectJ::S_MATCH_ITEM_SOMEONE_DROP,
-	ProjectJ::S_MATCH_SCALE_ON_CHANGED
+	ProjectJ::S_MATCH_SCALE_ON_CHANGED,
+	ProjectJ::S_MATCH_CHASER_ATTACK,
+	ProjectJ::S_MATCH_CHASER_HIT
 >;
 
 // 패킷 래핑 클래스
 // 최초 작성자: 박별
 // 수정자: 
-// 최종 수정일: 2023-11-16 자동 생성
+// 최종 수정일: 2023-11-18 자동 생성
 class PROJECTJ_API JPackets
 {
 public:

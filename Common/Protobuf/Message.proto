@@ -255,4 +255,28 @@ message S_MATCH_SCALE_ON_CHANGED
 	bool is_operating = 3;
 }
 
+message C_MATCH_CHASER_ATTACK
+{
+	Vector attack_position = 1;
+	Rotator attack_rotation = 2;
+}
 
+message S_MATCH_CHASER_ATTACK
+{
+	Vector attack_position = 1;
+	Rotator attack_rotation = 2;
+}
+
+message C_MATCH_CHASER_HIT
+{
+	Vector attack_position = 1;
+	Rotator attack_rotation = 2;
+	int32 hit_player_index = 3;
+}
+
+message S_MATCH_CHASER_HIT
+{
+	bool result = 1;
+	int32 hit_player_index = 2;
+	MatchPlayerState changed_state = 3;
+}

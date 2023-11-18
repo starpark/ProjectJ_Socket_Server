@@ -43,6 +43,10 @@ enum : uint16_t
 	PKT_S_MATCH_ITEM_SOMEONE_MOVE = 1034,
 	PKT_S_MATCH_ITEM_SOMEONE_DROP = 1035,
 	PKT_S_MATCH_SCALE_ON_CHANGED = 1036,
+	PKT_C_MATCH_CHASER_ATTACK = 1037,
+	PKT_S_MATCH_CHASER_ATTACK = 1038,
+	PKT_C_MATCH_CHASER_HIT = 1039,
+	PKT_S_MATCH_CHASER_HIT = 1040,
 };
 
 bool Handle_INVALID(const shared_ptr<SessionBase>& session, BYTE* bufer, int numOfBytes);
@@ -61,12 +65,14 @@ bool Handle_C_MATCH_INFO(const shared_ptr<SessionBase>& session, ProjectJ::C_MAT
 bool Handle_C_MATCH_ITEM_PICKUP(const shared_ptr<SessionBase>& session, ProjectJ::C_MATCH_ITEM_PICKUP& packet);
 bool Handle_C_MATCH_ITEM_MOVE(const shared_ptr<SessionBase>& session, ProjectJ::C_MATCH_ITEM_MOVE& packet);
 bool Handle_C_MATCH_ITEM_DROP(const shared_ptr<SessionBase>& session, ProjectJ::C_MATCH_ITEM_DROP& packet);
+bool Handle_C_MATCH_CHASER_ATTACK(const shared_ptr<SessionBase>& session, ProjectJ::C_MATCH_CHASER_ATTACK& packet);
+bool Handle_C_MATCH_CHASER_HIT(const shared_ptr<SessionBase>& session, ProjectJ::C_MATCH_CHASER_HIT& packet);
 
 
 // 소켓 수신 데이터 처리 및 송신 버퍼 생성 클래스
 // 최초 작성자: 박별
 // 수정자: 
-// 최종 수정일: 2023-11-16 자동 생성
+// 최종 수정일: 2023-11-18 자동 생성
 class GamePacketHandler
 {
 public:
@@ -91,6 +97,8 @@ public:
 		GPacketHandler[PKT_C_MATCH_ITEM_PICKUP] = [](shared_ptr<SessionBase> session, BYTE* buffer, int numOfBytes) {return HandlePacket<ProjectJ::C_MATCH_ITEM_PICKUP>(Handle_C_MATCH_ITEM_PICKUP, session, buffer, numOfBytes);};
 		GPacketHandler[PKT_C_MATCH_ITEM_MOVE] = [](shared_ptr<SessionBase> session, BYTE* buffer, int numOfBytes) {return HandlePacket<ProjectJ::C_MATCH_ITEM_MOVE>(Handle_C_MATCH_ITEM_MOVE, session, buffer, numOfBytes);};
 		GPacketHandler[PKT_C_MATCH_ITEM_DROP] = [](shared_ptr<SessionBase> session, BYTE* buffer, int numOfBytes) {return HandlePacket<ProjectJ::C_MATCH_ITEM_DROP>(Handle_C_MATCH_ITEM_DROP, session, buffer, numOfBytes);};
+		GPacketHandler[PKT_C_MATCH_CHASER_ATTACK] = [](shared_ptr<SessionBase> session, BYTE* buffer, int numOfBytes) {return HandlePacket<ProjectJ::C_MATCH_CHASER_ATTACK>(Handle_C_MATCH_CHASER_ATTACK, session, buffer, numOfBytes);};
+		GPacketHandler[PKT_C_MATCH_CHASER_HIT] = [](shared_ptr<SessionBase> session, BYTE* buffer, int numOfBytes) {return HandlePacket<ProjectJ::C_MATCH_CHASER_HIT>(Handle_C_MATCH_CHASER_HIT, session, buffer, numOfBytes);};
 	}
 
 	static bool HandlePacket(shared_ptr<SessionBase>& session, BYTE* buffer, int numOfBytes)
@@ -120,6 +128,8 @@ public:
 	static shared_ptr<SendBuffer> MakeSendBuffer(ProjectJ::S_MATCH_ITEM_SOMEONE_MOVE& packet) {return MakeSendBuffer(packet, PKT_S_MATCH_ITEM_SOMEONE_MOVE);}
 	static shared_ptr<SendBuffer> MakeSendBuffer(ProjectJ::S_MATCH_ITEM_SOMEONE_DROP& packet) {return MakeSendBuffer(packet, PKT_S_MATCH_ITEM_SOMEONE_DROP);}
 	static shared_ptr<SendBuffer> MakeSendBuffer(ProjectJ::S_MATCH_SCALE_ON_CHANGED& packet) {return MakeSendBuffer(packet, PKT_S_MATCH_SCALE_ON_CHANGED);}
+	static shared_ptr<SendBuffer> MakeSendBuffer(ProjectJ::S_MATCH_CHASER_ATTACK& packet) {return MakeSendBuffer(packet, PKT_S_MATCH_CHASER_ATTACK);}
+	static shared_ptr<SendBuffer> MakeSendBuffer(ProjectJ::S_MATCH_CHASER_HIT& packet) {return MakeSendBuffer(packet, PKT_S_MATCH_CHASER_HIT);}
 
 private:
 	template <typename PacketMessage, typename ProcessFunc>

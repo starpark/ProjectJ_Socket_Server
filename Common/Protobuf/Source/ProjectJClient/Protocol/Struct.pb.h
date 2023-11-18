@@ -1809,6 +1809,8 @@ class MatchInitInfo_ScaleInitInfo final :
   enum : int {
     kOperatingWeightFieldNumber = 1,
     kToleranceFieldNumber = 2,
+    kInvSizeWidthFieldNumber = 3,
+    kInvSizeHeightFieldNumber = 4,
   };
   // int32 operating_weight = 1;
   void clear_operating_weight();
@@ -1828,6 +1830,24 @@ class MatchInitInfo_ScaleInitInfo final :
   void _internal_set_tolerance(int32_t value);
   public:
 
+  // int32 inv_size_width = 3;
+  void clear_inv_size_width();
+  int32_t inv_size_width() const;
+  void set_inv_size_width(int32_t value);
+  private:
+  int32_t _internal_inv_size_width() const;
+  void _internal_set_inv_size_width(int32_t value);
+  public:
+
+  // int32 inv_size_height = 4;
+  void clear_inv_size_height();
+  int32_t inv_size_height() const;
+  void set_inv_size_height(int32_t value);
+  private:
+  int32_t _internal_inv_size_height() const;
+  void _internal_set_inv_size_height(int32_t value);
+  public:
+
   // @@protoc_insertion_point(class_scope:ProjectJ.MatchInitInfo.ScaleInitInfo)
  private:
   class _Internal;
@@ -1838,6 +1858,8 @@ class MatchInitInfo_ScaleInitInfo final :
   struct Impl_ {
     int32_t operating_weight_;
     int32_t tolerance_;
+    int32_t inv_size_width_;
+    int32_t inv_size_height_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -3930,6 +3952,46 @@ inline void MatchInitInfo_ScaleInitInfo::_internal_set_tolerance(int32_t value) 
 inline void MatchInitInfo_ScaleInitInfo::set_tolerance(int32_t value) {
   _internal_set_tolerance(value);
   // @@protoc_insertion_point(field_set:ProjectJ.MatchInitInfo.ScaleInitInfo.tolerance)
+}
+
+// int32 inv_size_width = 3;
+inline void MatchInitInfo_ScaleInitInfo::clear_inv_size_width() {
+  _impl_.inv_size_width_ = 0;
+}
+inline int32_t MatchInitInfo_ScaleInitInfo::_internal_inv_size_width() const {
+  return _impl_.inv_size_width_;
+}
+inline int32_t MatchInitInfo_ScaleInitInfo::inv_size_width() const {
+  // @@protoc_insertion_point(field_get:ProjectJ.MatchInitInfo.ScaleInitInfo.inv_size_width)
+  return _internal_inv_size_width();
+}
+inline void MatchInitInfo_ScaleInitInfo::_internal_set_inv_size_width(int32_t value) {
+  
+  _impl_.inv_size_width_ = value;
+}
+inline void MatchInitInfo_ScaleInitInfo::set_inv_size_width(int32_t value) {
+  _internal_set_inv_size_width(value);
+  // @@protoc_insertion_point(field_set:ProjectJ.MatchInitInfo.ScaleInitInfo.inv_size_width)
+}
+
+// int32 inv_size_height = 4;
+inline void MatchInitInfo_ScaleInitInfo::clear_inv_size_height() {
+  _impl_.inv_size_height_ = 0;
+}
+inline int32_t MatchInitInfo_ScaleInitInfo::_internal_inv_size_height() const {
+  return _impl_.inv_size_height_;
+}
+inline int32_t MatchInitInfo_ScaleInitInfo::inv_size_height() const {
+  // @@protoc_insertion_point(field_get:ProjectJ.MatchInitInfo.ScaleInitInfo.inv_size_height)
+  return _internal_inv_size_height();
+}
+inline void MatchInitInfo_ScaleInitInfo::_internal_set_inv_size_height(int32_t value) {
+  
+  _impl_.inv_size_height_ = value;
+}
+inline void MatchInitInfo_ScaleInitInfo::set_inv_size_height(int32_t value) {
+  _internal_set_inv_size_height(value);
+  // @@protoc_insertion_point(field_set:ProjectJ.MatchInitInfo.ScaleInitInfo.inv_size_height)
 }
 
 // -------------------------------------------------------------------

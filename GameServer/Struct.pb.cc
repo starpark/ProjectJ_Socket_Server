@@ -156,6 +156,8 @@ PROTOBUF_CONSTEXPR MatchInitInfo_ScaleInitInfo::MatchInitInfo_ScaleInitInfo(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.operating_weight_)*/0
   , /*decltype(_impl_.tolerance_)*/0
+  , /*decltype(_impl_.inv_size_width_)*/0
+  , /*decltype(_impl_.inv_size_height_)*/0
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct MatchInitInfo_ScaleInitInfoDefaultTypeInternal {
   PROTOBUF_CONSTEXPR MatchInitInfo_ScaleInitInfoDefaultTypeInternal()
@@ -299,6 +301,8 @@ const uint32_t TableStruct_Struct_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(p
   ~0u,  // no _inlined_string_donated_
   PROTOBUF_FIELD_OFFSET(::ProjectJ::MatchInitInfo_ScaleInitInfo, _impl_.operating_weight_),
   PROTOBUF_FIELD_OFFSET(::ProjectJ::MatchInitInfo_ScaleInitInfo, _impl_.tolerance_),
+  PROTOBUF_FIELD_OFFSET(::ProjectJ::MatchInitInfo_ScaleInitInfo, _impl_.inv_size_width_),
+  PROTOBUF_FIELD_OFFSET(::ProjectJ::MatchInitInfo_ScaleInitInfo, _impl_.inv_size_height_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::ProjectJ::MatchInitInfo, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -334,8 +338,8 @@ static const ::_pbi::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protode
   { 56, -1, -1, sizeof(::ProjectJ::Item)},
   { 72, -1, -1, sizeof(::ProjectJ::PlayerInfo)},
   { 83, -1, -1, sizeof(::ProjectJ::MatchInitInfo_ScaleInitInfo)},
-  { 91, -1, -1, sizeof(::ProjectJ::MatchInitInfo)},
-  { 105, -1, -1, sizeof(::ProjectJ::MatchInfo)},
+  { 93, -1, -1, sizeof(::ProjectJ::MatchInitInfo)},
+  { 107, -1, -1, sizeof(::ProjectJ::MatchInfo)},
 };
 
 static const ::_pb::Message* const file_default_instances[] = {
@@ -378,7 +382,7 @@ const char descriptor_table_protodef_Struct_2eproto[] PROTOBUF_SECTION_VARIABLE(
   "chPlayerState\022\024\n\014player_index\030\002 \001(\005\022 \n\006p"
   "layer\030\003 \001(\0132\020.ProjectJ.Player\022\"\n\010positio"
   "n\030\004 \001(\0132\020.ProjectJ.Vector\022#\n\010rotation\030\005 "
-  "\001(\0132\021.ProjectJ.Rotator\"\360\003\n\rMatchInitInfo"
+  "\001(\0132\021.ProjectJ.Rotator\"\241\004\n\rMatchInitInfo"
   "\022$\n\006chaser\030\001 \001(\0132\024.ProjectJ.PlayerInfo\022,"
   "\n\016fugitive_first\030\002 \001(\0132\024.ProjectJ.Player"
   "Info\022-\n\017fugitive_second\030\003 \001(\0132\024.ProjectJ"
@@ -389,20 +393,22 @@ const char descriptor_table_protodef_Struct_2eproto[] PROTOBUF_SECTION_VARIABLE(
   "Info.ScaleInitInfo\022:\n\013scale_third\030\007 \001(\0132"
   "%.ProjectJ.MatchInitInfo.ScaleInitInfo\022;"
   "\n\014scale_fourth\030\010 \001(\0132%.ProjectJ.MatchIni"
-  "tInfo.ScaleInitInfo\032<\n\rScaleInitInfo\022\030\n\020"
+  "tInfo.ScaleInitInfo\032m\n\rScaleInitInfo\022\030\n\020"
   "operating_weight\030\001 \001(\005\022\021\n\ttolerance\030\002 \001("
-  "\005\"\274\001\n\tMatchInfo\022$\n\006chaser\030\001 \001(\0132\024.Projec"
-  "tJ.PlayerInfo\022,\n\016fugitive_first\030\002 \001(\0132\024."
-  "ProjectJ.PlayerInfo\022-\n\017fugitive_second\030\003"
-  " \001(\0132\024.ProjectJ.PlayerInfo\022,\n\016fugitive_t"
-  "hird\030\004 \001(\0132\024.ProjectJ.PlayerInfob\006proto3"
+  "\005\022\026\n\016inv_size_width\030\003 \001(\005\022\027\n\017inv_size_he"
+  "ight\030\004 \001(\005\"\274\001\n\tMatchInfo\022$\n\006chaser\030\001 \001(\013"
+  "2\024.ProjectJ.PlayerInfo\022,\n\016fugitive_first"
+  "\030\002 \001(\0132\024.ProjectJ.PlayerInfo\022-\n\017fugitive"
+  "_second\030\003 \001(\0132\024.ProjectJ.PlayerInfo\022,\n\016f"
+  "ugitive_third\030\004 \001(\0132\024.ProjectJ.PlayerInf"
+  "ob\006proto3"
   ;
 static const ::_pbi::DescriptorTable* const descriptor_table_Struct_2eproto_deps[1] = {
   &::descriptor_table_Enum_2eproto,
 };
 static ::_pbi::once_flag descriptor_table_Struct_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_Struct_2eproto = {
-    false, false, 1720, descriptor_table_protodef_Struct_2eproto,
+    false, false, 1769, descriptor_table_protodef_Struct_2eproto,
     "Struct.proto",
     &descriptor_table_Struct_2eproto_once, descriptor_table_Struct_2eproto_deps, 1, 11,
     schemas, file_default_instances, TableStruct_Struct_2eproto::offsets,
@@ -2894,12 +2900,14 @@ MatchInitInfo_ScaleInitInfo::MatchInitInfo_ScaleInitInfo(const MatchInitInfo_Sca
   new (&_impl_) Impl_{
       decltype(_impl_.operating_weight_){}
     , decltype(_impl_.tolerance_){}
+    , decltype(_impl_.inv_size_width_){}
+    , decltype(_impl_.inv_size_height_){}
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   ::memcpy(&_impl_.operating_weight_, &from._impl_.operating_weight_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.tolerance_) -
-    reinterpret_cast<char*>(&_impl_.operating_weight_)) + sizeof(_impl_.tolerance_));
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.inv_size_height_) -
+    reinterpret_cast<char*>(&_impl_.operating_weight_)) + sizeof(_impl_.inv_size_height_));
   // @@protoc_insertion_point(copy_constructor:ProjectJ.MatchInitInfo.ScaleInitInfo)
 }
 
@@ -2910,6 +2918,8 @@ inline void MatchInitInfo_ScaleInitInfo::SharedCtor(
   new (&_impl_) Impl_{
       decltype(_impl_.operating_weight_){0}
     , decltype(_impl_.tolerance_){0}
+    , decltype(_impl_.inv_size_width_){0}
+    , decltype(_impl_.inv_size_height_){0}
     , /*decltype(_impl_._cached_size_)*/{}
   };
 }
@@ -2938,8 +2948,8 @@ void MatchInitInfo_ScaleInitInfo::Clear() {
   (void) cached_has_bits;
 
   ::memset(&_impl_.operating_weight_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&_impl_.tolerance_) -
-      reinterpret_cast<char*>(&_impl_.operating_weight_)) + sizeof(_impl_.tolerance_));
+      reinterpret_cast<char*>(&_impl_.inv_size_height_) -
+      reinterpret_cast<char*>(&_impl_.operating_weight_)) + sizeof(_impl_.inv_size_height_));
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -2961,6 +2971,22 @@ const char* MatchInitInfo_ScaleInitInfo::_InternalParse(const char* ptr, ::_pbi:
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
           _impl_.tolerance_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // int32 inv_size_width = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+          _impl_.inv_size_width_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // int32 inv_size_height = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
+          _impl_.inv_size_height_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -3006,6 +3032,18 @@ uint8_t* MatchInitInfo_ScaleInitInfo::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteInt32ToArray(2, this->_internal_tolerance(), target);
   }
 
+  // int32 inv_size_width = 3;
+  if (this->_internal_inv_size_width() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(3, this->_internal_inv_size_width(), target);
+  }
+
+  // int32 inv_size_height = 4;
+  if (this->_internal_inv_size_height() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(4, this->_internal_inv_size_height(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
@@ -3032,6 +3070,16 @@ size_t MatchInitInfo_ScaleInitInfo::ByteSizeLong() const {
     total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_tolerance());
   }
 
+  // int32 inv_size_width = 3;
+  if (this->_internal_inv_size_width() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_inv_size_width());
+  }
+
+  // int32 inv_size_height = 4;
+  if (this->_internal_inv_size_height() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_inv_size_height());
+  }
+
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
@@ -3056,6 +3104,12 @@ void MatchInitInfo_ScaleInitInfo::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to
   if (from._internal_tolerance() != 0) {
     _this->_internal_set_tolerance(from._internal_tolerance());
   }
+  if (from._internal_inv_size_width() != 0) {
+    _this->_internal_set_inv_size_width(from._internal_inv_size_width());
+  }
+  if (from._internal_inv_size_height() != 0) {
+    _this->_internal_set_inv_size_height(from._internal_inv_size_height());
+  }
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
@@ -3074,8 +3128,8 @@ void MatchInitInfo_ScaleInitInfo::InternalSwap(MatchInitInfo_ScaleInitInfo* othe
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(MatchInitInfo_ScaleInitInfo, _impl_.tolerance_)
-      + sizeof(MatchInitInfo_ScaleInitInfo::_impl_.tolerance_)
+      PROTOBUF_FIELD_OFFSET(MatchInitInfo_ScaleInitInfo, _impl_.inv_size_height_)
+      + sizeof(MatchInitInfo_ScaleInitInfo::_impl_.inv_size_height_)
       - PROTOBUF_FIELD_OFFSET(MatchInitInfo_ScaleInitInfo, _impl_.operating_weight_)>(
           reinterpret_cast<char*>(&_impl_.operating_weight_),
           reinterpret_cast<char*>(&other->_impl_.operating_weight_));

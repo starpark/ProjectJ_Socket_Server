@@ -521,8 +521,40 @@ bool Handle_C_MATCH_ITEM_DROP(const shared_ptr<SessionBase>& session, ProjectJ::
 		match->PlayerDropItem(gameSession,
 		                      packet.player_index(),
 		                      packet.item_index(),
-		                      packet.drop_item_position(),
-		                      packet.drop_item_rotation());
+		                      Vector{packet.drop_item_position().x(), packet.drop_item_position().y(), packet.drop_item_position().z()},
+		                      Rotator{packet.drop_item_rotation().roll(), packet.drop_item_rotation().pitch(), packet.drop_item_rotation().yaw()});
 	}
+
+	return true;
+}
+
+bool Handle_C_MATCH_CHASER_ATTACK(const shared_ptr<SessionBase>& session, ProjectJ::C_MATCH_CHASER_ATTACK& packet)
+{
+	shared_ptr<GameSession> gameSession = static_pointer_cast<GameSession>(session);
+	auto match = gameSession->TryGetMatch();
+
+	if (match)
+	{
+		match->ChaserAttack(gameSession,
+		                    Vector(packet.attack_position().x(), packet.attack_position().y(), packet.attack_position().z()),
+		                    Rotator(packet.attack_rotation().roll(), packet.attack_rotation().pitch(), packet.attack_rotation().yaw()));
+	}
+
+	return true;
+}
+
+bool Handle_C_MATCH_CHASER_HIT(const shared_ptr<SessionBase>& session, ProjectJ::C_MATCH_CHASER_HIT& packet)
+{
+	shared_ptr<GameSession> gameSession = static_pointer_cast<GameSession>(session);
+	auto match = gameSession->TryGetMatch();
+
+	if (match)
+	{
+		match->HitValidation(gameSession,
+		                     Vector(packet.attack_position().x(), packet.attack_position().y(), packet.attack_position().z()),
+		                     Rotator(packet.attack_rotation().roll(), packet.attack_rotation().pitch(), packet.attack_rotation().yaw()),
+		                     packet.hit_player_index());
+	}
+
 	return true;
 }

@@ -75,6 +75,8 @@ message MatchInitInfo
 	{
 		int32 operating_weight = 1;
 		int32 tolerance = 2;
+		int32 inv_size_width = 3;
+		int32 inv_size_height = 4;
 	}
 
 	PlayerInfo chaser = 1;
