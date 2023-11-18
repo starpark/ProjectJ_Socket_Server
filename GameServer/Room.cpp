@@ -367,7 +367,7 @@ void Room::StandByMatch(int count)
 
 		if (count == 0)
 		{
-			DoTaskAsync(&Room::StartMatch);
+			StartMatch();
 		}
 		else
 		{
