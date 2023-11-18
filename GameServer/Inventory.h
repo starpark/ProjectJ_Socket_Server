@@ -11,7 +11,6 @@ enum class InventoryErrorCode : UINT8
 	TO_EXCEEDING_WEIGHT_LIMITS = 21,
 	TO_NO_EMPTY_SPACE = 22,
 	DO_NOT_HAVE = 30,
-
 };
 
 class Inventory : public enable_shared_from_this<Inventory>
@@ -33,7 +32,7 @@ public:
 
 	InventoryErrorCode TryAddItem(const shared_ptr<Item>& item);
 	InventoryErrorCode RelocateItem(const shared_ptr<Inventory>& to, const shared_ptr<Item>& item, int slotIndex, bool isRotated);
-	InventoryErrorCode DropItem(const shared_ptr<Item>& item, ProjectJ::Vector vector, ProjectJ::Rotator rotate);
+	InventoryErrorCode DropItem(const shared_ptr<Item>& item, Vector position, Rotator rotation);
 	static const wchar_t* GetErrorWhat(InventoryErrorCode errorCode);
 
 protected:

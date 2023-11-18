@@ -64,7 +64,7 @@ InventoryErrorCode Inventory::RelocateItem(const shared_ptr<Inventory>& to, cons
 
 	if (to->CheckValidSlot(item, slotIndex, isRotated))
 	{
-		if(to->CheckWeightLimit(item->weight))
+		if (to->CheckWeightLimit(item->weight))
 		{
 			item->topLeftIndex = slotIndex;
 			item->bIsRotated = isRotated;
@@ -73,10 +73,7 @@ InventoryErrorCode Inventory::RelocateItem(const shared_ptr<Inventory>& to, cons
 
 			return InventoryErrorCode::SUCCESS;
 		}
-		else
-		{
-			return InventoryErrorCode::TO_EXCEEDING_WEIGHT_LIMITS;
-		}
+		return InventoryErrorCode::TO_EXCEEDING_WEIGHT_LIMITS;
 	}
 
 	AddItemAt(item, item->topLeftIndex);
@@ -84,7 +81,7 @@ InventoryErrorCode Inventory::RelocateItem(const shared_ptr<Inventory>& to, cons
 	throw InventoryErrorCode::TO_NO_EMPTY_SPACE;
 }
 
-InventoryErrorCode Inventory::DropItem(const shared_ptr<Item>& item, ProjectJ::Vector vector, ProjectJ::Rotator rotate)
+InventoryErrorCode Inventory::DropItem(const shared_ptr<Item>& item, Vector position, Rotator rotation)
 {
 	WRITE_LOCK;
 	if (owningItems_.find(item->index) == owningItems_.end())
@@ -93,6 +90,11 @@ InventoryErrorCode Inventory::DropItem(const shared_ptr<Item>& item, ProjectJ::V
 	}
 
 	PickUpItem(item);
+
+	item->topLeftIndex = -1;
+	item->bIsRotated = false;
+	item->position = position;
+	item->rotation = rotation;
 
 	return InventoryErrorCode::SUCCESS;
 }
