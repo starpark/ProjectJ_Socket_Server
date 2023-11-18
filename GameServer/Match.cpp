@@ -1,11 +1,13 @@
 #include "pch.h"
 #include "Match.h"
-
 #include "DataManager.h"
 #include "GameSession.h"
 #include "Room.h"
 #include "Item.h"
 #include "GamePacketHandler.h"
+
+#define _USE_MATH_DEFINES
+#include <math.h>
 
 Match::Match(shared_ptr<Room> owner)
 	: ownerRoom_(owner)
@@ -41,13 +43,13 @@ ProjectJ::PlayerInfo* Match::GetPlayerInfo(int playerIndex)
 	Vector vector = playerPtr->GetVector();
 	Rotator rotator = playerPtr->GetRotator();
 
-	position->set_x(vector.x);
-	position->set_y(vector.y);
-	position->set_z(vector.z);
+	position->set_x(vector.x_);
+	position->set_y(vector.y_);
+	position->set_z(vector.z_);
 
-	rotation->set_pitch(rotator.pitch);
-	rotation->set_roll(rotator.roll);
-	rotation->set_yaw(rotator.yaw);
+	rotation->set_pitch(rotator.pitch_);
+	rotation->set_roll(rotator.roll_);
+	rotation->set_yaw(rotator.yaw_);
 
 	player->set_account_id(playerPtr->GetID());
 	player->set_nickname(playerPtr->GetNickname());
@@ -63,7 +65,7 @@ ProjectJ::PlayerInfo* Match::GetPlayerInfo(int playerIndex)
 
 void Match::Tick()
 {
-	if(isMatchEnded_.load() != false)
+	if (isMatchEnded_.load() != false)
 	{
 		return;
 	}
@@ -91,10 +93,29 @@ void Match::Tick()
 	}
 }
 
+void Match::Broadcast(shared_ptr<SendBuffer> sendBuffer)
+{
+	READ_LOCK;
+	for (auto& player : players_)
+	{
+		if (player.second == ProjectJ::MatchPlayerState::DISCONNECTED)
+		{
+			continue;
+		}
+
+		if (auto session = player.first->GetOwnerSession())
+		{
+			session->Send(sendBuffer);
+		}
+	}
+}
+
+
 void Match::Init(shared_ptr<GameSession> chaser, shared_ptr<GameSession> fugitiveFirst,
                  shared_ptr<GameSession> fugitiveSecond,
                  shared_ptr<GameSession> fugitiveThird)
 {
+	WRITE_LOCK;
 	GLogHelper->Print(LogCategory::LOG_INFO, L"Room#%d Match Initialized\n", ownerRoom_->GetID());
 	shared_ptr<Match> thisPtr = static_pointer_cast<Match>(shared_from_this());
 
@@ -111,21 +132,24 @@ void Match::Init(shared_ptr<GameSession> chaser, shared_ptr<GameSession> fugitiv
 	}
 
 	{
-		auto fugitiveFirstPlayer = make_shared<Player>(FUGITIVE_FIRST_INDEX, row, column, maxWeight, fugitiveFirst->GetID(), fugitiveFirst->GetNickname());
+		auto fugitiveFirstPlayer = make_shared<Player>(FUGITIVE_FIRST_INDEX, row, column, maxWeight, fugitiveFirst->GetID(),
+		                                               fugitiveFirst->GetNickname());
 		fugitiveFirstPlayer->SetSession(fugitiveFirst);
 		fugitiveFirst->ProcessEnterMatch(thisPtr, fugitiveFirstPlayer);
 		players_.push_back({fugitiveFirst->GetPlayer(), ProjectJ::MatchPlayerState::NONE});
 	}
 
 	{
-		auto fugitiveSecondPlayer = make_shared<Player>(FUGITIVE_SECOND_INDEX, row, column, maxWeight, fugitiveSecond->GetID(), fugitiveSecond->GetNickname());
+		auto fugitiveSecondPlayer = make_shared<Player>(FUGITIVE_SECOND_INDEX, row, column, maxWeight, fugitiveSecond->GetID(),
+		                                                fugitiveSecond->GetNickname());
 		fugitiveSecondPlayer->SetSession(fugitiveSecond);
 		fugitiveSecond->ProcessEnterMatch(thisPtr, fugitiveSecondPlayer);
 		players_.push_back({fugitiveSecond->GetPlayer(), ProjectJ::MatchPlayerState::NONE});
 	}
 
 	{
-		auto fugitiveThirdPlayer = make_shared<Player>(FUGITIVE_THIRD_INDEX, row, column, maxWeight, fugitiveThird->GetID(), fugitiveThird->GetNickname());
+		auto fugitiveThirdPlayer = make_shared<Player>(FUGITIVE_THIRD_INDEX, row, column, maxWeight, fugitiveThird->GetID(),
+		                                               fugitiveThird->GetNickname());
 		fugitiveThirdPlayer->SetSession(fugitiveThird);
 		fugitiveThird->ProcessEnterMatch(thisPtr, fugitiveThirdPlayer);
 		players_.push_back({fugitiveThird->GetPlayer(), ProjectJ::MatchPlayerState::NONE});
@@ -174,7 +198,7 @@ void Match::Start()
 
 void Match::End()
 {
-	if(isMatchEnded_.exchange(true) == true)
+	if (isMatchEnded_.exchange(true) == true)
 	{
 		return;
 	}
@@ -243,6 +267,27 @@ void Match::PlayerStateChanged(const shared_ptr<GameSession>& session, ProjectJ:
 		}
 	}
 }
+
+void Match::PlayerDisconnected(const shared_ptr<GameSession>& session)
+{
+	WRITE_LOCK;
+	for (auto& player : players_)
+	{
+		if (player.first == session->GetPlayer())
+		{
+			player.second = ProjectJ::MatchPlayerState::DISCONNECTED;
+			session->ProcessLeaveMatch();
+
+			if (CheckPlayersState())
+			{
+				End();
+			}
+
+			return;
+		}
+	}
+}
+
 
 void Match::PlayerReadyToReceive(shared_ptr<GameSession> session)
 {
@@ -329,15 +374,15 @@ void Match::PlayerReadyToReceive(shared_ptr<GameSession> session)
 		item->set_is_owned(false);
 
 		auto position = new ProjectJ::Vector;
-		position->set_x(newItem->position.x);
-		position->set_y(newItem->position.y);
-		position->set_z(newItem->position.z);
+		position->set_x(newItem->position.x_);
+		position->set_y(newItem->position.y_);
+		position->set_z(newItem->position.z_);
 		item->set_allocated_world_position(position);
 
 		auto rotation = new ProjectJ::Rotator;
-		rotation->set_pitch(newItem->rotation.pitch);
-		rotation->set_roll(newItem->rotation.roll);
-		rotation->set_yaw(newItem->rotation.yaw);
+		rotation->set_pitch(newItem->rotation.pitch_);
+		rotation->set_roll(newItem->rotation.roll_);
+		rotation->set_yaw(newItem->rotation.yaw_);
 		item->set_allocated_world_rotation(rotation);
 
 		item->set_onwer_player_index(INVALID_ITEM_OWNER_ID);
@@ -401,8 +446,8 @@ void Match::PlayerPickUpItem(const shared_ptr<GameSession>& session, int playerI
 		item->ownerFlag.store((Item::OWNED_MASK | (playerIndex & Item::OWNER_PLAYER_MASK)), memory_order_release);
 
 		GLogHelper->Print(LogCategory::LOG_INFO,
-			L"Room#%d Match Player#%d Pick Up Item#%d Item ID: %d\n",
-			ownerRoom_->GetID(), playerIndex, itemIndex, item->id);
+		                  L"Room#%d Match Player#%d Pick Up Item#%d Item ID: %d\n",
+		                  ownerRoom_->GetID(), playerIndex, itemIndex, item->id);
 
 		ProjectJ::S_MATCH_ITEM_SOMEONE_PICKUP sendPacket;
 
@@ -419,8 +464,8 @@ void Match::PlayerPickUpItem(const shared_ptr<GameSession>& session, int playerI
 		item->ownerFlag.store(Item::EMPTY_OWNER_ID, memory_order_release);
 
 		GLogHelper->Print(LogCategory::LOG_WARN,
-			L"Room#%d Match Player#%d Fail To Pick Up Item#%d: %s\n",
-			ownerRoom_->GetID(), playerIndex, itemIndex, Inventory::GetErrorWhat(errorCode));
+		                  L"Room#%d Match Player#%d Fail To Pick Up Item#%d: %s\n",
+		                  ownerRoom_->GetID(), playerIndex, itemIndex, Inventory::GetErrorWhat(errorCode));
 	}
 }
 
@@ -457,7 +502,7 @@ void Match::PlayerMoveItem(const shared_ptr<GameSession>& session, int playerInd
 	}
 
 	InventoryErrorCode errorCode = from->RelocateItem(to, item, targetTopLeftIndex, isRotated);
-	if(errorCode == InventoryErrorCode::SUCCESS)
+	if (errorCode == InventoryErrorCode::SUCCESS)
 	{
 		item->ownerFlag.store((Item::OWNED_MASK | (toIndex & Item::OWNER_PLAYER_MASK)), memory_order_release);
 
@@ -503,14 +548,13 @@ void Match::PlayerMoveItem(const shared_ptr<GameSession>& session, int playerInd
 		item->ownerFlag.store((Item::OWNED_MASK | (fromIndex & Item::OWNER_PLAYER_MASK)), memory_order_release);
 
 		GLogHelper->Print(LogCategory::LOG_WARN,
-			L"Room#%d Match Player#%d Fail To Move Item#%d: %s\n",
-			ownerRoom_->GetID(), playerIndex, itemIndex, Inventory::GetErrorWhat(errorCode));
+		                  L"Room#%d Match Player#%d Fail To Move Item#%d: %s\n",
+		                  ownerRoom_->GetID(), playerIndex, itemIndex, Inventory::GetErrorWhat(errorCode));
 	}
-
 }
 
-void Match::PlayerDropItem(const shared_ptr<GameSession>& session, int playerIndex, int itemIndex, ProjectJ::Vector position,
-                           ProjectJ::Rotator rotation)
+void Match::PlayerDropItem(const shared_ptr<GameSession>& session, int playerIndex, int itemIndex, Vector position,
+                           Rotator rotation)
 {
 	if (playerIndex < 0 || playerIndex >= MAX_PLAYER_NUMBER || itemIndex < 0 || itemIndex >= items_.size())
 	{
@@ -543,8 +587,18 @@ void Match::PlayerDropItem(const shared_ptr<GameSession>& session, int playerInd
 
 		sendPacket.set_item_index(itemIndex);
 		sendPacket.set_player_index(playerIndex);
-		sendPacket.set_allocated_drop_item_position(new ProjectJ::Vector(position));
-		sendPacket.set_allocated_drop_item_rotation(new ProjectJ::Rotator(rotation));
+
+		auto dropPosition = new ProjectJ::Vector();
+		dropPosition->set_x(item->position.x_);
+		dropPosition->set_y(item->position.y_);
+		dropPosition->set_z(item->position.z_);
+		sendPacket.set_allocated_drop_item_position(dropPosition);
+
+		auto dropRotation = new ProjectJ::Rotator();
+		dropRotation->set_pitch(item->rotation.pitch_);
+		dropRotation->set_roll(item->rotation.roll_);
+		dropRotation->set_yaw(item->rotation.yaw_);
+		sendPacket.set_allocated_drop_item_rotation(dropRotation);
 
 		auto sendBuffer = GamePacketHandler::MakeSendBuffer(sendPacket);
 		Broadcast(sendBuffer);
@@ -554,48 +608,46 @@ void Match::PlayerDropItem(const shared_ptr<GameSession>& session, int playerInd
 		item->ownerFlag.store((origin & (Item::OWNED_MASK | Item::OWNER_PLAYER_MASK)), memory_order_release);
 
 		GLogHelper->Print(LogCategory::LOG_WARN,
-			L"Room#%d Match Player#%d Fail To Drop Item#%d: %s\n",
-			ownerRoom_->GetID(), playerIndex, itemIndex, Inventory::GetErrorWhat(errorCode));
+		                  L"Room#%d Match Player#%d Fail To Drop Item#%d: %s\n",
+		                  ownerRoom_->GetID(), playerIndex, itemIndex, Inventory::GetErrorWhat(errorCode));
 	}
 }
 
-
-void Match::PlayerDisconnected(const shared_ptr<GameSession>& session)
+void Match::ChaserAttack(const shared_ptr<GameSession>& session, Vector position, Rotator rotation)
 {
-	WRITE_LOCK;
-	for (auto& player : players_)
+	if (players_[CHASER_INDEX].first != session->GetPlayer())
 	{
-		if (player.first == session->GetPlayer())
-		{
-			player.second = ProjectJ::MatchPlayerState::DISCONNECTED;
-			session->ProcessLeaveMatch();
-
-			if (CheckPlayersState())
-			{
-				End();
-			}
-
-			return;
-		}
+		session->Disconnect();
 	}
+
+	// TODO BRAODCAST
 }
 
-void Match::Broadcast(shared_ptr<SendBuffer> sendBuffer)
+void Match::HitValidation(const shared_ptr<GameSession>& session, Vector position, Rotator rotation, int targetPlayerIndex)
 {
-	READ_LOCK;
-	for (auto& player : players_)
+	if (targetPlayerIndex < 1 || targetPlayerIndex >= MAX_PLAYER_NUMBER || players_[CHASER_INDEX].first != session->GetPlayer())
 	{
-		if (player.second == ProjectJ::MatchPlayerState::DISCONNECTED)
-		{
-			continue;
-		}
-
-		if (auto session = player.first->GetOwnerSession())
-		{
-			session->Send(sendBuffer);
-		}
+		session->Disconnect();
+		return;
 	}
+
+	Vector chaserPosition(position), targetPosition{0,};
+	Rotator chaserRotation(rotation);
+	{
+		READ_LOCK;
+		targetPosition = players_[targetPlayerIndex].first->GetVector();
+	}
+
+	float distance = Vector::Distance(chaserPosition, targetPosition);
+
+	Vector chaserVector2D = chaserRotation.Vector2D().Normalize2D();
+	Vector toTargetVector2D = (targetPosition - chaserPosition).Normalize2D();
+
+	float angle = Vector::Angle(chaserVector2D, toTargetVector2D);
+
+	// TODO Validate Hit
 }
+
 
 void Match::PlayerBackToRoom()
 {

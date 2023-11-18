@@ -55,8 +55,10 @@ public:
 	void PlayerPickUpItem(const shared_ptr<GameSession>& session, int playerIndex, int itemIndex);
 	void PlayerMoveItem(const shared_ptr<GameSession>& session, int playerIndex, int fromIndex, int toIndex, int itemIndex, int targetTopLeftIndex,
 	                    bool isRotated);
-	void PlayerDropItem(const shared_ptr<GameSession>& session, int playerIndex, int itemIndex, ProjectJ::Vector position,
-	                    ProjectJ::Rotator rotation);
+	void PlayerDropItem(const shared_ptr<GameSession>& session, int playerIndex, int itemIndex, Vector position,
+	                    Rotator rotation);
+	void ChaserAttack(const shared_ptr<GameSession>& session, Vector position, Rotator rotation);
+	void HitValidation(const shared_ptr<GameSession>& session, Vector position, Rotator rotation, int targetPlayerIndex);
 
 private:
 	void PlayerBackToRoom();
