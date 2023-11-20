@@ -25,10 +25,12 @@ public:
 	virtual ~Inventory();
 
 public:
+	USE_MULTIPLE_LOCK;
 	shared_ptr<Inventory> GetInventory() { return shared_from_this(); }
 	int GetCurrentWeight() const { return currentWeight_; }
 	int GetMaxWeight() const { return maxWeight_; }
 	int GetIndex() const { return index_; }
+	int GetItemsCount() const { return owningItems_.size(); }
 
 	InventoryErrorCode TryAddItem(const shared_ptr<Item>& item);
 	InventoryErrorCode RelocateItem(const shared_ptr<Inventory>& to, const shared_ptr<Item>& item, int slotIndex, bool isRotated);
@@ -41,11 +43,11 @@ protected:
 	bool CheckWeightLimit(int weight) { return weight + currentWeight_ <= maxWeight_; }
 	bool CheckValidSlot(const shared_ptr<Item>& item, int slotIndex, bool isRotated);
 	bool CheckValidPoint(int column, int row);
-	void RelocateItemAt(const shared_ptr<Item>& item, int slotIndex);
 	void AddItemAt(const shared_ptr<Item>& item, int slotIndex);
 	void PickUpItem(shared_ptr<Item> item);
 	void AcquireItem(const shared_ptr<Item>& item);
 	void ReleaseItem(const shared_ptr<Item>& item);
+	void PrintInventory();
 
 protected:
 	USE_LOCK;
