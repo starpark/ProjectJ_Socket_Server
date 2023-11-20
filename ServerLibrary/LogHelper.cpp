@@ -44,7 +44,6 @@ void LogHelper::Print(LogCategory category, const WCHAR* format, ...)
 
 void LogHelper::Write()
 {
-	while (isPaused_.load() != false);
 	if (logQueue_.IsEmpty() == false)
 	{
 		LogWrapper log = logQueue_.Pop();
