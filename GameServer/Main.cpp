@@ -1,5 +1,5 @@
 ﻿#include "pch.h"
-#include "DBConnection.h"
+#include "DBConnectionPool.h"
 #include "GameService.h"
 #include "GameSession.h"
 #include "GamePacketHandler.h"
@@ -30,7 +30,8 @@ void DoWorkThread(const shared_ptr<GameService>& service)
 
 int main()
 {
-	if (false == GDBConnection->Connect(
+	if (false == GDBConnectionPool->Connect(
+		50,
 		L"Driver={ODBC Driver 17 for SQL Server}; Server=localhost; Database=ProjectJ; UID=admin; PWD=q1w2e3r4;"))
 	{
 		GLogHelper->Print(LogCategory::LOG_ERROR, L"DB Connection Failure\n");
