@@ -477,6 +477,17 @@ bool Handle_C_MATCH_READY_TO_START(const shared_ptr<SessionBase>& session, Proje
 
 bool Handle_C_MATCH_INFO(const shared_ptr<SessionBase>& session, ProjectJ::C_MATCH_INFO& packet)
 {
+	shared_ptr<GameSession> gameSession = static_pointer_cast<GameSession>(session);
+	auto match = gameSession->TryGetMatch();
+
+	if (match)
+	{
+		Vector position(packet.info().position().x(), packet.info().position().y(), packet.info().position().z());
+		Rotator rotation(packet.info().rotation().roll(), packet.info().rotation().pitch(), packet.info().rotation().yaw());
+
+		match->PlayerSetTransform(gameSession, packet.player_index(), move(position), move(rotation));
+	}
+
 	return true;
 }
 
@@ -518,11 +529,14 @@ bool Handle_C_MATCH_ITEM_DROP(const shared_ptr<SessionBase>& session, ProjectJ::
 
 	if (match)
 	{
+		Vector position(packet.drop_item_position().x(), packet.drop_item_position().y(), packet.drop_item_position().z());
+		Rotator rotation(packet.drop_item_rotation().roll(), packet.drop_item_rotation().pitch(), packet.drop_item_rotation().yaw());
+
 		match->PlayerDropItem(gameSession,
 		                      packet.player_index(),
 		                      packet.item_index(),
-		                      Vector{packet.drop_item_position().x(), packet.drop_item_position().y(), packet.drop_item_position().z()},
-		                      Rotator{packet.drop_item_rotation().roll(), packet.drop_item_rotation().pitch(), packet.drop_item_rotation().yaw()});
+		                      position,
+		                      rotation);
 	}
 
 	return true;
@@ -535,9 +549,10 @@ bool Handle_C_MATCH_CHASER_ATTACK(const shared_ptr<SessionBase>& session, Projec
 
 	if (match)
 	{
-		match->ChaserAttack(gameSession,
-		                    Vector(packet.attack_position().x(), packet.attack_position().y(), packet.attack_position().z()),
-		                    Rotator(packet.attack_rotation().roll(), packet.attack_rotation().pitch(), packet.attack_rotation().yaw()));
+		Vector position(packet.attack_position().x(), packet.attack_position().y(), packet.attack_position().z());
+		Rotator rotation(packet.attack_rotation().roll(), packet.attack_rotation().pitch(), packet.attack_rotation().yaw());
+
+		match->ChaserAttack(gameSession, position, rotation);
 	}
 
 	return true;
@@ -550,10 +565,10 @@ bool Handle_C_MATCH_CHASER_HIT(const shared_ptr<SessionBase>& session, ProjectJ:
 
 	if (match)
 	{
-		match->HitValidation(gameSession,
-		                     Vector(packet.attack_position().x(), packet.attack_position().y(), packet.attack_position().z()),
-		                     Rotator(packet.attack_rotation().roll(), packet.attack_rotation().pitch(), packet.attack_rotation().yaw()),
-		                     packet.hit_player_index());
+		Vector position(packet.attack_position().x(), packet.attack_position().y(), packet.attack_position().z());
+		Rotator rotation(packet.attack_rotation().roll(), packet.attack_rotation().pitch(), packet.attack_rotation().yaw());
+
+		match->HitValidation(gameSession, position, rotation, packet.hit_player_index());
 	}
 
 	return true;
