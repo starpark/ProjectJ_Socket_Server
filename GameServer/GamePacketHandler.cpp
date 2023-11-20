@@ -441,7 +441,7 @@ bool Handle_C_ROOM_CHAT(const shared_ptr<SessionBase>& session, ProjectJ::C_ROOM
 		sendPacket.set_chat(packet.chat());
 
 		auto sendBuffer = GamePacketHandler::MakeSendBuffer(sendPacket);
-		room->DoTaskAsync(&Room::BroadcastHere, sendBuffer);
+		room->DoTaskAsync(&Room::Broadcast, sendBuffer);
 	}
 
 	return true;

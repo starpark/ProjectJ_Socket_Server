@@ -246,7 +246,7 @@ int Room::Leave(shared_ptr<GameSession> session, int slotIndex)
 		leavePacket.set_slot_index(slotIndex);
 
 		auto sendBuffer = GamePacketHandler::MakeSendBuffer(leavePacket);
-		BroadcastHere(sendBuffer);
+		Broadcast(sendBuffer);
 	}
 
 	return slotIndex;
@@ -267,7 +267,7 @@ void Room::SessionReadyToReceive(shared_ptr<GameSession> session)
 	session->Send(sendBuffer);
 }
 
-void Room::BroadcastHere(shared_ptr<SendBuffer> sendBuffer)
+void Room::Broadcast(shared_ptr<SendBuffer> sendBuffer)
 {
 	for (auto session : sessionSlots_)
 	{
@@ -335,7 +335,7 @@ void Room::ToggleReady(shared_ptr<GameSession> session, int slotIndex)
 	sendPacket.set_is_ready(sessionSlots_[slotIndex].second);
 
 	auto sendBuffer = GamePacketHandler::MakeSendBuffer(sendPacket);
-	BroadcastHere(sendBuffer);
+	Broadcast(sendBuffer);
 
 	StandByMatch(STANDBY_COUNT);
 }
@@ -362,7 +362,7 @@ void Room::StandByMatch(int count)
 			sendPacket.set_count(count);
 
 			auto sendBuffer = GamePacketHandler::MakeSendBuffer(sendPacket);
-			BroadcastHere(sendBuffer);
+			Broadcast(sendBuffer);
 		}
 
 		if (count == 0)
@@ -392,6 +392,13 @@ void Room::StartMatch()
 
 	match_ = make_shared<Match>(GetRoomPtr());
 	match_->DoTaskAsync(&Match::Init, chaser, fugitiveFirst, fugitiveSecond, fugitiveThird);
+	{
+		ProjectJ::S_ROOM_START_MATCH sendPacket;
+		sendPacket.set_start(true);
+
+		auto sendBuffer = GamePacketHandler::MakeSendBuffer(sendPacket);
+		Broadcast(sendBuffer);
+	}
 }
 
 void Room::EndMatch()

@@ -46,7 +46,7 @@ public:
 	int Enter(shared_ptr<GameSession> session);
 	int Leave(shared_ptr<GameSession> session, int slotIndex);
 	void SessionReadyToReceive(shared_ptr<GameSession> session);
-	void BroadcastHere(shared_ptr<SendBuffer> sendBuffer);
+	void Broadcast(shared_ptr<SendBuffer> sendBuffer);
 	void BroadcastWithoutSelf(shared_ptr<SendBuffer> sendBuffer, shared_ptr<GameSession> self);
 	bool ChangePlayerPosition(shared_ptr<GameSession> session, int currentNumber, int desireNumber);
 	void ToggleReady(shared_ptr<GameSession> session, int slotIndex);

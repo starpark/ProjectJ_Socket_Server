@@ -155,13 +155,6 @@ void Match::Init(shared_ptr<GameSession> chaser, shared_ptr<GameSession> fugitiv
 		matchShortGUID_ = matchGUID_.substr(0, 8);
 	}
 
-	{
-		ProjectJ::S_ROOM_START_MATCH sendPacket;
-		sendPacket.set_start(true);
-
-		auto sendBuffer = GamePacketHandler::MakeSendBuffer(sendPacket);
-		Broadcast(sendBuffer);
-	}
 
 	GLogHelper->Print(LogCategory::LOG_INFO, L"Match#%s Initialized\n", matchShortGUID_.c_str());
 }
