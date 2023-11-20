@@ -120,7 +120,7 @@ void Match::Init(shared_ptr<GameSession> chaser, shared_ptr<GameSession> fugitiv
 	for (int i = 0; i < 4; i++)
 	{
 		// TODO Fix Scale Data
-		auto scale = make_shared<Scale>(i + MAX_SCALE_NUMBER, 2000, 100, 15, 15);
+		auto scale = make_shared<Scale>(i + MAX_SCALE_NUMBER, 2000, 100, SCALE_HEIGHT, SCALE_WIDTH);
 		scales_[i] = scale;
 	}
 
@@ -155,6 +155,7 @@ void Match::Init(shared_ptr<GameSession> chaser, shared_ptr<GameSession> fugitiv
 		matchShortGUID_ = matchGUID_.substr(0, 8);
 	}
 
+	ASSERT_CRASH(isMatchInitialized_.exchange(true) == false);
 
 	GLogHelper->Print(LogCategory::LOG_INFO, L"Match#%s Initialized\n", matchShortGUID_.c_str());
 }
@@ -391,6 +392,8 @@ void Match::PlayerReadyToReceive(shared_ptr<GameSession> session)
 		auto scaleInfo = new ProjectJ::MatchInitInfo_ScaleInitInfo();
 		scaleInfo->set_operating_weight(scales_[SCALE_FIRST_INDEX]->GetOperatingWeight());
 		scaleInfo->set_tolerance(scales_[SCALE_FIRST_INDEX]->GetTolerance());
+		scaleInfo->set_inv_size_height(SCALE_HEIGHT);
+		scaleInfo->set_inv_size_width(SCALE_WIDTH);
 		initInfo->set_allocated_scale_first(scaleInfo);
 	}
 
@@ -399,6 +402,8 @@ void Match::PlayerReadyToReceive(shared_ptr<GameSession> session)
 		auto scaleInfo = new ProjectJ::MatchInitInfo_ScaleInitInfo();
 		scaleInfo->set_operating_weight(scales_[SCALE_SECOND_INDEX]->GetOperatingWeight());
 		scaleInfo->set_tolerance(scales_[SCALE_SECOND_INDEX]->GetTolerance());
+		scaleInfo->set_inv_size_height(SCALE_HEIGHT);
+		scaleInfo->set_inv_size_width(SCALE_WIDTH);
 		initInfo->set_allocated_scale_second(scaleInfo);
 	}
 
@@ -407,6 +412,8 @@ void Match::PlayerReadyToReceive(shared_ptr<GameSession> session)
 		auto scaleInfo = new ProjectJ::MatchInitInfo_ScaleInitInfo();
 		scaleInfo->set_operating_weight(scales_[SCALE_THIRD_INDEX]->GetOperatingWeight());
 		scaleInfo->set_tolerance(scales_[SCALE_THIRD_INDEX]->GetTolerance());
+		scaleInfo->set_inv_size_height(SCALE_HEIGHT);
+		scaleInfo->set_inv_size_width(SCALE_WIDTH);
 		initInfo->set_allocated_scale_third(scaleInfo);
 	}
 
@@ -415,6 +422,8 @@ void Match::PlayerReadyToReceive(shared_ptr<GameSession> session)
 		auto scaleInfo = new ProjectJ::MatchInitInfo_ScaleInitInfo();
 		scaleInfo->set_operating_weight(scales_[SCALE_FOURTH_INDEX]->GetOperatingWeight());
 		scaleInfo->set_tolerance(scales_[SCALE_FOURTH_INDEX]->GetTolerance());
+		scaleInfo->set_inv_size_height(SCALE_HEIGHT);
+		scaleInfo->set_inv_size_width(SCALE_WIDTH);
 		initInfo->set_allocated_scale_fourth(scaleInfo);
 	}
 

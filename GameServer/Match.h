@@ -43,6 +43,12 @@ class Match : public CommandTaskObject
 		MATCH_END_TICK = 1000 * 60 * 15
 	};
 
+	enum
+	{
+		SCALE_HEIGHT = 15,
+		SCALE_WIDTH = 15,
+	};
+
 public:
 	Match(shared_ptr<Room> owner);
 	~Match() override;
