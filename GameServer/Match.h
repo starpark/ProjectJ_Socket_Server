@@ -88,6 +88,7 @@ private:
 	void PlayerBackToRoom();
 
 private:
+	atomic<bool> isMatchInitialized_ = false;
 	atomic<bool> isMatchStarted_ = false;
 	atomic<bool> isMatchEnded_ = false;
 	UINT64 matchStartTick_ = 0;

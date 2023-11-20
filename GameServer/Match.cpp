@@ -377,6 +377,17 @@ void Match::PlayerReadyToReceive(shared_ptr<GameSession> session)
 		}
 	}
 
+	int spinCount = 0;
+	while (isMatchInitialized_.load() == false)
+	{
+		++spinCount;
+
+		if (spinCount % 5000 == 0)
+		{
+			this_thread::yield();
+		}
+	}
+
 	GLogHelper->Print(LogCategory::LOG_INFO, L"Match#%s Ready To Receive\n", matchShortGUID_.c_str());
 
 	ProjectJ::S_MATCH_ALL_READY_TO_RECIEVE sendPacket;
