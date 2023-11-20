@@ -1,7 +1,10 @@
 DROP TABLE IF EXISTS [dbo].[MatchRecords]
 CREATE TABLE [dbo].[MatchRecords]
 (
-	[match_id] INT NOT NULL PRIMARY KEY IDENTITY(1,1),
-	[start_time] DATETIME NOT NULL DEFAULT GETDATE(),
-	[end_time] DATETIME
+	[match_id] UNIQUEIDENTIFIER DEFAULT NEWID(),
+	[created_at] DATETIME2 DEFAULT SYSDATETIME(),
+	[start_time] DATETIME2, 
+	[end_time] DATETIME2,
+
+	PRIMARY KEY(match_id)
 )

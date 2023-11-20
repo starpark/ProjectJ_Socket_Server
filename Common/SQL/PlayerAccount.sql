@@ -5,5 +5,5 @@ CREATE TABLE [dbo].[PlayerAccounts]
 	[name] NVARCHAR(20) NOT NULL,
 	[nickname] NVARCHAR(12) NOT NULL,
 	[password] BINARY(60) NOT NULL,
-	[registration_date] DATETIME NOT NULL  DEFAULT GETDATE()
+	[registration_date] DATETIME2 NOT NULL  DEFAULT SYSDATETIME()
 )
