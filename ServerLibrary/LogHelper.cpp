@@ -44,6 +44,7 @@ void LogHelper::Print(LogCategory category, const WCHAR* format, ...)
 
 void LogHelper::Write()
 {
+	while (isPaused_.load() != false);
 	if (logQueue_.IsEmpty() == false)
 	{
 		LogWrapper log = logQueue_.Pop();
@@ -52,12 +53,14 @@ void LogHelper::Write()
 
 		wstring logString = L"";
 
-		time_t now = time(NULL);
-		tm tm;
-		localtime_s(&tm, &now);
+		auto now = std::chrono::system_clock::now();
+		auto nowTimeT = std::chrono::system_clock::to_time_t(now);
+
+		tm timeInfo;
+		localtime_s(&timeInfo, &nowTimeT);
 
 		wchar_t date[64];
-		wcsftime(date, 64, L"[%Y-%m-%d %H:%M:%S]", &tm);
+		wcsftime(date, 64, L"[%Y-%m-%d %H:%M:%S]", &timeInfo);
 
 		logString += date;
 
