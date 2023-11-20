@@ -8,10 +8,10 @@ void Lock::WriteLock(const char* name)
 	GDeadLockProfiler->PushLock(name);
 #endif
 
-	const uint32_t lockThreadId = (_lockFlag.load() & WRITE_THREAD_MASK) >> 16;
+	const uint32_t lockThreadId = (lockFlag_.load() & WRITE_THREAD_MASK) >> 16;
 	if (LThreadID == lockThreadId)
 	{
-		_writeCount++;
+		writeCount_++;
 		return;
 	}
 
@@ -22,14 +22,14 @@ void Lock::WriteLock(const char* name)
 		for (uint32_t spinCount = 0; spinCount < MAX_SPIN_COUNT; spinCount++)
 		{
 			uint32_t expected = EMPTY_FLAG;
-			if (_lockFlag.compare_exchange_strong(OUT expected, desired))
+			if (lockFlag_.compare_exchange_strong(OUT expected, desired))
 			{
-				_writeCount++;
+				writeCount_++;
 				return;
 			}
 		}
 
-#ifndef _DEBUG
+#ifdef _DEBUG
 		if (GetTickCount64() - beginTick >= ACQUIRE_TIMEOUT_TICK)
 			CRASH("LOCK_TIMEOUT");
 #endif
@@ -44,12 +44,12 @@ void Lock::WriteUnlock(const char* name)
 	GDeadLockProfiler->PopLock(name);
 #endif
 
-	if ((_lockFlag.load() & READ_COUNT_MASK) != 0)
+	if ((lockFlag_.load() & READ_COUNT_MASK) != 0)
 		CRASH("INVALID_UNLOCK_ORDER");
 
-	const int lockCount = --_writeCount;
+	const int lockCount = --writeCount_;
 	if (lockCount == 0)
-		_lockFlag.store(EMPTY_FLAG);
+		lockFlag_.store(EMPTY_FLAG);
 }
 
 void Lock::ReadLock(const char* name)
@@ -58,10 +58,10 @@ void Lock::ReadLock(const char* name)
 	GDeadLockProfiler->PushLock(name);
 #endif
 
-	const uint32_t lockThreadId = (_lockFlag.load() & WRITE_THREAD_MASK) >> 16;
+	const uint32_t lockThreadId = (lockFlag_.load() & WRITE_THREAD_MASK) >> 16;
 	if (LThreadID == lockThreadId)
 	{
-		_lockFlag.fetch_add(1);
+		lockFlag_.fetch_add(1);
 		return;
 	}
 
@@ -70,15 +70,16 @@ void Lock::ReadLock(const char* name)
 	{
 		for (uint32_t spinCount = 0; spinCount < MAX_SPIN_COUNT; spinCount++)
 		{
-			uint32_t expected = (_lockFlag.load() & READ_COUNT_MASK);
-			if (_lockFlag.compare_exchange_strong(OUT expected, expected + 1))
+			uint32_t expected = (lockFlag_.load() & READ_COUNT_MASK);
+			if (lockFlag_.compare_exchange_strong(OUT expected, expected + 1))
 				return;
 		}
 
-#ifndef _DEBUG
+#ifdef _DEBUG
 		if (GetTickCount64() - beginTick >= ACQUIRE_TIMEOUT_TICK)
 			CRASH("LOCK_TIMEOUT");
 #endif
+
 		this_thread::yield();
 	}
 }
@@ -89,6 +90,29 @@ void Lock::ReadUnlock(const char* name)
 	GDeadLockProfiler->PopLock(name);
 #endif
 
-	if ((_lockFlag.fetch_sub(1) & READ_COUNT_MASK) == 0)
+	if ((lockFlag_.fetch_sub(1) & READ_COUNT_MASK) == 0)
 		CRASH("MULTIPLE_UNLOCK");
+}
+
+bool Lock::TryWriteLock(const char* name)
+{
+	const uint32_t lockThreadId = (lockFlag_.load() & WRITE_THREAD_MASK) >> 16;
+	if (LThreadID == lockThreadId)
+	{
+		return true;
+	}
+
+
+	const uint32_t desired = ((LThreadID << 16) & WRITE_THREAD_MASK);
+	uint32_t expected = EMPTY_FLAG;
+	if (lockFlag_.compare_exchange_strong(expected, desired))
+	{
+#if _DEBUG
+		GDeadLockProfiler->PushLock(name);
+#endif
+		writeCount_++;
+		return true;
+	}
+
+	return false;
 }

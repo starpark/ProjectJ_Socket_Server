@@ -54,7 +54,7 @@ InventoryErrorCode Inventory::TryAddItem(const shared_ptr<Item>& item)
 
 InventoryErrorCode Inventory::RelocateItem(const shared_ptr<Inventory>& to, const shared_ptr<Item>& item, int slotIndex, bool isRotated)
 {
-	WRITE_LOCK;
+	MultipleWriteLockGuard lock(GET_CLASS_NAME, GetLockRef(), to->GetLockRef());
 	if (owningItems_.find(item->index) == owningItems_.end())
 	{
 		return InventoryErrorCode::FROM_DOES_NOT_HAVE;
@@ -78,7 +78,7 @@ InventoryErrorCode Inventory::RelocateItem(const shared_ptr<Inventory>& to, cons
 
 	AddItemAt(item, item->topLeftIndex);
 
-	throw InventoryErrorCode::TO_NO_EMPTY_SPACE;
+	return InventoryErrorCode::TO_NO_EMPTY_SPACE;
 }
 
 InventoryErrorCode Inventory::DropItem(const shared_ptr<Item>& item, Vector position, Rotator rotation)
@@ -136,10 +136,6 @@ bool Inventory::CheckValidPoint(int column, int row)
 	}
 
 	return true;
-}
-
-void Inventory::RelocateItemAt(const shared_ptr<Item>& item, int slotIndex)
-{
 }
 
 void Inventory::AddItemAt(const shared_ptr<Item>& item, int slotIndex)
@@ -200,6 +196,18 @@ void Inventory::ReleaseItem(const shared_ptr<Item>& item)
 {
 	owningItems_.erase(item->index);
 	currentWeight_ -= item->weight;
+}
+
+void Inventory::PrintInventory()
+{
+	for (int i = 0; i < row_; i++)
+	{
+		for (int j = 0; j < column_; j++)
+		{
+			cout << inventorySlots_[i * row_ + j];
+		}
+		cout << endl;
+	}
 }
 
 const wchar_t* Inventory::GetErrorWhat(InventoryErrorCode errorCode)
