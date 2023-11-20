@@ -1,7 +1,10 @@
 #pragma once
 #define _USE_MATH_DEFINES
+#include <algorithm>
 #include <cmath>
 #include <math.h>
+#include <chrono>
+#include <ctime>
 
 class Vector
 {
@@ -16,11 +19,25 @@ public:
 	{
 	}
 
+	Vector(Vector&& rhs)
+		: x_(std::move(rhs.x_)), y_(std::move(rhs.y_)), z_(std::move(rhs.z_))
+	{
+	}
+
 	Vector& operator=(const Vector& rhs)
 	{
 		this->x_ = rhs.x_;
 		this->y_ = rhs.y_;
 		this->z_ = rhs.z_;
+
+		return *this;
+	}
+
+	Vector& operator=(Vector&& rhs)
+	{
+		this->x_ = std::move(rhs.x_);
+		this->y_ = std::move(rhs.y_);
+		this->z_ = std::move(rhs.z_);
 
 		return *this;
 	}
@@ -80,11 +97,25 @@ public:
 	{
 	}
 
+	Rotator(Rotator&& rhs)
+		: roll_(std::move(rhs.roll_)), pitch_(std::move(rhs.pitch_)), yaw_(std::move(rhs.yaw_))
+	{
+	}
+
 	Rotator& operator=(const Rotator& rhs)
 	{
-		roll_ = rhs.roll_;
-		pitch_ = rhs.pitch_;
-		yaw_ = rhs.yaw_;
+		this->roll_ = rhs.roll_;
+		this->pitch_ = rhs.pitch_;
+		this->yaw_ = rhs.yaw_;
+
+		return *this;
+	}
+
+	Rotator& operator=(Rotator&& rhs)
+	{
+		this->roll_ = std::move(rhs.roll_);
+		this->pitch_ = std::move(rhs.pitch_);
+		this->yaw_ = std::move(rhs.yaw_);
 
 		return *this;
 	}
