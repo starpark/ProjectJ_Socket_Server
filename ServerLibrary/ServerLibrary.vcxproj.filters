@@ -99,6 +99,9 @@
     <ClInclude Include="Types.h">
       <Filter>Utils</Filter>
     </ClInclude>
+    <ClInclude Include="DBConnectionPool.h">
+      <Filter>DB</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -169,6 +172,9 @@
     </ClCompile>
     <ClCompile Include="DeadLockProfiler.cpp">
       <Filter>Thread</Filter>
+    </ClCompile>
+    <ClCompile Include="DBConnectionPool.cpp">
+      <Filter>DB</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
