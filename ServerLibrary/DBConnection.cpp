@@ -2,29 +2,18 @@
 #include "DBConnection.h"
 
 
-bool DBConnection::Connect(const WCHAR* connectionString)
+bool DBConnection::Connect(SQLHENV henv, const WCHAR* connectionString)
 {
-	if (SQLAllocHandle(SQL_HANDLE_ENV, SQL_NULL_HANDLE, &environment_) == SQL_ERROR)
+	if (SQLAllocHandle(SQL_HANDLE_DBC, henv, &connection_) == SQL_ERROR)
 	{
 		return false;
 	}
 
-	if (SQLSetEnvAttr(environment_, SQL_ATTR_ODBC_VERSION, reinterpret_cast<SQLPOINTER>(SQL_OV_ODBC3), 0) ==
-		SQL_ERROR)
-	{
-		return false;
-	}
-
-	if (SQLAllocHandle(SQL_HANDLE_DBC, environment_, &connection_) == SQL_ERROR)
-	{
-		return false;
-	}
-
-	SQLWCHAR stringBuffer[MAX_PATH];
+	SQLWCHAR stringBuffer[MAX_PATH] = {0};
 	wcscpy_s(stringBuffer, connectionString);
 
-	SQLWCHAR resultString[MAX_PATH];
-	SQLSMALLINT resultStringLen;
+	SQLWCHAR resultString[MAX_PATH] = {0};
+	SQLSMALLINT resultStringLen = 0;
 
 	SQLRETURN ret = SQLDriverConnectW(
 		connection_,
@@ -37,7 +26,7 @@ bool DBConnection::Connect(const WCHAR* connectionString)
 		SQL_DRIVER_NOPROMPT
 	);
 
-	if (SQLAllocHandle(SQL_HANDLE_STMT, connection_, &statement_) == SQL_ERROR)
+	if (SQLAllocHandle(SQL_HANDLE_STMT, connection_, &statement_) != SQL_SUCCESS)
 	{
 		return false;
 	}
@@ -47,23 +36,16 @@ bool DBConnection::Connect(const WCHAR* connectionString)
 
 void DBConnection::Clear()
 {
-	if (environment_ != NULL)
+	if (connection_ != SQL_NULL_HANDLE)
 	{
-		SQLFreeHandle(SQL_HANDLE_ENV, connection_);
-		environment_ = NULL;
-	}
-
-	if (connection_ != NULL)
-	{
-		SQLDisconnect(connection_);
 		SQLFreeHandle(SQL_HANDLE_DBC, connection_);
-		connection_ = NULL;
+		connection_ = SQL_NULL_HANDLE;
 	}
 
-	if (statement_ != NULL)
+	if (statement_ != SQL_NULL_HANDLE)
 	{
 		SQLFreeHandle(SQL_HANDLE_STMT, statement_);
-		statement_ = NULL;
+		statement_ = SQL_NULL_HANDLE;
 	}
 }
 
@@ -114,9 +96,9 @@ int DBConnection::GetRowCount()
 
 void DBConnection::Unbind()
 {
+	SQLCloseCursor(statement_);
 	SQLFreeStmt(statement_, SQL_UNBIND);
 	SQLFreeStmt(statement_, SQL_RESET_PARAMS);
-	SQLFreeStmt(statement_, SQL_CLOSE);
 }
 
 bool DBConnection::BindParam(int paramIndex, bool* value, SQLLEN* index)
@@ -156,7 +138,15 @@ bool DBConnection::BindParam(int paramIndex, __int64* value, SQLLEN* index)
 
 bool DBConnection::BindParam(int paramIndex, TIMESTAMP_STRUCT* value, SQLLEN* index)
 {
-	return BindParam(paramIndex, SQL_C_TYPE_TIMESTAMP, SQL_TYPE_TIMESTAMP, SQL_TIMESTAMP_LEN, value, index);
+	*index = sizeof(SQL_TIMESTAMP_STRUCT);
+	SQLRETURN ret = SQLBindParameter(statement_, paramIndex, SQL_PARAM_INPUT, SQL_C_TIMESTAMP, SQL_TYPE_TIMESTAMP, 27, 7, value, 0, index);
+	if (ret != SQL_SUCCESS && ret != SQL_SUCCESS_WITH_INFO)
+	{
+		HandleError(ret);
+		return false;
+	}
+
+	return true;
 }
 
 bool DBConnection::BindParam(int paramIndex, const WCHAR* str, SQLLEN* index)
@@ -240,11 +230,9 @@ bool DBConnection::BindCol(int columnIndex, BYTE* bin, int size, SQLLEN* index)
 	return BindCol(columnIndex, SQL_BINARY, size, bin, index);
 }
 
-bool DBConnection::BindParam(SQLUSMALLINT paramIndex, SQLSMALLINT cType, SQLSMALLINT sqlType, SQLULEN len,
-                             SQLPOINTER ptr, SQLLEN* index)
+bool DBConnection::BindParam(SQLUSMALLINT paramIndex, SQLSMALLINT cType, SQLSMALLINT sqlType, SQLULEN len, SQLPOINTER ptr, SQLLEN* index)
 {
-	SQLRETURN ret = SQLBindParameter(statement_, paramIndex, SQL_PARAM_INPUT, cType, sqlType, len, 0, ptr, 0,
-	                                 index);
+	SQLRETURN ret = SQLBindParameter(statement_, paramIndex, SQL_PARAM_INPUT, cType, sqlType, len, 0, ptr, 0, index);
 	if (ret != SQL_SUCCESS && ret != SQL_SUCCESS_WITH_INFO)
 	{
 		HandleError(ret);
@@ -304,8 +292,7 @@ void DBConnection::HandleError(SQLRETURN ret)
 			break;
 		}
 
-		wcout.imbue(locale("kor"));
-		wcout << errMsg << endl;
+		GLogHelper->Print(LogCategory::LOG_ERROR, L"%s\n", errMsg);
 
 		index++;
 	}

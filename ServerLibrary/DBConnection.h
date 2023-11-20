@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #include <sql.h>
 #include <sqlext.h>
 
@@ -13,7 +13,7 @@ class DBConnection
 
 	// 외부 사용
 public:
-	bool Connect(const WCHAR* connectionString);
+	bool Connect(SQLHENV henv, const WCHAR* connectionString);
 	void Clear();
 	bool Execute(const WCHAR* qurey);
 	bool Fetch();
@@ -46,13 +46,54 @@ public:
 
 	// 내부 사용, 바인딩 함수
 private:
-	bool BindParam(SQLUSMALLINT paramIndex, SQLSMALLINT cType, SQLSMALLINT sqlType, SQLULEN len, SQLPOINTER ptr,
-	               SQLLEN* index);
+	bool BindParam(SQLUSMALLINT paramIndex, SQLSMALLINT cType, SQLSMALLINT sqlType, SQLULEN len, SQLPOINTER ptr, SQLLEN* index);
 	bool BindCol(SQLUSMALLINT columnIndex, SQLSMALLINT cType, SQLULEN len, SQLPOINTER value, SQLLEN* index);
 	void HandleError(SQLRETURN ret);
 
 private:
-	SQLHENV environment_ = NULL;
-	SQLHDBC connection_ = NULL;
-	SQLHSTMT statement_ = NULL;
+	SQLHDBC connection_ = SQL_NULL_HANDLE;
+	SQLHSTMT statement_ = SQL_NULL_HANDLE;
+};
+
+class DBTimestampConverter
+{
+public:
+	SQL_TIMESTAMP_STRUCT operator()() const
+	{
+		auto now = std::chrono::system_clock::now();
+		auto nowTimeT = std::chrono::system_clock::to_time_t(now);
+
+		tm timeInfo;
+		localtime_s(&timeInfo, &nowTimeT);
+
+		SQL_TIMESTAMP_STRUCT timestamp;
+		timestamp.year = static_cast<SQLSMALLINT>(timeInfo.tm_year + 1900);
+		timestamp.month = static_cast<SQLSMALLINT>(timeInfo.tm_mon + 1);
+		timestamp.day = static_cast<SQLSMALLINT>(timeInfo.tm_mday);
+		timestamp.hour = static_cast<SQLSMALLINT>(timeInfo.tm_hour);
+		timestamp.minute = static_cast<SQLSMALLINT>(timeInfo.tm_min);
+		timestamp.second = static_cast<SQLSMALLINT>(timeInfo.tm_sec);
+		timestamp.fraction = 0;
+
+		return timestamp;
+	}
+
+	SQL_TIMESTAMP_STRUCT operator()(const std::chrono::system_clock::time_point& timePoint) const
+	{
+		auto nowTimeT = std::chrono::system_clock::to_time_t(timePoint);
+
+		tm timeInfo;
+		localtime_s(&timeInfo, &nowTimeT);
+
+		SQL_TIMESTAMP_STRUCT timestamp;
+		timestamp.year = static_cast<SQLSMALLINT>(timeInfo.tm_year + 1900);
+		timestamp.month = static_cast<SQLSMALLINT>(timeInfo.tm_mon + 1);
+		timestamp.day = static_cast<SQLSMALLINT>(timeInfo.tm_mday);
+		timestamp.hour = static_cast<SQLSMALLINT>(timeInfo.tm_hour);
+		timestamp.minute = static_cast<SQLSMALLINT>(timeInfo.tm_min);
+		timestamp.second = static_cast<SQLSMALLINT>(timeInfo.tm_sec);
+		timestamp.fraction = 0;
+
+		return timestamp;
+	}
 };
