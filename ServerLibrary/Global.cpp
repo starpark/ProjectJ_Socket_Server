@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "Global.h"
 #include "SendBuffer.h"
-#include "DBConnection.h"
+#include "DBConnectionPool.h"
 #include "SocketUtils.h"
 #include "LogHelper.h"
 #include "DeadLockProfiler.h"
@@ -11,7 +11,7 @@
 #include "TimerTask.h"
 
 SendBufferManager* GSendBufferManager = nullptr;
-DBConnection* GDBConnection = nullptr;
+DBConnectionPool* GDBConnectionPool = nullptr;
 LogHelper* GLogHelper = nullptr;
 DeadLockProfiler* GDeadLockProfiler = nullptr;
 TickTaskManager* GTickTaskManager = nullptr;
@@ -25,7 +25,7 @@ public:
 	Global()
 	{
 		GSendBufferManager = new SendBufferManager();
-		GDBConnection = new DBConnection();
+		GDBConnectionPool = new DBConnectionPool();
 		GLogHelper = new LogHelper();
 		GDeadLockProfiler = new DeadLockProfiler();
 		GTickTaskManager = new TickTaskManager();
@@ -39,7 +39,7 @@ public:
 	~Global()
 	{
 		delete GSendBufferManager;
-		delete GDBConnection;
+		delete GDBConnectionPool;
 		delete GLogHelper;
 		delete GDeadLockProfiler;
 		delete GTickTaskManager;
