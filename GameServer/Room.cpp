@@ -392,13 +392,6 @@ void Room::StartMatch()
 
 	match_ = make_shared<Match>(GetRoomPtr());
 	match_->DoTaskAsync(&Match::Init, chaser, fugitiveFirst, fugitiveSecond, fugitiveThird);
-	{
-		ProjectJ::S_ROOM_START_MATCH sendPacket;
-		sendPacket.set_start(true);
-
-		auto sendBuffer = GamePacketHandler::MakeSendBuffer(sendPacket);
-		BroadcastHere(sendBuffer);
-	}
 }
 
 void Room::EndMatch()
