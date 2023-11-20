@@ -1,5 +1,8 @@
 ﻿#include "pch.h"
 #include "ServerPacketHandler.h"
+
+#include <random>
+
 #include "Client.h"
 
 PacketHandlerFunc GPacketHandler[UINT16_MAX];
@@ -146,7 +149,7 @@ bool Handle_S_ROOM_START_MATCH(const shared_ptr<SessionBase>& session, ProjectJ:
 		sendPacket.set_account_id(clientSession->id);
 
 		auto sendBuffer = ServerPacketHandler::MakeSendBuffer(sendPacket);
-		//session->Send(sendBuffer);
+		session->Send(sendBuffer);
 	}
 
 	return true;
@@ -165,11 +168,6 @@ bool Handle_S_MATCH_ITEM_GENERATED(const shared_ptr<SessionBase>& session, Proje
 {
 	auto clientSession = static_pointer_cast<ClientSession>(session);
 
-	for (auto& item : packet.items())
-	{
-		cout << "Item#" << item.id() << "생성된 아이템" << endl;
-	}
-
 	ProjectJ::C_MATCH_READY_TO_START sendPacket;
 	sendPacket.set_player_index(clientSession->matchIndex);
 	auto sendBuffer = ServerPacketHandler::MakeSendBuffer(sendPacket);
@@ -181,7 +179,7 @@ bool Handle_S_MATCH_ITEM_GENERATED(const shared_ptr<SessionBase>& session, Proje
 bool Handle_S_MATCH_START(const shared_ptr<SessionBase>& session, ProjectJ::S_MATCH_START& packet)
 {
 	auto clientSession = static_pointer_cast<ClientSession>(session);
-	for (int i = 0; i < 5; i++)
+	for (int i = 0; i < 30; i++)
 	{
 		ProjectJ::C_MATCH_ITEM_PICKUP sendPacket;
 
@@ -213,7 +211,28 @@ bool Handle_S_MATCH_END(const shared_ptr<SessionBase>& session, ProjectJ::S_MATC
 
 bool Handle_S_MATCH_ITEM_SOMEONE_PICKUP(const shared_ptr<SessionBase>& session, ProjectJ::S_MATCH_ITEM_SOMEONE_PICKUP& packet)
 {
-	cout << "Player#" << packet.player_index() << "Item#" << packet.item_index() << " 아이템 획득" << endl;
+	auto clientSession = static_pointer_cast<ClientSession>(session);
+	if (clientSession->matchIndex == packet.player_index())
+	{
+		static std::random_device rd;
+		static std::mt19937 gen(rd());
+		uniform_int_distribution<int> slotDis(0, 100);
+		uniform_int_distribution<int> toDis(4, 7);
+		int slotindex = slotDis(gen);
+		int toIndex = toDis(gen);
+		ProjectJ::C_MATCH_ITEM_MOVE sendPacket;
+		sendPacket.set_player_index(clientSession->matchIndex);
+		sendPacket.set_from_index(clientSession->matchIndex);
+		sendPacket.set_to_index(5);
+		sendPacket.set_target_top_left_index(slotindex);
+		sendPacket.set_is_item_rotated(false);
+		sendPacket.set_item_index(packet.item_index());
+
+		auto sendBuffer = ServerPacketHandler::MakeSendBuffer(sendPacket);
+		session->Send(sendBuffer);
+
+		cout << "item 이동 시도" << clientSession->matchIndex << "에서 " << toIndex << "의 " << slotindex << "칸으로" << endl;
+	}
 
 	return true;
 }

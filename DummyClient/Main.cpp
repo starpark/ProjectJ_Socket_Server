@@ -3,7 +3,7 @@
 
 #define TEST_PORT 55141
 #define LIVE_PORT 3000
-#define SESSION_COUNT 200
+#define SESSION_COUNT 4
 
 int main(int argc, char* argv[])
 {
@@ -37,7 +37,7 @@ int main(int argc, char* argv[])
 	this_thread::sleep_for(5s);
 	auto sessions = service->GetSessions();
 
-	int threadCount = 5;
+	int threadCount = 1;
 	int offset = sessions.size() / threadCount;
 	for (int i = 0; i < threadCount; i++)
 	{
