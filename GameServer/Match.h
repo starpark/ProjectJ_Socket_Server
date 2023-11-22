@@ -40,7 +40,7 @@ class Match : public CommandTaskObject
 	enum : UINT64
 	{
 		START_TIME_OUT = 1000 * 60 * 1,
-		MATCH_END_TICK = 1000 * 60 * 15
+		MATCH_END_TICK = 1000 * 60 * 2
 	};
 
 	enum
@@ -86,6 +86,36 @@ public:
 
 private:
 	void PlayerBackToRoom();
+
+	bool IsPlayer(int index)
+	{
+		return CHASER_INDEX <= index && index <= FUGITIVE_THIRD_INDEX;
+	}
+
+	bool IsChaser(int index)
+	{
+		return index == CHASER_INDEX;
+	}
+
+	bool IsFugitive(int index)
+	{
+		return FUGITIVE_FIRST_INDEX <= index && index <= FUGITIVE_THIRD_INDEX;
+	}
+
+	bool IsScale(int index)
+	{
+		return index >= MAX_SCALE_NUMBER && index < MAX_INVENTORY_INDEX;
+	}
+
+	bool IsValidInventoryIndex(int index)
+	{
+		return IsPlayer(index) || IsScale(index);
+	}
+
+	bool IsValidItemIndex(int index)
+	{
+		return 0 <= index && index < items_.size();
+	}
 
 private:
 	atomic<bool> isMatchInitialized_ = false;

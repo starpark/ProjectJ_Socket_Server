@@ -511,7 +511,7 @@ void Match::PlayerReadyToStart(shared_ptr<GameSession> session)
 
 void Match::PlayerSetTransform(const shared_ptr<GameSession>& session, int playerIndex, Vector&& position, Rotator&& rotation)
 {
-	if (playerIndex < 0 || playerIndex >= MAX_PLAYER_NUMBER || players_[playerIndex] != session->GetPlayer())
+	if (IsPlayer(playerIndex) == false || players_[playerIndex] != session->GetPlayer())
 	{
 		session->Disconnect();
 		return;
@@ -522,7 +522,7 @@ void Match::PlayerSetTransform(const shared_ptr<GameSession>& session, int playe
 
 void Match::PlayerPickUpItem(const shared_ptr<GameSession>& session, int playerIndex, int itemIndex)
 {
-	if (playerIndex < 0 || playerIndex >= MAX_PLAYER_NUMBER || itemIndex < 0 || itemIndex >= items_.size())
+	if (IsPlayer(playerIndex) == false || IsValidItemIndex(itemIndex) == false)
 	{
 		return;
 	}
@@ -574,20 +574,16 @@ void Match::PlayerPickUpItem(const shared_ptr<GameSession>& session, int playerI
 void Match::PlayerMoveItem(const shared_ptr<GameSession>& session, int playerIndex, int fromIndex, int toIndex, int itemIndex, int targetTopLeftIndex,
                            bool isRotated)
 {
-	if (fromIndex < 0 || fromIndex >= MAX_INVENTORY_INDEX || toIndex < 0 || toIndex >= MAX_INVENTORY_INDEX ||
-		itemIndex < 0 || itemIndex >= items_.size())
+	if (IsValidInventoryIndex(fromIndex) == false || IsValidInventoryIndex(toIndex) == false || IsValidInventoryIndex(itemIndex) == false)
 	{
+		session->Disconnect();
 		return;
 	}
 
 
 	shared_ptr<Player>& player = players_[playerIndex];
-	shared_ptr<Inventory> from = fromIndex < MAX_SCALE_NUMBER
-		                             ? players_[fromIndex]->GetInventory()
-		                             : scales_[fromIndex % MAX_SCALE_NUMBER]->GetInventory();
-	shared_ptr<Inventory> to = toIndex < MAX_SCALE_NUMBER
-		                           ? players_[toIndex]->GetInventory()
-		                           : scales_[toIndex % MAX_SCALE_NUMBER]->GetInventory();
+	shared_ptr<Inventory> from = IsPlayer(fromIndex) ? players_[fromIndex]->GetInventory() : scales_[fromIndex % MAX_SCALE_NUMBER]->GetInventory();
+	shared_ptr<Inventory> to = IsPlayer(toIndex) ? players_[toIndex]->GetInventory() : scales_[toIndex % MAX_SCALE_NUMBER]->GetInventory();
 	shared_ptr<Item>& item = items_[itemIndex];
 
 	if (fromIndex != from->GetIndex() || toIndex != to->GetIndex() || player != session->GetPlayer())
@@ -623,7 +619,7 @@ void Match::PlayerMoveItem(const shared_ptr<GameSession>& session, int playerInd
 		auto sendBuffer = GamePacketHandler::MakeSendBuffer(sendPacket);
 		Broadcast(sendBuffer);
 
-		if (fromIndex >= MAX_SCALE_NUMBER || fromIndex < MAX_INVENTORY_INDEX)
+		if (IsScale(fromIndex))
 		{
 			ProjectJ::S_MATCH_SCALE_ON_CHANGED scaleChangedPacket;
 			shared_ptr<Scale> scale = static_pointer_cast<Scale>(from);
@@ -636,7 +632,7 @@ void Match::PlayerMoveItem(const shared_ptr<GameSession>& session, int playerInd
 			Broadcast(scaleSendBuffer);
 		}
 
-		if (toIndex >= MAX_SCALE_NUMBER || toIndex < MAX_INVENTORY_INDEX)
+		if (IsScale(toIndex))
 		{
 			ProjectJ::S_MATCH_SCALE_ON_CHANGED scaleChangedPacket;
 			shared_ptr<Scale> scale = static_pointer_cast<Scale>(to);
@@ -662,8 +658,9 @@ void Match::PlayerMoveItem(const shared_ptr<GameSession>& session, int playerInd
 void Match::PlayerDropItem(const shared_ptr<GameSession>& session, int playerIndex, int itemIndex, Vector position,
                            Rotator rotation)
 {
-	if (playerIndex < 0 || playerIndex >= MAX_PLAYER_NUMBER || itemIndex < 0 || itemIndex >= items_.size())
+	if (IsPlayer(playerIndex) == false || IsValidItemIndex(itemIndex))
 	{
+		session->Disconnect();
 		return;
 	}
 
@@ -751,16 +748,15 @@ void Match::ChaserAttack(const shared_ptr<GameSession>& session, const Vector& p
 
 void Match::HitValidation(const shared_ptr<GameSession>& session, const Vector& position, const Rotator& rotation, int targetPlayerIndex)
 {
-	if (targetPlayerIndex < 1 || targetPlayerIndex >= MAX_PLAYER_NUMBER || players_[CHASER_INDEX] != session->GetPlayer())
+	if (IsFugitive(targetPlayerIndex) == false || players_[CHASER_INDEX] != session->GetPlayer())
 	{
 		session->Disconnect();
 		return;
 	}
 
-	Vector chaserPosition(position), targetPosition{0,};
-	Rotator chaserRotation(rotation);
-
-	targetPosition = players_[targetPlayerIndex]->GetVector();
+	const Vector chaserPosition(position);
+	const Vector targetPosition(players_[targetPlayerIndex]->GetVector());
+	const Rotator chaserRotation(rotation);
 
 	float distance = Vector::Distance(chaserPosition, targetPosition);
 
