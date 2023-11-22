@@ -280,3 +280,27 @@ message S_MATCH_CHASER_HIT
 	int32 hit_player_index = 2;
 	MatchPlayerState changed_state = 3;
 }
+
+message C_MATCH_FUGITIVE_ESCAPE
+{
+	int32 player_index = 1;
+	int32 escape_scale_index = 2;
+}
+
+message S_MATCH_FUGITIVE_ESCAPE
+{
+	int32 player_index = 1;
+	int32 escape_scale_index = 2;
+	int32 score = 3;	
+	int64 current_tick = 4;
+}
+
+message C_MATCH_LEAVE
+{
+	int32 player_index = 1;
+}
+
+message S_MATCH_LEAVE
+{
+	bool result = 1;
+}

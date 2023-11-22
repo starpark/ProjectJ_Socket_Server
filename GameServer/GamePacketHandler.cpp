@@ -573,3 +573,8 @@ bool Handle_C_MATCH_CHASER_HIT(const shared_ptr<SessionBase>& session, ProjectJ:
 
 	return true;
 }
+
+bool Handle_C_MATCH_FUGITIVE_ESCAPE(const shared_ptr<SessionBase>& session, ProjectJ::C_MATCH_FUGITIVE_ESCAPE& packet)
+{
+	return true;
+}

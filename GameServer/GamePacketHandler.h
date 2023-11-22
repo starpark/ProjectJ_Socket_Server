@@ -47,6 +47,8 @@ enum : uint16_t
 	PKT_S_MATCH_CHASER_ATTACK = 1038,
 	PKT_C_MATCH_CHASER_HIT = 1039,
 	PKT_S_MATCH_CHASER_HIT = 1040,
+	PKT_C_MATCH_FUGITIVE_ESCAPE = 1041,
+	PKT_S_MATCH_FUGITIVE_ESCAPE = 1042,
 };
 
 bool Handle_INVALID(const shared_ptr<SessionBase>& session, BYTE* bufer, int numOfBytes);
@@ -67,12 +69,13 @@ bool Handle_C_MATCH_ITEM_MOVE(const shared_ptr<SessionBase>& session, ProjectJ::
 bool Handle_C_MATCH_ITEM_DROP(const shared_ptr<SessionBase>& session, ProjectJ::C_MATCH_ITEM_DROP& packet);
 bool Handle_C_MATCH_CHASER_ATTACK(const shared_ptr<SessionBase>& session, ProjectJ::C_MATCH_CHASER_ATTACK& packet);
 bool Handle_C_MATCH_CHASER_HIT(const shared_ptr<SessionBase>& session, ProjectJ::C_MATCH_CHASER_HIT& packet);
+bool Handle_C_MATCH_FUGITIVE_ESCAPE(const shared_ptr<SessionBase>& session, ProjectJ::C_MATCH_FUGITIVE_ESCAPE& packet);
 
 
 // 소켓 수신 데이터 처리 및 송신 버퍼 생성 클래스
 // 최초 작성자: 박별
 // 수정자: 
-// 최종 수정일: 2023-11-18 자동 생성
+// 최종 수정일: 2023-11-21 자동 생성
 class GamePacketHandler
 {
 public:
@@ -99,6 +102,7 @@ public:
 		GPacketHandler[PKT_C_MATCH_ITEM_DROP] = [](shared_ptr<SessionBase> session, BYTE* buffer, int numOfBytes) {return HandlePacket<ProjectJ::C_MATCH_ITEM_DROP>(Handle_C_MATCH_ITEM_DROP, session, buffer, numOfBytes);};
 		GPacketHandler[PKT_C_MATCH_CHASER_ATTACK] = [](shared_ptr<SessionBase> session, BYTE* buffer, int numOfBytes) {return HandlePacket<ProjectJ::C_MATCH_CHASER_ATTACK>(Handle_C_MATCH_CHASER_ATTACK, session, buffer, numOfBytes);};
 		GPacketHandler[PKT_C_MATCH_CHASER_HIT] = [](shared_ptr<SessionBase> session, BYTE* buffer, int numOfBytes) {return HandlePacket<ProjectJ::C_MATCH_CHASER_HIT>(Handle_C_MATCH_CHASER_HIT, session, buffer, numOfBytes);};
+		GPacketHandler[PKT_C_MATCH_FUGITIVE_ESCAPE] = [](shared_ptr<SessionBase> session, BYTE* buffer, int numOfBytes) {return HandlePacket<ProjectJ::C_MATCH_FUGITIVE_ESCAPE>(Handle_C_MATCH_FUGITIVE_ESCAPE, session, buffer, numOfBytes);};
 	}
 
 	static bool HandlePacket(shared_ptr<SessionBase>& session, BYTE* buffer, int numOfBytes)
@@ -130,6 +134,7 @@ public:
 	static shared_ptr<SendBuffer> MakeSendBuffer(ProjectJ::S_MATCH_SCALE_ON_CHANGED& packet) {return MakeSendBuffer(packet, PKT_S_MATCH_SCALE_ON_CHANGED);}
 	static shared_ptr<SendBuffer> MakeSendBuffer(ProjectJ::S_MATCH_CHASER_ATTACK& packet) {return MakeSendBuffer(packet, PKT_S_MATCH_CHASER_ATTACK);}
 	static shared_ptr<SendBuffer> MakeSendBuffer(ProjectJ::S_MATCH_CHASER_HIT& packet) {return MakeSendBuffer(packet, PKT_S_MATCH_CHASER_HIT);}
+	static shared_ptr<SendBuffer> MakeSendBuffer(ProjectJ::S_MATCH_FUGITIVE_ESCAPE& packet) {return MakeSendBuffer(packet, PKT_S_MATCH_FUGITIVE_ESCAPE);}
 
 private:
 	template <typename PacketMessage, typename ProcessFunc>

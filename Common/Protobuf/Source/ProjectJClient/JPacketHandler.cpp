@@ -28,6 +28,7 @@ FPacket_S_MATCH_ITEM_SOMEONE_DROP UJPacketHandler::Packet_S_MATCH_ITEM_SOMEONE_D
 FPacket_S_MATCH_SCALE_ON_CHANGED UJPacketHandler::Packet_S_MATCH_SCALE_ON_CHANGED_Delegate;
 FPacket_S_MATCH_CHASER_ATTACK UJPacketHandler::Packet_S_MATCH_CHASER_ATTACK_Delegate;
 FPacket_S_MATCH_CHASER_HIT UJPacketHandler::Packet_S_MATCH_CHASER_HIT_Delegate;
+FPacket_S_MATCH_FUGITIVE_ESCAPE UJPacketHandler::Packet_S_MATCH_FUGITIVE_ESCAPE_Delegate;
 
 bool Handle_INVALID(UWorld* World, const TSharedPtr<JPackets>& Packet, float DeltaSeconds)
 {
@@ -246,6 +247,15 @@ bool Handle_S_MATCH_CHASER_HIT(UWorld* World, ProjectJ::S_MATCH_CHASER_HIT& Pack
 	if (UJPacketHandler::Packet_S_MATCH_CHASER_HIT_Delegate.IsBound())
 	{
 		return UJPacketHandler::Packet_S_MATCH_CHASER_HIT_Delegate.Execute(World, Packet, DeltaSeconds);
+	}
+
+	return false;
+}
+bool Handle_S_MATCH_FUGITIVE_ESCAPE(UWorld* World, ProjectJ::S_MATCH_FUGITIVE_ESCAPE& Packet, float DeltaSeconds)
+{
+	if (UJPacketHandler::Packet_S_MATCH_FUGITIVE_ESCAPE_Delegate.IsBound())
+	{
+		return UJPacketHandler::Packet_S_MATCH_FUGITIVE_ESCAPE_Delegate.Execute(World, Packet, DeltaSeconds);
 	}
 
 	return false;

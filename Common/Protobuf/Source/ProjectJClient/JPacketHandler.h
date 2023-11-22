@@ -54,6 +54,8 @@ enum : uint16
 	PKT_S_MATCH_CHASER_ATTACK = 1038,
 	PKT_C_MATCH_CHASER_HIT = 1039,
 	PKT_S_MATCH_CHASER_HIT = 1040,
+	PKT_C_MATCH_FUGITIVE_ESCAPE = 1041,
+	PKT_S_MATCH_FUGITIVE_ESCAPE = 1042,
 };
 
 // RecvThread 전용 패킷 가공 함수
@@ -115,11 +117,13 @@ bool Handle_S_MATCH_CHASER_ATTACK(UWorld* World, ProjectJ::S_MATCH_CHASER_ATTACK
 DECLARE_DELEGATE_RetVal_ThreeParams(bool, FPacket_S_MATCH_CHASER_ATTACK, UWorld*, ProjectJ::S_MATCH_CHASER_ATTACK&, float);
 bool Handle_S_MATCH_CHASER_HIT(UWorld* World, ProjectJ::S_MATCH_CHASER_HIT& Packet, float DeltaSeconds);
 DECLARE_DELEGATE_RetVal_ThreeParams(bool, FPacket_S_MATCH_CHASER_HIT, UWorld*, ProjectJ::S_MATCH_CHASER_HIT&, float);
+bool Handle_S_MATCH_FUGITIVE_ESCAPE(UWorld* World, ProjectJ::S_MATCH_FUGITIVE_ESCAPE& Packet, float DeltaSeconds);
+DECLARE_DELEGATE_RetVal_ThreeParams(bool, FPacket_S_MATCH_FUGITIVE_ESCAPE, UWorld*, ProjectJ::S_MATCH_FUGITIVE_ESCAPE&, float);
 
 // 소켓 수신 데이터 처리 및 송신 버퍼 생성 클래스
 // 최초 작성자: 박별
 // 수정자: 
-// 최종 수정일: 2023-11-18 자동 생성
+// 최종 수정일: 2023-11-21 자동 생성
 class PROJECTJ_API UJPacketHandler : public UObject
 {
 public:
@@ -160,6 +164,7 @@ public:
 		GPacketProcessor[PKT_S_MATCH_SCALE_ON_CHANGED] = [](UWorld* World, const TSharedPtr<JPackets>& PacketPtr, float DeltaSeconds) {return ProcessPacket<ProjectJ::S_MATCH_SCALE_ON_CHANGED>(Handle_S_MATCH_SCALE_ON_CHANGED, World, PacketPtr, DeltaSeconds);};
 		GPacketProcessor[PKT_S_MATCH_CHASER_ATTACK] = [](UWorld* World, const TSharedPtr<JPackets>& PacketPtr, float DeltaSeconds) {return ProcessPacket<ProjectJ::S_MATCH_CHASER_ATTACK>(Handle_S_MATCH_CHASER_ATTACK, World, PacketPtr, DeltaSeconds);};
 		GPacketProcessor[PKT_S_MATCH_CHASER_HIT] = [](UWorld* World, const TSharedPtr<JPackets>& PacketPtr, float DeltaSeconds) {return ProcessPacket<ProjectJ::S_MATCH_CHASER_HIT>(Handle_S_MATCH_CHASER_HIT, World, PacketPtr, DeltaSeconds);};
+		GPacketProcessor[PKT_S_MATCH_FUGITIVE_ESCAPE] = [](UWorld* World, const TSharedPtr<JPackets>& PacketPtr, float DeltaSeconds) {return ProcessPacket<ProjectJ::S_MATCH_FUGITIVE_ESCAPE>(Handle_S_MATCH_FUGITIVE_ESCAPE, World, PacketPtr, DeltaSeconds);};
 
 		// Handler 바인딩
 		GPacketHandler[PKT_S_VERIFY_TOKEN] = [](uint16 TypeCode, uint8* Buffer, int32 Size) {return HandlePacket<ProjectJ::S_VERIFY_TOKEN>(TypeCode, Buffer, Size);};
@@ -186,6 +191,7 @@ public:
 		GPacketHandler[PKT_S_MATCH_SCALE_ON_CHANGED] = [](uint16 TypeCode, uint8* Buffer, int32 Size) {return HandlePacket<ProjectJ::S_MATCH_SCALE_ON_CHANGED>(TypeCode, Buffer, Size);};
 		GPacketHandler[PKT_S_MATCH_CHASER_ATTACK] = [](uint16 TypeCode, uint8* Buffer, int32 Size) {return HandlePacket<ProjectJ::S_MATCH_CHASER_ATTACK>(TypeCode, Buffer, Size);};
 		GPacketHandler[PKT_S_MATCH_CHASER_HIT] = [](uint16 TypeCode, uint8* Buffer, int32 Size) {return HandlePacket<ProjectJ::S_MATCH_CHASER_HIT>(TypeCode, Buffer, Size);};
+		GPacketHandler[PKT_S_MATCH_FUGITIVE_ESCAPE] = [](uint16 TypeCode, uint8* Buffer, int32 Size) {return HandlePacket<ProjectJ::S_MATCH_FUGITIVE_ESCAPE>(TypeCode, Buffer, Size);};
 	}
 
 	// 게임 스레드에서 가공된 데이터를 처리하는 함수
@@ -285,6 +291,10 @@ public:
 	// Packet: C_MATCH_CHASER_HIT 객체
 	// 생성된 FJSendBuffer 스마트포인터 반환
 	static TSharedPtr<FJSendBuffer> MakeSendBuffer(ProjectJ::C_MATCH_CHASER_HIT& Packet) {return MakeSendBuffer(Packet, PKT_C_MATCH_CHASER_HIT);}
+	// C_MATCH_FUGITIVE_ESCAPE를 직렬화한 FJSendBuffer 생성 함수
+	// Packet: C_MATCH_FUGITIVE_ESCAPE 객체
+	// 생성된 FJSendBuffer 스마트포인터 반환
+	static TSharedPtr<FJSendBuffer> MakeSendBuffer(ProjectJ::C_MATCH_FUGITIVE_ESCAPE& Packet) {return MakeSendBuffer(Packet, PKT_C_MATCH_FUGITIVE_ESCAPE);}
 
 protected:
 	// 게임 스레드에서 송신할 데이터를 담을 객체를 만드는 함수
@@ -381,4 +391,5 @@ public:
 	static FPacket_S_MATCH_SCALE_ON_CHANGED Packet_S_MATCH_SCALE_ON_CHANGED_Delegate;
 	static FPacket_S_MATCH_CHASER_ATTACK Packet_S_MATCH_CHASER_ATTACK_Delegate;
 	static FPacket_S_MATCH_CHASER_HIT Packet_S_MATCH_CHASER_HIT_Delegate;
+	static FPacket_S_MATCH_FUGITIVE_ESCAPE Packet_S_MATCH_FUGITIVE_ESCAPE_Delegate;
 };

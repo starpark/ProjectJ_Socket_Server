@@ -66,6 +66,9 @@ extern C_MATCH_CHASER_ATTACKDefaultTypeInternal _C_MATCH_CHASER_ATTACK_default_i
 class C_MATCH_CHASER_HIT;
 struct C_MATCH_CHASER_HITDefaultTypeInternal;
 extern C_MATCH_CHASER_HITDefaultTypeInternal _C_MATCH_CHASER_HIT_default_instance_;
+class C_MATCH_FUGITIVE_ESCAPE;
+struct C_MATCH_FUGITIVE_ESCAPEDefaultTypeInternal;
+extern C_MATCH_FUGITIVE_ESCAPEDefaultTypeInternal _C_MATCH_FUGITIVE_ESCAPE_default_instance_;
 class C_MATCH_INFO;
 struct C_MATCH_INFODefaultTypeInternal;
 extern C_MATCH_INFODefaultTypeInternal _C_MATCH_INFO_default_instance_;
@@ -126,6 +129,9 @@ extern S_MATCH_CHASER_HITDefaultTypeInternal _S_MATCH_CHASER_HIT_default_instanc
 class S_MATCH_END;
 struct S_MATCH_ENDDefaultTypeInternal;
 extern S_MATCH_ENDDefaultTypeInternal _S_MATCH_END_default_instance_;
+class S_MATCH_FUGITIVE_ESCAPE;
+struct S_MATCH_FUGITIVE_ESCAPEDefaultTypeInternal;
+extern S_MATCH_FUGITIVE_ESCAPEDefaultTypeInternal _S_MATCH_FUGITIVE_ESCAPE_default_instance_;
 class S_MATCH_INFO;
 struct S_MATCH_INFODefaultTypeInternal;
 extern S_MATCH_INFODefaultTypeInternal _S_MATCH_INFO_default_instance_;
@@ -182,6 +188,7 @@ template<> ::ProjectJ::C_LOBBY_ENTER_ROOM* Arena::CreateMaybeMessage<::ProjectJ:
 template<> ::ProjectJ::C_LOBBY_REFRESH_ROOM* Arena::CreateMaybeMessage<::ProjectJ::C_LOBBY_REFRESH_ROOM>(Arena*);
 template<> ::ProjectJ::C_MATCH_CHASER_ATTACK* Arena::CreateMaybeMessage<::ProjectJ::C_MATCH_CHASER_ATTACK>(Arena*);
 template<> ::ProjectJ::C_MATCH_CHASER_HIT* Arena::CreateMaybeMessage<::ProjectJ::C_MATCH_CHASER_HIT>(Arena*);
+template<> ::ProjectJ::C_MATCH_FUGITIVE_ESCAPE* Arena::CreateMaybeMessage<::ProjectJ::C_MATCH_FUGITIVE_ESCAPE>(Arena*);
 template<> ::ProjectJ::C_MATCH_INFO* Arena::CreateMaybeMessage<::ProjectJ::C_MATCH_INFO>(Arena*);
 template<> ::ProjectJ::C_MATCH_INFO_MyInfo* Arena::CreateMaybeMessage<::ProjectJ::C_MATCH_INFO_MyInfo>(Arena*);
 template<> ::ProjectJ::C_MATCH_ITEM_DROP* Arena::CreateMaybeMessage<::ProjectJ::C_MATCH_ITEM_DROP>(Arena*);
@@ -202,6 +209,7 @@ template<> ::ProjectJ::S_MATCH_ALL_READY_TO_RECIEVE* Arena::CreateMaybeMessage<:
 template<> ::ProjectJ::S_MATCH_CHASER_ATTACK* Arena::CreateMaybeMessage<::ProjectJ::S_MATCH_CHASER_ATTACK>(Arena*);
 template<> ::ProjectJ::S_MATCH_CHASER_HIT* Arena::CreateMaybeMessage<::ProjectJ::S_MATCH_CHASER_HIT>(Arena*);
 template<> ::ProjectJ::S_MATCH_END* Arena::CreateMaybeMessage<::ProjectJ::S_MATCH_END>(Arena*);
+template<> ::ProjectJ::S_MATCH_FUGITIVE_ESCAPE* Arena::CreateMaybeMessage<::ProjectJ::S_MATCH_FUGITIVE_ESCAPE>(Arena*);
 template<> ::ProjectJ::S_MATCH_INFO* Arena::CreateMaybeMessage<::ProjectJ::S_MATCH_INFO>(Arena*);
 template<> ::ProjectJ::S_MATCH_ITEM_GENERATED* Arena::CreateMaybeMessage<::ProjectJ::S_MATCH_ITEM_GENERATED>(Arena*);
 template<> ::ProjectJ::S_MATCH_ITEM_SOMEONE_DROP* Arena::CreateMaybeMessage<::ProjectJ::S_MATCH_ITEM_SOMEONE_DROP>(Arena*);
@@ -7353,6 +7361,346 @@ class S_MATCH_CHASER_HIT final :
   union { Impl_ _impl_; };
   friend struct ::TableStruct_Message_2eproto;
 };
+// -------------------------------------------------------------------
+
+class C_MATCH_FUGITIVE_ESCAPE final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:ProjectJ.C_MATCH_FUGITIVE_ESCAPE) */ {
+ public:
+  inline C_MATCH_FUGITIVE_ESCAPE() : C_MATCH_FUGITIVE_ESCAPE(nullptr) {}
+  ~C_MATCH_FUGITIVE_ESCAPE() override;
+  explicit PROTOBUF_CONSTEXPR C_MATCH_FUGITIVE_ESCAPE(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  C_MATCH_FUGITIVE_ESCAPE(const C_MATCH_FUGITIVE_ESCAPE& from);
+  C_MATCH_FUGITIVE_ESCAPE(C_MATCH_FUGITIVE_ESCAPE&& from) noexcept
+    : C_MATCH_FUGITIVE_ESCAPE() {
+    *this = ::std::move(from);
+  }
+
+  inline C_MATCH_FUGITIVE_ESCAPE& operator=(const C_MATCH_FUGITIVE_ESCAPE& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline C_MATCH_FUGITIVE_ESCAPE& operator=(C_MATCH_FUGITIVE_ESCAPE&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const C_MATCH_FUGITIVE_ESCAPE& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const C_MATCH_FUGITIVE_ESCAPE* internal_default_instance() {
+    return reinterpret_cast<const C_MATCH_FUGITIVE_ESCAPE*>(
+               &_C_MATCH_FUGITIVE_ESCAPE_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    42;
+
+  friend void swap(C_MATCH_FUGITIVE_ESCAPE& a, C_MATCH_FUGITIVE_ESCAPE& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(C_MATCH_FUGITIVE_ESCAPE* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(C_MATCH_FUGITIVE_ESCAPE* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  C_MATCH_FUGITIVE_ESCAPE* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<C_MATCH_FUGITIVE_ESCAPE>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const C_MATCH_FUGITIVE_ESCAPE& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom( const C_MATCH_FUGITIVE_ESCAPE& from) {
+    C_MATCH_FUGITIVE_ESCAPE::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(C_MATCH_FUGITIVE_ESCAPE* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "ProjectJ.C_MATCH_FUGITIVE_ESCAPE";
+  }
+  protected:
+  explicit C_MATCH_FUGITIVE_ESCAPE(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kPlayerIndexFieldNumber = 1,
+    kEscapeScaleIndexFieldNumber = 2,
+  };
+  // int32 player_index = 1;
+  void clear_player_index();
+  int32_t player_index() const;
+  void set_player_index(int32_t value);
+  private:
+  int32_t _internal_player_index() const;
+  void _internal_set_player_index(int32_t value);
+  public:
+
+  // int32 escape_scale_index = 2;
+  void clear_escape_scale_index();
+  int32_t escape_scale_index() const;
+  void set_escape_scale_index(int32_t value);
+  private:
+  int32_t _internal_escape_scale_index() const;
+  void _internal_set_escape_scale_index(int32_t value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:ProjectJ.C_MATCH_FUGITIVE_ESCAPE)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    int32_t player_index_;
+    int32_t escape_scale_index_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_Message_2eproto;
+};
+// -------------------------------------------------------------------
+
+class S_MATCH_FUGITIVE_ESCAPE final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:ProjectJ.S_MATCH_FUGITIVE_ESCAPE) */ {
+ public:
+  inline S_MATCH_FUGITIVE_ESCAPE() : S_MATCH_FUGITIVE_ESCAPE(nullptr) {}
+  ~S_MATCH_FUGITIVE_ESCAPE() override;
+  explicit PROTOBUF_CONSTEXPR S_MATCH_FUGITIVE_ESCAPE(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  S_MATCH_FUGITIVE_ESCAPE(const S_MATCH_FUGITIVE_ESCAPE& from);
+  S_MATCH_FUGITIVE_ESCAPE(S_MATCH_FUGITIVE_ESCAPE&& from) noexcept
+    : S_MATCH_FUGITIVE_ESCAPE() {
+    *this = ::std::move(from);
+  }
+
+  inline S_MATCH_FUGITIVE_ESCAPE& operator=(const S_MATCH_FUGITIVE_ESCAPE& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline S_MATCH_FUGITIVE_ESCAPE& operator=(S_MATCH_FUGITIVE_ESCAPE&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const S_MATCH_FUGITIVE_ESCAPE& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const S_MATCH_FUGITIVE_ESCAPE* internal_default_instance() {
+    return reinterpret_cast<const S_MATCH_FUGITIVE_ESCAPE*>(
+               &_S_MATCH_FUGITIVE_ESCAPE_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    43;
+
+  friend void swap(S_MATCH_FUGITIVE_ESCAPE& a, S_MATCH_FUGITIVE_ESCAPE& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(S_MATCH_FUGITIVE_ESCAPE* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(S_MATCH_FUGITIVE_ESCAPE* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  S_MATCH_FUGITIVE_ESCAPE* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<S_MATCH_FUGITIVE_ESCAPE>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const S_MATCH_FUGITIVE_ESCAPE& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom( const S_MATCH_FUGITIVE_ESCAPE& from) {
+    S_MATCH_FUGITIVE_ESCAPE::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(S_MATCH_FUGITIVE_ESCAPE* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "ProjectJ.S_MATCH_FUGITIVE_ESCAPE";
+  }
+  protected:
+  explicit S_MATCH_FUGITIVE_ESCAPE(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kPlayerIndexFieldNumber = 1,
+    kEscapeScaleIndexFieldNumber = 2,
+    kCurrentTickFieldNumber = 4,
+    kScoreFieldNumber = 3,
+  };
+  // int32 player_index = 1;
+  void clear_player_index();
+  int32_t player_index() const;
+  void set_player_index(int32_t value);
+  private:
+  int32_t _internal_player_index() const;
+  void _internal_set_player_index(int32_t value);
+  public:
+
+  // int32 escape_scale_index = 2;
+  void clear_escape_scale_index();
+  int32_t escape_scale_index() const;
+  void set_escape_scale_index(int32_t value);
+  private:
+  int32_t _internal_escape_scale_index() const;
+  void _internal_set_escape_scale_index(int32_t value);
+  public:
+
+  // int64 current_tick = 4;
+  void clear_current_tick();
+  int64_t current_tick() const;
+  void set_current_tick(int64_t value);
+  private:
+  int64_t _internal_current_tick() const;
+  void _internal_set_current_tick(int64_t value);
+  public:
+
+  // int32 score = 3;
+  void clear_score();
+  int32_t score() const;
+  void set_score(int32_t value);
+  private:
+  int32_t _internal_score() const;
+  void _internal_set_score(int32_t value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:ProjectJ.S_MATCH_FUGITIVE_ESCAPE)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    int32_t player_index_;
+    int32_t escape_scale_index_;
+    int64_t current_tick_;
+    int32_t score_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_Message_2eproto;
+};
 // ===================================================================
 
 
@@ -11072,9 +11420,141 @@ inline void S_MATCH_CHASER_HIT::set_changed_state(::ProjectJ::MatchPlayerState v
   // @@protoc_insertion_point(field_set:ProjectJ.S_MATCH_CHASER_HIT.changed_state)
 }
 
+// -------------------------------------------------------------------
+
+// C_MATCH_FUGITIVE_ESCAPE
+
+// int32 player_index = 1;
+inline void C_MATCH_FUGITIVE_ESCAPE::clear_player_index() {
+  _impl_.player_index_ = 0;
+}
+inline int32_t C_MATCH_FUGITIVE_ESCAPE::_internal_player_index() const {
+  return _impl_.player_index_;
+}
+inline int32_t C_MATCH_FUGITIVE_ESCAPE::player_index() const {
+  // @@protoc_insertion_point(field_get:ProjectJ.C_MATCH_FUGITIVE_ESCAPE.player_index)
+  return _internal_player_index();
+}
+inline void C_MATCH_FUGITIVE_ESCAPE::_internal_set_player_index(int32_t value) {
+  
+  _impl_.player_index_ = value;
+}
+inline void C_MATCH_FUGITIVE_ESCAPE::set_player_index(int32_t value) {
+  _internal_set_player_index(value);
+  // @@protoc_insertion_point(field_set:ProjectJ.C_MATCH_FUGITIVE_ESCAPE.player_index)
+}
+
+// int32 escape_scale_index = 2;
+inline void C_MATCH_FUGITIVE_ESCAPE::clear_escape_scale_index() {
+  _impl_.escape_scale_index_ = 0;
+}
+inline int32_t C_MATCH_FUGITIVE_ESCAPE::_internal_escape_scale_index() const {
+  return _impl_.escape_scale_index_;
+}
+inline int32_t C_MATCH_FUGITIVE_ESCAPE::escape_scale_index() const {
+  // @@protoc_insertion_point(field_get:ProjectJ.C_MATCH_FUGITIVE_ESCAPE.escape_scale_index)
+  return _internal_escape_scale_index();
+}
+inline void C_MATCH_FUGITIVE_ESCAPE::_internal_set_escape_scale_index(int32_t value) {
+  
+  _impl_.escape_scale_index_ = value;
+}
+inline void C_MATCH_FUGITIVE_ESCAPE::set_escape_scale_index(int32_t value) {
+  _internal_set_escape_scale_index(value);
+  // @@protoc_insertion_point(field_set:ProjectJ.C_MATCH_FUGITIVE_ESCAPE.escape_scale_index)
+}
+
+// -------------------------------------------------------------------
+
+// S_MATCH_FUGITIVE_ESCAPE
+
+// int32 player_index = 1;
+inline void S_MATCH_FUGITIVE_ESCAPE::clear_player_index() {
+  _impl_.player_index_ = 0;
+}
+inline int32_t S_MATCH_FUGITIVE_ESCAPE::_internal_player_index() const {
+  return _impl_.player_index_;
+}
+inline int32_t S_MATCH_FUGITIVE_ESCAPE::player_index() const {
+  // @@protoc_insertion_point(field_get:ProjectJ.S_MATCH_FUGITIVE_ESCAPE.player_index)
+  return _internal_player_index();
+}
+inline void S_MATCH_FUGITIVE_ESCAPE::_internal_set_player_index(int32_t value) {
+  
+  _impl_.player_index_ = value;
+}
+inline void S_MATCH_FUGITIVE_ESCAPE::set_player_index(int32_t value) {
+  _internal_set_player_index(value);
+  // @@protoc_insertion_point(field_set:ProjectJ.S_MATCH_FUGITIVE_ESCAPE.player_index)
+}
+
+// int32 escape_scale_index = 2;
+inline void S_MATCH_FUGITIVE_ESCAPE::clear_escape_scale_index() {
+  _impl_.escape_scale_index_ = 0;
+}
+inline int32_t S_MATCH_FUGITIVE_ESCAPE::_internal_escape_scale_index() const {
+  return _impl_.escape_scale_index_;
+}
+inline int32_t S_MATCH_FUGITIVE_ESCAPE::escape_scale_index() const {
+  // @@protoc_insertion_point(field_get:ProjectJ.S_MATCH_FUGITIVE_ESCAPE.escape_scale_index)
+  return _internal_escape_scale_index();
+}
+inline void S_MATCH_FUGITIVE_ESCAPE::_internal_set_escape_scale_index(int32_t value) {
+  
+  _impl_.escape_scale_index_ = value;
+}
+inline void S_MATCH_FUGITIVE_ESCAPE::set_escape_scale_index(int32_t value) {
+  _internal_set_escape_scale_index(value);
+  // @@protoc_insertion_point(field_set:ProjectJ.S_MATCH_FUGITIVE_ESCAPE.escape_scale_index)
+}
+
+// int32 score = 3;
+inline void S_MATCH_FUGITIVE_ESCAPE::clear_score() {
+  _impl_.score_ = 0;
+}
+inline int32_t S_MATCH_FUGITIVE_ESCAPE::_internal_score() const {
+  return _impl_.score_;
+}
+inline int32_t S_MATCH_FUGITIVE_ESCAPE::score() const {
+  // @@protoc_insertion_point(field_get:ProjectJ.S_MATCH_FUGITIVE_ESCAPE.score)
+  return _internal_score();
+}
+inline void S_MATCH_FUGITIVE_ESCAPE::_internal_set_score(int32_t value) {
+  
+  _impl_.score_ = value;
+}
+inline void S_MATCH_FUGITIVE_ESCAPE::set_score(int32_t value) {
+  _internal_set_score(value);
+  // @@protoc_insertion_point(field_set:ProjectJ.S_MATCH_FUGITIVE_ESCAPE.score)
+}
+
+// int64 current_tick = 4;
+inline void S_MATCH_FUGITIVE_ESCAPE::clear_current_tick() {
+  _impl_.current_tick_ = int64_t{0};
+}
+inline int64_t S_MATCH_FUGITIVE_ESCAPE::_internal_current_tick() const {
+  return _impl_.current_tick_;
+}
+inline int64_t S_MATCH_FUGITIVE_ESCAPE::current_tick() const {
+  // @@protoc_insertion_point(field_get:ProjectJ.S_MATCH_FUGITIVE_ESCAPE.current_tick)
+  return _internal_current_tick();
+}
+inline void S_MATCH_FUGITIVE_ESCAPE::_internal_set_current_tick(int64_t value) {
+  
+  _impl_.current_tick_ = value;
+}
+inline void S_MATCH_FUGITIVE_ESCAPE::set_current_tick(int64_t value) {
+  _internal_set_current_tick(value);
+  // @@protoc_insertion_point(field_set:ProjectJ.S_MATCH_FUGITIVE_ESCAPE.current_tick)
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------
