@@ -658,7 +658,7 @@ void Match::PlayerMoveItem(const shared_ptr<GameSession>& session, int playerInd
 void Match::PlayerDropItem(const shared_ptr<GameSession>& session, int playerIndex, int itemIndex, Vector position,
                            Rotator rotation)
 {
-	if (IsPlayer(playerIndex) == false || IsValidItemIndex(itemIndex))
+	if (IsPlayer(playerIndex) == false || IsValidItemIndex(itemIndex) == false)
 	{
 		session->Disconnect();
 		return;
