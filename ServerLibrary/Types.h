@@ -57,6 +57,13 @@ public:
 		return lhs;
 	}
 
+	Vector Normalize2D() const
+	{
+		float length = sqrtf(powf(x_, 2) + powf(y_, 2));
+
+		return Vector(x_ / length, y_ / length);
+	}
+
 	static float Distance(const Vector& v1, const Vector& v2)
 	{
 		return sqrtf(powf(v1.x_ - v2.x_, 2) + powf(v1.y_ - v2.y_, 2) + powf(v1.z_ - v2.z_, 2));
@@ -69,13 +76,6 @@ public:
 		angle *= (180.0 / M_PI);
 
 		return angle;
-	}
-
-	Vector Normalize2D()
-	{
-		float length = sqrtf(powf(x_, 2) + powf(y_, 2));
-
-		return Vector(x_ / length, y_ / length);
 	}
 
 	float x_;
@@ -120,7 +120,7 @@ public:
 		return *this;
 	}
 
-	Vector Vector2D()
+	Vector Vector2D() const
 	{
 		float radinas = yaw_ * (M_PI / 180.0);
 		return Vector(cosf(radinas), sinf(radinas));
