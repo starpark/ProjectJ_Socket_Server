@@ -79,7 +79,6 @@ public:
 	UINT32 GetThreadId(UINT64 state);
 
 private:
-	USE_LOCK;
 	UINT64 currentTick = 0;
 	atomic<bool> distributing_ = false;
 	LockPriorityQueue<TimerElementPtr> addedElements_;

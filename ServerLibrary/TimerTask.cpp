@@ -28,7 +28,10 @@ void TimerTaskManager::RemoveTimer(TimerHandle handle)
 
 void TimerTaskManager::Distribute()
 {
-	WRITE_LOCK;
+	if (distributing_.exchange(true, memory_order_acquire) == true)
+	{
+		return;
+	}
 
 	const UINT64 currentThreadId = static_cast<UINT64>(LThreadID) << 32;
 
@@ -48,6 +51,7 @@ void TimerTaskManager::Distribute()
 
 	if (elements_.empty())
 	{
+		distributing_.store(false);
 		return;
 	}
 
@@ -109,4 +113,6 @@ void TimerTaskManager::Distribute()
 
 	elements_.clear();
 	elements_ = move(timerElements);
+
+	distributing_.store(false, memory_order_release);
 }
