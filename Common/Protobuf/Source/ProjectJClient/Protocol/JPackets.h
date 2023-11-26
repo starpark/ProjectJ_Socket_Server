@@ -19,7 +19,7 @@ using JPacketTypes = TVariant<
 	ProjectJ::S_ROOM_CHAT,
 	ProjectJ::S_ROOM_STANDBY_MATCH,
 	ProjectJ::S_ROOM_START_MATCH,
-	ProjectJ::S_MATCH_ALL_READY_TO_RECIEVE,
+	ProjectJ::S_MATCH_ALL_READY_TO_RECEIVE,
 	ProjectJ::S_MATCH_ITEM_GENERATED,
 	ProjectJ::S_MATCH_START,
 	ProjectJ::S_MATCH_INFO,
@@ -30,13 +30,15 @@ using JPacketTypes = TVariant<
 	ProjectJ::S_MATCH_SCALE_ON_CHANGED,
 	ProjectJ::S_MATCH_CHASER_ATTACK,
 	ProjectJ::S_MATCH_CHASER_HIT,
-	ProjectJ::S_MATCH_FUGITIVE_ESCAPE
+	ProjectJ::S_MATCH_FUGITIVE_ESCAPE,
+	ProjectJ::S_MATCH_CHASER_INSTALL_CCTV,
+	ProjectJ::S_MATCH_LEAVE
 >;
 
 // 패킷 래핑 클래스
 // 최초 작성자: 박별
 // 수정자: 
-// 최종 수정일: 2023-11-21 자동 생성
+// 최종 수정일: 2023-11-26 자동 생성
 class PROJECTJ_API JPackets
 {
 public:

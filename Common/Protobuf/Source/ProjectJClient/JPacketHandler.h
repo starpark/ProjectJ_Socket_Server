@@ -36,26 +36,31 @@ enum : uint16
 	PKT_S_ROOM_STANDBY_MATCH = 1020,
 	PKT_S_ROOM_START_MATCH = 1021,
 	PKT_C_MATCH_READY_TO_RECEIVE = 1022,
-	PKT_S_MATCH_ALL_READY_TO_RECIEVE = 1023,
+	PKT_S_MATCH_ALL_READY_TO_RECEIVE = 1023,
 	PKT_S_MATCH_ITEM_GENERATED = 1024,
-	PKT_C_MATCH_READY_TO_START = 1025,
-	PKT_S_MATCH_START = 1026,
-	PKT_C_MATCH_INFO = 1027,
-	PKT_S_MATCH_INFO = 1028,
-	PKT_S_MATCH_END = 1029,
-	PKT_C_MATCH_ITEM_PICKUP = 1030,
-	PKT_C_MATCH_ITEM_MOVE = 1031,
-	PKT_C_MATCH_ITEM_DROP = 1032,
-	PKT_S_MATCH_ITEM_SOMEONE_PICKUP = 1033,
-	PKT_S_MATCH_ITEM_SOMEONE_MOVE = 1034,
-	PKT_S_MATCH_ITEM_SOMEONE_DROP = 1035,
-	PKT_S_MATCH_SCALE_ON_CHANGED = 1036,
-	PKT_C_MATCH_CHASER_ATTACK = 1037,
-	PKT_S_MATCH_CHASER_ATTACK = 1038,
-	PKT_C_MATCH_CHASER_HIT = 1039,
-	PKT_S_MATCH_CHASER_HIT = 1040,
-	PKT_C_MATCH_FUGITIVE_ESCAPE = 1041,
-	PKT_S_MATCH_FUGITIVE_ESCAPE = 1042,
+	PKT_C_MATCH_CHARACTER_SPAWN_POSITION = 1025,
+	PKT_C_MATCH_READY_TO_START = 1026,
+	PKT_S_MATCH_START = 1027,
+	PKT_C_MATCH_INFO = 1028,
+	PKT_S_MATCH_INFO = 1029,
+	PKT_S_MATCH_END = 1030,
+	PKT_C_MATCH_ITEM_PICKUP = 1031,
+	PKT_C_MATCH_ITEM_MOVE = 1032,
+	PKT_C_MATCH_ITEM_DROP = 1033,
+	PKT_S_MATCH_ITEM_SOMEONE_PICKUP = 1034,
+	PKT_S_MATCH_ITEM_SOMEONE_MOVE = 1035,
+	PKT_S_MATCH_ITEM_SOMEONE_DROP = 1036,
+	PKT_S_MATCH_SCALE_ON_CHANGED = 1037,
+	PKT_C_MATCH_CHASER_ATTACK = 1038,
+	PKT_S_MATCH_CHASER_ATTACK = 1039,
+	PKT_C_MATCH_CHASER_HIT = 1040,
+	PKT_S_MATCH_CHASER_HIT = 1041,
+	PKT_C_MATCH_FUGITIVE_ESCAPE = 1042,
+	PKT_S_MATCH_FUGITIVE_ESCAPE = 1043,
+	PKT_C_MATCH_CHASER_INSTALL_CCTV = 1044,
+	PKT_S_MATCH_CHASER_INSTALL_CCTV = 1045,
+	PKT_C_MATCH_LEAVE = 1046,
+	PKT_S_MATCH_LEAVE = 1047,
 };
 
 // RecvThread 전용 패킷 가공 함수
@@ -95,8 +100,8 @@ bool Handle_S_ROOM_STANDBY_MATCH(UWorld* World, ProjectJ::S_ROOM_STANDBY_MATCH& 
 DECLARE_DELEGATE_RetVal_ThreeParams(bool, FPacket_S_ROOM_STANDBY_MATCH, UWorld*, ProjectJ::S_ROOM_STANDBY_MATCH&, float);
 bool Handle_S_ROOM_START_MATCH(UWorld* World, ProjectJ::S_ROOM_START_MATCH& Packet, float DeltaSeconds);
 DECLARE_DELEGATE_RetVal_ThreeParams(bool, FPacket_S_ROOM_START_MATCH, UWorld*, ProjectJ::S_ROOM_START_MATCH&, float);
-bool Handle_S_MATCH_ALL_READY_TO_RECIEVE(UWorld* World, ProjectJ::S_MATCH_ALL_READY_TO_RECIEVE& Packet, float DeltaSeconds);
-DECLARE_DELEGATE_RetVal_ThreeParams(bool, FPacket_S_MATCH_ALL_READY_TO_RECIEVE, UWorld*, ProjectJ::S_MATCH_ALL_READY_TO_RECIEVE&, float);
+bool Handle_S_MATCH_ALL_READY_TO_RECEIVE(UWorld* World, ProjectJ::S_MATCH_ALL_READY_TO_RECEIVE& Packet, float DeltaSeconds);
+DECLARE_DELEGATE_RetVal_ThreeParams(bool, FPacket_S_MATCH_ALL_READY_TO_RECEIVE, UWorld*, ProjectJ::S_MATCH_ALL_READY_TO_RECEIVE&, float);
 bool Handle_S_MATCH_ITEM_GENERATED(UWorld* World, ProjectJ::S_MATCH_ITEM_GENERATED& Packet, float DeltaSeconds);
 DECLARE_DELEGATE_RetVal_ThreeParams(bool, FPacket_S_MATCH_ITEM_GENERATED, UWorld*, ProjectJ::S_MATCH_ITEM_GENERATED&, float);
 bool Handle_S_MATCH_START(UWorld* World, ProjectJ::S_MATCH_START& Packet, float DeltaSeconds);
@@ -119,11 +124,15 @@ bool Handle_S_MATCH_CHASER_HIT(UWorld* World, ProjectJ::S_MATCH_CHASER_HIT& Pack
 DECLARE_DELEGATE_RetVal_ThreeParams(bool, FPacket_S_MATCH_CHASER_HIT, UWorld*, ProjectJ::S_MATCH_CHASER_HIT&, float);
 bool Handle_S_MATCH_FUGITIVE_ESCAPE(UWorld* World, ProjectJ::S_MATCH_FUGITIVE_ESCAPE& Packet, float DeltaSeconds);
 DECLARE_DELEGATE_RetVal_ThreeParams(bool, FPacket_S_MATCH_FUGITIVE_ESCAPE, UWorld*, ProjectJ::S_MATCH_FUGITIVE_ESCAPE&, float);
+bool Handle_S_MATCH_CHASER_INSTALL_CCTV(UWorld* World, ProjectJ::S_MATCH_CHASER_INSTALL_CCTV& Packet, float DeltaSeconds);
+DECLARE_DELEGATE_RetVal_ThreeParams(bool, FPacket_S_MATCH_CHASER_INSTALL_CCTV, UWorld*, ProjectJ::S_MATCH_CHASER_INSTALL_CCTV&, float);
+bool Handle_S_MATCH_LEAVE(UWorld* World, ProjectJ::S_MATCH_LEAVE& Packet, float DeltaSeconds);
+DECLARE_DELEGATE_RetVal_ThreeParams(bool, FPacket_S_MATCH_LEAVE, UWorld*, ProjectJ::S_MATCH_LEAVE&, float);
 
 // 소켓 수신 데이터 처리 및 송신 버퍼 생성 클래스
 // 최초 작성자: 박별
 // 수정자: 
-// 최종 수정일: 2023-11-21 자동 생성
+// 최종 수정일: 2023-11-26 자동 생성
 class PROJECTJ_API UJPacketHandler : public UObject
 {
 public:
@@ -153,7 +162,7 @@ public:
 		GPacketProcessor[PKT_S_ROOM_CHAT] = [](UWorld* World, const TSharedPtr<JPackets>& PacketPtr, float DeltaSeconds) {return ProcessPacket<ProjectJ::S_ROOM_CHAT>(Handle_S_ROOM_CHAT, World, PacketPtr, DeltaSeconds);};
 		GPacketProcessor[PKT_S_ROOM_STANDBY_MATCH] = [](UWorld* World, const TSharedPtr<JPackets>& PacketPtr, float DeltaSeconds) {return ProcessPacket<ProjectJ::S_ROOM_STANDBY_MATCH>(Handle_S_ROOM_STANDBY_MATCH, World, PacketPtr, DeltaSeconds);};
 		GPacketProcessor[PKT_S_ROOM_START_MATCH] = [](UWorld* World, const TSharedPtr<JPackets>& PacketPtr, float DeltaSeconds) {return ProcessPacket<ProjectJ::S_ROOM_START_MATCH>(Handle_S_ROOM_START_MATCH, World, PacketPtr, DeltaSeconds);};
-		GPacketProcessor[PKT_S_MATCH_ALL_READY_TO_RECIEVE] = [](UWorld* World, const TSharedPtr<JPackets>& PacketPtr, float DeltaSeconds) {return ProcessPacket<ProjectJ::S_MATCH_ALL_READY_TO_RECIEVE>(Handle_S_MATCH_ALL_READY_TO_RECIEVE, World, PacketPtr, DeltaSeconds);};
+		GPacketProcessor[PKT_S_MATCH_ALL_READY_TO_RECEIVE] = [](UWorld* World, const TSharedPtr<JPackets>& PacketPtr, float DeltaSeconds) {return ProcessPacket<ProjectJ::S_MATCH_ALL_READY_TO_RECEIVE>(Handle_S_MATCH_ALL_READY_TO_RECEIVE, World, PacketPtr, DeltaSeconds);};
 		GPacketProcessor[PKT_S_MATCH_ITEM_GENERATED] = [](UWorld* World, const TSharedPtr<JPackets>& PacketPtr, float DeltaSeconds) {return ProcessPacket<ProjectJ::S_MATCH_ITEM_GENERATED>(Handle_S_MATCH_ITEM_GENERATED, World, PacketPtr, DeltaSeconds);};
 		GPacketProcessor[PKT_S_MATCH_START] = [](UWorld* World, const TSharedPtr<JPackets>& PacketPtr, float DeltaSeconds) {return ProcessPacket<ProjectJ::S_MATCH_START>(Handle_S_MATCH_START, World, PacketPtr, DeltaSeconds);};
 		GPacketProcessor[PKT_S_MATCH_INFO] = [](UWorld* World, const TSharedPtr<JPackets>& PacketPtr, float DeltaSeconds) {return ProcessPacket<ProjectJ::S_MATCH_INFO>(Handle_S_MATCH_INFO, World, PacketPtr, DeltaSeconds);};
@@ -165,6 +174,8 @@ public:
 		GPacketProcessor[PKT_S_MATCH_CHASER_ATTACK] = [](UWorld* World, const TSharedPtr<JPackets>& PacketPtr, float DeltaSeconds) {return ProcessPacket<ProjectJ::S_MATCH_CHASER_ATTACK>(Handle_S_MATCH_CHASER_ATTACK, World, PacketPtr, DeltaSeconds);};
 		GPacketProcessor[PKT_S_MATCH_CHASER_HIT] = [](UWorld* World, const TSharedPtr<JPackets>& PacketPtr, float DeltaSeconds) {return ProcessPacket<ProjectJ::S_MATCH_CHASER_HIT>(Handle_S_MATCH_CHASER_HIT, World, PacketPtr, DeltaSeconds);};
 		GPacketProcessor[PKT_S_MATCH_FUGITIVE_ESCAPE] = [](UWorld* World, const TSharedPtr<JPackets>& PacketPtr, float DeltaSeconds) {return ProcessPacket<ProjectJ::S_MATCH_FUGITIVE_ESCAPE>(Handle_S_MATCH_FUGITIVE_ESCAPE, World, PacketPtr, DeltaSeconds);};
+		GPacketProcessor[PKT_S_MATCH_CHASER_INSTALL_CCTV] = [](UWorld* World, const TSharedPtr<JPackets>& PacketPtr, float DeltaSeconds) {return ProcessPacket<ProjectJ::S_MATCH_CHASER_INSTALL_CCTV>(Handle_S_MATCH_CHASER_INSTALL_CCTV, World, PacketPtr, DeltaSeconds);};
+		GPacketProcessor[PKT_S_MATCH_LEAVE] = [](UWorld* World, const TSharedPtr<JPackets>& PacketPtr, float DeltaSeconds) {return ProcessPacket<ProjectJ::S_MATCH_LEAVE>(Handle_S_MATCH_LEAVE, World, PacketPtr, DeltaSeconds);};
 
 		// Handler 바인딩
 		GPacketHandler[PKT_S_VERIFY_TOKEN] = [](uint16 TypeCode, uint8* Buffer, int32 Size) {return HandlePacket<ProjectJ::S_VERIFY_TOKEN>(TypeCode, Buffer, Size);};
@@ -180,7 +191,7 @@ public:
 		GPacketHandler[PKT_S_ROOM_CHAT] = [](uint16 TypeCode, uint8* Buffer, int32 Size) {return HandlePacket<ProjectJ::S_ROOM_CHAT>(TypeCode, Buffer, Size);};
 		GPacketHandler[PKT_S_ROOM_STANDBY_MATCH] = [](uint16 TypeCode, uint8* Buffer, int32 Size) {return HandlePacket<ProjectJ::S_ROOM_STANDBY_MATCH>(TypeCode, Buffer, Size);};
 		GPacketHandler[PKT_S_ROOM_START_MATCH] = [](uint16 TypeCode, uint8* Buffer, int32 Size) {return HandlePacket<ProjectJ::S_ROOM_START_MATCH>(TypeCode, Buffer, Size);};
-		GPacketHandler[PKT_S_MATCH_ALL_READY_TO_RECIEVE] = [](uint16 TypeCode, uint8* Buffer, int32 Size) {return HandlePacket<ProjectJ::S_MATCH_ALL_READY_TO_RECIEVE>(TypeCode, Buffer, Size);};
+		GPacketHandler[PKT_S_MATCH_ALL_READY_TO_RECEIVE] = [](uint16 TypeCode, uint8* Buffer, int32 Size) {return HandlePacket<ProjectJ::S_MATCH_ALL_READY_TO_RECEIVE>(TypeCode, Buffer, Size);};
 		GPacketHandler[PKT_S_MATCH_ITEM_GENERATED] = [](uint16 TypeCode, uint8* Buffer, int32 Size) {return HandlePacket<ProjectJ::S_MATCH_ITEM_GENERATED>(TypeCode, Buffer, Size);};
 		GPacketHandler[PKT_S_MATCH_START] = [](uint16 TypeCode, uint8* Buffer, int32 Size) {return HandlePacket<ProjectJ::S_MATCH_START>(TypeCode, Buffer, Size);};
 		GPacketHandler[PKT_S_MATCH_INFO] = [](uint16 TypeCode, uint8* Buffer, int32 Size) {return HandlePacket<ProjectJ::S_MATCH_INFO>(TypeCode, Buffer, Size);};
@@ -192,6 +203,8 @@ public:
 		GPacketHandler[PKT_S_MATCH_CHASER_ATTACK] = [](uint16 TypeCode, uint8* Buffer, int32 Size) {return HandlePacket<ProjectJ::S_MATCH_CHASER_ATTACK>(TypeCode, Buffer, Size);};
 		GPacketHandler[PKT_S_MATCH_CHASER_HIT] = [](uint16 TypeCode, uint8* Buffer, int32 Size) {return HandlePacket<ProjectJ::S_MATCH_CHASER_HIT>(TypeCode, Buffer, Size);};
 		GPacketHandler[PKT_S_MATCH_FUGITIVE_ESCAPE] = [](uint16 TypeCode, uint8* Buffer, int32 Size) {return HandlePacket<ProjectJ::S_MATCH_FUGITIVE_ESCAPE>(TypeCode, Buffer, Size);};
+		GPacketHandler[PKT_S_MATCH_CHASER_INSTALL_CCTV] = [](uint16 TypeCode, uint8* Buffer, int32 Size) {return HandlePacket<ProjectJ::S_MATCH_CHASER_INSTALL_CCTV>(TypeCode, Buffer, Size);};
+		GPacketHandler[PKT_S_MATCH_LEAVE] = [](uint16 TypeCode, uint8* Buffer, int32 Size) {return HandlePacket<ProjectJ::S_MATCH_LEAVE>(TypeCode, Buffer, Size);};
 	}
 
 	// 게임 스레드에서 가공된 데이터를 처리하는 함수
@@ -263,6 +276,10 @@ public:
 	// Packet: C_MATCH_READY_TO_RECEIVE 객체
 	// 생성된 FJSendBuffer 스마트포인터 반환
 	static TSharedPtr<FJSendBuffer> MakeSendBuffer(ProjectJ::C_MATCH_READY_TO_RECEIVE& Packet) {return MakeSendBuffer(Packet, PKT_C_MATCH_READY_TO_RECEIVE);}
+	// C_MATCH_CHARACTER_SPAWN_POSITION를 직렬화한 FJSendBuffer 생성 함수
+	// Packet: C_MATCH_CHARACTER_SPAWN_POSITION 객체
+	// 생성된 FJSendBuffer 스마트포인터 반환
+	static TSharedPtr<FJSendBuffer> MakeSendBuffer(ProjectJ::C_MATCH_CHARACTER_SPAWN_POSITION& Packet) {return MakeSendBuffer(Packet, PKT_C_MATCH_CHARACTER_SPAWN_POSITION);}
 	// C_MATCH_READY_TO_START를 직렬화한 FJSendBuffer 생성 함수
 	// Packet: C_MATCH_READY_TO_START 객체
 	// 생성된 FJSendBuffer 스마트포인터 반환
@@ -295,6 +312,14 @@ public:
 	// Packet: C_MATCH_FUGITIVE_ESCAPE 객체
 	// 생성된 FJSendBuffer 스마트포인터 반환
 	static TSharedPtr<FJSendBuffer> MakeSendBuffer(ProjectJ::C_MATCH_FUGITIVE_ESCAPE& Packet) {return MakeSendBuffer(Packet, PKT_C_MATCH_FUGITIVE_ESCAPE);}
+	// C_MATCH_CHASER_INSTALL_CCTV를 직렬화한 FJSendBuffer 생성 함수
+	// Packet: C_MATCH_CHASER_INSTALL_CCTV 객체
+	// 생성된 FJSendBuffer 스마트포인터 반환
+	static TSharedPtr<FJSendBuffer> MakeSendBuffer(ProjectJ::C_MATCH_CHASER_INSTALL_CCTV& Packet) {return MakeSendBuffer(Packet, PKT_C_MATCH_CHASER_INSTALL_CCTV);}
+	// C_MATCH_LEAVE를 직렬화한 FJSendBuffer 생성 함수
+	// Packet: C_MATCH_LEAVE 객체
+	// 생성된 FJSendBuffer 스마트포인터 반환
+	static TSharedPtr<FJSendBuffer> MakeSendBuffer(ProjectJ::C_MATCH_LEAVE& Packet) {return MakeSendBuffer(Packet, PKT_C_MATCH_LEAVE);}
 
 protected:
 	// 게임 스레드에서 송신할 데이터를 담을 객체를 만드는 함수
@@ -380,7 +405,7 @@ public:
 	static FPacket_S_ROOM_CHAT Packet_S_ROOM_CHAT_Delegate;
 	static FPacket_S_ROOM_STANDBY_MATCH Packet_S_ROOM_STANDBY_MATCH_Delegate;
 	static FPacket_S_ROOM_START_MATCH Packet_S_ROOM_START_MATCH_Delegate;
-	static FPacket_S_MATCH_ALL_READY_TO_RECIEVE Packet_S_MATCH_ALL_READY_TO_RECIEVE_Delegate;
+	static FPacket_S_MATCH_ALL_READY_TO_RECEIVE Packet_S_MATCH_ALL_READY_TO_RECEIVE_Delegate;
 	static FPacket_S_MATCH_ITEM_GENERATED Packet_S_MATCH_ITEM_GENERATED_Delegate;
 	static FPacket_S_MATCH_START Packet_S_MATCH_START_Delegate;
 	static FPacket_S_MATCH_INFO Packet_S_MATCH_INFO_Delegate;
@@ -392,4 +417,6 @@ public:
 	static FPacket_S_MATCH_CHASER_ATTACK Packet_S_MATCH_CHASER_ATTACK_Delegate;
 	static FPacket_S_MATCH_CHASER_HIT Packet_S_MATCH_CHASER_HIT_Delegate;
 	static FPacket_S_MATCH_FUGITIVE_ESCAPE Packet_S_MATCH_FUGITIVE_ESCAPE_Delegate;
+	static FPacket_S_MATCH_CHASER_INSTALL_CCTV Packet_S_MATCH_CHASER_INSTALL_CCTV_Delegate;
+	static FPacket_S_MATCH_LEAVE Packet_S_MATCH_LEAVE_Delegate;
 };

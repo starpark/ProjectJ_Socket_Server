@@ -56,15 +56,15 @@ extern MatchInfoDefaultTypeInternal _MatchInfo_default_instance_;
 class MatchInitInfo;
 struct MatchInitInfoDefaultTypeInternal;
 extern MatchInitInfoDefaultTypeInternal _MatchInitInfo_default_instance_;
-class MatchInitInfo_ScaleInitInfo;
-struct MatchInitInfo_ScaleInitInfoDefaultTypeInternal;
-extern MatchInitInfo_ScaleInitInfoDefaultTypeInternal _MatchInitInfo_ScaleInitInfo_default_instance_;
 class Player;
 struct PlayerDefaultTypeInternal;
 extern PlayerDefaultTypeInternal _Player_default_instance_;
 class PlayerInfo;
 struct PlayerInfoDefaultTypeInternal;
 extern PlayerInfoDefaultTypeInternal _PlayerInfo_default_instance_;
+class PlayerInitInfo;
+struct PlayerInitInfoDefaultTypeInternal;
+extern PlayerInitInfoDefaultTypeInternal _PlayerInitInfo_default_instance_;
 class Room;
 struct RoomDefaultTypeInternal;
 extern RoomDefaultTypeInternal _Room_default_instance_;
@@ -77,6 +77,9 @@ extern RoomInfo_PlayerSlotDefaultTypeInternal _RoomInfo_PlayerSlot_default_insta
 class Rotator;
 struct RotatorDefaultTypeInternal;
 extern RotatorDefaultTypeInternal _Rotator_default_instance_;
+class ScaleInitInfo;
+struct ScaleInitInfoDefaultTypeInternal;
+extern ScaleInitInfoDefaultTypeInternal _ScaleInitInfo_default_instance_;
 class Vector;
 struct VectorDefaultTypeInternal;
 extern VectorDefaultTypeInternal _Vector_default_instance_;
@@ -85,13 +88,14 @@ PROTOBUF_NAMESPACE_OPEN
 template<> ::ProjectJ::Item* Arena::CreateMaybeMessage<::ProjectJ::Item>(Arena*);
 template<> ::ProjectJ::MatchInfo* Arena::CreateMaybeMessage<::ProjectJ::MatchInfo>(Arena*);
 template<> ::ProjectJ::MatchInitInfo* Arena::CreateMaybeMessage<::ProjectJ::MatchInitInfo>(Arena*);
-template<> ::ProjectJ::MatchInitInfo_ScaleInitInfo* Arena::CreateMaybeMessage<::ProjectJ::MatchInitInfo_ScaleInitInfo>(Arena*);
 template<> ::ProjectJ::Player* Arena::CreateMaybeMessage<::ProjectJ::Player>(Arena*);
 template<> ::ProjectJ::PlayerInfo* Arena::CreateMaybeMessage<::ProjectJ::PlayerInfo>(Arena*);
+template<> ::ProjectJ::PlayerInitInfo* Arena::CreateMaybeMessage<::ProjectJ::PlayerInitInfo>(Arena*);
 template<> ::ProjectJ::Room* Arena::CreateMaybeMessage<::ProjectJ::Room>(Arena*);
 template<> ::ProjectJ::RoomInfo* Arena::CreateMaybeMessage<::ProjectJ::RoomInfo>(Arena*);
 template<> ::ProjectJ::RoomInfo_PlayerSlot* Arena::CreateMaybeMessage<::ProjectJ::RoomInfo_PlayerSlot>(Arena*);
 template<> ::ProjectJ::Rotator* Arena::CreateMaybeMessage<::ProjectJ::Rotator>(Arena*);
+template<> ::ProjectJ::ScaleInitInfo* Arena::CreateMaybeMessage<::ProjectJ::ScaleInitInfo>(Arena*);
 template<> ::ProjectJ::Vector* Arena::CreateMaybeMessage<::ProjectJ::Vector>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace ProjectJ {
@@ -1327,8 +1331,8 @@ class Item final :
     kWorldRotationFieldNumber = 8,
     kIdFieldNumber = 1,
     kIndexFieldNumber = 2,
-    kWidthFieldNumber = 3,
-    kHeightFieldNumber = 4,
+    kRowFieldNumber = 3,
+    kColunmFieldNumber = 4,
     kWeightFieldNumber = 5,
     kIsOwnedFieldNumber = 6,
     kIsRotatedFieldNumber = 10,
@@ -1388,22 +1392,22 @@ class Item final :
   void _internal_set_index(int32_t value);
   public:
 
-  // int32 width = 3;
-  void clear_width();
-  int32_t width() const;
-  void set_width(int32_t value);
+  // int32 row = 3;
+  void clear_row();
+  int32_t row() const;
+  void set_row(int32_t value);
   private:
-  int32_t _internal_width() const;
-  void _internal_set_width(int32_t value);
+  int32_t _internal_row() const;
+  void _internal_set_row(int32_t value);
   public:
 
-  // int32 height = 4;
-  void clear_height();
-  int32_t height() const;
-  void set_height(int32_t value);
+  // int32 colunm = 4;
+  void clear_colunm();
+  int32_t colunm() const;
+  void set_colunm(int32_t value);
   private:
-  int32_t _internal_height() const;
-  void _internal_set_height(int32_t value);
+  int32_t _internal_colunm() const;
+  void _internal_set_colunm(int32_t value);
   public:
 
   // int32 weight = 5;
@@ -1454,8 +1458,8 @@ class Item final :
     ::ProjectJ::Rotator* world_rotation_;
     int32_t id_;
     int32_t index_;
-    int32_t width_;
-    int32_t height_;
+    int32_t row_;
+    int32_t colunm_;
     int32_t weight_;
     bool is_owned_;
     bool is_rotated_;
@@ -1467,24 +1471,24 @@ class Item final :
 };
 // -------------------------------------------------------------------
 
-class PlayerInfo final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:ProjectJ.PlayerInfo) */ {
+class PlayerInitInfo final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:ProjectJ.PlayerInitInfo) */ {
  public:
-  inline PlayerInfo() : PlayerInfo(nullptr) {}
-  ~PlayerInfo() override;
-  explicit PROTOBUF_CONSTEXPR PlayerInfo(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+  inline PlayerInitInfo() : PlayerInitInfo(nullptr) {}
+  ~PlayerInitInfo() override;
+  explicit PROTOBUF_CONSTEXPR PlayerInitInfo(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
 
-  PlayerInfo(const PlayerInfo& from);
-  PlayerInfo(PlayerInfo&& from) noexcept
-    : PlayerInfo() {
+  PlayerInitInfo(const PlayerInitInfo& from);
+  PlayerInitInfo(PlayerInitInfo&& from) noexcept
+    : PlayerInitInfo() {
     *this = ::std::move(from);
   }
 
-  inline PlayerInfo& operator=(const PlayerInfo& from) {
+  inline PlayerInitInfo& operator=(const PlayerInitInfo& from) {
     CopyFrom(from);
     return *this;
   }
-  inline PlayerInfo& operator=(PlayerInfo&& from) noexcept {
+  inline PlayerInitInfo& operator=(PlayerInitInfo&& from) noexcept {
     if (this == &from) return *this;
     if (GetOwningArena() == from.GetOwningArena()
   #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
@@ -1507,20 +1511,20 @@ class PlayerInfo final :
   static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
     return default_instance().GetMetadata().reflection;
   }
-  static const PlayerInfo& default_instance() {
+  static const PlayerInitInfo& default_instance() {
     return *internal_default_instance();
   }
-  static inline const PlayerInfo* internal_default_instance() {
-    return reinterpret_cast<const PlayerInfo*>(
-               &_PlayerInfo_default_instance_);
+  static inline const PlayerInitInfo* internal_default_instance() {
+    return reinterpret_cast<const PlayerInitInfo*>(
+               &_PlayerInitInfo_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
     7;
 
-  friend void swap(PlayerInfo& a, PlayerInfo& b) {
+  friend void swap(PlayerInitInfo& a, PlayerInitInfo& b) {
     a.Swap(&b);
   }
-  inline void Swap(PlayerInfo* other) {
+  inline void Swap(PlayerInitInfo* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1533,7 +1537,7 @@ class PlayerInfo final :
       ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
     }
   }
-  void UnsafeArenaSwap(PlayerInfo* other) {
+  void UnsafeArenaSwap(PlayerInitInfo* other) {
     if (other == this) return;
     GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
     InternalSwap(other);
@@ -1541,14 +1545,14 @@ class PlayerInfo final :
 
   // implements Message ----------------------------------------------
 
-  PlayerInfo* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<PlayerInfo>(arena);
+  PlayerInitInfo* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<PlayerInitInfo>(arena);
   }
   using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
-  void CopyFrom(const PlayerInfo& from);
+  void CopyFrom(const PlayerInitInfo& from);
   using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
-  void MergeFrom( const PlayerInfo& from) {
-    PlayerInfo::MergeImpl(*this, from);
+  void MergeFrom( const PlayerInitInfo& from) {
+    PlayerInitInfo::MergeImpl(*this, from);
   }
   private:
   static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
@@ -1566,15 +1570,15 @@ class PlayerInfo final :
   void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
   void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(PlayerInfo* other);
+  void InternalSwap(PlayerInitInfo* other);
 
   private:
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "ProjectJ.PlayerInfo";
+    return "ProjectJ.PlayerInitInfo";
   }
   protected:
-  explicit PlayerInfo(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+  explicit PlayerInitInfo(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                        bool is_message_owned = false);
   public:
 
@@ -1593,6 +1597,9 @@ class PlayerInfo final :
     kRotationFieldNumber = 5,
     kStateFieldNumber = 1,
     kPlayerIndexFieldNumber = 2,
+    kInvSizeRowFieldNumber = 6,
+    kInvSizeColunmFieldNumber = 7,
+    kInvMaxWeightFieldNumber = 8,
   };
   // .ProjectJ.Player player = 3;
   bool has_player() const;
@@ -1666,7 +1673,34 @@ class PlayerInfo final :
   void _internal_set_player_index(int32_t value);
   public:
 
-  // @@protoc_insertion_point(class_scope:ProjectJ.PlayerInfo)
+  // int32 inv_size_row = 6;
+  void clear_inv_size_row();
+  int32_t inv_size_row() const;
+  void set_inv_size_row(int32_t value);
+  private:
+  int32_t _internal_inv_size_row() const;
+  void _internal_set_inv_size_row(int32_t value);
+  public:
+
+  // int32 inv_size_colunm = 7;
+  void clear_inv_size_colunm();
+  int32_t inv_size_colunm() const;
+  void set_inv_size_colunm(int32_t value);
+  private:
+  int32_t _internal_inv_size_colunm() const;
+  void _internal_set_inv_size_colunm(int32_t value);
+  public:
+
+  // int32 inv_max_weight = 8;
+  void clear_inv_max_weight();
+  int32_t inv_max_weight() const;
+  void set_inv_max_weight(int32_t value);
+  private:
+  int32_t _internal_inv_max_weight() const;
+  void _internal_set_inv_max_weight(int32_t value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:ProjectJ.PlayerInitInfo)
  private:
   class _Internal;
 
@@ -1679,6 +1713,9 @@ class PlayerInfo final :
     ::ProjectJ::Rotator* rotation_;
     int state_;
     int32_t player_index_;
+    int32_t inv_size_row_;
+    int32_t inv_size_colunm_;
+    int32_t inv_max_weight_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -1686,24 +1723,24 @@ class PlayerInfo final :
 };
 // -------------------------------------------------------------------
 
-class MatchInitInfo_ScaleInitInfo final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:ProjectJ.MatchInitInfo.ScaleInitInfo) */ {
+class ScaleInitInfo final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:ProjectJ.ScaleInitInfo) */ {
  public:
-  inline MatchInitInfo_ScaleInitInfo() : MatchInitInfo_ScaleInitInfo(nullptr) {}
-  ~MatchInitInfo_ScaleInitInfo() override;
-  explicit PROTOBUF_CONSTEXPR MatchInitInfo_ScaleInitInfo(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+  inline ScaleInitInfo() : ScaleInitInfo(nullptr) {}
+  ~ScaleInitInfo() override;
+  explicit PROTOBUF_CONSTEXPR ScaleInitInfo(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
 
-  MatchInitInfo_ScaleInitInfo(const MatchInitInfo_ScaleInitInfo& from);
-  MatchInitInfo_ScaleInitInfo(MatchInitInfo_ScaleInitInfo&& from) noexcept
-    : MatchInitInfo_ScaleInitInfo() {
+  ScaleInitInfo(const ScaleInitInfo& from);
+  ScaleInitInfo(ScaleInitInfo&& from) noexcept
+    : ScaleInitInfo() {
     *this = ::std::move(from);
   }
 
-  inline MatchInitInfo_ScaleInitInfo& operator=(const MatchInitInfo_ScaleInitInfo& from) {
+  inline ScaleInitInfo& operator=(const ScaleInitInfo& from) {
     CopyFrom(from);
     return *this;
   }
-  inline MatchInitInfo_ScaleInitInfo& operator=(MatchInitInfo_ScaleInitInfo&& from) noexcept {
+  inline ScaleInitInfo& operator=(ScaleInitInfo&& from) noexcept {
     if (this == &from) return *this;
     if (GetOwningArena() == from.GetOwningArena()
   #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
@@ -1726,20 +1763,20 @@ class MatchInitInfo_ScaleInitInfo final :
   static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
     return default_instance().GetMetadata().reflection;
   }
-  static const MatchInitInfo_ScaleInitInfo& default_instance() {
+  static const ScaleInitInfo& default_instance() {
     return *internal_default_instance();
   }
-  static inline const MatchInitInfo_ScaleInitInfo* internal_default_instance() {
-    return reinterpret_cast<const MatchInitInfo_ScaleInitInfo*>(
-               &_MatchInitInfo_ScaleInitInfo_default_instance_);
+  static inline const ScaleInitInfo* internal_default_instance() {
+    return reinterpret_cast<const ScaleInitInfo*>(
+               &_ScaleInitInfo_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
     8;
 
-  friend void swap(MatchInitInfo_ScaleInitInfo& a, MatchInitInfo_ScaleInitInfo& b) {
+  friend void swap(ScaleInitInfo& a, ScaleInitInfo& b) {
     a.Swap(&b);
   }
-  inline void Swap(MatchInitInfo_ScaleInitInfo* other) {
+  inline void Swap(ScaleInitInfo* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1752,7 +1789,7 @@ class MatchInitInfo_ScaleInitInfo final :
       ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
     }
   }
-  void UnsafeArenaSwap(MatchInitInfo_ScaleInitInfo* other) {
+  void UnsafeArenaSwap(ScaleInitInfo* other) {
     if (other == this) return;
     GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
     InternalSwap(other);
@@ -1760,14 +1797,14 @@ class MatchInitInfo_ScaleInitInfo final :
 
   // implements Message ----------------------------------------------
 
-  MatchInitInfo_ScaleInitInfo* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<MatchInitInfo_ScaleInitInfo>(arena);
+  ScaleInitInfo* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<ScaleInitInfo>(arena);
   }
   using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
-  void CopyFrom(const MatchInitInfo_ScaleInitInfo& from);
+  void CopyFrom(const ScaleInitInfo& from);
   using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
-  void MergeFrom( const MatchInitInfo_ScaleInitInfo& from) {
-    MatchInitInfo_ScaleInitInfo::MergeImpl(*this, from);
+  void MergeFrom( const ScaleInitInfo& from) {
+    ScaleInitInfo::MergeImpl(*this, from);
   }
   private:
   static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
@@ -1785,15 +1822,15 @@ class MatchInitInfo_ScaleInitInfo final :
   void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
   void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(MatchInitInfo_ScaleInitInfo* other);
+  void InternalSwap(ScaleInitInfo* other);
 
   private:
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "ProjectJ.MatchInitInfo.ScaleInitInfo";
+    return "ProjectJ.ScaleInitInfo";
   }
   protected:
-  explicit MatchInitInfo_ScaleInitInfo(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+  explicit ScaleInitInfo(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                        bool is_message_owned = false);
   public:
 
@@ -1809,8 +1846,8 @@ class MatchInitInfo_ScaleInitInfo final :
   enum : int {
     kOperatingWeightFieldNumber = 1,
     kToleranceFieldNumber = 2,
-    kInvSizeWidthFieldNumber = 3,
-    kInvSizeHeightFieldNumber = 4,
+    kInvSizeRowFieldNumber = 3,
+    kInvSizeColunmFieldNumber = 4,
   };
   // int32 operating_weight = 1;
   void clear_operating_weight();
@@ -1830,25 +1867,25 @@ class MatchInitInfo_ScaleInitInfo final :
   void _internal_set_tolerance(int32_t value);
   public:
 
-  // int32 inv_size_width = 3;
-  void clear_inv_size_width();
-  int32_t inv_size_width() const;
-  void set_inv_size_width(int32_t value);
+  // int32 inv_size_row = 3;
+  void clear_inv_size_row();
+  int32_t inv_size_row() const;
+  void set_inv_size_row(int32_t value);
   private:
-  int32_t _internal_inv_size_width() const;
-  void _internal_set_inv_size_width(int32_t value);
+  int32_t _internal_inv_size_row() const;
+  void _internal_set_inv_size_row(int32_t value);
   public:
 
-  // int32 inv_size_height = 4;
-  void clear_inv_size_height();
-  int32_t inv_size_height() const;
-  void set_inv_size_height(int32_t value);
+  // int32 inv_size_colunm = 4;
+  void clear_inv_size_colunm();
+  int32_t inv_size_colunm() const;
+  void set_inv_size_colunm(int32_t value);
   private:
-  int32_t _internal_inv_size_height() const;
-  void _internal_set_inv_size_height(int32_t value);
+  int32_t _internal_inv_size_colunm() const;
+  void _internal_set_inv_size_colunm(int32_t value);
   public:
 
-  // @@protoc_insertion_point(class_scope:ProjectJ.MatchInitInfo.ScaleInitInfo)
+  // @@protoc_insertion_point(class_scope:ProjectJ.ScaleInitInfo)
  private:
   class _Internal;
 
@@ -1858,8 +1895,8 @@ class MatchInitInfo_ScaleInitInfo final :
   struct Impl_ {
     int32_t operating_weight_;
     int32_t tolerance_;
-    int32_t inv_size_width_;
-    int32_t inv_size_height_;
+    int32_t inv_size_row_;
+    int32_t inv_size_colunm_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -1985,8 +2022,6 @@ class MatchInitInfo final :
 
   // nested types ----------------------------------------------------
 
-  typedef MatchInitInfo_ScaleInitInfo ScaleInitInfo;
-
   // accessors -------------------------------------------------------
 
   enum : int {
@@ -1999,149 +2034,149 @@ class MatchInitInfo final :
     kScaleThirdFieldNumber = 7,
     kScaleFourthFieldNumber = 8,
   };
-  // .ProjectJ.PlayerInfo chaser = 1;
+  // .ProjectJ.PlayerInitInfo chaser = 1;
   bool has_chaser() const;
   private:
   bool _internal_has_chaser() const;
   public:
   void clear_chaser();
-  const ::ProjectJ::PlayerInfo& chaser() const;
-  PROTOBUF_NODISCARD ::ProjectJ::PlayerInfo* release_chaser();
-  ::ProjectJ::PlayerInfo* mutable_chaser();
-  void set_allocated_chaser(::ProjectJ::PlayerInfo* chaser);
+  const ::ProjectJ::PlayerInitInfo& chaser() const;
+  PROTOBUF_NODISCARD ::ProjectJ::PlayerInitInfo* release_chaser();
+  ::ProjectJ::PlayerInitInfo* mutable_chaser();
+  void set_allocated_chaser(::ProjectJ::PlayerInitInfo* chaser);
   private:
-  const ::ProjectJ::PlayerInfo& _internal_chaser() const;
-  ::ProjectJ::PlayerInfo* _internal_mutable_chaser();
+  const ::ProjectJ::PlayerInitInfo& _internal_chaser() const;
+  ::ProjectJ::PlayerInitInfo* _internal_mutable_chaser();
   public:
   void unsafe_arena_set_allocated_chaser(
-      ::ProjectJ::PlayerInfo* chaser);
-  ::ProjectJ::PlayerInfo* unsafe_arena_release_chaser();
+      ::ProjectJ::PlayerInitInfo* chaser);
+  ::ProjectJ::PlayerInitInfo* unsafe_arena_release_chaser();
 
-  // .ProjectJ.PlayerInfo fugitive_first = 2;
+  // .ProjectJ.PlayerInitInfo fugitive_first = 2;
   bool has_fugitive_first() const;
   private:
   bool _internal_has_fugitive_first() const;
   public:
   void clear_fugitive_first();
-  const ::ProjectJ::PlayerInfo& fugitive_first() const;
-  PROTOBUF_NODISCARD ::ProjectJ::PlayerInfo* release_fugitive_first();
-  ::ProjectJ::PlayerInfo* mutable_fugitive_first();
-  void set_allocated_fugitive_first(::ProjectJ::PlayerInfo* fugitive_first);
+  const ::ProjectJ::PlayerInitInfo& fugitive_first() const;
+  PROTOBUF_NODISCARD ::ProjectJ::PlayerInitInfo* release_fugitive_first();
+  ::ProjectJ::PlayerInitInfo* mutable_fugitive_first();
+  void set_allocated_fugitive_first(::ProjectJ::PlayerInitInfo* fugitive_first);
   private:
-  const ::ProjectJ::PlayerInfo& _internal_fugitive_first() const;
-  ::ProjectJ::PlayerInfo* _internal_mutable_fugitive_first();
+  const ::ProjectJ::PlayerInitInfo& _internal_fugitive_first() const;
+  ::ProjectJ::PlayerInitInfo* _internal_mutable_fugitive_first();
   public:
   void unsafe_arena_set_allocated_fugitive_first(
-      ::ProjectJ::PlayerInfo* fugitive_first);
-  ::ProjectJ::PlayerInfo* unsafe_arena_release_fugitive_first();
+      ::ProjectJ::PlayerInitInfo* fugitive_first);
+  ::ProjectJ::PlayerInitInfo* unsafe_arena_release_fugitive_first();
 
-  // .ProjectJ.PlayerInfo fugitive_second = 3;
+  // .ProjectJ.PlayerInitInfo fugitive_second = 3;
   bool has_fugitive_second() const;
   private:
   bool _internal_has_fugitive_second() const;
   public:
   void clear_fugitive_second();
-  const ::ProjectJ::PlayerInfo& fugitive_second() const;
-  PROTOBUF_NODISCARD ::ProjectJ::PlayerInfo* release_fugitive_second();
-  ::ProjectJ::PlayerInfo* mutable_fugitive_second();
-  void set_allocated_fugitive_second(::ProjectJ::PlayerInfo* fugitive_second);
+  const ::ProjectJ::PlayerInitInfo& fugitive_second() const;
+  PROTOBUF_NODISCARD ::ProjectJ::PlayerInitInfo* release_fugitive_second();
+  ::ProjectJ::PlayerInitInfo* mutable_fugitive_second();
+  void set_allocated_fugitive_second(::ProjectJ::PlayerInitInfo* fugitive_second);
   private:
-  const ::ProjectJ::PlayerInfo& _internal_fugitive_second() const;
-  ::ProjectJ::PlayerInfo* _internal_mutable_fugitive_second();
+  const ::ProjectJ::PlayerInitInfo& _internal_fugitive_second() const;
+  ::ProjectJ::PlayerInitInfo* _internal_mutable_fugitive_second();
   public:
   void unsafe_arena_set_allocated_fugitive_second(
-      ::ProjectJ::PlayerInfo* fugitive_second);
-  ::ProjectJ::PlayerInfo* unsafe_arena_release_fugitive_second();
+      ::ProjectJ::PlayerInitInfo* fugitive_second);
+  ::ProjectJ::PlayerInitInfo* unsafe_arena_release_fugitive_second();
 
-  // .ProjectJ.PlayerInfo fugitive_third = 4;
+  // .ProjectJ.PlayerInitInfo fugitive_third = 4;
   bool has_fugitive_third() const;
   private:
   bool _internal_has_fugitive_third() const;
   public:
   void clear_fugitive_third();
-  const ::ProjectJ::PlayerInfo& fugitive_third() const;
-  PROTOBUF_NODISCARD ::ProjectJ::PlayerInfo* release_fugitive_third();
-  ::ProjectJ::PlayerInfo* mutable_fugitive_third();
-  void set_allocated_fugitive_third(::ProjectJ::PlayerInfo* fugitive_third);
+  const ::ProjectJ::PlayerInitInfo& fugitive_third() const;
+  PROTOBUF_NODISCARD ::ProjectJ::PlayerInitInfo* release_fugitive_third();
+  ::ProjectJ::PlayerInitInfo* mutable_fugitive_third();
+  void set_allocated_fugitive_third(::ProjectJ::PlayerInitInfo* fugitive_third);
   private:
-  const ::ProjectJ::PlayerInfo& _internal_fugitive_third() const;
-  ::ProjectJ::PlayerInfo* _internal_mutable_fugitive_third();
+  const ::ProjectJ::PlayerInitInfo& _internal_fugitive_third() const;
+  ::ProjectJ::PlayerInitInfo* _internal_mutable_fugitive_third();
   public:
   void unsafe_arena_set_allocated_fugitive_third(
-      ::ProjectJ::PlayerInfo* fugitive_third);
-  ::ProjectJ::PlayerInfo* unsafe_arena_release_fugitive_third();
+      ::ProjectJ::PlayerInitInfo* fugitive_third);
+  ::ProjectJ::PlayerInitInfo* unsafe_arena_release_fugitive_third();
 
-  // .ProjectJ.MatchInitInfo.ScaleInitInfo scale_first = 5;
+  // .ProjectJ.ScaleInitInfo scale_first = 5;
   bool has_scale_first() const;
   private:
   bool _internal_has_scale_first() const;
   public:
   void clear_scale_first();
-  const ::ProjectJ::MatchInitInfo_ScaleInitInfo& scale_first() const;
-  PROTOBUF_NODISCARD ::ProjectJ::MatchInitInfo_ScaleInitInfo* release_scale_first();
-  ::ProjectJ::MatchInitInfo_ScaleInitInfo* mutable_scale_first();
-  void set_allocated_scale_first(::ProjectJ::MatchInitInfo_ScaleInitInfo* scale_first);
+  const ::ProjectJ::ScaleInitInfo& scale_first() const;
+  PROTOBUF_NODISCARD ::ProjectJ::ScaleInitInfo* release_scale_first();
+  ::ProjectJ::ScaleInitInfo* mutable_scale_first();
+  void set_allocated_scale_first(::ProjectJ::ScaleInitInfo* scale_first);
   private:
-  const ::ProjectJ::MatchInitInfo_ScaleInitInfo& _internal_scale_first() const;
-  ::ProjectJ::MatchInitInfo_ScaleInitInfo* _internal_mutable_scale_first();
+  const ::ProjectJ::ScaleInitInfo& _internal_scale_first() const;
+  ::ProjectJ::ScaleInitInfo* _internal_mutable_scale_first();
   public:
   void unsafe_arena_set_allocated_scale_first(
-      ::ProjectJ::MatchInitInfo_ScaleInitInfo* scale_first);
-  ::ProjectJ::MatchInitInfo_ScaleInitInfo* unsafe_arena_release_scale_first();
+      ::ProjectJ::ScaleInitInfo* scale_first);
+  ::ProjectJ::ScaleInitInfo* unsafe_arena_release_scale_first();
 
-  // .ProjectJ.MatchInitInfo.ScaleInitInfo scale_second = 6;
+  // .ProjectJ.ScaleInitInfo scale_second = 6;
   bool has_scale_second() const;
   private:
   bool _internal_has_scale_second() const;
   public:
   void clear_scale_second();
-  const ::ProjectJ::MatchInitInfo_ScaleInitInfo& scale_second() const;
-  PROTOBUF_NODISCARD ::ProjectJ::MatchInitInfo_ScaleInitInfo* release_scale_second();
-  ::ProjectJ::MatchInitInfo_ScaleInitInfo* mutable_scale_second();
-  void set_allocated_scale_second(::ProjectJ::MatchInitInfo_ScaleInitInfo* scale_second);
+  const ::ProjectJ::ScaleInitInfo& scale_second() const;
+  PROTOBUF_NODISCARD ::ProjectJ::ScaleInitInfo* release_scale_second();
+  ::ProjectJ::ScaleInitInfo* mutable_scale_second();
+  void set_allocated_scale_second(::ProjectJ::ScaleInitInfo* scale_second);
   private:
-  const ::ProjectJ::MatchInitInfo_ScaleInitInfo& _internal_scale_second() const;
-  ::ProjectJ::MatchInitInfo_ScaleInitInfo* _internal_mutable_scale_second();
+  const ::ProjectJ::ScaleInitInfo& _internal_scale_second() const;
+  ::ProjectJ::ScaleInitInfo* _internal_mutable_scale_second();
   public:
   void unsafe_arena_set_allocated_scale_second(
-      ::ProjectJ::MatchInitInfo_ScaleInitInfo* scale_second);
-  ::ProjectJ::MatchInitInfo_ScaleInitInfo* unsafe_arena_release_scale_second();
+      ::ProjectJ::ScaleInitInfo* scale_second);
+  ::ProjectJ::ScaleInitInfo* unsafe_arena_release_scale_second();
 
-  // .ProjectJ.MatchInitInfo.ScaleInitInfo scale_third = 7;
+  // .ProjectJ.ScaleInitInfo scale_third = 7;
   bool has_scale_third() const;
   private:
   bool _internal_has_scale_third() const;
   public:
   void clear_scale_third();
-  const ::ProjectJ::MatchInitInfo_ScaleInitInfo& scale_third() const;
-  PROTOBUF_NODISCARD ::ProjectJ::MatchInitInfo_ScaleInitInfo* release_scale_third();
-  ::ProjectJ::MatchInitInfo_ScaleInitInfo* mutable_scale_third();
-  void set_allocated_scale_third(::ProjectJ::MatchInitInfo_ScaleInitInfo* scale_third);
+  const ::ProjectJ::ScaleInitInfo& scale_third() const;
+  PROTOBUF_NODISCARD ::ProjectJ::ScaleInitInfo* release_scale_third();
+  ::ProjectJ::ScaleInitInfo* mutable_scale_third();
+  void set_allocated_scale_third(::ProjectJ::ScaleInitInfo* scale_third);
   private:
-  const ::ProjectJ::MatchInitInfo_ScaleInitInfo& _internal_scale_third() const;
-  ::ProjectJ::MatchInitInfo_ScaleInitInfo* _internal_mutable_scale_third();
+  const ::ProjectJ::ScaleInitInfo& _internal_scale_third() const;
+  ::ProjectJ::ScaleInitInfo* _internal_mutable_scale_third();
   public:
   void unsafe_arena_set_allocated_scale_third(
-      ::ProjectJ::MatchInitInfo_ScaleInitInfo* scale_third);
-  ::ProjectJ::MatchInitInfo_ScaleInitInfo* unsafe_arena_release_scale_third();
+      ::ProjectJ::ScaleInitInfo* scale_third);
+  ::ProjectJ::ScaleInitInfo* unsafe_arena_release_scale_third();
 
-  // .ProjectJ.MatchInitInfo.ScaleInitInfo scale_fourth = 8;
+  // .ProjectJ.ScaleInitInfo scale_fourth = 8;
   bool has_scale_fourth() const;
   private:
   bool _internal_has_scale_fourth() const;
   public:
   void clear_scale_fourth();
-  const ::ProjectJ::MatchInitInfo_ScaleInitInfo& scale_fourth() const;
-  PROTOBUF_NODISCARD ::ProjectJ::MatchInitInfo_ScaleInitInfo* release_scale_fourth();
-  ::ProjectJ::MatchInitInfo_ScaleInitInfo* mutable_scale_fourth();
-  void set_allocated_scale_fourth(::ProjectJ::MatchInitInfo_ScaleInitInfo* scale_fourth);
+  const ::ProjectJ::ScaleInitInfo& scale_fourth() const;
+  PROTOBUF_NODISCARD ::ProjectJ::ScaleInitInfo* release_scale_fourth();
+  ::ProjectJ::ScaleInitInfo* mutable_scale_fourth();
+  void set_allocated_scale_fourth(::ProjectJ::ScaleInitInfo* scale_fourth);
   private:
-  const ::ProjectJ::MatchInitInfo_ScaleInitInfo& _internal_scale_fourth() const;
-  ::ProjectJ::MatchInitInfo_ScaleInitInfo* _internal_mutable_scale_fourth();
+  const ::ProjectJ::ScaleInitInfo& _internal_scale_fourth() const;
+  ::ProjectJ::ScaleInitInfo* _internal_mutable_scale_fourth();
   public:
   void unsafe_arena_set_allocated_scale_fourth(
-      ::ProjectJ::MatchInitInfo_ScaleInitInfo* scale_fourth);
-  ::ProjectJ::MatchInitInfo_ScaleInitInfo* unsafe_arena_release_scale_fourth();
+      ::ProjectJ::ScaleInitInfo* scale_fourth);
+  ::ProjectJ::ScaleInitInfo* unsafe_arena_release_scale_fourth();
 
   // @@protoc_insertion_point(class_scope:ProjectJ.MatchInitInfo)
  private:
@@ -2151,14 +2186,286 @@ class MatchInitInfo final :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   struct Impl_ {
-    ::ProjectJ::PlayerInfo* chaser_;
-    ::ProjectJ::PlayerInfo* fugitive_first_;
-    ::ProjectJ::PlayerInfo* fugitive_second_;
-    ::ProjectJ::PlayerInfo* fugitive_third_;
-    ::ProjectJ::MatchInitInfo_ScaleInitInfo* scale_first_;
-    ::ProjectJ::MatchInitInfo_ScaleInitInfo* scale_second_;
-    ::ProjectJ::MatchInitInfo_ScaleInitInfo* scale_third_;
-    ::ProjectJ::MatchInitInfo_ScaleInitInfo* scale_fourth_;
+    ::ProjectJ::PlayerInitInfo* chaser_;
+    ::ProjectJ::PlayerInitInfo* fugitive_first_;
+    ::ProjectJ::PlayerInitInfo* fugitive_second_;
+    ::ProjectJ::PlayerInitInfo* fugitive_third_;
+    ::ProjectJ::ScaleInitInfo* scale_first_;
+    ::ProjectJ::ScaleInitInfo* scale_second_;
+    ::ProjectJ::ScaleInitInfo* scale_third_;
+    ::ProjectJ::ScaleInitInfo* scale_fourth_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_Struct_2eproto;
+};
+// -------------------------------------------------------------------
+
+class PlayerInfo final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:ProjectJ.PlayerInfo) */ {
+ public:
+  inline PlayerInfo() : PlayerInfo(nullptr) {}
+  ~PlayerInfo() override;
+  explicit PROTOBUF_CONSTEXPR PlayerInfo(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  PlayerInfo(const PlayerInfo& from);
+  PlayerInfo(PlayerInfo&& from) noexcept
+    : PlayerInfo() {
+    *this = ::std::move(from);
+  }
+
+  inline PlayerInfo& operator=(const PlayerInfo& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline PlayerInfo& operator=(PlayerInfo&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const PlayerInfo& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const PlayerInfo* internal_default_instance() {
+    return reinterpret_cast<const PlayerInfo*>(
+               &_PlayerInfo_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    10;
+
+  friend void swap(PlayerInfo& a, PlayerInfo& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(PlayerInfo* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(PlayerInfo* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  PlayerInfo* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<PlayerInfo>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const PlayerInfo& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom( const PlayerInfo& from) {
+    PlayerInfo::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(PlayerInfo* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "ProjectJ.PlayerInfo";
+  }
+  protected:
+  explicit PlayerInfo(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kPlayerFieldNumber = 3,
+    kPositionFieldNumber = 4,
+    kRotationFieldNumber = 5,
+    kVelocityFieldNumber = 6,
+    kStateFieldNumber = 1,
+    kPlayerIndexFieldNumber = 2,
+    kInvSizeWidthFieldNumber = 7,
+    kInvSizeHeightFieldNumber = 8,
+    kInvLimitWeightFieldNumber = 9,
+  };
+  // .ProjectJ.Player player = 3;
+  bool has_player() const;
+  private:
+  bool _internal_has_player() const;
+  public:
+  void clear_player();
+  const ::ProjectJ::Player& player() const;
+  PROTOBUF_NODISCARD ::ProjectJ::Player* release_player();
+  ::ProjectJ::Player* mutable_player();
+  void set_allocated_player(::ProjectJ::Player* player);
+  private:
+  const ::ProjectJ::Player& _internal_player() const;
+  ::ProjectJ::Player* _internal_mutable_player();
+  public:
+  void unsafe_arena_set_allocated_player(
+      ::ProjectJ::Player* player);
+  ::ProjectJ::Player* unsafe_arena_release_player();
+
+  // .ProjectJ.Vector position = 4;
+  bool has_position() const;
+  private:
+  bool _internal_has_position() const;
+  public:
+  void clear_position();
+  const ::ProjectJ::Vector& position() const;
+  PROTOBUF_NODISCARD ::ProjectJ::Vector* release_position();
+  ::ProjectJ::Vector* mutable_position();
+  void set_allocated_position(::ProjectJ::Vector* position);
+  private:
+  const ::ProjectJ::Vector& _internal_position() const;
+  ::ProjectJ::Vector* _internal_mutable_position();
+  public:
+  void unsafe_arena_set_allocated_position(
+      ::ProjectJ::Vector* position);
+  ::ProjectJ::Vector* unsafe_arena_release_position();
+
+  // .ProjectJ.Rotator rotation = 5;
+  bool has_rotation() const;
+  private:
+  bool _internal_has_rotation() const;
+  public:
+  void clear_rotation();
+  const ::ProjectJ::Rotator& rotation() const;
+  PROTOBUF_NODISCARD ::ProjectJ::Rotator* release_rotation();
+  ::ProjectJ::Rotator* mutable_rotation();
+  void set_allocated_rotation(::ProjectJ::Rotator* rotation);
+  private:
+  const ::ProjectJ::Rotator& _internal_rotation() const;
+  ::ProjectJ::Rotator* _internal_mutable_rotation();
+  public:
+  void unsafe_arena_set_allocated_rotation(
+      ::ProjectJ::Rotator* rotation);
+  ::ProjectJ::Rotator* unsafe_arena_release_rotation();
+
+  // .ProjectJ.Vector velocity = 6;
+  bool has_velocity() const;
+  private:
+  bool _internal_has_velocity() const;
+  public:
+  void clear_velocity();
+  const ::ProjectJ::Vector& velocity() const;
+  PROTOBUF_NODISCARD ::ProjectJ::Vector* release_velocity();
+  ::ProjectJ::Vector* mutable_velocity();
+  void set_allocated_velocity(::ProjectJ::Vector* velocity);
+  private:
+  const ::ProjectJ::Vector& _internal_velocity() const;
+  ::ProjectJ::Vector* _internal_mutable_velocity();
+  public:
+  void unsafe_arena_set_allocated_velocity(
+      ::ProjectJ::Vector* velocity);
+  ::ProjectJ::Vector* unsafe_arena_release_velocity();
+
+  // .ProjectJ.MatchPlayerState state = 1;
+  void clear_state();
+  ::ProjectJ::MatchPlayerState state() const;
+  void set_state(::ProjectJ::MatchPlayerState value);
+  private:
+  ::ProjectJ::MatchPlayerState _internal_state() const;
+  void _internal_set_state(::ProjectJ::MatchPlayerState value);
+  public:
+
+  // int32 player_index = 2;
+  void clear_player_index();
+  int32_t player_index() const;
+  void set_player_index(int32_t value);
+  private:
+  int32_t _internal_player_index() const;
+  void _internal_set_player_index(int32_t value);
+  public:
+
+  // int32 inv_size_width = 7;
+  void clear_inv_size_width();
+  int32_t inv_size_width() const;
+  void set_inv_size_width(int32_t value);
+  private:
+  int32_t _internal_inv_size_width() const;
+  void _internal_set_inv_size_width(int32_t value);
+  public:
+
+  // int32 inv_size_height = 8;
+  void clear_inv_size_height();
+  int32_t inv_size_height() const;
+  void set_inv_size_height(int32_t value);
+  private:
+  int32_t _internal_inv_size_height() const;
+  void _internal_set_inv_size_height(int32_t value);
+  public:
+
+  // int32 inv_limit_weight = 9;
+  void clear_inv_limit_weight();
+  int32_t inv_limit_weight() const;
+  void set_inv_limit_weight(int32_t value);
+  private:
+  int32_t _internal_inv_limit_weight() const;
+  void _internal_set_inv_limit_weight(int32_t value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:ProjectJ.PlayerInfo)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    ::ProjectJ::Player* player_;
+    ::ProjectJ::Vector* position_;
+    ::ProjectJ::Rotator* rotation_;
+    ::ProjectJ::Vector* velocity_;
+    int state_;
+    int32_t player_index_;
+    int32_t inv_size_width_;
+    int32_t inv_size_height_;
+    int32_t inv_limit_weight_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -2214,7 +2521,7 @@ class MatchInfo final :
                &_MatchInfo_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    10;
+    11;
 
   friend void swap(MatchInfo& a, MatchInfo& b) {
     a.Swap(&b);
@@ -3296,44 +3603,44 @@ inline void Item::set_index(int32_t value) {
   // @@protoc_insertion_point(field_set:ProjectJ.Item.index)
 }
 
-// int32 width = 3;
-inline void Item::clear_width() {
-  _impl_.width_ = 0;
+// int32 row = 3;
+inline void Item::clear_row() {
+  _impl_.row_ = 0;
 }
-inline int32_t Item::_internal_width() const {
-  return _impl_.width_;
+inline int32_t Item::_internal_row() const {
+  return _impl_.row_;
 }
-inline int32_t Item::width() const {
-  // @@protoc_insertion_point(field_get:ProjectJ.Item.width)
-  return _internal_width();
+inline int32_t Item::row() const {
+  // @@protoc_insertion_point(field_get:ProjectJ.Item.row)
+  return _internal_row();
 }
-inline void Item::_internal_set_width(int32_t value) {
+inline void Item::_internal_set_row(int32_t value) {
   
-  _impl_.width_ = value;
+  _impl_.row_ = value;
 }
-inline void Item::set_width(int32_t value) {
-  _internal_set_width(value);
-  // @@protoc_insertion_point(field_set:ProjectJ.Item.width)
+inline void Item::set_row(int32_t value) {
+  _internal_set_row(value);
+  // @@protoc_insertion_point(field_set:ProjectJ.Item.row)
 }
 
-// int32 height = 4;
-inline void Item::clear_height() {
-  _impl_.height_ = 0;
+// int32 colunm = 4;
+inline void Item::clear_colunm() {
+  _impl_.colunm_ = 0;
 }
-inline int32_t Item::_internal_height() const {
-  return _impl_.height_;
+inline int32_t Item::_internal_colunm() const {
+  return _impl_.colunm_;
 }
-inline int32_t Item::height() const {
-  // @@protoc_insertion_point(field_get:ProjectJ.Item.height)
-  return _internal_height();
+inline int32_t Item::colunm() const {
+  // @@protoc_insertion_point(field_get:ProjectJ.Item.colunm)
+  return _internal_colunm();
 }
-inline void Item::_internal_set_height(int32_t value) {
+inline void Item::_internal_set_colunm(int32_t value) {
   
-  _impl_.height_ = value;
+  _impl_.colunm_ = value;
 }
-inline void Item::set_height(int32_t value) {
-  _internal_set_height(value);
-  // @@protoc_insertion_point(field_set:ProjectJ.Item.height)
+inline void Item::set_colunm(int32_t value) {
+  _internal_set_colunm(value);
+  // @@protoc_insertion_point(field_set:ProjectJ.Item.colunm)
 }
 
 // int32 weight = 5;
@@ -3594,6 +3901,1188 @@ inline void Item::_internal_set_is_rotated(bool value) {
 inline void Item::set_is_rotated(bool value) {
   _internal_set_is_rotated(value);
   // @@protoc_insertion_point(field_set:ProjectJ.Item.is_rotated)
+}
+
+// -------------------------------------------------------------------
+
+// PlayerInitInfo
+
+// .ProjectJ.MatchPlayerState state = 1;
+inline void PlayerInitInfo::clear_state() {
+  _impl_.state_ = 0;
+}
+inline ::ProjectJ::MatchPlayerState PlayerInitInfo::_internal_state() const {
+  return static_cast< ::ProjectJ::MatchPlayerState >(_impl_.state_);
+}
+inline ::ProjectJ::MatchPlayerState PlayerInitInfo::state() const {
+  // @@protoc_insertion_point(field_get:ProjectJ.PlayerInitInfo.state)
+  return _internal_state();
+}
+inline void PlayerInitInfo::_internal_set_state(::ProjectJ::MatchPlayerState value) {
+  
+  _impl_.state_ = value;
+}
+inline void PlayerInitInfo::set_state(::ProjectJ::MatchPlayerState value) {
+  _internal_set_state(value);
+  // @@protoc_insertion_point(field_set:ProjectJ.PlayerInitInfo.state)
+}
+
+// int32 player_index = 2;
+inline void PlayerInitInfo::clear_player_index() {
+  _impl_.player_index_ = 0;
+}
+inline int32_t PlayerInitInfo::_internal_player_index() const {
+  return _impl_.player_index_;
+}
+inline int32_t PlayerInitInfo::player_index() const {
+  // @@protoc_insertion_point(field_get:ProjectJ.PlayerInitInfo.player_index)
+  return _internal_player_index();
+}
+inline void PlayerInitInfo::_internal_set_player_index(int32_t value) {
+  
+  _impl_.player_index_ = value;
+}
+inline void PlayerInitInfo::set_player_index(int32_t value) {
+  _internal_set_player_index(value);
+  // @@protoc_insertion_point(field_set:ProjectJ.PlayerInitInfo.player_index)
+}
+
+// .ProjectJ.Player player = 3;
+inline bool PlayerInitInfo::_internal_has_player() const {
+  return this != internal_default_instance() && _impl_.player_ != nullptr;
+}
+inline bool PlayerInitInfo::has_player() const {
+  return _internal_has_player();
+}
+inline void PlayerInitInfo::clear_player() {
+  if (GetArenaForAllocation() == nullptr && _impl_.player_ != nullptr) {
+    delete _impl_.player_;
+  }
+  _impl_.player_ = nullptr;
+}
+inline const ::ProjectJ::Player& PlayerInitInfo::_internal_player() const {
+  const ::ProjectJ::Player* p = _impl_.player_;
+  return p != nullptr ? *p : reinterpret_cast<const ::ProjectJ::Player&>(
+      ::ProjectJ::_Player_default_instance_);
+}
+inline const ::ProjectJ::Player& PlayerInitInfo::player() const {
+  // @@protoc_insertion_point(field_get:ProjectJ.PlayerInitInfo.player)
+  return _internal_player();
+}
+inline void PlayerInitInfo::unsafe_arena_set_allocated_player(
+    ::ProjectJ::Player* player) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.player_);
+  }
+  _impl_.player_ = player;
+  if (player) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:ProjectJ.PlayerInitInfo.player)
+}
+inline ::ProjectJ::Player* PlayerInitInfo::release_player() {
+  
+  ::ProjectJ::Player* temp = _impl_.player_;
+  _impl_.player_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::ProjectJ::Player* PlayerInitInfo::unsafe_arena_release_player() {
+  // @@protoc_insertion_point(field_release:ProjectJ.PlayerInitInfo.player)
+  
+  ::ProjectJ::Player* temp = _impl_.player_;
+  _impl_.player_ = nullptr;
+  return temp;
+}
+inline ::ProjectJ::Player* PlayerInitInfo::_internal_mutable_player() {
+  
+  if (_impl_.player_ == nullptr) {
+    auto* p = CreateMaybeMessage<::ProjectJ::Player>(GetArenaForAllocation());
+    _impl_.player_ = p;
+  }
+  return _impl_.player_;
+}
+inline ::ProjectJ::Player* PlayerInitInfo::mutable_player() {
+  ::ProjectJ::Player* _msg = _internal_mutable_player();
+  // @@protoc_insertion_point(field_mutable:ProjectJ.PlayerInitInfo.player)
+  return _msg;
+}
+inline void PlayerInitInfo::set_allocated_player(::ProjectJ::Player* player) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete _impl_.player_;
+  }
+  if (player) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(player);
+    if (message_arena != submessage_arena) {
+      player = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, player, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  _impl_.player_ = player;
+  // @@protoc_insertion_point(field_set_allocated:ProjectJ.PlayerInitInfo.player)
+}
+
+// .ProjectJ.Vector position = 4;
+inline bool PlayerInitInfo::_internal_has_position() const {
+  return this != internal_default_instance() && _impl_.position_ != nullptr;
+}
+inline bool PlayerInitInfo::has_position() const {
+  return _internal_has_position();
+}
+inline void PlayerInitInfo::clear_position() {
+  if (GetArenaForAllocation() == nullptr && _impl_.position_ != nullptr) {
+    delete _impl_.position_;
+  }
+  _impl_.position_ = nullptr;
+}
+inline const ::ProjectJ::Vector& PlayerInitInfo::_internal_position() const {
+  const ::ProjectJ::Vector* p = _impl_.position_;
+  return p != nullptr ? *p : reinterpret_cast<const ::ProjectJ::Vector&>(
+      ::ProjectJ::_Vector_default_instance_);
+}
+inline const ::ProjectJ::Vector& PlayerInitInfo::position() const {
+  // @@protoc_insertion_point(field_get:ProjectJ.PlayerInitInfo.position)
+  return _internal_position();
+}
+inline void PlayerInitInfo::unsafe_arena_set_allocated_position(
+    ::ProjectJ::Vector* position) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.position_);
+  }
+  _impl_.position_ = position;
+  if (position) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:ProjectJ.PlayerInitInfo.position)
+}
+inline ::ProjectJ::Vector* PlayerInitInfo::release_position() {
+  
+  ::ProjectJ::Vector* temp = _impl_.position_;
+  _impl_.position_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::ProjectJ::Vector* PlayerInitInfo::unsafe_arena_release_position() {
+  // @@protoc_insertion_point(field_release:ProjectJ.PlayerInitInfo.position)
+  
+  ::ProjectJ::Vector* temp = _impl_.position_;
+  _impl_.position_ = nullptr;
+  return temp;
+}
+inline ::ProjectJ::Vector* PlayerInitInfo::_internal_mutable_position() {
+  
+  if (_impl_.position_ == nullptr) {
+    auto* p = CreateMaybeMessage<::ProjectJ::Vector>(GetArenaForAllocation());
+    _impl_.position_ = p;
+  }
+  return _impl_.position_;
+}
+inline ::ProjectJ::Vector* PlayerInitInfo::mutable_position() {
+  ::ProjectJ::Vector* _msg = _internal_mutable_position();
+  // @@protoc_insertion_point(field_mutable:ProjectJ.PlayerInitInfo.position)
+  return _msg;
+}
+inline void PlayerInitInfo::set_allocated_position(::ProjectJ::Vector* position) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete _impl_.position_;
+  }
+  if (position) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(position);
+    if (message_arena != submessage_arena) {
+      position = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, position, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  _impl_.position_ = position;
+  // @@protoc_insertion_point(field_set_allocated:ProjectJ.PlayerInitInfo.position)
+}
+
+// .ProjectJ.Rotator rotation = 5;
+inline bool PlayerInitInfo::_internal_has_rotation() const {
+  return this != internal_default_instance() && _impl_.rotation_ != nullptr;
+}
+inline bool PlayerInitInfo::has_rotation() const {
+  return _internal_has_rotation();
+}
+inline void PlayerInitInfo::clear_rotation() {
+  if (GetArenaForAllocation() == nullptr && _impl_.rotation_ != nullptr) {
+    delete _impl_.rotation_;
+  }
+  _impl_.rotation_ = nullptr;
+}
+inline const ::ProjectJ::Rotator& PlayerInitInfo::_internal_rotation() const {
+  const ::ProjectJ::Rotator* p = _impl_.rotation_;
+  return p != nullptr ? *p : reinterpret_cast<const ::ProjectJ::Rotator&>(
+      ::ProjectJ::_Rotator_default_instance_);
+}
+inline const ::ProjectJ::Rotator& PlayerInitInfo::rotation() const {
+  // @@protoc_insertion_point(field_get:ProjectJ.PlayerInitInfo.rotation)
+  return _internal_rotation();
+}
+inline void PlayerInitInfo::unsafe_arena_set_allocated_rotation(
+    ::ProjectJ::Rotator* rotation) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.rotation_);
+  }
+  _impl_.rotation_ = rotation;
+  if (rotation) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:ProjectJ.PlayerInitInfo.rotation)
+}
+inline ::ProjectJ::Rotator* PlayerInitInfo::release_rotation() {
+  
+  ::ProjectJ::Rotator* temp = _impl_.rotation_;
+  _impl_.rotation_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::ProjectJ::Rotator* PlayerInitInfo::unsafe_arena_release_rotation() {
+  // @@protoc_insertion_point(field_release:ProjectJ.PlayerInitInfo.rotation)
+  
+  ::ProjectJ::Rotator* temp = _impl_.rotation_;
+  _impl_.rotation_ = nullptr;
+  return temp;
+}
+inline ::ProjectJ::Rotator* PlayerInitInfo::_internal_mutable_rotation() {
+  
+  if (_impl_.rotation_ == nullptr) {
+    auto* p = CreateMaybeMessage<::ProjectJ::Rotator>(GetArenaForAllocation());
+    _impl_.rotation_ = p;
+  }
+  return _impl_.rotation_;
+}
+inline ::ProjectJ::Rotator* PlayerInitInfo::mutable_rotation() {
+  ::ProjectJ::Rotator* _msg = _internal_mutable_rotation();
+  // @@protoc_insertion_point(field_mutable:ProjectJ.PlayerInitInfo.rotation)
+  return _msg;
+}
+inline void PlayerInitInfo::set_allocated_rotation(::ProjectJ::Rotator* rotation) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete _impl_.rotation_;
+  }
+  if (rotation) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(rotation);
+    if (message_arena != submessage_arena) {
+      rotation = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, rotation, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  _impl_.rotation_ = rotation;
+  // @@protoc_insertion_point(field_set_allocated:ProjectJ.PlayerInitInfo.rotation)
+}
+
+// int32 inv_size_row = 6;
+inline void PlayerInitInfo::clear_inv_size_row() {
+  _impl_.inv_size_row_ = 0;
+}
+inline int32_t PlayerInitInfo::_internal_inv_size_row() const {
+  return _impl_.inv_size_row_;
+}
+inline int32_t PlayerInitInfo::inv_size_row() const {
+  // @@protoc_insertion_point(field_get:ProjectJ.PlayerInitInfo.inv_size_row)
+  return _internal_inv_size_row();
+}
+inline void PlayerInitInfo::_internal_set_inv_size_row(int32_t value) {
+  
+  _impl_.inv_size_row_ = value;
+}
+inline void PlayerInitInfo::set_inv_size_row(int32_t value) {
+  _internal_set_inv_size_row(value);
+  // @@protoc_insertion_point(field_set:ProjectJ.PlayerInitInfo.inv_size_row)
+}
+
+// int32 inv_size_colunm = 7;
+inline void PlayerInitInfo::clear_inv_size_colunm() {
+  _impl_.inv_size_colunm_ = 0;
+}
+inline int32_t PlayerInitInfo::_internal_inv_size_colunm() const {
+  return _impl_.inv_size_colunm_;
+}
+inline int32_t PlayerInitInfo::inv_size_colunm() const {
+  // @@protoc_insertion_point(field_get:ProjectJ.PlayerInitInfo.inv_size_colunm)
+  return _internal_inv_size_colunm();
+}
+inline void PlayerInitInfo::_internal_set_inv_size_colunm(int32_t value) {
+  
+  _impl_.inv_size_colunm_ = value;
+}
+inline void PlayerInitInfo::set_inv_size_colunm(int32_t value) {
+  _internal_set_inv_size_colunm(value);
+  // @@protoc_insertion_point(field_set:ProjectJ.PlayerInitInfo.inv_size_colunm)
+}
+
+// int32 inv_max_weight = 8;
+inline void PlayerInitInfo::clear_inv_max_weight() {
+  _impl_.inv_max_weight_ = 0;
+}
+inline int32_t PlayerInitInfo::_internal_inv_max_weight() const {
+  return _impl_.inv_max_weight_;
+}
+inline int32_t PlayerInitInfo::inv_max_weight() const {
+  // @@protoc_insertion_point(field_get:ProjectJ.PlayerInitInfo.inv_max_weight)
+  return _internal_inv_max_weight();
+}
+inline void PlayerInitInfo::_internal_set_inv_max_weight(int32_t value) {
+  
+  _impl_.inv_max_weight_ = value;
+}
+inline void PlayerInitInfo::set_inv_max_weight(int32_t value) {
+  _internal_set_inv_max_weight(value);
+  // @@protoc_insertion_point(field_set:ProjectJ.PlayerInitInfo.inv_max_weight)
+}
+
+// -------------------------------------------------------------------
+
+// ScaleInitInfo
+
+// int32 operating_weight = 1;
+inline void ScaleInitInfo::clear_operating_weight() {
+  _impl_.operating_weight_ = 0;
+}
+inline int32_t ScaleInitInfo::_internal_operating_weight() const {
+  return _impl_.operating_weight_;
+}
+inline int32_t ScaleInitInfo::operating_weight() const {
+  // @@protoc_insertion_point(field_get:ProjectJ.ScaleInitInfo.operating_weight)
+  return _internal_operating_weight();
+}
+inline void ScaleInitInfo::_internal_set_operating_weight(int32_t value) {
+  
+  _impl_.operating_weight_ = value;
+}
+inline void ScaleInitInfo::set_operating_weight(int32_t value) {
+  _internal_set_operating_weight(value);
+  // @@protoc_insertion_point(field_set:ProjectJ.ScaleInitInfo.operating_weight)
+}
+
+// int32 tolerance = 2;
+inline void ScaleInitInfo::clear_tolerance() {
+  _impl_.tolerance_ = 0;
+}
+inline int32_t ScaleInitInfo::_internal_tolerance() const {
+  return _impl_.tolerance_;
+}
+inline int32_t ScaleInitInfo::tolerance() const {
+  // @@protoc_insertion_point(field_get:ProjectJ.ScaleInitInfo.tolerance)
+  return _internal_tolerance();
+}
+inline void ScaleInitInfo::_internal_set_tolerance(int32_t value) {
+  
+  _impl_.tolerance_ = value;
+}
+inline void ScaleInitInfo::set_tolerance(int32_t value) {
+  _internal_set_tolerance(value);
+  // @@protoc_insertion_point(field_set:ProjectJ.ScaleInitInfo.tolerance)
+}
+
+// int32 inv_size_row = 3;
+inline void ScaleInitInfo::clear_inv_size_row() {
+  _impl_.inv_size_row_ = 0;
+}
+inline int32_t ScaleInitInfo::_internal_inv_size_row() const {
+  return _impl_.inv_size_row_;
+}
+inline int32_t ScaleInitInfo::inv_size_row() const {
+  // @@protoc_insertion_point(field_get:ProjectJ.ScaleInitInfo.inv_size_row)
+  return _internal_inv_size_row();
+}
+inline void ScaleInitInfo::_internal_set_inv_size_row(int32_t value) {
+  
+  _impl_.inv_size_row_ = value;
+}
+inline void ScaleInitInfo::set_inv_size_row(int32_t value) {
+  _internal_set_inv_size_row(value);
+  // @@protoc_insertion_point(field_set:ProjectJ.ScaleInitInfo.inv_size_row)
+}
+
+// int32 inv_size_colunm = 4;
+inline void ScaleInitInfo::clear_inv_size_colunm() {
+  _impl_.inv_size_colunm_ = 0;
+}
+inline int32_t ScaleInitInfo::_internal_inv_size_colunm() const {
+  return _impl_.inv_size_colunm_;
+}
+inline int32_t ScaleInitInfo::inv_size_colunm() const {
+  // @@protoc_insertion_point(field_get:ProjectJ.ScaleInitInfo.inv_size_colunm)
+  return _internal_inv_size_colunm();
+}
+inline void ScaleInitInfo::_internal_set_inv_size_colunm(int32_t value) {
+  
+  _impl_.inv_size_colunm_ = value;
+}
+inline void ScaleInitInfo::set_inv_size_colunm(int32_t value) {
+  _internal_set_inv_size_colunm(value);
+  // @@protoc_insertion_point(field_set:ProjectJ.ScaleInitInfo.inv_size_colunm)
+}
+
+// -------------------------------------------------------------------
+
+// MatchInitInfo
+
+// .ProjectJ.PlayerInitInfo chaser = 1;
+inline bool MatchInitInfo::_internal_has_chaser() const {
+  return this != internal_default_instance() && _impl_.chaser_ != nullptr;
+}
+inline bool MatchInitInfo::has_chaser() const {
+  return _internal_has_chaser();
+}
+inline void MatchInitInfo::clear_chaser() {
+  if (GetArenaForAllocation() == nullptr && _impl_.chaser_ != nullptr) {
+    delete _impl_.chaser_;
+  }
+  _impl_.chaser_ = nullptr;
+}
+inline const ::ProjectJ::PlayerInitInfo& MatchInitInfo::_internal_chaser() const {
+  const ::ProjectJ::PlayerInitInfo* p = _impl_.chaser_;
+  return p != nullptr ? *p : reinterpret_cast<const ::ProjectJ::PlayerInitInfo&>(
+      ::ProjectJ::_PlayerInitInfo_default_instance_);
+}
+inline const ::ProjectJ::PlayerInitInfo& MatchInitInfo::chaser() const {
+  // @@protoc_insertion_point(field_get:ProjectJ.MatchInitInfo.chaser)
+  return _internal_chaser();
+}
+inline void MatchInitInfo::unsafe_arena_set_allocated_chaser(
+    ::ProjectJ::PlayerInitInfo* chaser) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.chaser_);
+  }
+  _impl_.chaser_ = chaser;
+  if (chaser) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:ProjectJ.MatchInitInfo.chaser)
+}
+inline ::ProjectJ::PlayerInitInfo* MatchInitInfo::release_chaser() {
+  
+  ::ProjectJ::PlayerInitInfo* temp = _impl_.chaser_;
+  _impl_.chaser_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::ProjectJ::PlayerInitInfo* MatchInitInfo::unsafe_arena_release_chaser() {
+  // @@protoc_insertion_point(field_release:ProjectJ.MatchInitInfo.chaser)
+  
+  ::ProjectJ::PlayerInitInfo* temp = _impl_.chaser_;
+  _impl_.chaser_ = nullptr;
+  return temp;
+}
+inline ::ProjectJ::PlayerInitInfo* MatchInitInfo::_internal_mutable_chaser() {
+  
+  if (_impl_.chaser_ == nullptr) {
+    auto* p = CreateMaybeMessage<::ProjectJ::PlayerInitInfo>(GetArenaForAllocation());
+    _impl_.chaser_ = p;
+  }
+  return _impl_.chaser_;
+}
+inline ::ProjectJ::PlayerInitInfo* MatchInitInfo::mutable_chaser() {
+  ::ProjectJ::PlayerInitInfo* _msg = _internal_mutable_chaser();
+  // @@protoc_insertion_point(field_mutable:ProjectJ.MatchInitInfo.chaser)
+  return _msg;
+}
+inline void MatchInitInfo::set_allocated_chaser(::ProjectJ::PlayerInitInfo* chaser) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete _impl_.chaser_;
+  }
+  if (chaser) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(chaser);
+    if (message_arena != submessage_arena) {
+      chaser = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, chaser, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  _impl_.chaser_ = chaser;
+  // @@protoc_insertion_point(field_set_allocated:ProjectJ.MatchInitInfo.chaser)
+}
+
+// .ProjectJ.PlayerInitInfo fugitive_first = 2;
+inline bool MatchInitInfo::_internal_has_fugitive_first() const {
+  return this != internal_default_instance() && _impl_.fugitive_first_ != nullptr;
+}
+inline bool MatchInitInfo::has_fugitive_first() const {
+  return _internal_has_fugitive_first();
+}
+inline void MatchInitInfo::clear_fugitive_first() {
+  if (GetArenaForAllocation() == nullptr && _impl_.fugitive_first_ != nullptr) {
+    delete _impl_.fugitive_first_;
+  }
+  _impl_.fugitive_first_ = nullptr;
+}
+inline const ::ProjectJ::PlayerInitInfo& MatchInitInfo::_internal_fugitive_first() const {
+  const ::ProjectJ::PlayerInitInfo* p = _impl_.fugitive_first_;
+  return p != nullptr ? *p : reinterpret_cast<const ::ProjectJ::PlayerInitInfo&>(
+      ::ProjectJ::_PlayerInitInfo_default_instance_);
+}
+inline const ::ProjectJ::PlayerInitInfo& MatchInitInfo::fugitive_first() const {
+  // @@protoc_insertion_point(field_get:ProjectJ.MatchInitInfo.fugitive_first)
+  return _internal_fugitive_first();
+}
+inline void MatchInitInfo::unsafe_arena_set_allocated_fugitive_first(
+    ::ProjectJ::PlayerInitInfo* fugitive_first) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.fugitive_first_);
+  }
+  _impl_.fugitive_first_ = fugitive_first;
+  if (fugitive_first) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:ProjectJ.MatchInitInfo.fugitive_first)
+}
+inline ::ProjectJ::PlayerInitInfo* MatchInitInfo::release_fugitive_first() {
+  
+  ::ProjectJ::PlayerInitInfo* temp = _impl_.fugitive_first_;
+  _impl_.fugitive_first_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::ProjectJ::PlayerInitInfo* MatchInitInfo::unsafe_arena_release_fugitive_first() {
+  // @@protoc_insertion_point(field_release:ProjectJ.MatchInitInfo.fugitive_first)
+  
+  ::ProjectJ::PlayerInitInfo* temp = _impl_.fugitive_first_;
+  _impl_.fugitive_first_ = nullptr;
+  return temp;
+}
+inline ::ProjectJ::PlayerInitInfo* MatchInitInfo::_internal_mutable_fugitive_first() {
+  
+  if (_impl_.fugitive_first_ == nullptr) {
+    auto* p = CreateMaybeMessage<::ProjectJ::PlayerInitInfo>(GetArenaForAllocation());
+    _impl_.fugitive_first_ = p;
+  }
+  return _impl_.fugitive_first_;
+}
+inline ::ProjectJ::PlayerInitInfo* MatchInitInfo::mutable_fugitive_first() {
+  ::ProjectJ::PlayerInitInfo* _msg = _internal_mutable_fugitive_first();
+  // @@protoc_insertion_point(field_mutable:ProjectJ.MatchInitInfo.fugitive_first)
+  return _msg;
+}
+inline void MatchInitInfo::set_allocated_fugitive_first(::ProjectJ::PlayerInitInfo* fugitive_first) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete _impl_.fugitive_first_;
+  }
+  if (fugitive_first) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(fugitive_first);
+    if (message_arena != submessage_arena) {
+      fugitive_first = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, fugitive_first, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  _impl_.fugitive_first_ = fugitive_first;
+  // @@protoc_insertion_point(field_set_allocated:ProjectJ.MatchInitInfo.fugitive_first)
+}
+
+// .ProjectJ.PlayerInitInfo fugitive_second = 3;
+inline bool MatchInitInfo::_internal_has_fugitive_second() const {
+  return this != internal_default_instance() && _impl_.fugitive_second_ != nullptr;
+}
+inline bool MatchInitInfo::has_fugitive_second() const {
+  return _internal_has_fugitive_second();
+}
+inline void MatchInitInfo::clear_fugitive_second() {
+  if (GetArenaForAllocation() == nullptr && _impl_.fugitive_second_ != nullptr) {
+    delete _impl_.fugitive_second_;
+  }
+  _impl_.fugitive_second_ = nullptr;
+}
+inline const ::ProjectJ::PlayerInitInfo& MatchInitInfo::_internal_fugitive_second() const {
+  const ::ProjectJ::PlayerInitInfo* p = _impl_.fugitive_second_;
+  return p != nullptr ? *p : reinterpret_cast<const ::ProjectJ::PlayerInitInfo&>(
+      ::ProjectJ::_PlayerInitInfo_default_instance_);
+}
+inline const ::ProjectJ::PlayerInitInfo& MatchInitInfo::fugitive_second() const {
+  // @@protoc_insertion_point(field_get:ProjectJ.MatchInitInfo.fugitive_second)
+  return _internal_fugitive_second();
+}
+inline void MatchInitInfo::unsafe_arena_set_allocated_fugitive_second(
+    ::ProjectJ::PlayerInitInfo* fugitive_second) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.fugitive_second_);
+  }
+  _impl_.fugitive_second_ = fugitive_second;
+  if (fugitive_second) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:ProjectJ.MatchInitInfo.fugitive_second)
+}
+inline ::ProjectJ::PlayerInitInfo* MatchInitInfo::release_fugitive_second() {
+  
+  ::ProjectJ::PlayerInitInfo* temp = _impl_.fugitive_second_;
+  _impl_.fugitive_second_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::ProjectJ::PlayerInitInfo* MatchInitInfo::unsafe_arena_release_fugitive_second() {
+  // @@protoc_insertion_point(field_release:ProjectJ.MatchInitInfo.fugitive_second)
+  
+  ::ProjectJ::PlayerInitInfo* temp = _impl_.fugitive_second_;
+  _impl_.fugitive_second_ = nullptr;
+  return temp;
+}
+inline ::ProjectJ::PlayerInitInfo* MatchInitInfo::_internal_mutable_fugitive_second() {
+  
+  if (_impl_.fugitive_second_ == nullptr) {
+    auto* p = CreateMaybeMessage<::ProjectJ::PlayerInitInfo>(GetArenaForAllocation());
+    _impl_.fugitive_second_ = p;
+  }
+  return _impl_.fugitive_second_;
+}
+inline ::ProjectJ::PlayerInitInfo* MatchInitInfo::mutable_fugitive_second() {
+  ::ProjectJ::PlayerInitInfo* _msg = _internal_mutable_fugitive_second();
+  // @@protoc_insertion_point(field_mutable:ProjectJ.MatchInitInfo.fugitive_second)
+  return _msg;
+}
+inline void MatchInitInfo::set_allocated_fugitive_second(::ProjectJ::PlayerInitInfo* fugitive_second) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete _impl_.fugitive_second_;
+  }
+  if (fugitive_second) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(fugitive_second);
+    if (message_arena != submessage_arena) {
+      fugitive_second = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, fugitive_second, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  _impl_.fugitive_second_ = fugitive_second;
+  // @@protoc_insertion_point(field_set_allocated:ProjectJ.MatchInitInfo.fugitive_second)
+}
+
+// .ProjectJ.PlayerInitInfo fugitive_third = 4;
+inline bool MatchInitInfo::_internal_has_fugitive_third() const {
+  return this != internal_default_instance() && _impl_.fugitive_third_ != nullptr;
+}
+inline bool MatchInitInfo::has_fugitive_third() const {
+  return _internal_has_fugitive_third();
+}
+inline void MatchInitInfo::clear_fugitive_third() {
+  if (GetArenaForAllocation() == nullptr && _impl_.fugitive_third_ != nullptr) {
+    delete _impl_.fugitive_third_;
+  }
+  _impl_.fugitive_third_ = nullptr;
+}
+inline const ::ProjectJ::PlayerInitInfo& MatchInitInfo::_internal_fugitive_third() const {
+  const ::ProjectJ::PlayerInitInfo* p = _impl_.fugitive_third_;
+  return p != nullptr ? *p : reinterpret_cast<const ::ProjectJ::PlayerInitInfo&>(
+      ::ProjectJ::_PlayerInitInfo_default_instance_);
+}
+inline const ::ProjectJ::PlayerInitInfo& MatchInitInfo::fugitive_third() const {
+  // @@protoc_insertion_point(field_get:ProjectJ.MatchInitInfo.fugitive_third)
+  return _internal_fugitive_third();
+}
+inline void MatchInitInfo::unsafe_arena_set_allocated_fugitive_third(
+    ::ProjectJ::PlayerInitInfo* fugitive_third) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.fugitive_third_);
+  }
+  _impl_.fugitive_third_ = fugitive_third;
+  if (fugitive_third) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:ProjectJ.MatchInitInfo.fugitive_third)
+}
+inline ::ProjectJ::PlayerInitInfo* MatchInitInfo::release_fugitive_third() {
+  
+  ::ProjectJ::PlayerInitInfo* temp = _impl_.fugitive_third_;
+  _impl_.fugitive_third_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::ProjectJ::PlayerInitInfo* MatchInitInfo::unsafe_arena_release_fugitive_third() {
+  // @@protoc_insertion_point(field_release:ProjectJ.MatchInitInfo.fugitive_third)
+  
+  ::ProjectJ::PlayerInitInfo* temp = _impl_.fugitive_third_;
+  _impl_.fugitive_third_ = nullptr;
+  return temp;
+}
+inline ::ProjectJ::PlayerInitInfo* MatchInitInfo::_internal_mutable_fugitive_third() {
+  
+  if (_impl_.fugitive_third_ == nullptr) {
+    auto* p = CreateMaybeMessage<::ProjectJ::PlayerInitInfo>(GetArenaForAllocation());
+    _impl_.fugitive_third_ = p;
+  }
+  return _impl_.fugitive_third_;
+}
+inline ::ProjectJ::PlayerInitInfo* MatchInitInfo::mutable_fugitive_third() {
+  ::ProjectJ::PlayerInitInfo* _msg = _internal_mutable_fugitive_third();
+  // @@protoc_insertion_point(field_mutable:ProjectJ.MatchInitInfo.fugitive_third)
+  return _msg;
+}
+inline void MatchInitInfo::set_allocated_fugitive_third(::ProjectJ::PlayerInitInfo* fugitive_third) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete _impl_.fugitive_third_;
+  }
+  if (fugitive_third) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(fugitive_third);
+    if (message_arena != submessage_arena) {
+      fugitive_third = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, fugitive_third, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  _impl_.fugitive_third_ = fugitive_third;
+  // @@protoc_insertion_point(field_set_allocated:ProjectJ.MatchInitInfo.fugitive_third)
+}
+
+// .ProjectJ.ScaleInitInfo scale_first = 5;
+inline bool MatchInitInfo::_internal_has_scale_first() const {
+  return this != internal_default_instance() && _impl_.scale_first_ != nullptr;
+}
+inline bool MatchInitInfo::has_scale_first() const {
+  return _internal_has_scale_first();
+}
+inline void MatchInitInfo::clear_scale_first() {
+  if (GetArenaForAllocation() == nullptr && _impl_.scale_first_ != nullptr) {
+    delete _impl_.scale_first_;
+  }
+  _impl_.scale_first_ = nullptr;
+}
+inline const ::ProjectJ::ScaleInitInfo& MatchInitInfo::_internal_scale_first() const {
+  const ::ProjectJ::ScaleInitInfo* p = _impl_.scale_first_;
+  return p != nullptr ? *p : reinterpret_cast<const ::ProjectJ::ScaleInitInfo&>(
+      ::ProjectJ::_ScaleInitInfo_default_instance_);
+}
+inline const ::ProjectJ::ScaleInitInfo& MatchInitInfo::scale_first() const {
+  // @@protoc_insertion_point(field_get:ProjectJ.MatchInitInfo.scale_first)
+  return _internal_scale_first();
+}
+inline void MatchInitInfo::unsafe_arena_set_allocated_scale_first(
+    ::ProjectJ::ScaleInitInfo* scale_first) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.scale_first_);
+  }
+  _impl_.scale_first_ = scale_first;
+  if (scale_first) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:ProjectJ.MatchInitInfo.scale_first)
+}
+inline ::ProjectJ::ScaleInitInfo* MatchInitInfo::release_scale_first() {
+  
+  ::ProjectJ::ScaleInitInfo* temp = _impl_.scale_first_;
+  _impl_.scale_first_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::ProjectJ::ScaleInitInfo* MatchInitInfo::unsafe_arena_release_scale_first() {
+  // @@protoc_insertion_point(field_release:ProjectJ.MatchInitInfo.scale_first)
+  
+  ::ProjectJ::ScaleInitInfo* temp = _impl_.scale_first_;
+  _impl_.scale_first_ = nullptr;
+  return temp;
+}
+inline ::ProjectJ::ScaleInitInfo* MatchInitInfo::_internal_mutable_scale_first() {
+  
+  if (_impl_.scale_first_ == nullptr) {
+    auto* p = CreateMaybeMessage<::ProjectJ::ScaleInitInfo>(GetArenaForAllocation());
+    _impl_.scale_first_ = p;
+  }
+  return _impl_.scale_first_;
+}
+inline ::ProjectJ::ScaleInitInfo* MatchInitInfo::mutable_scale_first() {
+  ::ProjectJ::ScaleInitInfo* _msg = _internal_mutable_scale_first();
+  // @@protoc_insertion_point(field_mutable:ProjectJ.MatchInitInfo.scale_first)
+  return _msg;
+}
+inline void MatchInitInfo::set_allocated_scale_first(::ProjectJ::ScaleInitInfo* scale_first) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete _impl_.scale_first_;
+  }
+  if (scale_first) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(scale_first);
+    if (message_arena != submessage_arena) {
+      scale_first = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, scale_first, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  _impl_.scale_first_ = scale_first;
+  // @@protoc_insertion_point(field_set_allocated:ProjectJ.MatchInitInfo.scale_first)
+}
+
+// .ProjectJ.ScaleInitInfo scale_second = 6;
+inline bool MatchInitInfo::_internal_has_scale_second() const {
+  return this != internal_default_instance() && _impl_.scale_second_ != nullptr;
+}
+inline bool MatchInitInfo::has_scale_second() const {
+  return _internal_has_scale_second();
+}
+inline void MatchInitInfo::clear_scale_second() {
+  if (GetArenaForAllocation() == nullptr && _impl_.scale_second_ != nullptr) {
+    delete _impl_.scale_second_;
+  }
+  _impl_.scale_second_ = nullptr;
+}
+inline const ::ProjectJ::ScaleInitInfo& MatchInitInfo::_internal_scale_second() const {
+  const ::ProjectJ::ScaleInitInfo* p = _impl_.scale_second_;
+  return p != nullptr ? *p : reinterpret_cast<const ::ProjectJ::ScaleInitInfo&>(
+      ::ProjectJ::_ScaleInitInfo_default_instance_);
+}
+inline const ::ProjectJ::ScaleInitInfo& MatchInitInfo::scale_second() const {
+  // @@protoc_insertion_point(field_get:ProjectJ.MatchInitInfo.scale_second)
+  return _internal_scale_second();
+}
+inline void MatchInitInfo::unsafe_arena_set_allocated_scale_second(
+    ::ProjectJ::ScaleInitInfo* scale_second) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.scale_second_);
+  }
+  _impl_.scale_second_ = scale_second;
+  if (scale_second) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:ProjectJ.MatchInitInfo.scale_second)
+}
+inline ::ProjectJ::ScaleInitInfo* MatchInitInfo::release_scale_second() {
+  
+  ::ProjectJ::ScaleInitInfo* temp = _impl_.scale_second_;
+  _impl_.scale_second_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::ProjectJ::ScaleInitInfo* MatchInitInfo::unsafe_arena_release_scale_second() {
+  // @@protoc_insertion_point(field_release:ProjectJ.MatchInitInfo.scale_second)
+  
+  ::ProjectJ::ScaleInitInfo* temp = _impl_.scale_second_;
+  _impl_.scale_second_ = nullptr;
+  return temp;
+}
+inline ::ProjectJ::ScaleInitInfo* MatchInitInfo::_internal_mutable_scale_second() {
+  
+  if (_impl_.scale_second_ == nullptr) {
+    auto* p = CreateMaybeMessage<::ProjectJ::ScaleInitInfo>(GetArenaForAllocation());
+    _impl_.scale_second_ = p;
+  }
+  return _impl_.scale_second_;
+}
+inline ::ProjectJ::ScaleInitInfo* MatchInitInfo::mutable_scale_second() {
+  ::ProjectJ::ScaleInitInfo* _msg = _internal_mutable_scale_second();
+  // @@protoc_insertion_point(field_mutable:ProjectJ.MatchInitInfo.scale_second)
+  return _msg;
+}
+inline void MatchInitInfo::set_allocated_scale_second(::ProjectJ::ScaleInitInfo* scale_second) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete _impl_.scale_second_;
+  }
+  if (scale_second) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(scale_second);
+    if (message_arena != submessage_arena) {
+      scale_second = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, scale_second, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  _impl_.scale_second_ = scale_second;
+  // @@protoc_insertion_point(field_set_allocated:ProjectJ.MatchInitInfo.scale_second)
+}
+
+// .ProjectJ.ScaleInitInfo scale_third = 7;
+inline bool MatchInitInfo::_internal_has_scale_third() const {
+  return this != internal_default_instance() && _impl_.scale_third_ != nullptr;
+}
+inline bool MatchInitInfo::has_scale_third() const {
+  return _internal_has_scale_third();
+}
+inline void MatchInitInfo::clear_scale_third() {
+  if (GetArenaForAllocation() == nullptr && _impl_.scale_third_ != nullptr) {
+    delete _impl_.scale_third_;
+  }
+  _impl_.scale_third_ = nullptr;
+}
+inline const ::ProjectJ::ScaleInitInfo& MatchInitInfo::_internal_scale_third() const {
+  const ::ProjectJ::ScaleInitInfo* p = _impl_.scale_third_;
+  return p != nullptr ? *p : reinterpret_cast<const ::ProjectJ::ScaleInitInfo&>(
+      ::ProjectJ::_ScaleInitInfo_default_instance_);
+}
+inline const ::ProjectJ::ScaleInitInfo& MatchInitInfo::scale_third() const {
+  // @@protoc_insertion_point(field_get:ProjectJ.MatchInitInfo.scale_third)
+  return _internal_scale_third();
+}
+inline void MatchInitInfo::unsafe_arena_set_allocated_scale_third(
+    ::ProjectJ::ScaleInitInfo* scale_third) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.scale_third_);
+  }
+  _impl_.scale_third_ = scale_third;
+  if (scale_third) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:ProjectJ.MatchInitInfo.scale_third)
+}
+inline ::ProjectJ::ScaleInitInfo* MatchInitInfo::release_scale_third() {
+  
+  ::ProjectJ::ScaleInitInfo* temp = _impl_.scale_third_;
+  _impl_.scale_third_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::ProjectJ::ScaleInitInfo* MatchInitInfo::unsafe_arena_release_scale_third() {
+  // @@protoc_insertion_point(field_release:ProjectJ.MatchInitInfo.scale_third)
+  
+  ::ProjectJ::ScaleInitInfo* temp = _impl_.scale_third_;
+  _impl_.scale_third_ = nullptr;
+  return temp;
+}
+inline ::ProjectJ::ScaleInitInfo* MatchInitInfo::_internal_mutable_scale_third() {
+  
+  if (_impl_.scale_third_ == nullptr) {
+    auto* p = CreateMaybeMessage<::ProjectJ::ScaleInitInfo>(GetArenaForAllocation());
+    _impl_.scale_third_ = p;
+  }
+  return _impl_.scale_third_;
+}
+inline ::ProjectJ::ScaleInitInfo* MatchInitInfo::mutable_scale_third() {
+  ::ProjectJ::ScaleInitInfo* _msg = _internal_mutable_scale_third();
+  // @@protoc_insertion_point(field_mutable:ProjectJ.MatchInitInfo.scale_third)
+  return _msg;
+}
+inline void MatchInitInfo::set_allocated_scale_third(::ProjectJ::ScaleInitInfo* scale_third) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete _impl_.scale_third_;
+  }
+  if (scale_third) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(scale_third);
+    if (message_arena != submessage_arena) {
+      scale_third = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, scale_third, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  _impl_.scale_third_ = scale_third;
+  // @@protoc_insertion_point(field_set_allocated:ProjectJ.MatchInitInfo.scale_third)
+}
+
+// .ProjectJ.ScaleInitInfo scale_fourth = 8;
+inline bool MatchInitInfo::_internal_has_scale_fourth() const {
+  return this != internal_default_instance() && _impl_.scale_fourth_ != nullptr;
+}
+inline bool MatchInitInfo::has_scale_fourth() const {
+  return _internal_has_scale_fourth();
+}
+inline void MatchInitInfo::clear_scale_fourth() {
+  if (GetArenaForAllocation() == nullptr && _impl_.scale_fourth_ != nullptr) {
+    delete _impl_.scale_fourth_;
+  }
+  _impl_.scale_fourth_ = nullptr;
+}
+inline const ::ProjectJ::ScaleInitInfo& MatchInitInfo::_internal_scale_fourth() const {
+  const ::ProjectJ::ScaleInitInfo* p = _impl_.scale_fourth_;
+  return p != nullptr ? *p : reinterpret_cast<const ::ProjectJ::ScaleInitInfo&>(
+      ::ProjectJ::_ScaleInitInfo_default_instance_);
+}
+inline const ::ProjectJ::ScaleInitInfo& MatchInitInfo::scale_fourth() const {
+  // @@protoc_insertion_point(field_get:ProjectJ.MatchInitInfo.scale_fourth)
+  return _internal_scale_fourth();
+}
+inline void MatchInitInfo::unsafe_arena_set_allocated_scale_fourth(
+    ::ProjectJ::ScaleInitInfo* scale_fourth) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.scale_fourth_);
+  }
+  _impl_.scale_fourth_ = scale_fourth;
+  if (scale_fourth) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:ProjectJ.MatchInitInfo.scale_fourth)
+}
+inline ::ProjectJ::ScaleInitInfo* MatchInitInfo::release_scale_fourth() {
+  
+  ::ProjectJ::ScaleInitInfo* temp = _impl_.scale_fourth_;
+  _impl_.scale_fourth_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::ProjectJ::ScaleInitInfo* MatchInitInfo::unsafe_arena_release_scale_fourth() {
+  // @@protoc_insertion_point(field_release:ProjectJ.MatchInitInfo.scale_fourth)
+  
+  ::ProjectJ::ScaleInitInfo* temp = _impl_.scale_fourth_;
+  _impl_.scale_fourth_ = nullptr;
+  return temp;
+}
+inline ::ProjectJ::ScaleInitInfo* MatchInitInfo::_internal_mutable_scale_fourth() {
+  
+  if (_impl_.scale_fourth_ == nullptr) {
+    auto* p = CreateMaybeMessage<::ProjectJ::ScaleInitInfo>(GetArenaForAllocation());
+    _impl_.scale_fourth_ = p;
+  }
+  return _impl_.scale_fourth_;
+}
+inline ::ProjectJ::ScaleInitInfo* MatchInitInfo::mutable_scale_fourth() {
+  ::ProjectJ::ScaleInitInfo* _msg = _internal_mutable_scale_fourth();
+  // @@protoc_insertion_point(field_mutable:ProjectJ.MatchInitInfo.scale_fourth)
+  return _msg;
+}
+inline void MatchInitInfo::set_allocated_scale_fourth(::ProjectJ::ScaleInitInfo* scale_fourth) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete _impl_.scale_fourth_;
+  }
+  if (scale_fourth) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(scale_fourth);
+    if (message_arena != submessage_arena) {
+      scale_fourth = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, scale_fourth, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  _impl_.scale_fourth_ = scale_fourth;
+  // @@protoc_insertion_point(field_set_allocated:ProjectJ.MatchInitInfo.scale_fourth)
 }
 
 // -------------------------------------------------------------------
@@ -3910,812 +5399,154 @@ inline void PlayerInfo::set_allocated_rotation(::ProjectJ::Rotator* rotation) {
   // @@protoc_insertion_point(field_set_allocated:ProjectJ.PlayerInfo.rotation)
 }
 
-// -------------------------------------------------------------------
-
-// MatchInitInfo_ScaleInitInfo
-
-// int32 operating_weight = 1;
-inline void MatchInitInfo_ScaleInitInfo::clear_operating_weight() {
-  _impl_.operating_weight_ = 0;
+// .ProjectJ.Vector velocity = 6;
+inline bool PlayerInfo::_internal_has_velocity() const {
+  return this != internal_default_instance() && _impl_.velocity_ != nullptr;
 }
-inline int32_t MatchInitInfo_ScaleInitInfo::_internal_operating_weight() const {
-  return _impl_.operating_weight_;
+inline bool PlayerInfo::has_velocity() const {
+  return _internal_has_velocity();
 }
-inline int32_t MatchInitInfo_ScaleInitInfo::operating_weight() const {
-  // @@protoc_insertion_point(field_get:ProjectJ.MatchInitInfo.ScaleInitInfo.operating_weight)
-  return _internal_operating_weight();
+inline void PlayerInfo::clear_velocity() {
+  if (GetArenaForAllocation() == nullptr && _impl_.velocity_ != nullptr) {
+    delete _impl_.velocity_;
+  }
+  _impl_.velocity_ = nullptr;
 }
-inline void MatchInitInfo_ScaleInitInfo::_internal_set_operating_weight(int32_t value) {
+inline const ::ProjectJ::Vector& PlayerInfo::_internal_velocity() const {
+  const ::ProjectJ::Vector* p = _impl_.velocity_;
+  return p != nullptr ? *p : reinterpret_cast<const ::ProjectJ::Vector&>(
+      ::ProjectJ::_Vector_default_instance_);
+}
+inline const ::ProjectJ::Vector& PlayerInfo::velocity() const {
+  // @@protoc_insertion_point(field_get:ProjectJ.PlayerInfo.velocity)
+  return _internal_velocity();
+}
+inline void PlayerInfo::unsafe_arena_set_allocated_velocity(
+    ::ProjectJ::Vector* velocity) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.velocity_);
+  }
+  _impl_.velocity_ = velocity;
+  if (velocity) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:ProjectJ.PlayerInfo.velocity)
+}
+inline ::ProjectJ::Vector* PlayerInfo::release_velocity() {
   
-  _impl_.operating_weight_ = value;
+  ::ProjectJ::Vector* temp = _impl_.velocity_;
+  _impl_.velocity_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
 }
-inline void MatchInitInfo_ScaleInitInfo::set_operating_weight(int32_t value) {
-  _internal_set_operating_weight(value);
-  // @@protoc_insertion_point(field_set:ProjectJ.MatchInitInfo.ScaleInitInfo.operating_weight)
-}
-
-// int32 tolerance = 2;
-inline void MatchInitInfo_ScaleInitInfo::clear_tolerance() {
-  _impl_.tolerance_ = 0;
-}
-inline int32_t MatchInitInfo_ScaleInitInfo::_internal_tolerance() const {
-  return _impl_.tolerance_;
-}
-inline int32_t MatchInitInfo_ScaleInitInfo::tolerance() const {
-  // @@protoc_insertion_point(field_get:ProjectJ.MatchInitInfo.ScaleInitInfo.tolerance)
-  return _internal_tolerance();
-}
-inline void MatchInitInfo_ScaleInitInfo::_internal_set_tolerance(int32_t value) {
+inline ::ProjectJ::Vector* PlayerInfo::unsafe_arena_release_velocity() {
+  // @@protoc_insertion_point(field_release:ProjectJ.PlayerInfo.velocity)
   
-  _impl_.tolerance_ = value;
+  ::ProjectJ::Vector* temp = _impl_.velocity_;
+  _impl_.velocity_ = nullptr;
+  return temp;
 }
-inline void MatchInitInfo_ScaleInitInfo::set_tolerance(int32_t value) {
-  _internal_set_tolerance(value);
-  // @@protoc_insertion_point(field_set:ProjectJ.MatchInitInfo.ScaleInitInfo.tolerance)
+inline ::ProjectJ::Vector* PlayerInfo::_internal_mutable_velocity() {
+  
+  if (_impl_.velocity_ == nullptr) {
+    auto* p = CreateMaybeMessage<::ProjectJ::Vector>(GetArenaForAllocation());
+    _impl_.velocity_ = p;
+  }
+  return _impl_.velocity_;
+}
+inline ::ProjectJ::Vector* PlayerInfo::mutable_velocity() {
+  ::ProjectJ::Vector* _msg = _internal_mutable_velocity();
+  // @@protoc_insertion_point(field_mutable:ProjectJ.PlayerInfo.velocity)
+  return _msg;
+}
+inline void PlayerInfo::set_allocated_velocity(::ProjectJ::Vector* velocity) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete _impl_.velocity_;
+  }
+  if (velocity) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(velocity);
+    if (message_arena != submessage_arena) {
+      velocity = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, velocity, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  _impl_.velocity_ = velocity;
+  // @@protoc_insertion_point(field_set_allocated:ProjectJ.PlayerInfo.velocity)
 }
 
-// int32 inv_size_width = 3;
-inline void MatchInitInfo_ScaleInitInfo::clear_inv_size_width() {
+// int32 inv_size_width = 7;
+inline void PlayerInfo::clear_inv_size_width() {
   _impl_.inv_size_width_ = 0;
 }
-inline int32_t MatchInitInfo_ScaleInitInfo::_internal_inv_size_width() const {
+inline int32_t PlayerInfo::_internal_inv_size_width() const {
   return _impl_.inv_size_width_;
 }
-inline int32_t MatchInitInfo_ScaleInitInfo::inv_size_width() const {
-  // @@protoc_insertion_point(field_get:ProjectJ.MatchInitInfo.ScaleInitInfo.inv_size_width)
+inline int32_t PlayerInfo::inv_size_width() const {
+  // @@protoc_insertion_point(field_get:ProjectJ.PlayerInfo.inv_size_width)
   return _internal_inv_size_width();
 }
-inline void MatchInitInfo_ScaleInitInfo::_internal_set_inv_size_width(int32_t value) {
+inline void PlayerInfo::_internal_set_inv_size_width(int32_t value) {
   
   _impl_.inv_size_width_ = value;
 }
-inline void MatchInitInfo_ScaleInitInfo::set_inv_size_width(int32_t value) {
+inline void PlayerInfo::set_inv_size_width(int32_t value) {
   _internal_set_inv_size_width(value);
-  // @@protoc_insertion_point(field_set:ProjectJ.MatchInitInfo.ScaleInitInfo.inv_size_width)
+  // @@protoc_insertion_point(field_set:ProjectJ.PlayerInfo.inv_size_width)
 }
 
-// int32 inv_size_height = 4;
-inline void MatchInitInfo_ScaleInitInfo::clear_inv_size_height() {
+// int32 inv_size_height = 8;
+inline void PlayerInfo::clear_inv_size_height() {
   _impl_.inv_size_height_ = 0;
 }
-inline int32_t MatchInitInfo_ScaleInitInfo::_internal_inv_size_height() const {
+inline int32_t PlayerInfo::_internal_inv_size_height() const {
   return _impl_.inv_size_height_;
 }
-inline int32_t MatchInitInfo_ScaleInitInfo::inv_size_height() const {
-  // @@protoc_insertion_point(field_get:ProjectJ.MatchInitInfo.ScaleInitInfo.inv_size_height)
+inline int32_t PlayerInfo::inv_size_height() const {
+  // @@protoc_insertion_point(field_get:ProjectJ.PlayerInfo.inv_size_height)
   return _internal_inv_size_height();
 }
-inline void MatchInitInfo_ScaleInitInfo::_internal_set_inv_size_height(int32_t value) {
+inline void PlayerInfo::_internal_set_inv_size_height(int32_t value) {
   
   _impl_.inv_size_height_ = value;
 }
-inline void MatchInitInfo_ScaleInitInfo::set_inv_size_height(int32_t value) {
+inline void PlayerInfo::set_inv_size_height(int32_t value) {
   _internal_set_inv_size_height(value);
-  // @@protoc_insertion_point(field_set:ProjectJ.MatchInitInfo.ScaleInitInfo.inv_size_height)
+  // @@protoc_insertion_point(field_set:ProjectJ.PlayerInfo.inv_size_height)
 }
 
-// -------------------------------------------------------------------
-
-// MatchInitInfo
-
-// .ProjectJ.PlayerInfo chaser = 1;
-inline bool MatchInitInfo::_internal_has_chaser() const {
-  return this != internal_default_instance() && _impl_.chaser_ != nullptr;
+// int32 inv_limit_weight = 9;
+inline void PlayerInfo::clear_inv_limit_weight() {
+  _impl_.inv_limit_weight_ = 0;
 }
-inline bool MatchInitInfo::has_chaser() const {
-  return _internal_has_chaser();
+inline int32_t PlayerInfo::_internal_inv_limit_weight() const {
+  return _impl_.inv_limit_weight_;
 }
-inline void MatchInitInfo::clear_chaser() {
-  if (GetArenaForAllocation() == nullptr && _impl_.chaser_ != nullptr) {
-    delete _impl_.chaser_;
-  }
-  _impl_.chaser_ = nullptr;
+inline int32_t PlayerInfo::inv_limit_weight() const {
+  // @@protoc_insertion_point(field_get:ProjectJ.PlayerInfo.inv_limit_weight)
+  return _internal_inv_limit_weight();
 }
-inline const ::ProjectJ::PlayerInfo& MatchInitInfo::_internal_chaser() const {
-  const ::ProjectJ::PlayerInfo* p = _impl_.chaser_;
-  return p != nullptr ? *p : reinterpret_cast<const ::ProjectJ::PlayerInfo&>(
-      ::ProjectJ::_PlayerInfo_default_instance_);
-}
-inline const ::ProjectJ::PlayerInfo& MatchInitInfo::chaser() const {
-  // @@protoc_insertion_point(field_get:ProjectJ.MatchInitInfo.chaser)
-  return _internal_chaser();
-}
-inline void MatchInitInfo::unsafe_arena_set_allocated_chaser(
-    ::ProjectJ::PlayerInfo* chaser) {
-  if (GetArenaForAllocation() == nullptr) {
-    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.chaser_);
-  }
-  _impl_.chaser_ = chaser;
-  if (chaser) {
-    
-  } else {
-    
-  }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:ProjectJ.MatchInitInfo.chaser)
-}
-inline ::ProjectJ::PlayerInfo* MatchInitInfo::release_chaser() {
+inline void PlayerInfo::_internal_set_inv_limit_weight(int32_t value) {
   
-  ::ProjectJ::PlayerInfo* temp = _impl_.chaser_;
-  _impl_.chaser_ = nullptr;
-#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
-  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
-  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  if (GetArenaForAllocation() == nullptr) { delete old; }
-#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
-  if (GetArenaForAllocation() != nullptr) {
-    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  }
-#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
-  return temp;
-}
-inline ::ProjectJ::PlayerInfo* MatchInitInfo::unsafe_arena_release_chaser() {
-  // @@protoc_insertion_point(field_release:ProjectJ.MatchInitInfo.chaser)
-  
-  ::ProjectJ::PlayerInfo* temp = _impl_.chaser_;
-  _impl_.chaser_ = nullptr;
-  return temp;
-}
-inline ::ProjectJ::PlayerInfo* MatchInitInfo::_internal_mutable_chaser() {
-  
-  if (_impl_.chaser_ == nullptr) {
-    auto* p = CreateMaybeMessage<::ProjectJ::PlayerInfo>(GetArenaForAllocation());
-    _impl_.chaser_ = p;
-  }
-  return _impl_.chaser_;
-}
-inline ::ProjectJ::PlayerInfo* MatchInitInfo::mutable_chaser() {
-  ::ProjectJ::PlayerInfo* _msg = _internal_mutable_chaser();
-  // @@protoc_insertion_point(field_mutable:ProjectJ.MatchInitInfo.chaser)
-  return _msg;
-}
-inline void MatchInitInfo::set_allocated_chaser(::ProjectJ::PlayerInfo* chaser) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
-  if (message_arena == nullptr) {
-    delete _impl_.chaser_;
-  }
-  if (chaser) {
-    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(chaser);
-    if (message_arena != submessage_arena) {
-      chaser = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-          message_arena, chaser, submessage_arena);
-    }
-    
-  } else {
-    
-  }
-  _impl_.chaser_ = chaser;
-  // @@protoc_insertion_point(field_set_allocated:ProjectJ.MatchInitInfo.chaser)
-}
-
-// .ProjectJ.PlayerInfo fugitive_first = 2;
-inline bool MatchInitInfo::_internal_has_fugitive_first() const {
-  return this != internal_default_instance() && _impl_.fugitive_first_ != nullptr;
-}
-inline bool MatchInitInfo::has_fugitive_first() const {
-  return _internal_has_fugitive_first();
-}
-inline void MatchInitInfo::clear_fugitive_first() {
-  if (GetArenaForAllocation() == nullptr && _impl_.fugitive_first_ != nullptr) {
-    delete _impl_.fugitive_first_;
-  }
-  _impl_.fugitive_first_ = nullptr;
-}
-inline const ::ProjectJ::PlayerInfo& MatchInitInfo::_internal_fugitive_first() const {
-  const ::ProjectJ::PlayerInfo* p = _impl_.fugitive_first_;
-  return p != nullptr ? *p : reinterpret_cast<const ::ProjectJ::PlayerInfo&>(
-      ::ProjectJ::_PlayerInfo_default_instance_);
-}
-inline const ::ProjectJ::PlayerInfo& MatchInitInfo::fugitive_first() const {
-  // @@protoc_insertion_point(field_get:ProjectJ.MatchInitInfo.fugitive_first)
-  return _internal_fugitive_first();
-}
-inline void MatchInitInfo::unsafe_arena_set_allocated_fugitive_first(
-    ::ProjectJ::PlayerInfo* fugitive_first) {
-  if (GetArenaForAllocation() == nullptr) {
-    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.fugitive_first_);
-  }
-  _impl_.fugitive_first_ = fugitive_first;
-  if (fugitive_first) {
-    
-  } else {
-    
-  }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:ProjectJ.MatchInitInfo.fugitive_first)
-}
-inline ::ProjectJ::PlayerInfo* MatchInitInfo::release_fugitive_first() {
-  
-  ::ProjectJ::PlayerInfo* temp = _impl_.fugitive_first_;
-  _impl_.fugitive_first_ = nullptr;
-#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
-  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
-  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  if (GetArenaForAllocation() == nullptr) { delete old; }
-#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
-  if (GetArenaForAllocation() != nullptr) {
-    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  }
-#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
-  return temp;
-}
-inline ::ProjectJ::PlayerInfo* MatchInitInfo::unsafe_arena_release_fugitive_first() {
-  // @@protoc_insertion_point(field_release:ProjectJ.MatchInitInfo.fugitive_first)
-  
-  ::ProjectJ::PlayerInfo* temp = _impl_.fugitive_first_;
-  _impl_.fugitive_first_ = nullptr;
-  return temp;
-}
-inline ::ProjectJ::PlayerInfo* MatchInitInfo::_internal_mutable_fugitive_first() {
-  
-  if (_impl_.fugitive_first_ == nullptr) {
-    auto* p = CreateMaybeMessage<::ProjectJ::PlayerInfo>(GetArenaForAllocation());
-    _impl_.fugitive_first_ = p;
-  }
-  return _impl_.fugitive_first_;
-}
-inline ::ProjectJ::PlayerInfo* MatchInitInfo::mutable_fugitive_first() {
-  ::ProjectJ::PlayerInfo* _msg = _internal_mutable_fugitive_first();
-  // @@protoc_insertion_point(field_mutable:ProjectJ.MatchInitInfo.fugitive_first)
-  return _msg;
-}
-inline void MatchInitInfo::set_allocated_fugitive_first(::ProjectJ::PlayerInfo* fugitive_first) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
-  if (message_arena == nullptr) {
-    delete _impl_.fugitive_first_;
-  }
-  if (fugitive_first) {
-    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(fugitive_first);
-    if (message_arena != submessage_arena) {
-      fugitive_first = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-          message_arena, fugitive_first, submessage_arena);
-    }
-    
-  } else {
-    
-  }
-  _impl_.fugitive_first_ = fugitive_first;
-  // @@protoc_insertion_point(field_set_allocated:ProjectJ.MatchInitInfo.fugitive_first)
-}
-
-// .ProjectJ.PlayerInfo fugitive_second = 3;
-inline bool MatchInitInfo::_internal_has_fugitive_second() const {
-  return this != internal_default_instance() && _impl_.fugitive_second_ != nullptr;
-}
-inline bool MatchInitInfo::has_fugitive_second() const {
-  return _internal_has_fugitive_second();
-}
-inline void MatchInitInfo::clear_fugitive_second() {
-  if (GetArenaForAllocation() == nullptr && _impl_.fugitive_second_ != nullptr) {
-    delete _impl_.fugitive_second_;
-  }
-  _impl_.fugitive_second_ = nullptr;
-}
-inline const ::ProjectJ::PlayerInfo& MatchInitInfo::_internal_fugitive_second() const {
-  const ::ProjectJ::PlayerInfo* p = _impl_.fugitive_second_;
-  return p != nullptr ? *p : reinterpret_cast<const ::ProjectJ::PlayerInfo&>(
-      ::ProjectJ::_PlayerInfo_default_instance_);
-}
-inline const ::ProjectJ::PlayerInfo& MatchInitInfo::fugitive_second() const {
-  // @@protoc_insertion_point(field_get:ProjectJ.MatchInitInfo.fugitive_second)
-  return _internal_fugitive_second();
-}
-inline void MatchInitInfo::unsafe_arena_set_allocated_fugitive_second(
-    ::ProjectJ::PlayerInfo* fugitive_second) {
-  if (GetArenaForAllocation() == nullptr) {
-    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.fugitive_second_);
-  }
-  _impl_.fugitive_second_ = fugitive_second;
-  if (fugitive_second) {
-    
-  } else {
-    
-  }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:ProjectJ.MatchInitInfo.fugitive_second)
-}
-inline ::ProjectJ::PlayerInfo* MatchInitInfo::release_fugitive_second() {
-  
-  ::ProjectJ::PlayerInfo* temp = _impl_.fugitive_second_;
-  _impl_.fugitive_second_ = nullptr;
-#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
-  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
-  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  if (GetArenaForAllocation() == nullptr) { delete old; }
-#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
-  if (GetArenaForAllocation() != nullptr) {
-    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  }
-#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
-  return temp;
-}
-inline ::ProjectJ::PlayerInfo* MatchInitInfo::unsafe_arena_release_fugitive_second() {
-  // @@protoc_insertion_point(field_release:ProjectJ.MatchInitInfo.fugitive_second)
-  
-  ::ProjectJ::PlayerInfo* temp = _impl_.fugitive_second_;
-  _impl_.fugitive_second_ = nullptr;
-  return temp;
-}
-inline ::ProjectJ::PlayerInfo* MatchInitInfo::_internal_mutable_fugitive_second() {
-  
-  if (_impl_.fugitive_second_ == nullptr) {
-    auto* p = CreateMaybeMessage<::ProjectJ::PlayerInfo>(GetArenaForAllocation());
-    _impl_.fugitive_second_ = p;
-  }
-  return _impl_.fugitive_second_;
-}
-inline ::ProjectJ::PlayerInfo* MatchInitInfo::mutable_fugitive_second() {
-  ::ProjectJ::PlayerInfo* _msg = _internal_mutable_fugitive_second();
-  // @@protoc_insertion_point(field_mutable:ProjectJ.MatchInitInfo.fugitive_second)
-  return _msg;
-}
-inline void MatchInitInfo::set_allocated_fugitive_second(::ProjectJ::PlayerInfo* fugitive_second) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
-  if (message_arena == nullptr) {
-    delete _impl_.fugitive_second_;
-  }
-  if (fugitive_second) {
-    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(fugitive_second);
-    if (message_arena != submessage_arena) {
-      fugitive_second = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-          message_arena, fugitive_second, submessage_arena);
-    }
-    
-  } else {
-    
-  }
-  _impl_.fugitive_second_ = fugitive_second;
-  // @@protoc_insertion_point(field_set_allocated:ProjectJ.MatchInitInfo.fugitive_second)
-}
-
-// .ProjectJ.PlayerInfo fugitive_third = 4;
-inline bool MatchInitInfo::_internal_has_fugitive_third() const {
-  return this != internal_default_instance() && _impl_.fugitive_third_ != nullptr;
-}
-inline bool MatchInitInfo::has_fugitive_third() const {
-  return _internal_has_fugitive_third();
-}
-inline void MatchInitInfo::clear_fugitive_third() {
-  if (GetArenaForAllocation() == nullptr && _impl_.fugitive_third_ != nullptr) {
-    delete _impl_.fugitive_third_;
-  }
-  _impl_.fugitive_third_ = nullptr;
-}
-inline const ::ProjectJ::PlayerInfo& MatchInitInfo::_internal_fugitive_third() const {
-  const ::ProjectJ::PlayerInfo* p = _impl_.fugitive_third_;
-  return p != nullptr ? *p : reinterpret_cast<const ::ProjectJ::PlayerInfo&>(
-      ::ProjectJ::_PlayerInfo_default_instance_);
-}
-inline const ::ProjectJ::PlayerInfo& MatchInitInfo::fugitive_third() const {
-  // @@protoc_insertion_point(field_get:ProjectJ.MatchInitInfo.fugitive_third)
-  return _internal_fugitive_third();
-}
-inline void MatchInitInfo::unsafe_arena_set_allocated_fugitive_third(
-    ::ProjectJ::PlayerInfo* fugitive_third) {
-  if (GetArenaForAllocation() == nullptr) {
-    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.fugitive_third_);
-  }
-  _impl_.fugitive_third_ = fugitive_third;
-  if (fugitive_third) {
-    
-  } else {
-    
-  }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:ProjectJ.MatchInitInfo.fugitive_third)
-}
-inline ::ProjectJ::PlayerInfo* MatchInitInfo::release_fugitive_third() {
-  
-  ::ProjectJ::PlayerInfo* temp = _impl_.fugitive_third_;
-  _impl_.fugitive_third_ = nullptr;
-#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
-  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
-  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  if (GetArenaForAllocation() == nullptr) { delete old; }
-#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
-  if (GetArenaForAllocation() != nullptr) {
-    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  }
-#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
-  return temp;
-}
-inline ::ProjectJ::PlayerInfo* MatchInitInfo::unsafe_arena_release_fugitive_third() {
-  // @@protoc_insertion_point(field_release:ProjectJ.MatchInitInfo.fugitive_third)
-  
-  ::ProjectJ::PlayerInfo* temp = _impl_.fugitive_third_;
-  _impl_.fugitive_third_ = nullptr;
-  return temp;
-}
-inline ::ProjectJ::PlayerInfo* MatchInitInfo::_internal_mutable_fugitive_third() {
-  
-  if (_impl_.fugitive_third_ == nullptr) {
-    auto* p = CreateMaybeMessage<::ProjectJ::PlayerInfo>(GetArenaForAllocation());
-    _impl_.fugitive_third_ = p;
-  }
-  return _impl_.fugitive_third_;
-}
-inline ::ProjectJ::PlayerInfo* MatchInitInfo::mutable_fugitive_third() {
-  ::ProjectJ::PlayerInfo* _msg = _internal_mutable_fugitive_third();
-  // @@protoc_insertion_point(field_mutable:ProjectJ.MatchInitInfo.fugitive_third)
-  return _msg;
-}
-inline void MatchInitInfo::set_allocated_fugitive_third(::ProjectJ::PlayerInfo* fugitive_third) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
-  if (message_arena == nullptr) {
-    delete _impl_.fugitive_third_;
-  }
-  if (fugitive_third) {
-    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(fugitive_third);
-    if (message_arena != submessage_arena) {
-      fugitive_third = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-          message_arena, fugitive_third, submessage_arena);
-    }
-    
-  } else {
-    
-  }
-  _impl_.fugitive_third_ = fugitive_third;
-  // @@protoc_insertion_point(field_set_allocated:ProjectJ.MatchInitInfo.fugitive_third)
-}
-
-// .ProjectJ.MatchInitInfo.ScaleInitInfo scale_first = 5;
-inline bool MatchInitInfo::_internal_has_scale_first() const {
-  return this != internal_default_instance() && _impl_.scale_first_ != nullptr;
-}
-inline bool MatchInitInfo::has_scale_first() const {
-  return _internal_has_scale_first();
-}
-inline void MatchInitInfo::clear_scale_first() {
-  if (GetArenaForAllocation() == nullptr && _impl_.scale_first_ != nullptr) {
-    delete _impl_.scale_first_;
-  }
-  _impl_.scale_first_ = nullptr;
-}
-inline const ::ProjectJ::MatchInitInfo_ScaleInitInfo& MatchInitInfo::_internal_scale_first() const {
-  const ::ProjectJ::MatchInitInfo_ScaleInitInfo* p = _impl_.scale_first_;
-  return p != nullptr ? *p : reinterpret_cast<const ::ProjectJ::MatchInitInfo_ScaleInitInfo&>(
-      ::ProjectJ::_MatchInitInfo_ScaleInitInfo_default_instance_);
-}
-inline const ::ProjectJ::MatchInitInfo_ScaleInitInfo& MatchInitInfo::scale_first() const {
-  // @@protoc_insertion_point(field_get:ProjectJ.MatchInitInfo.scale_first)
-  return _internal_scale_first();
-}
-inline void MatchInitInfo::unsafe_arena_set_allocated_scale_first(
-    ::ProjectJ::MatchInitInfo_ScaleInitInfo* scale_first) {
-  if (GetArenaForAllocation() == nullptr) {
-    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.scale_first_);
-  }
-  _impl_.scale_first_ = scale_first;
-  if (scale_first) {
-    
-  } else {
-    
-  }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:ProjectJ.MatchInitInfo.scale_first)
-}
-inline ::ProjectJ::MatchInitInfo_ScaleInitInfo* MatchInitInfo::release_scale_first() {
-  
-  ::ProjectJ::MatchInitInfo_ScaleInitInfo* temp = _impl_.scale_first_;
-  _impl_.scale_first_ = nullptr;
-#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
-  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
-  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  if (GetArenaForAllocation() == nullptr) { delete old; }
-#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
-  if (GetArenaForAllocation() != nullptr) {
-    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  }
-#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
-  return temp;
-}
-inline ::ProjectJ::MatchInitInfo_ScaleInitInfo* MatchInitInfo::unsafe_arena_release_scale_first() {
-  // @@protoc_insertion_point(field_release:ProjectJ.MatchInitInfo.scale_first)
-  
-  ::ProjectJ::MatchInitInfo_ScaleInitInfo* temp = _impl_.scale_first_;
-  _impl_.scale_first_ = nullptr;
-  return temp;
-}
-inline ::ProjectJ::MatchInitInfo_ScaleInitInfo* MatchInitInfo::_internal_mutable_scale_first() {
-  
-  if (_impl_.scale_first_ == nullptr) {
-    auto* p = CreateMaybeMessage<::ProjectJ::MatchInitInfo_ScaleInitInfo>(GetArenaForAllocation());
-    _impl_.scale_first_ = p;
-  }
-  return _impl_.scale_first_;
-}
-inline ::ProjectJ::MatchInitInfo_ScaleInitInfo* MatchInitInfo::mutable_scale_first() {
-  ::ProjectJ::MatchInitInfo_ScaleInitInfo* _msg = _internal_mutable_scale_first();
-  // @@protoc_insertion_point(field_mutable:ProjectJ.MatchInitInfo.scale_first)
-  return _msg;
-}
-inline void MatchInitInfo::set_allocated_scale_first(::ProjectJ::MatchInitInfo_ScaleInitInfo* scale_first) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
-  if (message_arena == nullptr) {
-    delete _impl_.scale_first_;
-  }
-  if (scale_first) {
-    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(scale_first);
-    if (message_arena != submessage_arena) {
-      scale_first = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-          message_arena, scale_first, submessage_arena);
-    }
-    
-  } else {
-    
-  }
-  _impl_.scale_first_ = scale_first;
-  // @@protoc_insertion_point(field_set_allocated:ProjectJ.MatchInitInfo.scale_first)
-}
-
-// .ProjectJ.MatchInitInfo.ScaleInitInfo scale_second = 6;
-inline bool MatchInitInfo::_internal_has_scale_second() const {
-  return this != internal_default_instance() && _impl_.scale_second_ != nullptr;
-}
-inline bool MatchInitInfo::has_scale_second() const {
-  return _internal_has_scale_second();
-}
-inline void MatchInitInfo::clear_scale_second() {
-  if (GetArenaForAllocation() == nullptr && _impl_.scale_second_ != nullptr) {
-    delete _impl_.scale_second_;
-  }
-  _impl_.scale_second_ = nullptr;
-}
-inline const ::ProjectJ::MatchInitInfo_ScaleInitInfo& MatchInitInfo::_internal_scale_second() const {
-  const ::ProjectJ::MatchInitInfo_ScaleInitInfo* p = _impl_.scale_second_;
-  return p != nullptr ? *p : reinterpret_cast<const ::ProjectJ::MatchInitInfo_ScaleInitInfo&>(
-      ::ProjectJ::_MatchInitInfo_ScaleInitInfo_default_instance_);
-}
-inline const ::ProjectJ::MatchInitInfo_ScaleInitInfo& MatchInitInfo::scale_second() const {
-  // @@protoc_insertion_point(field_get:ProjectJ.MatchInitInfo.scale_second)
-  return _internal_scale_second();
-}
-inline void MatchInitInfo::unsafe_arena_set_allocated_scale_second(
-    ::ProjectJ::MatchInitInfo_ScaleInitInfo* scale_second) {
-  if (GetArenaForAllocation() == nullptr) {
-    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.scale_second_);
-  }
-  _impl_.scale_second_ = scale_second;
-  if (scale_second) {
-    
-  } else {
-    
-  }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:ProjectJ.MatchInitInfo.scale_second)
-}
-inline ::ProjectJ::MatchInitInfo_ScaleInitInfo* MatchInitInfo::release_scale_second() {
-  
-  ::ProjectJ::MatchInitInfo_ScaleInitInfo* temp = _impl_.scale_second_;
-  _impl_.scale_second_ = nullptr;
-#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
-  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
-  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  if (GetArenaForAllocation() == nullptr) { delete old; }
-#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
-  if (GetArenaForAllocation() != nullptr) {
-    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  }
-#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
-  return temp;
-}
-inline ::ProjectJ::MatchInitInfo_ScaleInitInfo* MatchInitInfo::unsafe_arena_release_scale_second() {
-  // @@protoc_insertion_point(field_release:ProjectJ.MatchInitInfo.scale_second)
-  
-  ::ProjectJ::MatchInitInfo_ScaleInitInfo* temp = _impl_.scale_second_;
-  _impl_.scale_second_ = nullptr;
-  return temp;
-}
-inline ::ProjectJ::MatchInitInfo_ScaleInitInfo* MatchInitInfo::_internal_mutable_scale_second() {
-  
-  if (_impl_.scale_second_ == nullptr) {
-    auto* p = CreateMaybeMessage<::ProjectJ::MatchInitInfo_ScaleInitInfo>(GetArenaForAllocation());
-    _impl_.scale_second_ = p;
-  }
-  return _impl_.scale_second_;
-}
-inline ::ProjectJ::MatchInitInfo_ScaleInitInfo* MatchInitInfo::mutable_scale_second() {
-  ::ProjectJ::MatchInitInfo_ScaleInitInfo* _msg = _internal_mutable_scale_second();
-  // @@protoc_insertion_point(field_mutable:ProjectJ.MatchInitInfo.scale_second)
-  return _msg;
-}
-inline void MatchInitInfo::set_allocated_scale_second(::ProjectJ::MatchInitInfo_ScaleInitInfo* scale_second) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
-  if (message_arena == nullptr) {
-    delete _impl_.scale_second_;
-  }
-  if (scale_second) {
-    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(scale_second);
-    if (message_arena != submessage_arena) {
-      scale_second = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-          message_arena, scale_second, submessage_arena);
-    }
-    
-  } else {
-    
-  }
-  _impl_.scale_second_ = scale_second;
-  // @@protoc_insertion_point(field_set_allocated:ProjectJ.MatchInitInfo.scale_second)
-}
-
-// .ProjectJ.MatchInitInfo.ScaleInitInfo scale_third = 7;
-inline bool MatchInitInfo::_internal_has_scale_third() const {
-  return this != internal_default_instance() && _impl_.scale_third_ != nullptr;
-}
-inline bool MatchInitInfo::has_scale_third() const {
-  return _internal_has_scale_third();
-}
-inline void MatchInitInfo::clear_scale_third() {
-  if (GetArenaForAllocation() == nullptr && _impl_.scale_third_ != nullptr) {
-    delete _impl_.scale_third_;
-  }
-  _impl_.scale_third_ = nullptr;
-}
-inline const ::ProjectJ::MatchInitInfo_ScaleInitInfo& MatchInitInfo::_internal_scale_third() const {
-  const ::ProjectJ::MatchInitInfo_ScaleInitInfo* p = _impl_.scale_third_;
-  return p != nullptr ? *p : reinterpret_cast<const ::ProjectJ::MatchInitInfo_ScaleInitInfo&>(
-      ::ProjectJ::_MatchInitInfo_ScaleInitInfo_default_instance_);
-}
-inline const ::ProjectJ::MatchInitInfo_ScaleInitInfo& MatchInitInfo::scale_third() const {
-  // @@protoc_insertion_point(field_get:ProjectJ.MatchInitInfo.scale_third)
-  return _internal_scale_third();
-}
-inline void MatchInitInfo::unsafe_arena_set_allocated_scale_third(
-    ::ProjectJ::MatchInitInfo_ScaleInitInfo* scale_third) {
-  if (GetArenaForAllocation() == nullptr) {
-    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.scale_third_);
-  }
-  _impl_.scale_third_ = scale_third;
-  if (scale_third) {
-    
-  } else {
-    
-  }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:ProjectJ.MatchInitInfo.scale_third)
-}
-inline ::ProjectJ::MatchInitInfo_ScaleInitInfo* MatchInitInfo::release_scale_third() {
-  
-  ::ProjectJ::MatchInitInfo_ScaleInitInfo* temp = _impl_.scale_third_;
-  _impl_.scale_third_ = nullptr;
-#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
-  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
-  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  if (GetArenaForAllocation() == nullptr) { delete old; }
-#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
-  if (GetArenaForAllocation() != nullptr) {
-    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  }
-#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
-  return temp;
-}
-inline ::ProjectJ::MatchInitInfo_ScaleInitInfo* MatchInitInfo::unsafe_arena_release_scale_third() {
-  // @@protoc_insertion_point(field_release:ProjectJ.MatchInitInfo.scale_third)
-  
-  ::ProjectJ::MatchInitInfo_ScaleInitInfo* temp = _impl_.scale_third_;
-  _impl_.scale_third_ = nullptr;
-  return temp;
-}
-inline ::ProjectJ::MatchInitInfo_ScaleInitInfo* MatchInitInfo::_internal_mutable_scale_third() {
-  
-  if (_impl_.scale_third_ == nullptr) {
-    auto* p = CreateMaybeMessage<::ProjectJ::MatchInitInfo_ScaleInitInfo>(GetArenaForAllocation());
-    _impl_.scale_third_ = p;
-  }
-  return _impl_.scale_third_;
-}
-inline ::ProjectJ::MatchInitInfo_ScaleInitInfo* MatchInitInfo::mutable_scale_third() {
-  ::ProjectJ::MatchInitInfo_ScaleInitInfo* _msg = _internal_mutable_scale_third();
-  // @@protoc_insertion_point(field_mutable:ProjectJ.MatchInitInfo.scale_third)
-  return _msg;
-}
-inline void MatchInitInfo::set_allocated_scale_third(::ProjectJ::MatchInitInfo_ScaleInitInfo* scale_third) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
-  if (message_arena == nullptr) {
-    delete _impl_.scale_third_;
-  }
-  if (scale_third) {
-    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(scale_third);
-    if (message_arena != submessage_arena) {
-      scale_third = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-          message_arena, scale_third, submessage_arena);
-    }
-    
-  } else {
-    
-  }
-  _impl_.scale_third_ = scale_third;
-  // @@protoc_insertion_point(field_set_allocated:ProjectJ.MatchInitInfo.scale_third)
-}
-
-// .ProjectJ.MatchInitInfo.ScaleInitInfo scale_fourth = 8;
-inline bool MatchInitInfo::_internal_has_scale_fourth() const {
-  return this != internal_default_instance() && _impl_.scale_fourth_ != nullptr;
-}
-inline bool MatchInitInfo::has_scale_fourth() const {
-  return _internal_has_scale_fourth();
-}
-inline void MatchInitInfo::clear_scale_fourth() {
-  if (GetArenaForAllocation() == nullptr && _impl_.scale_fourth_ != nullptr) {
-    delete _impl_.scale_fourth_;
-  }
-  _impl_.scale_fourth_ = nullptr;
-}
-inline const ::ProjectJ::MatchInitInfo_ScaleInitInfo& MatchInitInfo::_internal_scale_fourth() const {
-  const ::ProjectJ::MatchInitInfo_ScaleInitInfo* p = _impl_.scale_fourth_;
-  return p != nullptr ? *p : reinterpret_cast<const ::ProjectJ::MatchInitInfo_ScaleInitInfo&>(
-      ::ProjectJ::_MatchInitInfo_ScaleInitInfo_default_instance_);
-}
-inline const ::ProjectJ::MatchInitInfo_ScaleInitInfo& MatchInitInfo::scale_fourth() const {
-  // @@protoc_insertion_point(field_get:ProjectJ.MatchInitInfo.scale_fourth)
-  return _internal_scale_fourth();
-}
-inline void MatchInitInfo::unsafe_arena_set_allocated_scale_fourth(
-    ::ProjectJ::MatchInitInfo_ScaleInitInfo* scale_fourth) {
-  if (GetArenaForAllocation() == nullptr) {
-    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.scale_fourth_);
-  }
-  _impl_.scale_fourth_ = scale_fourth;
-  if (scale_fourth) {
-    
-  } else {
-    
-  }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:ProjectJ.MatchInitInfo.scale_fourth)
-}
-inline ::ProjectJ::MatchInitInfo_ScaleInitInfo* MatchInitInfo::release_scale_fourth() {
-  
-  ::ProjectJ::MatchInitInfo_ScaleInitInfo* temp = _impl_.scale_fourth_;
-  _impl_.scale_fourth_ = nullptr;
-#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
-  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
-  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  if (GetArenaForAllocation() == nullptr) { delete old; }
-#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
-  if (GetArenaForAllocation() != nullptr) {
-    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  }
-#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
-  return temp;
-}
-inline ::ProjectJ::MatchInitInfo_ScaleInitInfo* MatchInitInfo::unsafe_arena_release_scale_fourth() {
-  // @@protoc_insertion_point(field_release:ProjectJ.MatchInitInfo.scale_fourth)
-  
-  ::ProjectJ::MatchInitInfo_ScaleInitInfo* temp = _impl_.scale_fourth_;
-  _impl_.scale_fourth_ = nullptr;
-  return temp;
-}
-inline ::ProjectJ::MatchInitInfo_ScaleInitInfo* MatchInitInfo::_internal_mutable_scale_fourth() {
-  
-  if (_impl_.scale_fourth_ == nullptr) {
-    auto* p = CreateMaybeMessage<::ProjectJ::MatchInitInfo_ScaleInitInfo>(GetArenaForAllocation());
-    _impl_.scale_fourth_ = p;
-  }
-  return _impl_.scale_fourth_;
-}
-inline ::ProjectJ::MatchInitInfo_ScaleInitInfo* MatchInitInfo::mutable_scale_fourth() {
-  ::ProjectJ::MatchInitInfo_ScaleInitInfo* _msg = _internal_mutable_scale_fourth();
-  // @@protoc_insertion_point(field_mutable:ProjectJ.MatchInitInfo.scale_fourth)
-  return _msg;
-}
-inline void MatchInitInfo::set_allocated_scale_fourth(::ProjectJ::MatchInitInfo_ScaleInitInfo* scale_fourth) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
-  if (message_arena == nullptr) {
-    delete _impl_.scale_fourth_;
-  }
-  if (scale_fourth) {
-    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(scale_fourth);
-    if (message_arena != submessage_arena) {
-      scale_fourth = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-          message_arena, scale_fourth, submessage_arena);
-    }
-    
-  } else {
-    
-  }
-  _impl_.scale_fourth_ = scale_fourth;
-  // @@protoc_insertion_point(field_set_allocated:ProjectJ.MatchInitInfo.scale_fourth)
+  _impl_.inv_limit_weight_ = value;
+}
+inline void PlayerInfo::set_inv_limit_weight(int32_t value) {
+  _internal_set_inv_limit_weight(value);
+  // @@protoc_insertion_point(field_set:ProjectJ.PlayerInfo.inv_limit_weight)
 }
 
 // -------------------------------------------------------------------
@@ -5085,6 +5916,8 @@ inline void MatchInfo::set_allocated_fugitive_third(::ProjectJ::PlayerInfo* fugi
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

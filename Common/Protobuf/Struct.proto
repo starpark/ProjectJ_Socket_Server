@@ -50,14 +50,47 @@ message Item
 {
 	int32 id = 1;
 	int32 index = 2;
-	int32 width = 3;
-	int32 height = 4;
+	int32 row = 3;
+	int32 colunm = 4;
 	int32 weight = 5;
 	bool is_owned = 6;
 	Vector world_position = 7;
 	Rotator world_rotation = 8;
 	int32 onwer_player_index = 9;
 	bool is_rotated = 10;
+}
+
+message PlayerInitInfo
+{
+	MatchPlayerState state = 1;
+	int32 player_index = 2;
+	Player player = 3;
+	Vector position = 4;
+	Rotator rotation = 5;
+	int32 inv_size_row = 6;
+	int32 inv_size_colunm = 7;
+	int32 inv_max_weight = 8;
+}
+
+message ScaleInitInfo
+{
+	int32 operating_weight = 1;
+	int32 tolerance = 2;
+	int32 inv_size_row = 3;
+	int32 inv_size_colunm = 4;
+}
+
+message MatchInitInfo
+{
+	PlayerInitInfo chaser = 1;
+	PlayerInitInfo fugitive_first = 2;
+	PlayerInitInfo fugitive_second = 3;
+	PlayerInitInfo fugitive_third = 4;
+
+	ScaleInitInfo scale_first = 5;
+	ScaleInitInfo scale_second = 6;
+	ScaleInitInfo scale_third = 7;
+	ScaleInitInfo scale_fourth = 8;
 }
 
 message PlayerInfo
@@ -67,27 +100,10 @@ message PlayerInfo
 	Player player = 3;
 	Vector position = 4;
 	Rotator rotation = 5;
-}
-
-message MatchInitInfo
-{
-	message ScaleInitInfo
-	{
-		int32 operating_weight = 1;
-		int32 tolerance = 2;
-		int32 inv_size_width = 3;
-		int32 inv_size_height = 4;
-	}
-
-	PlayerInfo chaser = 1;
-	PlayerInfo fugitive_first = 2;
-	PlayerInfo fugitive_second = 3;
-	PlayerInfo fugitive_third = 4;
-
-	ScaleInitInfo scale_first = 5;
-	ScaleInitInfo scale_second = 6;
-	ScaleInitInfo scale_third = 7;
-	ScaleInitInfo scale_fourth = 8;
+	Vector velocity = 6;
+	int32 inv_size_width = 7;
+	int32 inv_size_height = 8;
+	int32 inv_limit_weight = 9;
 }
 
 message MatchInfo

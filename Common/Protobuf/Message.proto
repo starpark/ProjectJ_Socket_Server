@@ -150,7 +150,7 @@ message C_MATCH_READY_TO_RECEIVE
 	int32 account_id = 1;
 }
 
-message S_MATCH_ALL_READY_TO_RECIEVE
+message S_MATCH_ALL_READY_TO_RECEIVE
 {
 	int32 your_player_index = 1;
 	MatchInitInfo info = 2;
@@ -159,6 +159,13 @@ message S_MATCH_ALL_READY_TO_RECIEVE
 message S_MATCH_ITEM_GENERATED
 {
 	repeated Item items = 1;
+}
+
+message C_MATCH_CHARACTER_SPAWN_POSITION
+{
+	int32 player_index = 1;
+	Vector position = 2;
+	Rotator rotation = 3;
 }
 
 message C_MATCH_READY_TO_START
@@ -178,6 +185,7 @@ message C_MATCH_INFO
 	{
 		Vector position = 1;
 		Rotator rotation = 2;
+		Vector Velocity = 3;
 	}
 
 	int32 player_index = 1;
@@ -293,6 +301,18 @@ message S_MATCH_FUGITIVE_ESCAPE
 	int32 escape_scale_index = 2;
 	int32 score = 3;	
 	int64 current_tick = 4;
+}
+
+message C_MATCH_CHASER_INSTALL_CCTV
+{
+	Vector install_position = 1;
+	Rotator install_rotation = 2;
+}
+
+message S_MATCH_CHASER_INSTALL_CCTV
+{
+	Vector install_position = 1;
+	Rotator install_rotation = 2;
 }
 
 message C_MATCH_LEAVE

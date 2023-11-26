@@ -155,11 +155,89 @@ bool Handle_S_ROOM_START_MATCH(const shared_ptr<SessionBase>& session, ProjectJ:
 	return true;
 }
 
-bool Handle_S_MATCH_ALL_READY_TO_RECIEVE(const shared_ptr<SessionBase>& session, ProjectJ::S_MATCH_ALL_READY_TO_RECIEVE& packet)
+bool Handle_S_MATCH_ALL_READY_TO_RECEIVE(const shared_ptr<SessionBase>& session, ProjectJ::S_MATCH_ALL_READY_TO_RECEIVE& packet)
 {
 	auto clientSession = static_pointer_cast<ClientSession>(session);
 
 	clientSession->matchIndex = packet.your_player_index();
+	{
+		int index = packet.your_player_index();
+
+		ProjectJ::C_MATCH_CHARACTER_SPAWN_POSITION sendPacket;
+		auto position = new ProjectJ::Vector();
+		auto rotation = new ProjectJ::Rotator();
+
+		if (index == 0)
+		{
+			auto character = packet.info().chaser();
+			auto vector = character.position();
+			auto rotator = character.rotation();
+			position->set_x(vector.x());
+			position->set_y(vector.y());
+			position->set_z(100.0f);
+
+			rotation->set_pitch(rotator.pitch());
+			rotation->set_roll(rotator.roll());
+			rotation->set_yaw(rotator.yaw());
+		}
+		else if (index == 1)
+		{
+			auto character = packet.info().fugitive_first();
+			auto vector = character.position();
+			auto rotator = character.rotation();
+			position->set_x(vector.x());
+			position->set_y(vector.y());
+			position->set_z(100.0f);
+
+			rotation->set_pitch(rotator.pitch());
+			rotation->set_roll(rotator.roll());
+			rotation->set_yaw(rotator.yaw());
+		}
+		else if (index == 2)
+		{
+			auto character = packet.info().fugitive_second();
+			auto vector = character.position();
+			auto rotator = character.rotation();
+			position->set_x(vector.x());
+			position->set_y(vector.y());
+			position->set_z(100.0f);
+
+			rotation->set_pitch(rotator.pitch());
+			rotation->set_roll(rotator.roll());
+			rotation->set_yaw(rotator.yaw());
+		}
+		else
+		{
+			auto character = packet.info().fugitive_third();
+			auto vector = character.position();
+			auto rotator = character.rotation();
+			position->set_x(vector.x());
+			position->set_y(vector.y());
+			position->set_z(100.0f);
+
+			rotation->set_pitch(rotator.pitch());
+			rotation->set_roll(rotator.roll());
+			rotation->set_yaw(rotator.yaw());
+		}
+
+		sendPacket.set_allocated_rotation(rotation);
+		sendPacket.set_allocated_position(position);
+		sendPacket.set_player_index(index);
+
+		auto sendBuffer = ServerPacketHandler::MakeSendBuffer(sendPacket);
+
+
+		clientSession->Send(sendBuffer);
+		cout << "서버로 위치 보냄" << endl;
+	}
+
+	{
+		ProjectJ::C_MATCH_READY_TO_START sendPacket;
+		sendPacket.set_player_index(clientSession->matchIndex);
+		auto sendBuffer = ServerPacketHandler::MakeSendBuffer(sendPacket);
+		session->Send(sendBuffer);
+	}
+
 
 	return true;
 }
@@ -168,17 +246,13 @@ bool Handle_S_MATCH_ITEM_GENERATED(const shared_ptr<SessionBase>& session, Proje
 {
 	auto clientSession = static_pointer_cast<ClientSession>(session);
 
-	ProjectJ::C_MATCH_READY_TO_START sendPacket;
-	sendPacket.set_player_index(clientSession->matchIndex);
-	auto sendBuffer = ServerPacketHandler::MakeSendBuffer(sendPacket);
-	session->Send(sendBuffer);
-
 	return true;
 }
 
 bool Handle_S_MATCH_START(const shared_ptr<SessionBase>& session, ProjectJ::S_MATCH_START& packet)
 {
 	auto clientSession = static_pointer_cast<ClientSession>(session);
+	/*this_thread::sleep_for(3s);
 	for (int i = 0; i < 30; i++)
 	{
 		ProjectJ::C_MATCH_ITEM_PICKUP sendPacket;
@@ -188,7 +262,7 @@ bool Handle_S_MATCH_START(const shared_ptr<SessionBase>& session, ProjectJ::S_MA
 
 		auto sendBuffer = ServerPacketHandler::MakeSendBuffer(sendPacket);
 		session->Send(sendBuffer);
-	}
+	}*/
 
 	return true;
 }
@@ -258,6 +332,21 @@ bool Handle_S_MATCH_CHASER_ATTACK(const shared_ptr<SessionBase>& session, Projec
 }
 
 bool Handle_S_MATCH_CHASER_HIT(const shared_ptr<SessionBase>& session, ProjectJ::S_MATCH_CHASER_HIT& packet)
+{
+	return true;
+}
+
+bool Handle_S_MATCH_FUGITIVE_ESCAPE(const shared_ptr<SessionBase>& session, ProjectJ::S_MATCH_FUGITIVE_ESCAPE& packet)
+{
+	return true;
+}
+
+bool Handle_S_MATCH_CHASER_INSTALL_CCTV(const shared_ptr<SessionBase>& session, ProjectJ::S_MATCH_CHASER_INSTALL_CCTV& packet)
+{
+	return true;
+}
+
+bool Handle_S_MATCH_LEAVE(const shared_ptr<SessionBase>& session, ProjectJ::S_MATCH_LEAVE& packet)
 {
 	return true;
 }

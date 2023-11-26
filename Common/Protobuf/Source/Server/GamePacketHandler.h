@@ -29,26 +29,31 @@ enum : uint16_t
 	PKT_S_ROOM_STANDBY_MATCH = 1020,
 	PKT_S_ROOM_START_MATCH = 1021,
 	PKT_C_MATCH_READY_TO_RECEIVE = 1022,
-	PKT_S_MATCH_ALL_READY_TO_RECIEVE = 1023,
+	PKT_S_MATCH_ALL_READY_TO_RECEIVE = 1023,
 	PKT_S_MATCH_ITEM_GENERATED = 1024,
-	PKT_C_MATCH_READY_TO_START = 1025,
-	PKT_S_MATCH_START = 1026,
-	PKT_C_MATCH_INFO = 1027,
-	PKT_S_MATCH_INFO = 1028,
-	PKT_S_MATCH_END = 1029,
-	PKT_C_MATCH_ITEM_PICKUP = 1030,
-	PKT_C_MATCH_ITEM_MOVE = 1031,
-	PKT_C_MATCH_ITEM_DROP = 1032,
-	PKT_S_MATCH_ITEM_SOMEONE_PICKUP = 1033,
-	PKT_S_MATCH_ITEM_SOMEONE_MOVE = 1034,
-	PKT_S_MATCH_ITEM_SOMEONE_DROP = 1035,
-	PKT_S_MATCH_SCALE_ON_CHANGED = 1036,
-	PKT_C_MATCH_CHASER_ATTACK = 1037,
-	PKT_S_MATCH_CHASER_ATTACK = 1038,
-	PKT_C_MATCH_CHASER_HIT = 1039,
-	PKT_S_MATCH_CHASER_HIT = 1040,
-	PKT_C_MATCH_FUGITIVE_ESCAPE = 1041,
-	PKT_S_MATCH_FUGITIVE_ESCAPE = 1042,
+	PKT_C_MATCH_CHARACTER_SPAWN_POSITION = 1025,
+	PKT_C_MATCH_READY_TO_START = 1026,
+	PKT_S_MATCH_START = 1027,
+	PKT_C_MATCH_INFO = 1028,
+	PKT_S_MATCH_INFO = 1029,
+	PKT_S_MATCH_END = 1030,
+	PKT_C_MATCH_ITEM_PICKUP = 1031,
+	PKT_C_MATCH_ITEM_MOVE = 1032,
+	PKT_C_MATCH_ITEM_DROP = 1033,
+	PKT_S_MATCH_ITEM_SOMEONE_PICKUP = 1034,
+	PKT_S_MATCH_ITEM_SOMEONE_MOVE = 1035,
+	PKT_S_MATCH_ITEM_SOMEONE_DROP = 1036,
+	PKT_S_MATCH_SCALE_ON_CHANGED = 1037,
+	PKT_C_MATCH_CHASER_ATTACK = 1038,
+	PKT_S_MATCH_CHASER_ATTACK = 1039,
+	PKT_C_MATCH_CHASER_HIT = 1040,
+	PKT_S_MATCH_CHASER_HIT = 1041,
+	PKT_C_MATCH_FUGITIVE_ESCAPE = 1042,
+	PKT_S_MATCH_FUGITIVE_ESCAPE = 1043,
+	PKT_C_MATCH_CHASER_INSTALL_CCTV = 1044,
+	PKT_S_MATCH_CHASER_INSTALL_CCTV = 1045,
+	PKT_C_MATCH_LEAVE = 1046,
+	PKT_S_MATCH_LEAVE = 1047,
 };
 
 bool Handle_INVALID(const shared_ptr<SessionBase>& session, BYTE* bufer, int numOfBytes);
@@ -62,6 +67,7 @@ bool Handle_C_ROOM_LEAVE(const shared_ptr<SessionBase>& session, ProjectJ::C_ROO
 bool Handle_C_ROOM_READY(const shared_ptr<SessionBase>& session, ProjectJ::C_ROOM_READY& packet);
 bool Handle_C_ROOM_CHAT(const shared_ptr<SessionBase>& session, ProjectJ::C_ROOM_CHAT& packet);
 bool Handle_C_MATCH_READY_TO_RECEIVE(const shared_ptr<SessionBase>& session, ProjectJ::C_MATCH_READY_TO_RECEIVE& packet);
+bool Handle_C_MATCH_CHARACTER_SPAWN_POSITION(const shared_ptr<SessionBase>& session, ProjectJ::C_MATCH_CHARACTER_SPAWN_POSITION& packet);
 bool Handle_C_MATCH_READY_TO_START(const shared_ptr<SessionBase>& session, ProjectJ::C_MATCH_READY_TO_START& packet);
 bool Handle_C_MATCH_INFO(const shared_ptr<SessionBase>& session, ProjectJ::C_MATCH_INFO& packet);
 bool Handle_C_MATCH_ITEM_PICKUP(const shared_ptr<SessionBase>& session, ProjectJ::C_MATCH_ITEM_PICKUP& packet);
@@ -70,12 +76,14 @@ bool Handle_C_MATCH_ITEM_DROP(const shared_ptr<SessionBase>& session, ProjectJ::
 bool Handle_C_MATCH_CHASER_ATTACK(const shared_ptr<SessionBase>& session, ProjectJ::C_MATCH_CHASER_ATTACK& packet);
 bool Handle_C_MATCH_CHASER_HIT(const shared_ptr<SessionBase>& session, ProjectJ::C_MATCH_CHASER_HIT& packet);
 bool Handle_C_MATCH_FUGITIVE_ESCAPE(const shared_ptr<SessionBase>& session, ProjectJ::C_MATCH_FUGITIVE_ESCAPE& packet);
+bool Handle_C_MATCH_CHASER_INSTALL_CCTV(const shared_ptr<SessionBase>& session, ProjectJ::C_MATCH_CHASER_INSTALL_CCTV& packet);
+bool Handle_C_MATCH_LEAVE(const shared_ptr<SessionBase>& session, ProjectJ::C_MATCH_LEAVE& packet);
 
 
 // 소켓 수신 데이터 처리 및 송신 버퍼 생성 클래스
 // 최초 작성자: 박별
 // 수정자: 
-// 최종 수정일: 2023-11-21 자동 생성
+// 최종 수정일: 2023-11-26 자동 생성
 class GamePacketHandler
 {
 public:
@@ -95,6 +103,7 @@ public:
 		GPacketHandler[PKT_C_ROOM_READY] = [](shared_ptr<SessionBase> session, BYTE* buffer, int numOfBytes) {return HandlePacket<ProjectJ::C_ROOM_READY>(Handle_C_ROOM_READY, session, buffer, numOfBytes);};
 		GPacketHandler[PKT_C_ROOM_CHAT] = [](shared_ptr<SessionBase> session, BYTE* buffer, int numOfBytes) {return HandlePacket<ProjectJ::C_ROOM_CHAT>(Handle_C_ROOM_CHAT, session, buffer, numOfBytes);};
 		GPacketHandler[PKT_C_MATCH_READY_TO_RECEIVE] = [](shared_ptr<SessionBase> session, BYTE* buffer, int numOfBytes) {return HandlePacket<ProjectJ::C_MATCH_READY_TO_RECEIVE>(Handle_C_MATCH_READY_TO_RECEIVE, session, buffer, numOfBytes);};
+		GPacketHandler[PKT_C_MATCH_CHARACTER_SPAWN_POSITION] = [](shared_ptr<SessionBase> session, BYTE* buffer, int numOfBytes) {return HandlePacket<ProjectJ::C_MATCH_CHARACTER_SPAWN_POSITION>(Handle_C_MATCH_CHARACTER_SPAWN_POSITION, session, buffer, numOfBytes);};
 		GPacketHandler[PKT_C_MATCH_READY_TO_START] = [](shared_ptr<SessionBase> session, BYTE* buffer, int numOfBytes) {return HandlePacket<ProjectJ::C_MATCH_READY_TO_START>(Handle_C_MATCH_READY_TO_START, session, buffer, numOfBytes);};
 		GPacketHandler[PKT_C_MATCH_INFO] = [](shared_ptr<SessionBase> session, BYTE* buffer, int numOfBytes) {return HandlePacket<ProjectJ::C_MATCH_INFO>(Handle_C_MATCH_INFO, session, buffer, numOfBytes);};
 		GPacketHandler[PKT_C_MATCH_ITEM_PICKUP] = [](shared_ptr<SessionBase> session, BYTE* buffer, int numOfBytes) {return HandlePacket<ProjectJ::C_MATCH_ITEM_PICKUP>(Handle_C_MATCH_ITEM_PICKUP, session, buffer, numOfBytes);};
@@ -103,6 +112,8 @@ public:
 		GPacketHandler[PKT_C_MATCH_CHASER_ATTACK] = [](shared_ptr<SessionBase> session, BYTE* buffer, int numOfBytes) {return HandlePacket<ProjectJ::C_MATCH_CHASER_ATTACK>(Handle_C_MATCH_CHASER_ATTACK, session, buffer, numOfBytes);};
 		GPacketHandler[PKT_C_MATCH_CHASER_HIT] = [](shared_ptr<SessionBase> session, BYTE* buffer, int numOfBytes) {return HandlePacket<ProjectJ::C_MATCH_CHASER_HIT>(Handle_C_MATCH_CHASER_HIT, session, buffer, numOfBytes);};
 		GPacketHandler[PKT_C_MATCH_FUGITIVE_ESCAPE] = [](shared_ptr<SessionBase> session, BYTE* buffer, int numOfBytes) {return HandlePacket<ProjectJ::C_MATCH_FUGITIVE_ESCAPE>(Handle_C_MATCH_FUGITIVE_ESCAPE, session, buffer, numOfBytes);};
+		GPacketHandler[PKT_C_MATCH_CHASER_INSTALL_CCTV] = [](shared_ptr<SessionBase> session, BYTE* buffer, int numOfBytes) {return HandlePacket<ProjectJ::C_MATCH_CHASER_INSTALL_CCTV>(Handle_C_MATCH_CHASER_INSTALL_CCTV, session, buffer, numOfBytes);};
+		GPacketHandler[PKT_C_MATCH_LEAVE] = [](shared_ptr<SessionBase> session, BYTE* buffer, int numOfBytes) {return HandlePacket<ProjectJ::C_MATCH_LEAVE>(Handle_C_MATCH_LEAVE, session, buffer, numOfBytes);};
 	}
 
 	static bool HandlePacket(shared_ptr<SessionBase>& session, BYTE* buffer, int numOfBytes)
@@ -123,7 +134,7 @@ public:
 	static shared_ptr<SendBuffer> MakeSendBuffer(ProjectJ::S_ROOM_CHAT& packet) {return MakeSendBuffer(packet, PKT_S_ROOM_CHAT);}
 	static shared_ptr<SendBuffer> MakeSendBuffer(ProjectJ::S_ROOM_STANDBY_MATCH& packet) {return MakeSendBuffer(packet, PKT_S_ROOM_STANDBY_MATCH);}
 	static shared_ptr<SendBuffer> MakeSendBuffer(ProjectJ::S_ROOM_START_MATCH& packet) {return MakeSendBuffer(packet, PKT_S_ROOM_START_MATCH);}
-	static shared_ptr<SendBuffer> MakeSendBuffer(ProjectJ::S_MATCH_ALL_READY_TO_RECIEVE& packet) {return MakeSendBuffer(packet, PKT_S_MATCH_ALL_READY_TO_RECIEVE);}
+	static shared_ptr<SendBuffer> MakeSendBuffer(ProjectJ::S_MATCH_ALL_READY_TO_RECEIVE& packet) {return MakeSendBuffer(packet, PKT_S_MATCH_ALL_READY_TO_RECEIVE);}
 	static shared_ptr<SendBuffer> MakeSendBuffer(ProjectJ::S_MATCH_ITEM_GENERATED& packet) {return MakeSendBuffer(packet, PKT_S_MATCH_ITEM_GENERATED);}
 	static shared_ptr<SendBuffer> MakeSendBuffer(ProjectJ::S_MATCH_START& packet) {return MakeSendBuffer(packet, PKT_S_MATCH_START);}
 	static shared_ptr<SendBuffer> MakeSendBuffer(ProjectJ::S_MATCH_INFO& packet) {return MakeSendBuffer(packet, PKT_S_MATCH_INFO);}
@@ -135,6 +146,8 @@ public:
 	static shared_ptr<SendBuffer> MakeSendBuffer(ProjectJ::S_MATCH_CHASER_ATTACK& packet) {return MakeSendBuffer(packet, PKT_S_MATCH_CHASER_ATTACK);}
 	static shared_ptr<SendBuffer> MakeSendBuffer(ProjectJ::S_MATCH_CHASER_HIT& packet) {return MakeSendBuffer(packet, PKT_S_MATCH_CHASER_HIT);}
 	static shared_ptr<SendBuffer> MakeSendBuffer(ProjectJ::S_MATCH_FUGITIVE_ESCAPE& packet) {return MakeSendBuffer(packet, PKT_S_MATCH_FUGITIVE_ESCAPE);}
+	static shared_ptr<SendBuffer> MakeSendBuffer(ProjectJ::S_MATCH_CHASER_INSTALL_CCTV& packet) {return MakeSendBuffer(packet, PKT_S_MATCH_CHASER_INSTALL_CCTV);}
+	static shared_ptr<SendBuffer> MakeSendBuffer(ProjectJ::S_MATCH_LEAVE& packet) {return MakeSendBuffer(packet, PKT_S_MATCH_LEAVE);}
 
 private:
 	template <typename PacketMessage, typename ProcessFunc>
