@@ -33,13 +33,13 @@ public:
 		ownerSession_ = session;
 	}
 
-	void SetVector(const Vector& position)
+	void SetPosition(const Vector& position)
 	{
 		WRITE_LOCK;
 		worldPosition_ = position;
 	}
 
-	void SetVector(Vector&& position)
+	void SetPosition(Vector&& position)
 	{
 		WRITE_LOCK;
 		worldPosition_ = move(position);
@@ -64,11 +64,13 @@ public:
 		worldRotation_ = rotation;
 	}
 
-	void SetTransform(Vector&& position, Rotator&& rotation)
+	void SetTransform(Vector&& position, Rotator&& rotation, Vector&& velocity)
 	{
 		WRITE_LOCK;
+
 		worldPosition_ = move(position);
 		worldRotation_ = move(rotation);
+		velocity_ = move(velocity);
 	}
 
 	void SetState(ProjectJ::MatchPlayerState state)
@@ -87,6 +89,7 @@ public:
 	}
 
 	ProjectJ::PlayerInfo* GetPlayerInfo();
+	ProjectJ::PlayerInitInfo* GetPlayerInitInfo();
 
 private:
 	USE_LOCK;
@@ -96,5 +99,6 @@ private:
 	string nickname_;
 	Vector worldPosition_;
 	Rotator worldRotation_;
+	Vector velocity_;
 	weak_ptr<GameSession> ownerSession_;
 };
