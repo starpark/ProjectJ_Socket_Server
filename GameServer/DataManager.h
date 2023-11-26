@@ -13,15 +13,15 @@ struct ItemData
 		if (min.is_number_integer() == false) throw L"ItemData Weight Min is not integer";
 
 		id_ = id;
-		sizeHeight_ = height;
-		sizeWidth_ = width;
+		sizeRow_ = height;
+		sizeColumn_ = width;
 		weightMax_ = max;
 		weightMin_ = min;
 	}
 
 	int id_;
-	int sizeHeight_;
-	int sizeWidth_;
+	int sizeRow_;
+	int sizeColumn_;
 	int weightMax_;
 	int weightMin_;
 };
@@ -39,7 +39,7 @@ struct ItemSpawnData
 		if (yaw.is_string() == false) throw L"ItemSpawnData Yaw is not string";
 
 		name_ = name;
-		position_ = Vector{stof(x.get<string>()), stof(z.get<string>()), stof(y.get<string>())};
+		position_ = Vector{stof(x.get<string>()), stof(y.get<string>()), stof(z.get<string>())};
 		rotation_ = Rotator{stof(roll.get<string>()), stof(pitch.get<string>()), stof(yaw.get<string>())};
 	}
 
@@ -59,7 +59,7 @@ struct CharacterSpawnData
 		if (pitch.is_string() == false) throw L"CharacterSpawnData Pitch is not string";
 		if (yaw.is_string() == false) throw L"CharacterSpawnData Yaw is not string";
 
-		position_ = Vector{stof(x.get<string>()), stof(z.get<string>()), stof(y.get<string>())};
+		position_ = Vector{stof(x.get<string>()), stof(y.get<string>()), stof(z.get<string>())};
 		rotation_ = Rotator{stof(roll.get<string>()), stof(pitch.get<string>()), stof(yaw.get<string>())};
 	}
 
@@ -75,6 +75,7 @@ public:
 	static const vector<ItemSpawnData>& GetItemSpawnData() { return itemSpawnData_; }
 	static shared_ptr<Item> GenerateItem(int index, Vector position, Rotator rotation);
 	static default_random_engine& GetRandomEngine() { return dre_; }
+	static const CharacterSpawnData& GetPlayerSpawnData(int playerIndex);
 
 private:
 	static void LoadItemData();

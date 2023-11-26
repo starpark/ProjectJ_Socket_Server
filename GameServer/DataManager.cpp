@@ -41,6 +41,13 @@ bool DataManager::Init()
 	return false;
 }
 
+const CharacterSpawnData& DataManager::GetPlayerSpawnData(int playerIndex)
+{
+	ASSERT_CRASH(playerIndex >= 0 && playerIndex < characterSpawnData_.size());
+
+	return characterSpawnData_[playerIndex];
+}
+
 void DataManager::LoadItemData()
 {
 	ifstream file("./Data/ItemData.json");
@@ -231,7 +238,7 @@ shared_ptr<Item> DataManager::GenerateItem(int index, Vector position, Rotator r
 
 	int weight = (weightDist(dre_) / 10) * 10;
 
-	auto newItem = make_shared<Item>(id, index, weight, Point{itemData_[id].sizeWidth_, itemData_[id].sizeHeight_}, position, rotation);
+	auto newItem = make_shared<Item>(id, index, weight, itemData_[id].sizeRow_, itemData_[id].sizeColumn_, position, rotation);
 
 	return newItem;
 }
