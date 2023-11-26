@@ -3,7 +3,7 @@
 
 #define TEST_PORT 55141
 #define LIVE_PORT 3000
-#define SESSION_COUNT 4
+#define SESSION_COUNT 6
 
 int main(int argc, char* argv[])
 {
@@ -37,51 +37,46 @@ int main(int argc, char* argv[])
 	this_thread::sleep_for(5s);
 	auto sessions = service->GetSessions();
 
-	int threadCount = 1;
+	int threadCount = 3;
 	int offset = sessions.size() / threadCount;
 	for (int i = 0; i < threadCount; i++)
 	{
-		GThreadManager->Launch([sessions, i, offset]()
+		int start = i * offset;
+		int end = (i + 1) * offset;
+
+		for (int k = start; k < end; k++)
 		{
-			int start = i * offset;
-			int end = (i + 1) * offset;
-
-			for (int k = start; k < end; k++)
+			sessions[k]->TestCreateAccount("MyTest", k);
+			sessions[k]->TestLoginHttp("MyTest", k);
+			this_thread::sleep_for(100ms);
+			if (sessions[k]->token.empty() == false)
 			{
-				sessions[k]->TestCreateAccount("MyTest", k);
-				sessions[k]->TestLoginHttp("MyTest", k);
-				this_thread::sleep_for(100ms);
-				if (sessions[k]->token.empty() == false)
-				{
-					sessions[k]->TestVerifyToken();
-				}
-				else
-				{
-					cout << "Error" << endl;
-				}
+				sessions[k]->TestVerifyToken();
 			}
-
-			int clientPerTest = 4;
-			for (int k = 0; k < offset / clientPerTest; k++)
+			else
 			{
-				int p = k * clientPerTest + start;
-
-				sessions[p]->TestCreateRoom(u8"테스트 방 " + to_string(p));
-				this_thread::sleep_for(2s);
-				int roomId = sessions[p]->roomID;
-				sessions[p + 1]->TestEnterRoom(roomId);
-				sessions[p + 2]->TestEnterRoom(roomId);
-				sessions[p + 3]->TestEnterRoom(roomId);
-
-				this_thread::sleep_for(2s);
-				sessions[p]->TestRoomReady();
-				sessions[p + 1]->TestRoomReady();
-				sessions[p + 2]->TestRoomReady();
-				sessions[p + 3]->TestRoomReady();
+				cout << "Error" << endl;
 			}
+		}
 
-			while (true);
-		});
+		int clientPerTest = 2;
+		for (int k = 0; k < offset / clientPerTest; k++)
+		{
+			int p = k * clientPerTest + start;
+
+			sessions[p]->TestCreateRoom(u8"이동 동기화 테스트 방 " + to_string(p));
+			this_thread::sleep_for(2s);
+			int roomId = sessions[p]->roomID;
+			sessions[p + 1]->TestEnterRoom(roomId);
+			//sessions[p + 2]->TestEnterRoom(roomId);
+			//sessions[p + 3]->TestEnterRoom(roomId);
+
+			this_thread::sleep_for(2s);
+			sessions[p]->TestRoomReady();
+			sessions[p + 1]->TestRoomReady();
+			//sessions[p + 2]->TestRoomReady();
+			//sessions[p + 3]->TestRoomReady();
+		}
 	}
 
 	/*for (auto session : sessions)
