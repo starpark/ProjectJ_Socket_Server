@@ -11,6 +11,7 @@ enum class InventoryErrorCode : UINT8
 	TO_EXCEEDING_WEIGHT_LIMITS = 21,
 	TO_NO_EMPTY_SPACE = 22,
 	DO_NOT_HAVE = 30,
+	ALREADY_SCALE_OPERATED = 40
 };
 
 class Inventory : public enable_shared_from_this<Inventory>
@@ -25,12 +26,14 @@ public:
 	virtual ~Inventory();
 
 public:
-	USE_MULTIPLE_LOCK;
+	mutex& GetLock() { return lock_; }
 	shared_ptr<Inventory> GetInventory() { return shared_from_this(); }
 	int GetCurrentWeight() const { return currentWeight_; }
 	int GetMaxWeight() const { return maxWeight_; }
 	int GetIndex() const { return index_; }
 	int GetItemsCount() const { return owningItems_.size(); }
+	int GetRow() const { return row_; }
+	int GetColumn() const { return column_; }
 
 	InventoryErrorCode TryAddItem(const shared_ptr<Item>& item);
 	InventoryErrorCode RelocateItem(const shared_ptr<Inventory>& to, const shared_ptr<Item>& item, int slotIndex, bool isRotated);
@@ -40,17 +43,18 @@ public:
 protected:
 	Point IndexToPoint(int index) { return {index % column_, index / column_}; }
 	int PointToIndex(Point tile) { return tile.x + tile.y * column_; }
-	bool CheckWeightLimit(int weight) { return weight + currentWeight_ <= maxWeight_; }
-	bool CheckValidSlot(const shared_ptr<Item>& item, int slotIndex, bool isRotated);
+	virtual bool CheckWeightLimit(int weight) { return weight + currentWeight_ <= maxWeight_; }
+	virtual bool CheckValidSlot(const shared_ptr<Item>& item, int slotIndex, bool isRotated);
 	bool CheckValidPoint(int column, int row);
 	void AddItemAt(const shared_ptr<Item>& item, int slotIndex);
 	void PickUpItem(shared_ptr<Item> item);
 	void AcquireItem(const shared_ptr<Item>& item);
 	void ReleaseItem(const shared_ptr<Item>& item);
 	void PrintInventory();
+	virtual bool CheckIsOperated() { return false; }
 
 protected:
-	USE_LOCK;
+	mutex lock_;
 	int index_;
 	int row_;
 	int column_;

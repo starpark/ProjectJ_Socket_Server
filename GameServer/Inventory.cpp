@@ -14,7 +14,8 @@ Inventory::~Inventory()
 
 InventoryErrorCode Inventory::TryAddItem(const shared_ptr<Item>& item)
 {
-	WRITE_LOCK;
+	lock_guard lockGuard(lock_);
+
 	if (owningItems_.find(item->index) != owningItems_.end())
 	{
 		return InventoryErrorCode::ALREADY_HAVE;
@@ -54,7 +55,23 @@ InventoryErrorCode Inventory::TryAddItem(const shared_ptr<Item>& item)
 
 InventoryErrorCode Inventory::RelocateItem(const shared_ptr<Inventory>& to, const shared_ptr<Item>& item, int slotIndex, bool isRotated)
 {
-	MultipleWriteLockGuard lock(GET_CLASS_NAME, GetLockRef(), to->GetLockRef());
+	unique_lock lockFrom(lock_, std::defer_lock);
+	unique_lock lockTo(to->GetLock(), std::defer_lock);
+
+	if (this != to.get())
+	{
+		std::lock(lockFrom, lockTo);
+	}
+	else
+	{
+		lockFrom.lock();
+	}
+
+	if (to->CheckIsOperated())
+	{
+		return InventoryErrorCode::ALREADY_SCALE_OPERATED;
+	}
+
 	if (owningItems_.find(item->index) == owningItems_.end())
 	{
 		return InventoryErrorCode::FROM_DOES_NOT_HAVE;
@@ -73,6 +90,7 @@ InventoryErrorCode Inventory::RelocateItem(const shared_ptr<Inventory>& to, cons
 
 			return InventoryErrorCode::SUCCESS;
 		}
+
 		return InventoryErrorCode::TO_EXCEEDING_WEIGHT_LIMITS;
 	}
 
@@ -83,7 +101,8 @@ InventoryErrorCode Inventory::RelocateItem(const shared_ptr<Inventory>& to, cons
 
 InventoryErrorCode Inventory::DropItem(const shared_ptr<Item>& item, Vector position, Rotator rotation)
 {
-	WRITE_LOCK;
+	lock_guard lockGuard(lock_);
+
 	if (owningItems_.find(item->index) == owningItems_.end())
 	{
 		return InventoryErrorCode::DO_NOT_HAVE;
@@ -102,7 +121,7 @@ InventoryErrorCode Inventory::DropItem(const shared_ptr<Item>& item, Vector posi
 bool Inventory::CheckValidSlot(const shared_ptr<Item>& item, int slotIndex, bool isRotated)
 {
 	Point tile = IndexToPoint(slotIndex);
-	Point size = item->size;
+	auto size = Point{item->column, item->row};
 	if (isRotated)
 	{
 		swap(size.x, size.y);
@@ -141,7 +160,7 @@ bool Inventory::CheckValidPoint(int column, int row)
 void Inventory::AddItemAt(const shared_ptr<Item>& item, int slotIndex)
 {
 	Point tile = IndexToPoint(slotIndex);
-	Point size = item->size;
+	auto size = Point{item->column, item->row};
 
 	if (item->bIsRotated)
 	{
@@ -162,7 +181,7 @@ void Inventory::AddItemAt(const shared_ptr<Item>& item, int slotIndex)
 void Inventory::PickUpItem(shared_ptr<Item> item)
 {
 	Point tile = IndexToPoint(item->topLeftIndex);
-	Point size = item->size;
+	auto size = Point{item->column, item->row};
 
 	if (item->bIsRotated)
 	{
@@ -230,6 +249,8 @@ const wchar_t* Inventory::GetErrorWhat(InventoryErrorCode errorCode)
 		return L"There Are No Empty Spaces In To's Inventory";
 	case InventoryErrorCode::DO_NOT_HAVE:
 		return L"Don't Have The Item";
+	case InventoryErrorCode::ALREADY_SCALE_OPERATED:
+		return L"To is Scale And Already Operated";
 	default:
 		return L"Unexpected Error";
 	}
