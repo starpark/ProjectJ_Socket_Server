@@ -371,7 +371,6 @@ void Room::StandByMatch(int count)
 		}
 		else
 		{
-			shared_ptr<Room> room = static_pointer_cast<Room>(shared_from_this());
 			GTimerTaskManager->AddTimer(1000, false, this, &Room::StandByMatch, count - 1);
 		}
 	}
