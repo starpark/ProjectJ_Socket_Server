@@ -462,6 +462,22 @@ bool Handle_C_MATCH_READY_TO_RECEIVE(const shared_ptr<SessionBase>& session, Pro
 	return true;
 }
 
+bool Handle_C_MATCH_CHARACTER_SPAWN_POSITION(const shared_ptr<SessionBase>& session, ProjectJ::C_MATCH_CHARACTER_SPAWN_POSITION& packet)
+{
+	shared_ptr<GameSession> gameSession = static_pointer_cast<GameSession>(session);
+	auto match = gameSession->TryGetMatch();
+
+	if (match)
+	{
+		Vector position(packet.position().x(), packet.position().y(), packet.position().z());
+		Rotator rotation(packet.rotation().roll(), packet.rotation().pitch(), packet.rotation().yaw());
+
+		match->PlayerSetOwnSpawnLocation(gameSession, packet.player_index(), move(position), move(rotation));
+	}
+
+	return true;
+}
+
 bool Handle_C_MATCH_READY_TO_START(const shared_ptr<SessionBase>& session, ProjectJ::C_MATCH_READY_TO_START& packet)
 {
 	shared_ptr<GameSession> gameSession = static_pointer_cast<GameSession>(session);
@@ -469,7 +485,7 @@ bool Handle_C_MATCH_READY_TO_START(const shared_ptr<SessionBase>& session, Proje
 
 	if (match)
 	{
-		match->DoTaskAsync(&Match::PlayerReadyToStart, gameSession);
+		match->DoTaskAsync(&Match::PlayerReadyToStart, gameSession, packet.player_index());
 	}
 
 	return true;
@@ -484,8 +500,9 @@ bool Handle_C_MATCH_INFO(const shared_ptr<SessionBase>& session, ProjectJ::C_MAT
 	{
 		Vector position(packet.info().position().x(), packet.info().position().y(), packet.info().position().z());
 		Rotator rotation(packet.info().rotation().roll(), packet.info().rotation().pitch(), packet.info().rotation().yaw());
+		Vector velocity(packet.info().velocity().x(), packet.info().velocity().y(), packet.info().velocity().z());
 
-		match->PlayerSetTransform(gameSession, packet.player_index(), move(position), move(rotation));
+		match->PlayerSetTransform(gameSession, packet.player_index(), move(position), move(rotation), move(velocity));
 	}
 
 	return true;
@@ -575,6 +592,16 @@ bool Handle_C_MATCH_CHASER_HIT(const shared_ptr<SessionBase>& session, ProjectJ:
 }
 
 bool Handle_C_MATCH_FUGITIVE_ESCAPE(const shared_ptr<SessionBase>& session, ProjectJ::C_MATCH_FUGITIVE_ESCAPE& packet)
+{
+	return true;
+}
+
+bool Handle_C_MATCH_CHASER_INSTALL_CCTV(const shared_ptr<SessionBase>& session, ProjectJ::C_MATCH_CHASER_INSTALL_CCTV& packet)
+{
+	return true;
+}
+
+bool Handle_C_MATCH_LEAVE(const shared_ptr<SessionBase>& session, ProjectJ::C_MATCH_LEAVE& packet)
 {
 	return true;
 }
