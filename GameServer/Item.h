@@ -22,16 +22,33 @@ struct Item
 	};
 
 public:
-	Item(int inId, int inIndex, int inWeight, Point inSize, Vector inVector, Rotator inRotate)
-		: id(inId), index(inIndex), weight(inWeight), size(inSize), position(inVector), rotation(inRotate)
+	Item(int inId, int inIndex, int inWeight, int inRow, int inColunm, Vector inVector, Rotator inRotate)
+		: id(inId), index(inIndex), weight(inWeight), row(inRow), column(inColunm), position(inVector), rotation(inRotate)
 	{
 		ownerFlag.store(EMPTY_OWNER_ID);
+	}
+
+	~Item()
+	{
+		ownedPlayerIndexSet.clear();
+		prevOwnedPlayerIndex = nullptr;
+	}
+
+	bool CheckFirstAdd(const shared_ptr<Player>& playerIndex)
+	{
+		if (ownedPlayerIndexSet.find(playerIndex) == ownedPlayerIndexSet.end())
+		{
+			ownedPlayerIndexSet.insert(playerIndex);
+			return true;
+		}
+		return false;
 	}
 
 	const int id;
 	const int index;
 	const int weight;
-	const Point size;
+	const int row;
+	const int column;
 
 	Vector position;
 	Rotator rotation;
@@ -45,4 +62,6 @@ public:
 	atomic<UINT32> ownerFlag; // TODO
 	int topLeftIndex = INVALID_TOP_LEFT_INDEX;
 	bool bIsRotated = false;
+	set<shared_ptr<Player>> ownedPlayerIndexSet;
+	shared_ptr<Player> prevOwnedPlayerIndex;
 };
