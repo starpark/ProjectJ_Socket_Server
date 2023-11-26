@@ -40,13 +40,32 @@ class Match : public CommandTaskObject
 	enum : UINT64
 	{
 		START_TIME_OUT = 1000 * 60 * 1,
-		MATCH_END_TICK = 1000 * 60 * 2
+		MATCH_END_TICK = 1000 * 60 * 10
 	};
 
 	enum
 	{
-		SCALE_HEIGHT = 15,
-		SCALE_WIDTH = 15,
+		INV_WEIGHT_LIMIT = 1000,
+		SCALE_INV_WEIGHT_CRITERIA = 2000,
+		SCALE_INV_WEIGHT_TOLERANCE = 50,
+		CHASER_INV_ROW = 5,
+		CHASER_INV_COL = 5,
+		FUGITIVE_INV_ROW = 7,
+		FUGITIVE_INV_COL = 5,
+		SCALE_INV_ROW = 10,
+		SCALE_INV_COL = 10,
+	};
+
+public:
+	enum : int
+	{
+		ESCAPE_SCORE = 1000,
+		PICKUP_NEW_ITEM_SCORE = 10,
+		CHASER_HIT_SUCCESS_SCORE = 300,
+		FUGITIVE_HIT_SCORE = 50,
+		CHASER_KILL_SCORE = 500,
+		ACTIVATING_ESCAPE_SCORE = 100,
+		ACTIVATING_ESCAPE_CONTRIBUTION_SCORE = 100,
 	};
 
 public:
@@ -67,14 +86,14 @@ public:
 	void End();
 	void StartTimeOut();
 	bool CheckPlayersState();
-	void PlayerStateChanged(const shared_ptr<GameSession>& session, ProjectJ::MatchPlayerState state);
 
 
 	// Contents
 public:
 	void PlayerReadyToReceive(shared_ptr<GameSession> session);
-	void PlayerReadyToStart(shared_ptr<GameSession> session);
-	void PlayerSetTransform(const shared_ptr<GameSession>& session, int playerIndex, Vector&& position, Rotator&& rotation);
+	void PlayerSetOwnSpawnLocation(const shared_ptr<GameSession>& session, int playerIndex, Vector&& position, Rotator&& rotation);
+	void PlayerReadyToStart(shared_ptr<GameSession> session, int playerIndex);
+	void PlayerSetTransform(const shared_ptr<GameSession>& session, int playerIndex, Vector&& position, Rotator&& rotation, Vector&& velocity);
 	void PlayerPickUpItem(const shared_ptr<GameSession>& session, int playerIndex, int itemIndex);
 	void PlayerMoveItem(const shared_ptr<GameSession>& session, int playerIndex, int fromIndex, int toIndex, int itemIndex, int targetTopLeftIndex,
 	                    bool isRotated);
@@ -82,9 +101,13 @@ public:
 	                    Rotator rotation);
 	void ChaserAttack(const shared_ptr<GameSession>& session, const Vector& position, const Rotator& rotation);
 	void HitValidation(const shared_ptr<GameSession>& session, const Vector& position, const Rotator& rotation, int targetPlayerIndex);
+	void FugitiveEscape(const shared_ptr<GameSession>& session, int playerIndex, int scaleIndex);
+	void ChaserInstallCCTV(const shared_ptr<GameSession>& session, const Vector& position, const Rotator& rotation);
 	void PlayerDisconnected(const shared_ptr<GameSession>& session);
 
+
 private:
+	int CalulatePlayerScore(int playerIndex);
 	void PlayerBackToRoom();
 
 	bool IsPlayer(int index)
@@ -117,6 +140,18 @@ private:
 		return 0 <= index && index < items_.size();
 	}
 
+	bool IsPlayerAlive(ProjectJ::MatchPlayerState state)
+	{
+		if (state != ProjectJ::ALIVE && state != ProjectJ::ALIVE_DAMAGED && state != ProjectJ::ALIVE_CRITICAL &&
+			state != ProjectJ::ALIVE_MORIBUND)
+		{
+			return false;
+		}
+
+		return true;
+	}
+
+
 private:
 	atomic<bool> isMatchInitialized_ = false;
 	atomic<bool> isMatchStarted_ = false;
@@ -130,6 +165,8 @@ private:
 	// 저울 인덱스 4 ~ 7
 	vector<shared_ptr<Scale>> scales_;
 	vector<shared_ptr<Item>> items_;
+	vector<Vector> installedCCTV_;
+	atomic<int> remainingCCTV_;
 	wstring matchGUID_;
 	wstring matchShortGUID_;
 	TimerHandle tickHandle_;
