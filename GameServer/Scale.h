@@ -16,8 +16,14 @@ public:
 	bool IsOperating();
 	int GetOperatingWeight() const { return operatingWeight_; }
 	int GetTolerance() const { return tolerance_; }
+	void CalculateAttribution();
 
 private:
+	bool CheckIsOperated() final { return IsOperating(); }
+
+
+private:
+	atomic<bool> isOpen_;
 	int operatingWeight_;
 	int tolerance_;
 };
