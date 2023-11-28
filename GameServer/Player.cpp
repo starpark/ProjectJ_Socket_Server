@@ -5,7 +5,8 @@
 
 
 Player::Player(int index, int row, int column, int maxWeight, int sessionID, string nickname)
-	: Inventory(index, row, column, maxWeight), state_(ProjectJ::MatchPlayerState::NONE), score_(0), sessionID_(sessionID), nickname_(nickname)
+	: Inventory(index, row, column, maxWeight), state_(ProjectJ::MatchPlayerState::NONE), score_(0), sessionID_(sessionID), nickname_(nickname),
+	  moveSpeed_(PLAYER_DEFAULT_MOVE_SPEED)
 {
 }
 
@@ -46,6 +47,7 @@ ProjectJ::PlayerInfo* Player::GetPlayerInfo()
 	playerInfo->set_allocated_position(position);
 	playerInfo->set_allocated_rotation(rotation);
 	playerInfo->set_allocated_velocity(velocity);
+	playerInfo->set_move_speed(moveSpeed_);
 
 	return playerInfo;
 }
@@ -79,6 +81,34 @@ ProjectJ::PlayerInitInfo* Player::GetPlayerInitInfo()
 	playerInitInfo->set_inv_size_row(GetRow());
 	playerInitInfo->set_inv_size_colunm(GetColumn());
 	playerInitInfo->set_inv_max_weight(GetMaxWeight());
+	playerInitInfo->set_move_speed(moveSpeed_);
 
 	return playerInitInfo;
+}
+
+InventoryErrorCode Player::TryAddItem(const shared_ptr<Item>& item)
+{
+	InventoryErrorCode result = Inventory::TryAddItem(item);
+
+	SetMoveSpeed(GetCurrentMoveSpeed());
+
+	return result;
+}
+
+InventoryErrorCode Player::RelocateItem(const shared_ptr<Inventory>& to, const shared_ptr<Item>& item, int slotIndex, bool isRotated)
+{
+	InventoryErrorCode result = Inventory::RelocateItem(to, item, slotIndex, isRotated);
+
+	SetMoveSpeed(GetCurrentMoveSpeed());
+
+	return result;
+}
+
+InventoryErrorCode Player::DropItem(const shared_ptr<Item>& item, Vector position, Rotator rotation)
+{
+	InventoryErrorCode result = Inventory::DropItem(item, position, rotation);
+
+	SetMoveSpeed(GetCurrentMoveSpeed());
+
+	return result;
 }

@@ -1,8 +1,13 @@
 #pragma once
 #include "Inventory.h"
+#include "DataManager.h"
 
 class Match;
 class GameSession;
+
+constexpr float PLAYER_DEFAULT_MOVE_SPEED = 400.0f;
+constexpr float PLAYER_ADRENALINE_MOVE_SPEED = 480.0f;
+constexpr UINT64 ADRENALINE_DURATION_TICK = 3000;
 
 class Player : public Inventory
 {
@@ -25,6 +30,18 @@ public:
 	{
 		READ_LOCK;
 		return worldRotation_;
+	}
+
+	float GetMoveSpeed()
+	{
+		READ_LOCK;
+		return moveSpeed_;
+	}
+
+	int GetAcquiredItemCount()
+	{
+		READ_LOCK;
+		return acquireItemCount_;
 	}
 
 	void SetSession(const shared_ptr<GameSession>& session)
@@ -78,9 +95,41 @@ public:
 		state_.store(state);
 	}
 
+	void SetMoveSpeed(float speed)
+	{
+		WRITE_LOCK;
+		moveSpeed_ = speed;
+	}
+
 	void AddScore(int score)
 	{
 		score_.fetch_add(score);
+		AddAcquireItemCount();
+	}
+
+	void AddAcquireItemCount()
+	{
+		WRITE_LOCK;
+		++acquireItemCount_;
+	}
+
+	void ActiveAdrenaline(UINT64 endTick)
+	{
+		WRITE_LOCK;
+		isAdrenaline_ = true;
+		adrenalineEndTick_ = endTick;
+	}
+
+	void CheckAdrenalineEnd(UINT64 currentTick)
+	{
+		WRITE_LOCK;
+		if (isAdrenaline_ == true)
+		{
+			if (currentTick >= adrenalineEndTick_)
+			{
+				isAdrenaline_ = false;
+			}
+		}
 	}
 
 	int GetScore() const
@@ -88,8 +137,23 @@ public:
 		return score_.load();
 	}
 
+	float GetCurrentMoveSpeed()
+	{
+		READ_LOCK;
+		if (isAdrenaline_ == true)
+		{
+			return PLAYER_ADRENALINE_MOVE_SPEED;
+		}
+		return PLAYER_DEFAULT_MOVE_SPEED - (PLAYER_DEFAULT_MOVE_SPEED * (static_cast<float>(GetCurrentWeight()) / static_cast<float>(GetMaxWeight()) *
+			0.25f));
+	}
+
 	ProjectJ::PlayerInfo* GetPlayerInfo();
 	ProjectJ::PlayerInitInfo* GetPlayerInitInfo();
+	InventoryErrorCode TryAddItem(const shared_ptr<Item>& item) final;
+	InventoryErrorCode RelocateItem(const shared_ptr<Inventory>& to, const shared_ptr<Item>& item, int slotIndex, bool isRotated) final;
+	InventoryErrorCode DropItem(const shared_ptr<Item>& item, Vector position, Rotator rotation) final;
+
 
 private:
 	USE_LOCK;
@@ -100,5 +164,9 @@ private:
 	Vector worldPosition_;
 	Rotator worldRotation_;
 	Vector velocity_;
+	float moveSpeed_;
+	bool isAdrenaline_ = false;
+	UINT64 adrenalineEndTick_ = 0;
+	int acquireItemCount_ = 0;
 	weak_ptr<GameSession> ownerSession_;
 };
