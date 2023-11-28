@@ -26,19 +26,18 @@ public:
 		: id(inId), index(inIndex), weight(inWeight), row(inRow), column(inColunm), position(inVector), rotation(inRotate)
 	{
 		ownerFlag.store(EMPTY_OWNER_ID);
+		playerIsOwned.resize(4, false);
 	}
 
 	~Item()
 	{
-		ownedPlayerIndexSet.clear();
-		prevOwnedPlayerIndex = nullptr;
 	}
 
-	bool CheckFirstAdd(const shared_ptr<Player>& playerIndex)
+	bool CheckFirstAdd(int playerIndex)
 	{
-		if (ownedPlayerIndexSet.find(playerIndex) == ownedPlayerIndexSet.end())
+		if (playerIsOwned[playerIndex] == false)
 		{
-			ownedPlayerIndexSet.insert(playerIndex);
+			playerIsOwned[playerIndex] = true;
 			return true;
 		}
 		return false;
@@ -62,6 +61,6 @@ public:
 	atomic<UINT32> ownerFlag; // TODO
 	int topLeftIndex = INVALID_TOP_LEFT_INDEX;
 	bool bIsRotated = false;
-	set<shared_ptr<Player>> ownedPlayerIndexSet;
-	shared_ptr<Player> prevOwnedPlayerIndex;
+	vector<bool> playerIsOwned;
+	int lastOwnedPlayerIndex;
 };
