@@ -30,7 +30,6 @@ using JPacketTypes = TVariant<
 	ProjectJ::S_MATCH_SCALE_ON_CHANGED,
 	ProjectJ::S_MATCH_CHASER_ATTACK,
 	ProjectJ::S_MATCH_CHASER_HIT,
-	ProjectJ::S_MATCH_FUGITIVE_ESCAPE,
 	ProjectJ::S_MATCH_CHASER_INSTALL_CCTV,
 	ProjectJ::S_MATCH_LEAVE
 >;

@@ -2333,33 +2333,14 @@ class PlayerInfo final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kPlayerFieldNumber = 3,
-    kPositionFieldNumber = 4,
-    kRotationFieldNumber = 5,
-    kVelocityFieldNumber = 6,
+    kPositionFieldNumber = 3,
+    kRotationFieldNumber = 4,
+    kVelocityFieldNumber = 5,
     kStateFieldNumber = 1,
     kPlayerIndexFieldNumber = 2,
-    kMoveSpeedFieldNumber = 7,
+    kMoveSpeedFieldNumber = 6,
   };
-  // .ProjectJ.Player player = 3;
-  bool has_player() const;
-  private:
-  bool _internal_has_player() const;
-  public:
-  void clear_player();
-  const ::ProjectJ::Player& player() const;
-  PROTOBUF_NODISCARD ::ProjectJ::Player* release_player();
-  ::ProjectJ::Player* mutable_player();
-  void set_allocated_player(::ProjectJ::Player* player);
-  private:
-  const ::ProjectJ::Player& _internal_player() const;
-  ::ProjectJ::Player* _internal_mutable_player();
-  public:
-  void unsafe_arena_set_allocated_player(
-      ::ProjectJ::Player* player);
-  ::ProjectJ::Player* unsafe_arena_release_player();
-
-  // .ProjectJ.Vector position = 4;
+  // .ProjectJ.Vector position = 3;
   bool has_position() const;
   private:
   bool _internal_has_position() const;
@@ -2377,7 +2358,7 @@ class PlayerInfo final :
       ::ProjectJ::Vector* position);
   ::ProjectJ::Vector* unsafe_arena_release_position();
 
-  // .ProjectJ.Rotator rotation = 5;
+  // .ProjectJ.Rotator rotation = 4;
   bool has_rotation() const;
   private:
   bool _internal_has_rotation() const;
@@ -2395,7 +2376,7 @@ class PlayerInfo final :
       ::ProjectJ::Rotator* rotation);
   ::ProjectJ::Rotator* unsafe_arena_release_rotation();
 
-  // .ProjectJ.Vector velocity = 6;
+  // .ProjectJ.Vector velocity = 5;
   bool has_velocity() const;
   private:
   bool _internal_has_velocity() const;
@@ -2431,7 +2412,7 @@ class PlayerInfo final :
   void _internal_set_player_index(int32_t value);
   public:
 
-  // float move_speed = 7;
+  // float move_speed = 6;
   void clear_move_speed();
   float move_speed() const;
   void set_move_speed(float value);
@@ -2448,7 +2429,6 @@ class PlayerInfo final :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   struct Impl_ {
-    ::ProjectJ::Player* player_;
     ::ProjectJ::Vector* position_;
     ::ProjectJ::Rotator* rotation_;
     ::ProjectJ::Vector* velocity_;
@@ -5138,97 +5118,7 @@ inline void PlayerInfo::set_player_index(int32_t value) {
   // @@protoc_insertion_point(field_set:ProjectJ.PlayerInfo.player_index)
 }
 
-// .ProjectJ.Player player = 3;
-inline bool PlayerInfo::_internal_has_player() const {
-  return this != internal_default_instance() && _impl_.player_ != nullptr;
-}
-inline bool PlayerInfo::has_player() const {
-  return _internal_has_player();
-}
-inline void PlayerInfo::clear_player() {
-  if (GetArenaForAllocation() == nullptr && _impl_.player_ != nullptr) {
-    delete _impl_.player_;
-  }
-  _impl_.player_ = nullptr;
-}
-inline const ::ProjectJ::Player& PlayerInfo::_internal_player() const {
-  const ::ProjectJ::Player* p = _impl_.player_;
-  return p != nullptr ? *p : reinterpret_cast<const ::ProjectJ::Player&>(
-      ::ProjectJ::_Player_default_instance_);
-}
-inline const ::ProjectJ::Player& PlayerInfo::player() const {
-  // @@protoc_insertion_point(field_get:ProjectJ.PlayerInfo.player)
-  return _internal_player();
-}
-inline void PlayerInfo::unsafe_arena_set_allocated_player(
-    ::ProjectJ::Player* player) {
-  if (GetArenaForAllocation() == nullptr) {
-    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.player_);
-  }
-  _impl_.player_ = player;
-  if (player) {
-    
-  } else {
-    
-  }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:ProjectJ.PlayerInfo.player)
-}
-inline ::ProjectJ::Player* PlayerInfo::release_player() {
-  
-  ::ProjectJ::Player* temp = _impl_.player_;
-  _impl_.player_ = nullptr;
-#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
-  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
-  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  if (GetArenaForAllocation() == nullptr) { delete old; }
-#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
-  if (GetArenaForAllocation() != nullptr) {
-    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  }
-#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
-  return temp;
-}
-inline ::ProjectJ::Player* PlayerInfo::unsafe_arena_release_player() {
-  // @@protoc_insertion_point(field_release:ProjectJ.PlayerInfo.player)
-  
-  ::ProjectJ::Player* temp = _impl_.player_;
-  _impl_.player_ = nullptr;
-  return temp;
-}
-inline ::ProjectJ::Player* PlayerInfo::_internal_mutable_player() {
-  
-  if (_impl_.player_ == nullptr) {
-    auto* p = CreateMaybeMessage<::ProjectJ::Player>(GetArenaForAllocation());
-    _impl_.player_ = p;
-  }
-  return _impl_.player_;
-}
-inline ::ProjectJ::Player* PlayerInfo::mutable_player() {
-  ::ProjectJ::Player* _msg = _internal_mutable_player();
-  // @@protoc_insertion_point(field_mutable:ProjectJ.PlayerInfo.player)
-  return _msg;
-}
-inline void PlayerInfo::set_allocated_player(::ProjectJ::Player* player) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
-  if (message_arena == nullptr) {
-    delete _impl_.player_;
-  }
-  if (player) {
-    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(player);
-    if (message_arena != submessage_arena) {
-      player = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-          message_arena, player, submessage_arena);
-    }
-    
-  } else {
-    
-  }
-  _impl_.player_ = player;
-  // @@protoc_insertion_point(field_set_allocated:ProjectJ.PlayerInfo.player)
-}
-
-// .ProjectJ.Vector position = 4;
+// .ProjectJ.Vector position = 3;
 inline bool PlayerInfo::_internal_has_position() const {
   return this != internal_default_instance() && _impl_.position_ != nullptr;
 }
@@ -5318,7 +5208,7 @@ inline void PlayerInfo::set_allocated_position(::ProjectJ::Vector* position) {
   // @@protoc_insertion_point(field_set_allocated:ProjectJ.PlayerInfo.position)
 }
 
-// .ProjectJ.Rotator rotation = 5;
+// .ProjectJ.Rotator rotation = 4;
 inline bool PlayerInfo::_internal_has_rotation() const {
   return this != internal_default_instance() && _impl_.rotation_ != nullptr;
 }
@@ -5408,7 +5298,7 @@ inline void PlayerInfo::set_allocated_rotation(::ProjectJ::Rotator* rotation) {
   // @@protoc_insertion_point(field_set_allocated:ProjectJ.PlayerInfo.rotation)
 }
 
-// .ProjectJ.Vector velocity = 6;
+// .ProjectJ.Vector velocity = 5;
 inline bool PlayerInfo::_internal_has_velocity() const {
   return this != internal_default_instance() && _impl_.velocity_ != nullptr;
 }
@@ -5498,7 +5388,7 @@ inline void PlayerInfo::set_allocated_velocity(::ProjectJ::Vector* velocity) {
   // @@protoc_insertion_point(field_set_allocated:ProjectJ.PlayerInfo.velocity)
 }
 
-// float move_speed = 7;
+// float move_speed = 6;
 inline void PlayerInfo::clear_move_speed() {
   _impl_.move_speed_ = 0;
 }

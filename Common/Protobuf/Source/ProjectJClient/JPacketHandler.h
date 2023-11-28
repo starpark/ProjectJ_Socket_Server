@@ -56,11 +56,10 @@ enum : uint16
 	PKT_C_MATCH_CHASER_HIT = 1040,
 	PKT_S_MATCH_CHASER_HIT = 1041,
 	PKT_C_MATCH_FUGITIVE_ESCAPE = 1042,
-	PKT_S_MATCH_FUGITIVE_ESCAPE = 1043,
-	PKT_C_MATCH_CHASER_INSTALL_CCTV = 1044,
-	PKT_S_MATCH_CHASER_INSTALL_CCTV = 1045,
-	PKT_C_MATCH_LEAVE = 1046,
-	PKT_S_MATCH_LEAVE = 1047,
+	PKT_C_MATCH_CHASER_INSTALL_CCTV = 1043,
+	PKT_S_MATCH_CHASER_INSTALL_CCTV = 1044,
+	PKT_C_MATCH_LEAVE = 1045,
+	PKT_S_MATCH_LEAVE = 1046,
 };
 
 // RecvThread 전용 패킷 가공 함수
@@ -122,8 +121,6 @@ bool Handle_S_MATCH_CHASER_ATTACK(UWorld* World, ProjectJ::S_MATCH_CHASER_ATTACK
 DECLARE_DELEGATE_RetVal_ThreeParams(bool, FPacket_S_MATCH_CHASER_ATTACK, UWorld*, ProjectJ::S_MATCH_CHASER_ATTACK&, float);
 bool Handle_S_MATCH_CHASER_HIT(UWorld* World, ProjectJ::S_MATCH_CHASER_HIT& Packet, float DeltaSeconds);
 DECLARE_DELEGATE_RetVal_ThreeParams(bool, FPacket_S_MATCH_CHASER_HIT, UWorld*, ProjectJ::S_MATCH_CHASER_HIT&, float);
-bool Handle_S_MATCH_FUGITIVE_ESCAPE(UWorld* World, ProjectJ::S_MATCH_FUGITIVE_ESCAPE& Packet, float DeltaSeconds);
-DECLARE_DELEGATE_RetVal_ThreeParams(bool, FPacket_S_MATCH_FUGITIVE_ESCAPE, UWorld*, ProjectJ::S_MATCH_FUGITIVE_ESCAPE&, float);
 bool Handle_S_MATCH_CHASER_INSTALL_CCTV(UWorld* World, ProjectJ::S_MATCH_CHASER_INSTALL_CCTV& Packet, float DeltaSeconds);
 DECLARE_DELEGATE_RetVal_ThreeParams(bool, FPacket_S_MATCH_CHASER_INSTALL_CCTV, UWorld*, ProjectJ::S_MATCH_CHASER_INSTALL_CCTV&, float);
 bool Handle_S_MATCH_LEAVE(UWorld* World, ProjectJ::S_MATCH_LEAVE& Packet, float DeltaSeconds);
@@ -173,7 +170,6 @@ public:
 		GPacketProcessor[PKT_S_MATCH_SCALE_ON_CHANGED] = [](UWorld* World, const TSharedPtr<JPackets>& PacketPtr, float DeltaSeconds) {return ProcessPacket<ProjectJ::S_MATCH_SCALE_ON_CHANGED>(Handle_S_MATCH_SCALE_ON_CHANGED, World, PacketPtr, DeltaSeconds);};
 		GPacketProcessor[PKT_S_MATCH_CHASER_ATTACK] = [](UWorld* World, const TSharedPtr<JPackets>& PacketPtr, float DeltaSeconds) {return ProcessPacket<ProjectJ::S_MATCH_CHASER_ATTACK>(Handle_S_MATCH_CHASER_ATTACK, World, PacketPtr, DeltaSeconds);};
 		GPacketProcessor[PKT_S_MATCH_CHASER_HIT] = [](UWorld* World, const TSharedPtr<JPackets>& PacketPtr, float DeltaSeconds) {return ProcessPacket<ProjectJ::S_MATCH_CHASER_HIT>(Handle_S_MATCH_CHASER_HIT, World, PacketPtr, DeltaSeconds);};
-		GPacketProcessor[PKT_S_MATCH_FUGITIVE_ESCAPE] = [](UWorld* World, const TSharedPtr<JPackets>& PacketPtr, float DeltaSeconds) {return ProcessPacket<ProjectJ::S_MATCH_FUGITIVE_ESCAPE>(Handle_S_MATCH_FUGITIVE_ESCAPE, World, PacketPtr, DeltaSeconds);};
 		GPacketProcessor[PKT_S_MATCH_CHASER_INSTALL_CCTV] = [](UWorld* World, const TSharedPtr<JPackets>& PacketPtr, float DeltaSeconds) {return ProcessPacket<ProjectJ::S_MATCH_CHASER_INSTALL_CCTV>(Handle_S_MATCH_CHASER_INSTALL_CCTV, World, PacketPtr, DeltaSeconds);};
 		GPacketProcessor[PKT_S_MATCH_LEAVE] = [](UWorld* World, const TSharedPtr<JPackets>& PacketPtr, float DeltaSeconds) {return ProcessPacket<ProjectJ::S_MATCH_LEAVE>(Handle_S_MATCH_LEAVE, World, PacketPtr, DeltaSeconds);};
 
@@ -202,7 +198,6 @@ public:
 		GPacketHandler[PKT_S_MATCH_SCALE_ON_CHANGED] = [](uint16 TypeCode, uint8* Buffer, int32 Size) {return HandlePacket<ProjectJ::S_MATCH_SCALE_ON_CHANGED>(TypeCode, Buffer, Size);};
 		GPacketHandler[PKT_S_MATCH_CHASER_ATTACK] = [](uint16 TypeCode, uint8* Buffer, int32 Size) {return HandlePacket<ProjectJ::S_MATCH_CHASER_ATTACK>(TypeCode, Buffer, Size);};
 		GPacketHandler[PKT_S_MATCH_CHASER_HIT] = [](uint16 TypeCode, uint8* Buffer, int32 Size) {return HandlePacket<ProjectJ::S_MATCH_CHASER_HIT>(TypeCode, Buffer, Size);};
-		GPacketHandler[PKT_S_MATCH_FUGITIVE_ESCAPE] = [](uint16 TypeCode, uint8* Buffer, int32 Size) {return HandlePacket<ProjectJ::S_MATCH_FUGITIVE_ESCAPE>(TypeCode, Buffer, Size);};
 		GPacketHandler[PKT_S_MATCH_CHASER_INSTALL_CCTV] = [](uint16 TypeCode, uint8* Buffer, int32 Size) {return HandlePacket<ProjectJ::S_MATCH_CHASER_INSTALL_CCTV>(TypeCode, Buffer, Size);};
 		GPacketHandler[PKT_S_MATCH_LEAVE] = [](uint16 TypeCode, uint8* Buffer, int32 Size) {return HandlePacket<ProjectJ::S_MATCH_LEAVE>(TypeCode, Buffer, Size);};
 	}
@@ -416,7 +411,6 @@ public:
 	static FPacket_S_MATCH_SCALE_ON_CHANGED Packet_S_MATCH_SCALE_ON_CHANGED_Delegate;
 	static FPacket_S_MATCH_CHASER_ATTACK Packet_S_MATCH_CHASER_ATTACK_Delegate;
 	static FPacket_S_MATCH_CHASER_HIT Packet_S_MATCH_CHASER_HIT_Delegate;
-	static FPacket_S_MATCH_FUGITIVE_ESCAPE Packet_S_MATCH_FUGITIVE_ESCAPE_Delegate;
 	static FPacket_S_MATCH_CHASER_INSTALL_CCTV Packet_S_MATCH_CHASER_INSTALL_CCTV_Delegate;
 	static FPacket_S_MATCH_LEAVE Packet_S_MATCH_LEAVE_Delegate;
 };

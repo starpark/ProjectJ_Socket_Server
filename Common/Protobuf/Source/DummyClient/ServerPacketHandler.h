@@ -49,11 +49,10 @@ enum : uint16_t
 	PKT_C_MATCH_CHASER_HIT = 1040,
 	PKT_S_MATCH_CHASER_HIT = 1041,
 	PKT_C_MATCH_FUGITIVE_ESCAPE = 1042,
-	PKT_S_MATCH_FUGITIVE_ESCAPE = 1043,
-	PKT_C_MATCH_CHASER_INSTALL_CCTV = 1044,
-	PKT_S_MATCH_CHASER_INSTALL_CCTV = 1045,
-	PKT_C_MATCH_LEAVE = 1046,
-	PKT_S_MATCH_LEAVE = 1047,
+	PKT_C_MATCH_CHASER_INSTALL_CCTV = 1043,
+	PKT_S_MATCH_CHASER_INSTALL_CCTV = 1044,
+	PKT_C_MATCH_LEAVE = 1045,
+	PKT_S_MATCH_LEAVE = 1046,
 };
 
 bool Handle_INVALID(const shared_ptr<SessionBase>& session, BYTE* bufer, int numOfBytes);
@@ -81,7 +80,6 @@ bool Handle_S_MATCH_ITEM_SOMEONE_DROP(const shared_ptr<SessionBase>& session, Pr
 bool Handle_S_MATCH_SCALE_ON_CHANGED(const shared_ptr<SessionBase>& session, ProjectJ::S_MATCH_SCALE_ON_CHANGED& packet);
 bool Handle_S_MATCH_CHASER_ATTACK(const shared_ptr<SessionBase>& session, ProjectJ::S_MATCH_CHASER_ATTACK& packet);
 bool Handle_S_MATCH_CHASER_HIT(const shared_ptr<SessionBase>& session, ProjectJ::S_MATCH_CHASER_HIT& packet);
-bool Handle_S_MATCH_FUGITIVE_ESCAPE(const shared_ptr<SessionBase>& session, ProjectJ::S_MATCH_FUGITIVE_ESCAPE& packet);
 bool Handle_S_MATCH_CHASER_INSTALL_CCTV(const shared_ptr<SessionBase>& session, ProjectJ::S_MATCH_CHASER_INSTALL_CCTV& packet);
 bool Handle_S_MATCH_LEAVE(const shared_ptr<SessionBase>& session, ProjectJ::S_MATCH_LEAVE& packet);
 
@@ -123,7 +121,6 @@ public:
 		GPacketHandler[PKT_S_MATCH_SCALE_ON_CHANGED] = [](shared_ptr<SessionBase> session, BYTE* buffer, int numOfBytes) {return HandlePacket<ProjectJ::S_MATCH_SCALE_ON_CHANGED>(Handle_S_MATCH_SCALE_ON_CHANGED, session, buffer, numOfBytes);};
 		GPacketHandler[PKT_S_MATCH_CHASER_ATTACK] = [](shared_ptr<SessionBase> session, BYTE* buffer, int numOfBytes) {return HandlePacket<ProjectJ::S_MATCH_CHASER_ATTACK>(Handle_S_MATCH_CHASER_ATTACK, session, buffer, numOfBytes);};
 		GPacketHandler[PKT_S_MATCH_CHASER_HIT] = [](shared_ptr<SessionBase> session, BYTE* buffer, int numOfBytes) {return HandlePacket<ProjectJ::S_MATCH_CHASER_HIT>(Handle_S_MATCH_CHASER_HIT, session, buffer, numOfBytes);};
-		GPacketHandler[PKT_S_MATCH_FUGITIVE_ESCAPE] = [](shared_ptr<SessionBase> session, BYTE* buffer, int numOfBytes) {return HandlePacket<ProjectJ::S_MATCH_FUGITIVE_ESCAPE>(Handle_S_MATCH_FUGITIVE_ESCAPE, session, buffer, numOfBytes);};
 		GPacketHandler[PKT_S_MATCH_CHASER_INSTALL_CCTV] = [](shared_ptr<SessionBase> session, BYTE* buffer, int numOfBytes) {return HandlePacket<ProjectJ::S_MATCH_CHASER_INSTALL_CCTV>(Handle_S_MATCH_CHASER_INSTALL_CCTV, session, buffer, numOfBytes);};
 		GPacketHandler[PKT_S_MATCH_LEAVE] = [](shared_ptr<SessionBase> session, BYTE* buffer, int numOfBytes) {return HandlePacket<ProjectJ::S_MATCH_LEAVE>(Handle_S_MATCH_LEAVE, session, buffer, numOfBytes);};
 	}

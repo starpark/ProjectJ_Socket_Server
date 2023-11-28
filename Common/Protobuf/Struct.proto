@@ -98,11 +98,10 @@ message PlayerInfo
 {
 	MatchPlayerState state = 1;
 	int32 player_index = 2;
-	Player player = 3;
-	Vector position = 4;
-	Rotator rotation = 5;
-	Vector velocity = 6;
-	float move_speed = 7;
+	Vector position = 3;
+	Rotator rotation = 4;
+	Vector velocity = 5;
+	float move_speed = 6;
 }
 
 message MatchInfo

@@ -49,11 +49,10 @@ enum : uint16_t
 	PKT_C_MATCH_CHASER_HIT = 1040,
 	PKT_S_MATCH_CHASER_HIT = 1041,
 	PKT_C_MATCH_FUGITIVE_ESCAPE = 1042,
-	PKT_S_MATCH_FUGITIVE_ESCAPE = 1043,
-	PKT_C_MATCH_CHASER_INSTALL_CCTV = 1044,
-	PKT_S_MATCH_CHASER_INSTALL_CCTV = 1045,
-	PKT_C_MATCH_LEAVE = 1046,
-	PKT_S_MATCH_LEAVE = 1047,
+	PKT_C_MATCH_CHASER_INSTALL_CCTV = 1043,
+	PKT_S_MATCH_CHASER_INSTALL_CCTV = 1044,
+	PKT_C_MATCH_LEAVE = 1045,
+	PKT_S_MATCH_LEAVE = 1046,
 };
 
 bool Handle_INVALID(const shared_ptr<SessionBase>& session, BYTE* bufer, int numOfBytes);
@@ -145,7 +144,6 @@ public:
 	static shared_ptr<SendBuffer> MakeSendBuffer(ProjectJ::S_MATCH_SCALE_ON_CHANGED& packet) {return MakeSendBuffer(packet, PKT_S_MATCH_SCALE_ON_CHANGED);}
 	static shared_ptr<SendBuffer> MakeSendBuffer(ProjectJ::S_MATCH_CHASER_ATTACK& packet) {return MakeSendBuffer(packet, PKT_S_MATCH_CHASER_ATTACK);}
 	static shared_ptr<SendBuffer> MakeSendBuffer(ProjectJ::S_MATCH_CHASER_HIT& packet) {return MakeSendBuffer(packet, PKT_S_MATCH_CHASER_HIT);}
-	static shared_ptr<SendBuffer> MakeSendBuffer(ProjectJ::S_MATCH_FUGITIVE_ESCAPE& packet) {return MakeSendBuffer(packet, PKT_S_MATCH_FUGITIVE_ESCAPE);}
 	static shared_ptr<SendBuffer> MakeSendBuffer(ProjectJ::S_MATCH_CHASER_INSTALL_CCTV& packet) {return MakeSendBuffer(packet, PKT_S_MATCH_CHASER_INSTALL_CCTV);}
 	static shared_ptr<SendBuffer> MakeSendBuffer(ProjectJ::S_MATCH_LEAVE& packet) {return MakeSendBuffer(packet, PKT_S_MATCH_LEAVE);}
 

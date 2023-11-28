@@ -194,8 +194,7 @@ struct MatchInitInfoDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 MatchInitInfoDefaultTypeInternal _MatchInitInfo_default_instance_;
 PROTOBUF_CONSTEXPR PlayerInfo::PlayerInfo(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.player_)*/nullptr
-  , /*decltype(_impl_.position_)*/nullptr
+    /*decltype(_impl_.position_)*/nullptr
   , /*decltype(_impl_.rotation_)*/nullptr
   , /*decltype(_impl_.velocity_)*/nullptr
   , /*decltype(_impl_.state_)*/0
@@ -352,7 +351,6 @@ const uint32_t TableStruct_Struct_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(p
   ~0u,  // no _inlined_string_donated_
   PROTOBUF_FIELD_OFFSET(::ProjectJ::PlayerInfo, _impl_.state_),
   PROTOBUF_FIELD_OFFSET(::ProjectJ::PlayerInfo, _impl_.player_index_),
-  PROTOBUF_FIELD_OFFSET(::ProjectJ::PlayerInfo, _impl_.player_),
   PROTOBUF_FIELD_OFFSET(::ProjectJ::PlayerInfo, _impl_.position_),
   PROTOBUF_FIELD_OFFSET(::ProjectJ::PlayerInfo, _impl_.rotation_),
   PROTOBUF_FIELD_OFFSET(::ProjectJ::PlayerInfo, _impl_.velocity_),
@@ -380,7 +378,7 @@ static const ::_pbi::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protode
   { 87, -1, -1, sizeof(::ProjectJ::ScaleInitInfo)},
   { 97, -1, -1, sizeof(::ProjectJ::MatchInitInfo)},
   { 111, -1, -1, sizeof(::ProjectJ::PlayerInfo)},
-  { 124, -1, -1, sizeof(::ProjectJ::MatchInfo)},
+  { 123, -1, -1, sizeof(::ProjectJ::MatchInfo)},
 };
 
 static const ::_pb::Message* const file_default_instances[] = {
@@ -439,25 +437,24 @@ const char descriptor_table_protodef_Struct_2eproto[] PROTOBUF_SECTION_VARIABLE(
   "o\022-\n\014scale_second\030\006 \001(\0132\027.ProjectJ.Scale"
   "InitInfo\022,\n\013scale_third\030\007 \001(\0132\027.ProjectJ"
   ".ScaleInitInfo\022-\n\014scale_fourth\030\010 \001(\0132\027.P"
-  "rojectJ.ScaleInitInfo\"\360\001\n\nPlayerInfo\022)\n\005"
+  "rojectJ.ScaleInitInfo\"\316\001\n\nPlayerInfo\022)\n\005"
   "state\030\001 \001(\0162\032.ProjectJ.MatchPlayerState\022"
-  "\024\n\014player_index\030\002 \001(\005\022 \n\006player\030\003 \001(\0132\020."
-  "ProjectJ.Player\022\"\n\010position\030\004 \001(\0132\020.Proj"
-  "ectJ.Vector\022#\n\010rotation\030\005 \001(\0132\021.ProjectJ"
-  ".Rotator\022\"\n\010velocity\030\006 \001(\0132\020.ProjectJ.Ve"
-  "ctor\022\022\n\nmove_speed\030\007 \001(\002\"\274\001\n\tMatchInfo\022$"
-  "\n\006chaser\030\001 \001(\0132\024.ProjectJ.PlayerInfo\022,\n\016"
-  "fugitive_first\030\002 \001(\0132\024.ProjectJ.PlayerIn"
-  "fo\022-\n\017fugitive_second\030\003 \001(\0132\024.ProjectJ.P"
-  "layerInfo\022,\n\016fugitive_third\030\004 \001(\0132\024.Proj"
-  "ectJ.PlayerInfob\006proto3"
+  "\024\n\014player_index\030\002 \001(\005\022\"\n\010position\030\003 \001(\0132"
+  "\020.ProjectJ.Vector\022#\n\010rotation\030\004 \001(\0132\021.Pr"
+  "ojectJ.Rotator\022\"\n\010velocity\030\005 \001(\0132\020.Proje"
+  "ctJ.Vector\022\022\n\nmove_speed\030\006 \001(\002\"\274\001\n\tMatch"
+  "Info\022$\n\006chaser\030\001 \001(\0132\024.ProjectJ.PlayerIn"
+  "fo\022,\n\016fugitive_first\030\002 \001(\0132\024.ProjectJ.Pl"
+  "ayerInfo\022-\n\017fugitive_second\030\003 \001(\0132\024.Proj"
+  "ectJ.PlayerInfo\022,\n\016fugitive_third\030\004 \001(\0132"
+  "\024.ProjectJ.PlayerInfob\006proto3"
   ;
 static const ::_pbi::DescriptorTable* const descriptor_table_Struct_2eproto_deps[1] = {
   &::descriptor_table_Enum_2eproto,
 };
 static ::_pbi::once_flag descriptor_table_Struct_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_Struct_2eproto = {
-    false, false, 2063, descriptor_table_protodef_Struct_2eproto,
+    false, false, 2029, descriptor_table_protodef_Struct_2eproto,
     "Struct.proto",
     &descriptor_table_Struct_2eproto_once, descriptor_table_Struct_2eproto_deps, 1, 12,
     schemas, file_default_instances, TableStruct_Struct_2eproto::offsets,
@@ -3787,16 +3784,11 @@ void MatchInitInfo::InternalSwap(MatchInitInfo* other) {
 
 class PlayerInfo::_Internal {
  public:
-  static const ::ProjectJ::Player& player(const PlayerInfo* msg);
   static const ::ProjectJ::Vector& position(const PlayerInfo* msg);
   static const ::ProjectJ::Rotator& rotation(const PlayerInfo* msg);
   static const ::ProjectJ::Vector& velocity(const PlayerInfo* msg);
 };
 
-const ::ProjectJ::Player&
-PlayerInfo::_Internal::player(const PlayerInfo* msg) {
-  return *msg->_impl_.player_;
-}
 const ::ProjectJ::Vector&
 PlayerInfo::_Internal::position(const PlayerInfo* msg) {
   return *msg->_impl_.position_;
@@ -3819,8 +3811,7 @@ PlayerInfo::PlayerInfo(const PlayerInfo& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
   PlayerInfo* const _this = this; (void)_this;
   new (&_impl_) Impl_{
-      decltype(_impl_.player_){nullptr}
-    , decltype(_impl_.position_){nullptr}
+      decltype(_impl_.position_){nullptr}
     , decltype(_impl_.rotation_){nullptr}
     , decltype(_impl_.velocity_){nullptr}
     , decltype(_impl_.state_){}
@@ -3829,9 +3820,6 @@ PlayerInfo::PlayerInfo(const PlayerInfo& from)
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  if (from._internal_has_player()) {
-    _this->_impl_.player_ = new ::ProjectJ::Player(*from._impl_.player_);
-  }
   if (from._internal_has_position()) {
     _this->_impl_.position_ = new ::ProjectJ::Vector(*from._impl_.position_);
   }
@@ -3852,8 +3840,7 @@ inline void PlayerInfo::SharedCtor(
   (void)arena;
   (void)is_message_owned;
   new (&_impl_) Impl_{
-      decltype(_impl_.player_){nullptr}
-    , decltype(_impl_.position_){nullptr}
+      decltype(_impl_.position_){nullptr}
     , decltype(_impl_.rotation_){nullptr}
     , decltype(_impl_.velocity_){nullptr}
     , decltype(_impl_.state_){0}
@@ -3874,7 +3861,6 @@ PlayerInfo::~PlayerInfo() {
 
 inline void PlayerInfo::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  if (this != internal_default_instance()) delete _impl_.player_;
   if (this != internal_default_instance()) delete _impl_.position_;
   if (this != internal_default_instance()) delete _impl_.rotation_;
   if (this != internal_default_instance()) delete _impl_.velocity_;
@@ -3890,10 +3876,6 @@ void PlayerInfo::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  if (GetArenaForAllocation() == nullptr && _impl_.player_ != nullptr) {
-    delete _impl_.player_;
-  }
-  _impl_.player_ = nullptr;
   if (GetArenaForAllocation() == nullptr && _impl_.position_ != nullptr) {
     delete _impl_.position_;
   }
@@ -3935,41 +3917,33 @@ const char* PlayerInfo::_InternalParse(const char* ptr, ::_pbi::ParseContext* ct
         } else
           goto handle_unusual;
         continue;
-      // .ProjectJ.Player player = 3;
+      // .ProjectJ.Vector position = 3;
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
-          ptr = ctx->ParseMessage(_internal_mutable_player(), ptr);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      // .ProjectJ.Vector position = 4;
-      case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
           ptr = ctx->ParseMessage(_internal_mutable_position(), ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
-      // .ProjectJ.Rotator rotation = 5;
-      case 5:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 42)) {
+      // .ProjectJ.Rotator rotation = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
           ptr = ctx->ParseMessage(_internal_mutable_rotation(), ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
-      // .ProjectJ.Vector velocity = 6;
-      case 6:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 50)) {
+      // .ProjectJ.Vector velocity = 5;
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 42)) {
           ptr = ctx->ParseMessage(_internal_mutable_velocity(), ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
-      // float move_speed = 7;
-      case 7:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 61)) {
+      // float move_speed = 6;
+      case 6:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 53)) {
           _impl_.move_speed_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
         } else
@@ -4017,42 +3991,35 @@ uint8_t* PlayerInfo::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteInt32ToArray(2, this->_internal_player_index(), target);
   }
 
-  // .ProjectJ.Player player = 3;
-  if (this->_internal_has_player()) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(3, _Internal::player(this),
-        _Internal::player(this).GetCachedSize(), target, stream);
-  }
-
-  // .ProjectJ.Vector position = 4;
+  // .ProjectJ.Vector position = 3;
   if (this->_internal_has_position()) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(4, _Internal::position(this),
+      InternalWriteMessage(3, _Internal::position(this),
         _Internal::position(this).GetCachedSize(), target, stream);
   }
 
-  // .ProjectJ.Rotator rotation = 5;
+  // .ProjectJ.Rotator rotation = 4;
   if (this->_internal_has_rotation()) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(5, _Internal::rotation(this),
+      InternalWriteMessage(4, _Internal::rotation(this),
         _Internal::rotation(this).GetCachedSize(), target, stream);
   }
 
-  // .ProjectJ.Vector velocity = 6;
+  // .ProjectJ.Vector velocity = 5;
   if (this->_internal_has_velocity()) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(6, _Internal::velocity(this),
+      InternalWriteMessage(5, _Internal::velocity(this),
         _Internal::velocity(this).GetCachedSize(), target, stream);
   }
 
-  // float move_speed = 7;
+  // float move_speed = 6;
   static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
   float tmp_move_speed = this->_internal_move_speed();
   uint32_t raw_move_speed;
   memcpy(&raw_move_speed, &tmp_move_speed, sizeof(tmp_move_speed));
   if (raw_move_speed != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteFloatToArray(7, this->_internal_move_speed(), target);
+    target = ::_pbi::WireFormatLite::WriteFloatToArray(6, this->_internal_move_speed(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -4071,28 +4038,21 @@ size_t PlayerInfo::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // .ProjectJ.Player player = 3;
-  if (this->_internal_has_player()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *_impl_.player_);
-  }
-
-  // .ProjectJ.Vector position = 4;
+  // .ProjectJ.Vector position = 3;
   if (this->_internal_has_position()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
         *_impl_.position_);
   }
 
-  // .ProjectJ.Rotator rotation = 5;
+  // .ProjectJ.Rotator rotation = 4;
   if (this->_internal_has_rotation()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
         *_impl_.rotation_);
   }
 
-  // .ProjectJ.Vector velocity = 6;
+  // .ProjectJ.Vector velocity = 5;
   if (this->_internal_has_velocity()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
@@ -4110,7 +4070,7 @@ size_t PlayerInfo::ByteSizeLong() const {
     total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_player_index());
   }
 
-  // float move_speed = 7;
+  // float move_speed = 6;
   static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
   float tmp_move_speed = this->_internal_move_speed();
   uint32_t raw_move_speed;
@@ -4137,10 +4097,6 @@ void PlayerInfo::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PRO
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from._internal_has_player()) {
-    _this->_internal_mutable_player()->::ProjectJ::Player::MergeFrom(
-        from._internal_player());
-  }
   if (from._internal_has_position()) {
     _this->_internal_mutable_position()->::ProjectJ::Vector::MergeFrom(
         from._internal_position());
@@ -4186,9 +4142,9 @@ void PlayerInfo::InternalSwap(PlayerInfo* other) {
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(PlayerInfo, _impl_.move_speed_)
       + sizeof(PlayerInfo::_impl_.move_speed_)
-      - PROTOBUF_FIELD_OFFSET(PlayerInfo, _impl_.player_)>(
-          reinterpret_cast<char*>(&_impl_.player_),
-          reinterpret_cast<char*>(&other->_impl_.player_));
+      - PROTOBUF_FIELD_OFFSET(PlayerInfo, _impl_.position_)>(
+          reinterpret_cast<char*>(&_impl_.position_),
+          reinterpret_cast<char*>(&other->_impl_.position_));
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata PlayerInfo::GetMetadata() const {

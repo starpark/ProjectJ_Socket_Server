@@ -459,13 +459,44 @@ struct S_MATCH_INFODefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 S_MATCH_INFODefaultTypeInternal _S_MATCH_INFO_default_instance_;
+PROTOBUF_CONSTEXPR S_MATCH_END_FugitiveSummary::S_MATCH_END_FugitiveSummary(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.is_fugitive_escape_)*/false
+  , /*decltype(_impl_.fugitive_weight_)*/0
+  , /*decltype(_impl_.fugitive_hit_count_)*/0
+  , /*decltype(_impl_._cached_size_)*/{}} {}
+struct S_MATCH_END_FugitiveSummaryDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR S_MATCH_END_FugitiveSummaryDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~S_MATCH_END_FugitiveSummaryDefaultTypeInternal() {}
+  union {
+    S_MATCH_END_FugitiveSummary _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 S_MATCH_END_FugitiveSummaryDefaultTypeInternal _S_MATCH_END_FugitiveSummary_default_instance_;
+PROTOBUF_CONSTEXPR S_MATCH_END_ChaserSummary::S_MATCH_END_ChaserSummary(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.chaser_hit_count_)*/0
+  , /*decltype(_impl_.chaser_kill_count_)*/0
+  , /*decltype(_impl_._cached_size_)*/{}} {}
+struct S_MATCH_END_ChaserSummaryDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR S_MATCH_END_ChaserSummaryDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~S_MATCH_END_ChaserSummaryDefaultTypeInternal() {}
+  union {
+    S_MATCH_END_ChaserSummary _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 S_MATCH_END_ChaserSummaryDefaultTypeInternal _S_MATCH_END_ChaserSummary_default_instance_;
 PROTOBUF_CONSTEXPR S_MATCH_END::S_MATCH_END(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.player_index_)*/0
   , /*decltype(_impl_.score_)*/0
   , /*decltype(_impl_.play_tick_)*/int64_t{0}
   , /*decltype(_impl_.acquired_item_count_)*/0
-  , /*decltype(_impl_._cached_size_)*/{}} {}
+  , /*decltype(_impl_.summary_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_._oneof_case_)*/{}} {}
 struct S_MATCH_ENDDefaultTypeInternal {
   PROTOBUF_CONSTEXPR S_MATCH_ENDDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -660,23 +691,6 @@ struct C_MATCH_FUGITIVE_ESCAPEDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 C_MATCH_FUGITIVE_ESCAPEDefaultTypeInternal _C_MATCH_FUGITIVE_ESCAPE_default_instance_;
-PROTOBUF_CONSTEXPR S_MATCH_FUGITIVE_ESCAPE::S_MATCH_FUGITIVE_ESCAPE(
-    ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.player_index_)*/0
-  , /*decltype(_impl_.score_)*/0
-  , /*decltype(_impl_.weight_)*/0
-  , /*decltype(_impl_.acquired_item_count_)*/0
-  , /*decltype(_impl_.play_tick_)*/int64_t{0}
-  , /*decltype(_impl_._cached_size_)*/{}} {}
-struct S_MATCH_FUGITIVE_ESCAPEDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR S_MATCH_FUGITIVE_ESCAPEDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
-  ~S_MATCH_FUGITIVE_ESCAPEDefaultTypeInternal() {}
-  union {
-    S_MATCH_FUGITIVE_ESCAPE _instance;
-  };
-};
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 S_MATCH_FUGITIVE_ESCAPEDefaultTypeInternal _S_MATCH_FUGITIVE_ESCAPE_default_instance_;
 PROTOBUF_CONSTEXPR C_MATCH_CHASER_INSTALL_CCTV::C_MATCH_CHASER_INSTALL_CCTV(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.install_position_)*/nullptr
@@ -732,7 +746,7 @@ struct S_MATCH_LEAVEDefaultTypeInternal {
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 S_MATCH_LEAVEDefaultTypeInternal _S_MATCH_LEAVE_default_instance_;
 }  // namespace ProjectJ
-static ::_pb::Metadata file_level_metadata_Message_2eproto[49];
+static ::_pb::Metadata file_level_metadata_Message_2eproto[50];
 static constexpr ::_pb::EnumDescriptor const** file_level_enum_descriptors_Message_2eproto = nullptr;
 static constexpr ::_pb::ServiceDescriptor const** file_level_service_descriptors_Message_2eproto = nullptr;
 
@@ -990,15 +1004,35 @@ const uint32_t TableStruct_Message_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(
   PROTOBUF_FIELD_OFFSET(::ProjectJ::S_MATCH_INFO, _impl_.current_tick_),
   PROTOBUF_FIELD_OFFSET(::ProjectJ::S_MATCH_INFO, _impl_.info_),
   ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::ProjectJ::S_MATCH_END, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::ProjectJ::S_MATCH_END_FugitiveSummary, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  ~0u,  // no _inlined_string_donated_
+  PROTOBUF_FIELD_OFFSET(::ProjectJ::S_MATCH_END_FugitiveSummary, _impl_.is_fugitive_escape_),
+  PROTOBUF_FIELD_OFFSET(::ProjectJ::S_MATCH_END_FugitiveSummary, _impl_.fugitive_weight_),
+  PROTOBUF_FIELD_OFFSET(::ProjectJ::S_MATCH_END_FugitiveSummary, _impl_.fugitive_hit_count_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::ProjectJ::S_MATCH_END_ChaserSummary, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  ~0u,  // no _inlined_string_donated_
+  PROTOBUF_FIELD_OFFSET(::ProjectJ::S_MATCH_END_ChaserSummary, _impl_.chaser_hit_count_),
+  PROTOBUF_FIELD_OFFSET(::ProjectJ::S_MATCH_END_ChaserSummary, _impl_.chaser_kill_count_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::ProjectJ::S_MATCH_END, _internal_metadata_),
+  ~0u,  // no _extensions_
+  PROTOBUF_FIELD_OFFSET(::ProjectJ::S_MATCH_END, _impl_._oneof_case_[0]),
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
   PROTOBUF_FIELD_OFFSET(::ProjectJ::S_MATCH_END, _impl_.player_index_),
   PROTOBUF_FIELD_OFFSET(::ProjectJ::S_MATCH_END, _impl_.score_),
   PROTOBUF_FIELD_OFFSET(::ProjectJ::S_MATCH_END, _impl_.acquired_item_count_),
   PROTOBUF_FIELD_OFFSET(::ProjectJ::S_MATCH_END, _impl_.play_tick_),
+  ::_pbi::kInvalidFieldOffsetTag,
+  ::_pbi::kInvalidFieldOffsetTag,
+  PROTOBUF_FIELD_OFFSET(::ProjectJ::S_MATCH_END, _impl_.summary_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::ProjectJ::C_MATCH_ITEM_PICKUP, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -1113,17 +1147,6 @@ const uint32_t TableStruct_Message_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(
   PROTOBUF_FIELD_OFFSET(::ProjectJ::C_MATCH_FUGITIVE_ESCAPE, _impl_.player_index_),
   PROTOBUF_FIELD_OFFSET(::ProjectJ::C_MATCH_FUGITIVE_ESCAPE, _impl_.escape_scale_index_),
   ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::ProjectJ::S_MATCH_FUGITIVE_ESCAPE, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::ProjectJ::S_MATCH_FUGITIVE_ESCAPE, _impl_.player_index_),
-  PROTOBUF_FIELD_OFFSET(::ProjectJ::S_MATCH_FUGITIVE_ESCAPE, _impl_.score_),
-  PROTOBUF_FIELD_OFFSET(::ProjectJ::S_MATCH_FUGITIVE_ESCAPE, _impl_.weight_),
-  PROTOBUF_FIELD_OFFSET(::ProjectJ::S_MATCH_FUGITIVE_ESCAPE, _impl_.acquired_item_count_),
-  PROTOBUF_FIELD_OFFSET(::ProjectJ::S_MATCH_FUGITIVE_ESCAPE, _impl_.play_tick_),
-  ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::ProjectJ::C_MATCH_CHASER_INSTALL_CCTV, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
@@ -1186,24 +1209,25 @@ static const ::_pbi::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protode
   { 227, -1, -1, sizeof(::ProjectJ::C_MATCH_INFO_MyInfo)},
   { 236, -1, -1, sizeof(::ProjectJ::C_MATCH_INFO)},
   { 244, -1, -1, sizeof(::ProjectJ::S_MATCH_INFO)},
-  { 252, -1, -1, sizeof(::ProjectJ::S_MATCH_END)},
-  { 262, -1, -1, sizeof(::ProjectJ::C_MATCH_ITEM_PICKUP)},
-  { 270, -1, -1, sizeof(::ProjectJ::C_MATCH_ITEM_MOVE)},
-  { 282, -1, -1, sizeof(::ProjectJ::C_MATCH_ITEM_DROP)},
-  { 292, -1, -1, sizeof(::ProjectJ::S_MATCH_ITEM_SOMEONE_PICKUP)},
-  { 302, -1, -1, sizeof(::ProjectJ::S_MATCH_ITEM_SOMEONE_MOVE)},
-  { 314, -1, -1, sizeof(::ProjectJ::S_MATCH_ITEM_SOMEONE_DROP)},
-  { 324, -1, -1, sizeof(::ProjectJ::S_MATCH_SCALE_ON_CHANGED)},
-  { 333, -1, -1, sizeof(::ProjectJ::C_MATCH_CHASER_ATTACK)},
-  { 341, -1, -1, sizeof(::ProjectJ::S_MATCH_CHASER_ATTACK)},
-  { 349, -1, -1, sizeof(::ProjectJ::C_MATCH_CHASER_HIT)},
-  { 358, -1, -1, sizeof(::ProjectJ::S_MATCH_CHASER_HIT)},
-  { 367, -1, -1, sizeof(::ProjectJ::C_MATCH_FUGITIVE_ESCAPE)},
-  { 375, -1, -1, sizeof(::ProjectJ::S_MATCH_FUGITIVE_ESCAPE)},
-  { 386, -1, -1, sizeof(::ProjectJ::C_MATCH_CHASER_INSTALL_CCTV)},
-  { 394, -1, -1, sizeof(::ProjectJ::S_MATCH_CHASER_INSTALL_CCTV)},
-  { 402, -1, -1, sizeof(::ProjectJ::C_MATCH_LEAVE)},
-  { 409, -1, -1, sizeof(::ProjectJ::S_MATCH_LEAVE)},
+  { 252, -1, -1, sizeof(::ProjectJ::S_MATCH_END_FugitiveSummary)},
+  { 261, -1, -1, sizeof(::ProjectJ::S_MATCH_END_ChaserSummary)},
+  { 269, -1, -1, sizeof(::ProjectJ::S_MATCH_END)},
+  { 282, -1, -1, sizeof(::ProjectJ::C_MATCH_ITEM_PICKUP)},
+  { 290, -1, -1, sizeof(::ProjectJ::C_MATCH_ITEM_MOVE)},
+  { 302, -1, -1, sizeof(::ProjectJ::C_MATCH_ITEM_DROP)},
+  { 312, -1, -1, sizeof(::ProjectJ::S_MATCH_ITEM_SOMEONE_PICKUP)},
+  { 322, -1, -1, sizeof(::ProjectJ::S_MATCH_ITEM_SOMEONE_MOVE)},
+  { 334, -1, -1, sizeof(::ProjectJ::S_MATCH_ITEM_SOMEONE_DROP)},
+  { 344, -1, -1, sizeof(::ProjectJ::S_MATCH_SCALE_ON_CHANGED)},
+  { 353, -1, -1, sizeof(::ProjectJ::C_MATCH_CHASER_ATTACK)},
+  { 361, -1, -1, sizeof(::ProjectJ::S_MATCH_CHASER_ATTACK)},
+  { 369, -1, -1, sizeof(::ProjectJ::C_MATCH_CHASER_HIT)},
+  { 378, -1, -1, sizeof(::ProjectJ::S_MATCH_CHASER_HIT)},
+  { 387, -1, -1, sizeof(::ProjectJ::C_MATCH_FUGITIVE_ESCAPE)},
+  { 395, -1, -1, sizeof(::ProjectJ::C_MATCH_CHASER_INSTALL_CCTV)},
+  { 403, -1, -1, sizeof(::ProjectJ::S_MATCH_CHASER_INSTALL_CCTV)},
+  { 411, -1, -1, sizeof(::ProjectJ::C_MATCH_LEAVE)},
+  { 418, -1, -1, sizeof(::ProjectJ::S_MATCH_LEAVE)},
 };
 
 static const ::_pb::Message* const file_default_instances[] = {
@@ -1238,6 +1262,8 @@ static const ::_pb::Message* const file_default_instances[] = {
   &::ProjectJ::_C_MATCH_INFO_MyInfo_default_instance_._instance,
   &::ProjectJ::_C_MATCH_INFO_default_instance_._instance,
   &::ProjectJ::_S_MATCH_INFO_default_instance_._instance,
+  &::ProjectJ::_S_MATCH_END_FugitiveSummary_default_instance_._instance,
+  &::ProjectJ::_S_MATCH_END_ChaserSummary_default_instance_._instance,
   &::ProjectJ::_S_MATCH_END_default_instance_._instance,
   &::ProjectJ::_C_MATCH_ITEM_PICKUP_default_instance_._instance,
   &::ProjectJ::_C_MATCH_ITEM_MOVE_default_instance_._instance,
@@ -1251,7 +1277,6 @@ static const ::_pb::Message* const file_default_instances[] = {
   &::ProjectJ::_C_MATCH_CHASER_HIT_default_instance_._instance,
   &::ProjectJ::_S_MATCH_CHASER_HIT_default_instance_._instance,
   &::ProjectJ::_C_MATCH_FUGITIVE_ESCAPE_default_instance_._instance,
-  &::ProjectJ::_S_MATCH_FUGITIVE_ESCAPE_default_instance_._instance,
   &::ProjectJ::_C_MATCH_CHASER_INSTALL_CCTV_default_instance_._instance,
   &::ProjectJ::_S_MATCH_CHASER_INSTALL_CCTV_default_instance_._instance,
   &::ProjectJ::_C_MATCH_LEAVE_default_instance_._instance,
@@ -1311,58 +1336,63 @@ const char descriptor_table_protodef_Message_2eproto[] PROTOBUF_SECTION_VARIABLE
   "ectJ.Vector\022#\n\010rotation\030\002 \001(\0132\021.ProjectJ"
   ".Rotator\022\"\n\010Velocity\030\003 \001(\0132\020.ProjectJ.Ve"
   "ctor\"G\n\014S_MATCH_INFO\022\024\n\014current_tick\030\001 \001"
-  "(\004\022!\n\004info\030\002 \001(\0132\023.ProjectJ.MatchInfo\"b\n"
-  "\013S_MATCH_END\022\024\n\014player_index\030\001 \001(\005\022\r\n\005sc"
-  "ore\030\002 \001(\005\022\033\n\023acquired_item_count\030\003 \001(\005\022\021"
-  "\n\tplay_tick\030\004 \001(\003\"\?\n\023C_MATCH_ITEM_PICKUP"
-  "\022\024\n\014player_index\030\001 \001(\005\022\022\n\nitem_index\030\002 \001"
-  "(\005\"\233\001\n\021C_MATCH_ITEM_MOVE\022\024\n\014player_index"
-  "\030\001 \001(\005\022\022\n\nfrom_index\030\002 \001(\005\022\020\n\010to_index\030\003"
-  " \001(\005\022\022\n\nitem_index\030\004 \001(\005\022\035\n\025target_top_l"
-  "eft_index\030\005 \001(\005\022\027\n\017is_item_rotated\030\006 \001(\010"
-  "\"\232\001\n\021C_MATCH_ITEM_DROP\022\024\n\014player_index\030\001"
-  " \001(\005\022\022\n\nitem_index\030\002 \001(\005\022,\n\022drop_item_po"
-  "sition\030\003 \001(\0132\020.ProjectJ.Vector\022-\n\022drop_i"
-  "tem_rotation\030\004 \001(\0132\021.ProjectJ.Rotator\"x\n"
-  "\033S_MATCH_ITEM_SOMEONE_PICKUP\022\024\n\014player_i"
-  "ndex\030\001 \001(\005\022\022\n\nitem_index\030\002 \001(\005\022\026\n\016top_le"
-  "ft_index\030\003 \001(\005\022\027\n\017is_item_rotated\030\004 \001(\010\""
-  "\234\001\n\031S_MATCH_ITEM_SOMEONE_MOVE\022\024\n\014player_"
-  "index\030\001 \001(\005\022\022\n\nfrom_index\030\002 \001(\005\022\020\n\010to_in"
-  "dex\030\003 \001(\005\022\022\n\nitem_index\030\004 \001(\005\022\026\n\016top_lef"
-  "t_index\030\005 \001(\005\022\027\n\017is_item_rotated\030\006 \001(\010\"\242"
-  "\001\n\031S_MATCH_ITEM_SOMEONE_DROP\022\024\n\014player_i"
-  "ndex\030\001 \001(\005\022\022\n\nitem_index\030\002 \001(\005\022,\n\022drop_i"
-  "tem_position\030\003 \001(\0132\020.ProjectJ.Vector\022-\n\022"
-  "drop_item_rotation\030\004 \001(\0132\021.ProjectJ.Rota"
-  "tor\"]\n\030S_MATCH_SCALE_ON_CHANGED\022\023\n\013scale"
-  "_index\030\001 \001(\005\022\026\n\016current_weight\030\002 \001(\005\022\024\n\014"
-  "is_operating\030\003 \001(\010\"n\n\025C_MATCH_CHASER_ATT"
-  "ACK\022)\n\017attack_position\030\001 \001(\0132\020.ProjectJ."
-  "Vector\022*\n\017attack_rotation\030\002 \001(\0132\021.Projec"
-  "tJ.Rotator\"n\n\025S_MATCH_CHASER_ATTACK\022)\n\017a"
+  "(\004\022!\n\004info\030\002 \001(\0132\023.ProjectJ.MatchInfo\"\231\003"
+  "\n\013S_MATCH_END\022\024\n\014player_index\030\001 \001(\005\022\r\n\005s"
+  "core\030\002 \001(\005\022\033\n\023acquired_item_count\030\003 \001(\005\022"
+  "\021\n\tplay_tick\030\004 \001(\003\022A\n\020fugitive_summary\030\005"
+  " \001(\0132%.ProjectJ.S_MATCH_END.FugitiveSumm"
+  "aryH\000\022=\n\016chaser_summary\030\006 \001(\0132#.ProjectJ"
+  ".S_MATCH_END.ChaserSummaryH\000\032b\n\017Fugitive"
+  "Summary\022\032\n\022is_fugitive_escape\030\001 \001(\010\022\027\n\017f"
+  "ugitive_weight\030\002 \001(\005\022\032\n\022fugitive_hit_cou"
+  "nt\030\003 \001(\005\032D\n\rChaserSummary\022\030\n\020chaser_hit_"
+  "count\030\001 \001(\005\022\031\n\021chaser_kill_count\030\002 \001(\005B\t"
+  "\n\007summary\"\?\n\023C_MATCH_ITEM_PICKUP\022\024\n\014play"
+  "er_index\030\001 \001(\005\022\022\n\nitem_index\030\002 \001(\005\"\233\001\n\021C"
+  "_MATCH_ITEM_MOVE\022\024\n\014player_index\030\001 \001(\005\022\022"
+  "\n\nfrom_index\030\002 \001(\005\022\020\n\010to_index\030\003 \001(\005\022\022\n\n"
+  "item_index\030\004 \001(\005\022\035\n\025target_top_left_inde"
+  "x\030\005 \001(\005\022\027\n\017is_item_rotated\030\006 \001(\010\"\232\001\n\021C_M"
+  "ATCH_ITEM_DROP\022\024\n\014player_index\030\001 \001(\005\022\022\n\n"
+  "item_index\030\002 \001(\005\022,\n\022drop_item_position\030\003"
+  " \001(\0132\020.ProjectJ.Vector\022-\n\022drop_item_rota"
+  "tion\030\004 \001(\0132\021.ProjectJ.Rotator\"x\n\033S_MATCH"
+  "_ITEM_SOMEONE_PICKUP\022\024\n\014player_index\030\001 \001"
+  "(\005\022\022\n\nitem_index\030\002 \001(\005\022\026\n\016top_left_index"
+  "\030\003 \001(\005\022\027\n\017is_item_rotated\030\004 \001(\010\"\234\001\n\031S_MA"
+  "TCH_ITEM_SOMEONE_MOVE\022\024\n\014player_index\030\001 "
+  "\001(\005\022\022\n\nfrom_index\030\002 \001(\005\022\020\n\010to_index\030\003 \001("
+  "\005\022\022\n\nitem_index\030\004 \001(\005\022\026\n\016top_left_index\030"
+  "\005 \001(\005\022\027\n\017is_item_rotated\030\006 \001(\010\"\242\001\n\031S_MAT"
+  "CH_ITEM_SOMEONE_DROP\022\024\n\014player_index\030\001 \001"
+  "(\005\022\022\n\nitem_index\030\002 \001(\005\022,\n\022drop_item_posi"
+  "tion\030\003 \001(\0132\020.ProjectJ.Vector\022-\n\022drop_ite"
+  "m_rotation\030\004 \001(\0132\021.ProjectJ.Rotator\"]\n\030S"
+  "_MATCH_SCALE_ON_CHANGED\022\023\n\013scale_index\030\001"
+  " \001(\005\022\026\n\016current_weight\030\002 \001(\005\022\024\n\014is_opera"
+  "ting\030\003 \001(\010\"n\n\025C_MATCH_CHASER_ATTACK\022)\n\017a"
   "ttack_position\030\001 \001(\0132\020.ProjectJ.Vector\022*"
   "\n\017attack_rotation\030\002 \001(\0132\021.ProjectJ.Rotat"
-  "or\"\205\001\n\022C_MATCH_CHASER_HIT\022)\n\017attack_posi"
-  "tion\030\001 \001(\0132\020.ProjectJ.Vector\022*\n\017attack_r"
-  "otation\030\002 \001(\0132\021.ProjectJ.Rotator\022\030\n\020hit_"
-  "player_index\030\003 \001(\005\"q\n\022S_MATCH_CHASER_HIT"
-  "\022\016\n\006result\030\001 \001(\010\022\030\n\020hit_player_index\030\002 \001"
-  "(\005\0221\n\rchanged_state\030\003 \001(\0162\032.ProjectJ.Mat"
-  "chPlayerState\"K\n\027C_MATCH_FUGITIVE_ESCAPE"
-  "\022\024\n\014player_index\030\001 \001(\005\022\032\n\022escape_scale_i"
-  "ndex\030\002 \001(\005\"~\n\027S_MATCH_FUGITIVE_ESCAPE\022\024\n"
-  "\014player_index\030\001 \001(\005\022\r\n\005score\030\002 \001(\005\022\016\n\006we"
-  "ight\030\003 \001(\005\022\033\n\023acquired_item_count\030\004 \001(\005\022"
-  "\021\n\tplay_tick\030\005 \001(\003\"v\n\033C_MATCH_CHASER_INS"
-  "TALL_CCTV\022*\n\020install_position\030\001 \001(\0132\020.Pr"
-  "ojectJ.Vector\022+\n\020install_rotation\030\002 \001(\0132"
-  "\021.ProjectJ.Rotator\"v\n\033S_MATCH_CHASER_INS"
-  "TALL_CCTV\022*\n\020install_position\030\001 \001(\0132\020.Pr"
-  "ojectJ.Vector\022+\n\020install_rotation\030\002 \001(\0132"
-  "\021.ProjectJ.Rotator\"%\n\rC_MATCH_LEAVE\022\024\n\014p"
-  "layer_index\030\001 \001(\005\"\037\n\rS_MATCH_LEAVE\022\016\n\006re"
-  "sult\030\001 \001(\010b\006proto3"
+  "or\"n\n\025S_MATCH_CHASER_ATTACK\022)\n\017attack_po"
+  "sition\030\001 \001(\0132\020.ProjectJ.Vector\022*\n\017attack"
+  "_rotation\030\002 \001(\0132\021.ProjectJ.Rotator\"\205\001\n\022C"
+  "_MATCH_CHASER_HIT\022)\n\017attack_position\030\001 \001"
+  "(\0132\020.ProjectJ.Vector\022*\n\017attack_rotation\030"
+  "\002 \001(\0132\021.ProjectJ.Rotator\022\030\n\020hit_player_i"
+  "ndex\030\003 \001(\005\"q\n\022S_MATCH_CHASER_HIT\022\016\n\006resu"
+  "lt\030\001 \001(\010\022\030\n\020hit_player_index\030\002 \001(\005\0221\n\rch"
+  "anged_state\030\003 \001(\0162\032.ProjectJ.MatchPlayer"
+  "State\"K\n\027C_MATCH_FUGITIVE_ESCAPE\022\024\n\014play"
+  "er_index\030\001 \001(\005\022\032\n\022escape_scale_index\030\002 \001"
+  "(\005\"v\n\033C_MATCH_CHASER_INSTALL_CCTV\022*\n\020ins"
+  "tall_position\030\001 \001(\0132\020.ProjectJ.Vector\022+\n"
+  "\020install_rotation\030\002 \001(\0132\021.ProjectJ.Rotat"
+  "or\"v\n\033S_MATCH_CHASER_INSTALL_CCTV\022*\n\020ins"
+  "tall_position\030\001 \001(\0132\020.ProjectJ.Vector\022+\n"
+  "\020install_rotation\030\002 \001(\0132\021.ProjectJ.Rotat"
+  "or\"%\n\rC_MATCH_LEAVE\022\024\n\014player_index\030\001 \001("
+  "\005\"\037\n\rS_MATCH_LEAVE\022\016\n\006result\030\001 \001(\010b\006prot"
+  "o3"
   ;
 static const ::_pbi::DescriptorTable* const descriptor_table_Message_2eproto_deps[2] = {
   &::descriptor_table_Enum_2eproto,
@@ -1370,9 +1400,9 @@ static const ::_pbi::DescriptorTable* const descriptor_table_Message_2eproto_dep
 };
 static ::_pbi::once_flag descriptor_table_Message_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_Message_2eproto = {
-    false, false, 4138, descriptor_table_protodef_Message_2eproto,
+    false, false, 4322, descriptor_table_protodef_Message_2eproto,
     "Message.proto",
-    &descriptor_table_Message_2eproto_once, descriptor_table_Message_2eproto_deps, 2, 49,
+    &descriptor_table_Message_2eproto_once, descriptor_table_Message_2eproto_deps, 2, 50,
     schemas, file_default_instances, TableStruct_Message_2eproto::offsets,
     file_level_metadata_Message_2eproto, file_level_enum_descriptors_Message_2eproto,
     file_level_service_descriptors_Message_2eproto,
@@ -8390,10 +8420,496 @@ void S_MATCH_INFO::InternalSwap(S_MATCH_INFO* other) {
 
 // ===================================================================
 
-class S_MATCH_END::_Internal {
+class S_MATCH_END_FugitiveSummary::_Internal {
  public:
 };
 
+S_MATCH_END_FugitiveSummary::S_MATCH_END_FugitiveSummary(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:ProjectJ.S_MATCH_END.FugitiveSummary)
+}
+S_MATCH_END_FugitiveSummary::S_MATCH_END_FugitiveSummary(const S_MATCH_END_FugitiveSummary& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  S_MATCH_END_FugitiveSummary* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.is_fugitive_escape_){}
+    , decltype(_impl_.fugitive_weight_){}
+    , decltype(_impl_.fugitive_hit_count_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  ::memcpy(&_impl_.is_fugitive_escape_, &from._impl_.is_fugitive_escape_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.fugitive_hit_count_) -
+    reinterpret_cast<char*>(&_impl_.is_fugitive_escape_)) + sizeof(_impl_.fugitive_hit_count_));
+  // @@protoc_insertion_point(copy_constructor:ProjectJ.S_MATCH_END.FugitiveSummary)
+}
+
+inline void S_MATCH_END_FugitiveSummary::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.is_fugitive_escape_){false}
+    , decltype(_impl_.fugitive_weight_){0}
+    , decltype(_impl_.fugitive_hit_count_){0}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+}
+
+S_MATCH_END_FugitiveSummary::~S_MATCH_END_FugitiveSummary() {
+  // @@protoc_insertion_point(destructor:ProjectJ.S_MATCH_END.FugitiveSummary)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void S_MATCH_END_FugitiveSummary::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+}
+
+void S_MATCH_END_FugitiveSummary::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void S_MATCH_END_FugitiveSummary::Clear() {
+// @@protoc_insertion_point(message_clear_start:ProjectJ.S_MATCH_END.FugitiveSummary)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  ::memset(&_impl_.is_fugitive_escape_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&_impl_.fugitive_hit_count_) -
+      reinterpret_cast<char*>(&_impl_.is_fugitive_escape_)) + sizeof(_impl_.fugitive_hit_count_));
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* S_MATCH_END_FugitiveSummary::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // bool is_fugitive_escape = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          _impl_.is_fugitive_escape_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // int32 fugitive_weight = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+          _impl_.fugitive_weight_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // int32 fugitive_hit_count = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+          _impl_.fugitive_hit_count_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* S_MATCH_END_FugitiveSummary::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:ProjectJ.S_MATCH_END.FugitiveSummary)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // bool is_fugitive_escape = 1;
+  if (this->_internal_is_fugitive_escape() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(1, this->_internal_is_fugitive_escape(), target);
+  }
+
+  // int32 fugitive_weight = 2;
+  if (this->_internal_fugitive_weight() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(2, this->_internal_fugitive_weight(), target);
+  }
+
+  // int32 fugitive_hit_count = 3;
+  if (this->_internal_fugitive_hit_count() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(3, this->_internal_fugitive_hit_count(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:ProjectJ.S_MATCH_END.FugitiveSummary)
+  return target;
+}
+
+size_t S_MATCH_END_FugitiveSummary::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:ProjectJ.S_MATCH_END.FugitiveSummary)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // bool is_fugitive_escape = 1;
+  if (this->_internal_is_fugitive_escape() != 0) {
+    total_size += 1 + 1;
+  }
+
+  // int32 fugitive_weight = 2;
+  if (this->_internal_fugitive_weight() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_fugitive_weight());
+  }
+
+  // int32 fugitive_hit_count = 3;
+  if (this->_internal_fugitive_hit_count() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_fugitive_hit_count());
+  }
+
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
+}
+
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData S_MATCH_END_FugitiveSummary::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
+    S_MATCH_END_FugitiveSummary::MergeImpl
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*S_MATCH_END_FugitiveSummary::GetClassData() const { return &_class_data_; }
+
+
+void S_MATCH_END_FugitiveSummary::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<S_MATCH_END_FugitiveSummary*>(&to_msg);
+  auto& from = static_cast<const S_MATCH_END_FugitiveSummary&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:ProjectJ.S_MATCH_END.FugitiveSummary)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_is_fugitive_escape() != 0) {
+    _this->_internal_set_is_fugitive_escape(from._internal_is_fugitive_escape());
+  }
+  if (from._internal_fugitive_weight() != 0) {
+    _this->_internal_set_fugitive_weight(from._internal_fugitive_weight());
+  }
+  if (from._internal_fugitive_hit_count() != 0) {
+    _this->_internal_set_fugitive_hit_count(from._internal_fugitive_hit_count());
+  }
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void S_MATCH_END_FugitiveSummary::CopyFrom(const S_MATCH_END_FugitiveSummary& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:ProjectJ.S_MATCH_END.FugitiveSummary)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool S_MATCH_END_FugitiveSummary::IsInitialized() const {
+  return true;
+}
+
+void S_MATCH_END_FugitiveSummary::InternalSwap(S_MATCH_END_FugitiveSummary* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(S_MATCH_END_FugitiveSummary, _impl_.fugitive_hit_count_)
+      + sizeof(S_MATCH_END_FugitiveSummary::_impl_.fugitive_hit_count_)
+      - PROTOBUF_FIELD_OFFSET(S_MATCH_END_FugitiveSummary, _impl_.is_fugitive_escape_)>(
+          reinterpret_cast<char*>(&_impl_.is_fugitive_escape_),
+          reinterpret_cast<char*>(&other->_impl_.is_fugitive_escape_));
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata S_MATCH_END_FugitiveSummary::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
+      &descriptor_table_Message_2eproto_getter, &descriptor_table_Message_2eproto_once,
+      file_level_metadata_Message_2eproto[31]);
+}
+
+// ===================================================================
+
+class S_MATCH_END_ChaserSummary::_Internal {
+ public:
+};
+
+S_MATCH_END_ChaserSummary::S_MATCH_END_ChaserSummary(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:ProjectJ.S_MATCH_END.ChaserSummary)
+}
+S_MATCH_END_ChaserSummary::S_MATCH_END_ChaserSummary(const S_MATCH_END_ChaserSummary& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  S_MATCH_END_ChaserSummary* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.chaser_hit_count_){}
+    , decltype(_impl_.chaser_kill_count_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  ::memcpy(&_impl_.chaser_hit_count_, &from._impl_.chaser_hit_count_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.chaser_kill_count_) -
+    reinterpret_cast<char*>(&_impl_.chaser_hit_count_)) + sizeof(_impl_.chaser_kill_count_));
+  // @@protoc_insertion_point(copy_constructor:ProjectJ.S_MATCH_END.ChaserSummary)
+}
+
+inline void S_MATCH_END_ChaserSummary::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.chaser_hit_count_){0}
+    , decltype(_impl_.chaser_kill_count_){0}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+}
+
+S_MATCH_END_ChaserSummary::~S_MATCH_END_ChaserSummary() {
+  // @@protoc_insertion_point(destructor:ProjectJ.S_MATCH_END.ChaserSummary)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void S_MATCH_END_ChaserSummary::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+}
+
+void S_MATCH_END_ChaserSummary::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void S_MATCH_END_ChaserSummary::Clear() {
+// @@protoc_insertion_point(message_clear_start:ProjectJ.S_MATCH_END.ChaserSummary)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  ::memset(&_impl_.chaser_hit_count_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&_impl_.chaser_kill_count_) -
+      reinterpret_cast<char*>(&_impl_.chaser_hit_count_)) + sizeof(_impl_.chaser_kill_count_));
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* S_MATCH_END_ChaserSummary::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // int32 chaser_hit_count = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          _impl_.chaser_hit_count_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // int32 chaser_kill_count = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+          _impl_.chaser_kill_count_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* S_MATCH_END_ChaserSummary::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:ProjectJ.S_MATCH_END.ChaserSummary)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // int32 chaser_hit_count = 1;
+  if (this->_internal_chaser_hit_count() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(1, this->_internal_chaser_hit_count(), target);
+  }
+
+  // int32 chaser_kill_count = 2;
+  if (this->_internal_chaser_kill_count() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(2, this->_internal_chaser_kill_count(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:ProjectJ.S_MATCH_END.ChaserSummary)
+  return target;
+}
+
+size_t S_MATCH_END_ChaserSummary::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:ProjectJ.S_MATCH_END.ChaserSummary)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // int32 chaser_hit_count = 1;
+  if (this->_internal_chaser_hit_count() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_chaser_hit_count());
+  }
+
+  // int32 chaser_kill_count = 2;
+  if (this->_internal_chaser_kill_count() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_chaser_kill_count());
+  }
+
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
+}
+
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData S_MATCH_END_ChaserSummary::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
+    S_MATCH_END_ChaserSummary::MergeImpl
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*S_MATCH_END_ChaserSummary::GetClassData() const { return &_class_data_; }
+
+
+void S_MATCH_END_ChaserSummary::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<S_MATCH_END_ChaserSummary*>(&to_msg);
+  auto& from = static_cast<const S_MATCH_END_ChaserSummary&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:ProjectJ.S_MATCH_END.ChaserSummary)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_chaser_hit_count() != 0) {
+    _this->_internal_set_chaser_hit_count(from._internal_chaser_hit_count());
+  }
+  if (from._internal_chaser_kill_count() != 0) {
+    _this->_internal_set_chaser_kill_count(from._internal_chaser_kill_count());
+  }
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void S_MATCH_END_ChaserSummary::CopyFrom(const S_MATCH_END_ChaserSummary& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:ProjectJ.S_MATCH_END.ChaserSummary)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool S_MATCH_END_ChaserSummary::IsInitialized() const {
+  return true;
+}
+
+void S_MATCH_END_ChaserSummary::InternalSwap(S_MATCH_END_ChaserSummary* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(S_MATCH_END_ChaserSummary, _impl_.chaser_kill_count_)
+      + sizeof(S_MATCH_END_ChaserSummary::_impl_.chaser_kill_count_)
+      - PROTOBUF_FIELD_OFFSET(S_MATCH_END_ChaserSummary, _impl_.chaser_hit_count_)>(
+          reinterpret_cast<char*>(&_impl_.chaser_hit_count_),
+          reinterpret_cast<char*>(&other->_impl_.chaser_hit_count_));
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata S_MATCH_END_ChaserSummary::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
+      &descriptor_table_Message_2eproto_getter, &descriptor_table_Message_2eproto_once,
+      file_level_metadata_Message_2eproto[32]);
+}
+
+// ===================================================================
+
+class S_MATCH_END::_Internal {
+ public:
+  static const ::ProjectJ::S_MATCH_END_FugitiveSummary& fugitive_summary(const S_MATCH_END* msg);
+  static const ::ProjectJ::S_MATCH_END_ChaserSummary& chaser_summary(const S_MATCH_END* msg);
+};
+
+const ::ProjectJ::S_MATCH_END_FugitiveSummary&
+S_MATCH_END::_Internal::fugitive_summary(const S_MATCH_END* msg) {
+  return *msg->_impl_.summary_.fugitive_summary_;
+}
+const ::ProjectJ::S_MATCH_END_ChaserSummary&
+S_MATCH_END::_Internal::chaser_summary(const S_MATCH_END* msg) {
+  return *msg->_impl_.summary_.chaser_summary_;
+}
+void S_MATCH_END::set_allocated_fugitive_summary(::ProjectJ::S_MATCH_END_FugitiveSummary* fugitive_summary) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  clear_summary();
+  if (fugitive_summary) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(fugitive_summary);
+    if (message_arena != submessage_arena) {
+      fugitive_summary = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, fugitive_summary, submessage_arena);
+    }
+    set_has_fugitive_summary();
+    _impl_.summary_.fugitive_summary_ = fugitive_summary;
+  }
+  // @@protoc_insertion_point(field_set_allocated:ProjectJ.S_MATCH_END.fugitive_summary)
+}
+void S_MATCH_END::set_allocated_chaser_summary(::ProjectJ::S_MATCH_END_ChaserSummary* chaser_summary) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  clear_summary();
+  if (chaser_summary) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(chaser_summary);
+    if (message_arena != submessage_arena) {
+      chaser_summary = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, chaser_summary, submessage_arena);
+    }
+    set_has_chaser_summary();
+    _impl_.summary_.chaser_summary_ = chaser_summary;
+  }
+  // @@protoc_insertion_point(field_set_allocated:ProjectJ.S_MATCH_END.chaser_summary)
+}
 S_MATCH_END::S_MATCH_END(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
@@ -8408,12 +8924,30 @@ S_MATCH_END::S_MATCH_END(const S_MATCH_END& from)
     , decltype(_impl_.score_){}
     , decltype(_impl_.play_tick_){}
     , decltype(_impl_.acquired_item_count_){}
-    , /*decltype(_impl_._cached_size_)*/{}};
+    , decltype(_impl_.summary_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , /*decltype(_impl_._oneof_case_)*/{}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   ::memcpy(&_impl_.player_index_, &from._impl_.player_index_,
     static_cast<size_t>(reinterpret_cast<char*>(&_impl_.acquired_item_count_) -
     reinterpret_cast<char*>(&_impl_.player_index_)) + sizeof(_impl_.acquired_item_count_));
+  clear_has_summary();
+  switch (from.summary_case()) {
+    case kFugitiveSummary: {
+      _this->_internal_mutable_fugitive_summary()->::ProjectJ::S_MATCH_END_FugitiveSummary::MergeFrom(
+          from._internal_fugitive_summary());
+      break;
+    }
+    case kChaserSummary: {
+      _this->_internal_mutable_chaser_summary()->::ProjectJ::S_MATCH_END_ChaserSummary::MergeFrom(
+          from._internal_chaser_summary());
+      break;
+    }
+    case SUMMARY_NOT_SET: {
+      break;
+    }
+  }
   // @@protoc_insertion_point(copy_constructor:ProjectJ.S_MATCH_END)
 }
 
@@ -8426,8 +8960,11 @@ inline void S_MATCH_END::SharedCtor(
     , decltype(_impl_.score_){0}
     , decltype(_impl_.play_tick_){int64_t{0}}
     , decltype(_impl_.acquired_item_count_){0}
+    , decltype(_impl_.summary_){}
     , /*decltype(_impl_._cached_size_)*/{}
+    , /*decltype(_impl_._oneof_case_)*/{}
   };
+  clear_has_summary();
 }
 
 S_MATCH_END::~S_MATCH_END() {
@@ -8441,11 +8978,37 @@ S_MATCH_END::~S_MATCH_END() {
 
 inline void S_MATCH_END::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  if (has_summary()) {
+    clear_summary();
+  }
 }
 
 void S_MATCH_END::SetCachedSize(int size) const {
   _impl_._cached_size_.Set(size);
 }
+
+void S_MATCH_END::clear_summary() {
+// @@protoc_insertion_point(one_of_clear_start:ProjectJ.S_MATCH_END)
+  switch (summary_case()) {
+    case kFugitiveSummary: {
+      if (GetArenaForAllocation() == nullptr) {
+        delete _impl_.summary_.fugitive_summary_;
+      }
+      break;
+    }
+    case kChaserSummary: {
+      if (GetArenaForAllocation() == nullptr) {
+        delete _impl_.summary_.chaser_summary_;
+      }
+      break;
+    }
+    case SUMMARY_NOT_SET: {
+      break;
+    }
+  }
+  _impl_._oneof_case_[0] = SUMMARY_NOT_SET;
+}
+
 
 void S_MATCH_END::Clear() {
 // @@protoc_insertion_point(message_clear_start:ProjectJ.S_MATCH_END)
@@ -8456,6 +9019,7 @@ void S_MATCH_END::Clear() {
   ::memset(&_impl_.player_index_, 0, static_cast<size_t>(
       reinterpret_cast<char*>(&_impl_.acquired_item_count_) -
       reinterpret_cast<char*>(&_impl_.player_index_)) + sizeof(_impl_.acquired_item_count_));
+  clear_summary();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -8493,6 +9057,22 @@ const char* S_MATCH_END::_InternalParse(const char* ptr, ::_pbi::ParseContext* c
       case 4:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
           _impl_.play_tick_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // .ProjectJ.S_MATCH_END.FugitiveSummary fugitive_summary = 5;
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 42)) {
+          ptr = ctx->ParseMessage(_internal_mutable_fugitive_summary(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // .ProjectJ.S_MATCH_END.ChaserSummary chaser_summary = 6;
+      case 6:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 50)) {
+          ptr = ctx->ParseMessage(_internal_mutable_chaser_summary(), ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -8550,6 +9130,20 @@ uint8_t* S_MATCH_END::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteInt64ToArray(4, this->_internal_play_tick(), target);
   }
 
+  // .ProjectJ.S_MATCH_END.FugitiveSummary fugitive_summary = 5;
+  if (_internal_has_fugitive_summary()) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(5, _Internal::fugitive_summary(this),
+        _Internal::fugitive_summary(this).GetCachedSize(), target, stream);
+  }
+
+  // .ProjectJ.S_MATCH_END.ChaserSummary chaser_summary = 6;
+  if (_internal_has_chaser_summary()) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(6, _Internal::chaser_summary(this),
+        _Internal::chaser_summary(this).GetCachedSize(), target, stream);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
@@ -8586,6 +9180,25 @@ size_t S_MATCH_END::ByteSizeLong() const {
     total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_acquired_item_count());
   }
 
+  switch (summary_case()) {
+    // .ProjectJ.S_MATCH_END.FugitiveSummary fugitive_summary = 5;
+    case kFugitiveSummary: {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *_impl_.summary_.fugitive_summary_);
+      break;
+    }
+    // .ProjectJ.S_MATCH_END.ChaserSummary chaser_summary = 6;
+    case kChaserSummary: {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *_impl_.summary_.chaser_summary_);
+      break;
+    }
+    case SUMMARY_NOT_SET: {
+      break;
+    }
+  }
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
@@ -8616,6 +9229,21 @@ void S_MATCH_END::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PR
   if (from._internal_acquired_item_count() != 0) {
     _this->_internal_set_acquired_item_count(from._internal_acquired_item_count());
   }
+  switch (from.summary_case()) {
+    case kFugitiveSummary: {
+      _this->_internal_mutable_fugitive_summary()->::ProjectJ::S_MATCH_END_FugitiveSummary::MergeFrom(
+          from._internal_fugitive_summary());
+      break;
+    }
+    case kChaserSummary: {
+      _this->_internal_mutable_chaser_summary()->::ProjectJ::S_MATCH_END_ChaserSummary::MergeFrom(
+          from._internal_chaser_summary());
+      break;
+    }
+    case SUMMARY_NOT_SET: {
+      break;
+    }
+  }
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
@@ -8639,12 +9267,14 @@ void S_MATCH_END::InternalSwap(S_MATCH_END* other) {
       - PROTOBUF_FIELD_OFFSET(S_MATCH_END, _impl_.player_index_)>(
           reinterpret_cast<char*>(&_impl_.player_index_),
           reinterpret_cast<char*>(&other->_impl_.player_index_));
+  swap(_impl_.summary_, other->_impl_.summary_);
+  swap(_impl_._oneof_case_[0], other->_impl_._oneof_case_[0]);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata S_MATCH_END::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2eproto_getter, &descriptor_table_Message_2eproto_once,
-      file_level_metadata_Message_2eproto[31]);
+      file_level_metadata_Message_2eproto[33]);
 }
 
 // ===================================================================
@@ -8855,7 +9485,7 @@ void C_MATCH_ITEM_PICKUP::InternalSwap(C_MATCH_ITEM_PICKUP* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata C_MATCH_ITEM_PICKUP::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2eproto_getter, &descriptor_table_Message_2eproto_once,
-      file_level_metadata_Message_2eproto[32]);
+      file_level_metadata_Message_2eproto[34]);
 }
 
 // ===================================================================
@@ -9162,7 +9792,7 @@ void C_MATCH_ITEM_MOVE::InternalSwap(C_MATCH_ITEM_MOVE* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata C_MATCH_ITEM_MOVE::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2eproto_getter, &descriptor_table_Message_2eproto_once,
-      file_level_metadata_Message_2eproto[33]);
+      file_level_metadata_Message_2eproto[35]);
 }
 
 // ===================================================================
@@ -9467,7 +10097,7 @@ void C_MATCH_ITEM_DROP::InternalSwap(C_MATCH_ITEM_DROP* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata C_MATCH_ITEM_DROP::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2eproto_getter, &descriptor_table_Message_2eproto_once,
-      file_level_metadata_Message_2eproto[34]);
+      file_level_metadata_Message_2eproto[36]);
 }
 
 // ===================================================================
@@ -9726,7 +10356,7 @@ void S_MATCH_ITEM_SOMEONE_PICKUP::InternalSwap(S_MATCH_ITEM_SOMEONE_PICKUP* othe
 ::PROTOBUF_NAMESPACE_ID::Metadata S_MATCH_ITEM_SOMEONE_PICKUP::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2eproto_getter, &descriptor_table_Message_2eproto_once,
-      file_level_metadata_Message_2eproto[35]);
+      file_level_metadata_Message_2eproto[37]);
 }
 
 // ===================================================================
@@ -10033,7 +10663,7 @@ void S_MATCH_ITEM_SOMEONE_MOVE::InternalSwap(S_MATCH_ITEM_SOMEONE_MOVE* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata S_MATCH_ITEM_SOMEONE_MOVE::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2eproto_getter, &descriptor_table_Message_2eproto_once,
-      file_level_metadata_Message_2eproto[36]);
+      file_level_metadata_Message_2eproto[38]);
 }
 
 // ===================================================================
@@ -10338,7 +10968,7 @@ void S_MATCH_ITEM_SOMEONE_DROP::InternalSwap(S_MATCH_ITEM_SOMEONE_DROP* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata S_MATCH_ITEM_SOMEONE_DROP::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2eproto_getter, &descriptor_table_Message_2eproto_once,
-      file_level_metadata_Message_2eproto[37]);
+      file_level_metadata_Message_2eproto[39]);
 }
 
 // ===================================================================
@@ -10573,7 +11203,7 @@ void S_MATCH_SCALE_ON_CHANGED::InternalSwap(S_MATCH_SCALE_ON_CHANGED* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata S_MATCH_SCALE_ON_CHANGED::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2eproto_getter, &descriptor_table_Message_2eproto_once,
-      file_level_metadata_Message_2eproto[38]);
+      file_level_metadata_Message_2eproto[40]);
 }
 
 // ===================================================================
@@ -10824,7 +11454,7 @@ void C_MATCH_CHASER_ATTACK::InternalSwap(C_MATCH_CHASER_ATTACK* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata C_MATCH_CHASER_ATTACK::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2eproto_getter, &descriptor_table_Message_2eproto_once,
-      file_level_metadata_Message_2eproto[39]);
+      file_level_metadata_Message_2eproto[41]);
 }
 
 // ===================================================================
@@ -11075,7 +11705,7 @@ void S_MATCH_CHASER_ATTACK::InternalSwap(S_MATCH_CHASER_ATTACK* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata S_MATCH_CHASER_ATTACK::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2eproto_getter, &descriptor_table_Message_2eproto_once,
-      file_level_metadata_Message_2eproto[40]);
+      file_level_metadata_Message_2eproto[42]);
 }
 
 // ===================================================================
@@ -11352,7 +11982,7 @@ void C_MATCH_CHASER_HIT::InternalSwap(C_MATCH_CHASER_HIT* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata C_MATCH_CHASER_HIT::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2eproto_getter, &descriptor_table_Message_2eproto_once,
-      file_level_metadata_Message_2eproto[41]);
+      file_level_metadata_Message_2eproto[43]);
 }
 
 // ===================================================================
@@ -11590,7 +12220,7 @@ void S_MATCH_CHASER_HIT::InternalSwap(S_MATCH_CHASER_HIT* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata S_MATCH_CHASER_HIT::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2eproto_getter, &descriptor_table_Message_2eproto_once,
-      file_level_metadata_Message_2eproto[42]);
+      file_level_metadata_Message_2eproto[44]);
 }
 
 // ===================================================================
@@ -11801,290 +12431,7 @@ void C_MATCH_FUGITIVE_ESCAPE::InternalSwap(C_MATCH_FUGITIVE_ESCAPE* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata C_MATCH_FUGITIVE_ESCAPE::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2eproto_getter, &descriptor_table_Message_2eproto_once,
-      file_level_metadata_Message_2eproto[43]);
-}
-
-// ===================================================================
-
-class S_MATCH_FUGITIVE_ESCAPE::_Internal {
- public:
-};
-
-S_MATCH_FUGITIVE_ESCAPE::S_MATCH_FUGITIVE_ESCAPE(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
-  // @@protoc_insertion_point(arena_constructor:ProjectJ.S_MATCH_FUGITIVE_ESCAPE)
-}
-S_MATCH_FUGITIVE_ESCAPE::S_MATCH_FUGITIVE_ESCAPE(const S_MATCH_FUGITIVE_ESCAPE& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message() {
-  S_MATCH_FUGITIVE_ESCAPE* const _this = this; (void)_this;
-  new (&_impl_) Impl_{
-      decltype(_impl_.player_index_){}
-    , decltype(_impl_.score_){}
-    , decltype(_impl_.weight_){}
-    , decltype(_impl_.acquired_item_count_){}
-    , decltype(_impl_.play_tick_){}
-    , /*decltype(_impl_._cached_size_)*/{}};
-
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  ::memcpy(&_impl_.player_index_, &from._impl_.player_index_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.play_tick_) -
-    reinterpret_cast<char*>(&_impl_.player_index_)) + sizeof(_impl_.play_tick_));
-  // @@protoc_insertion_point(copy_constructor:ProjectJ.S_MATCH_FUGITIVE_ESCAPE)
-}
-
-inline void S_MATCH_FUGITIVE_ESCAPE::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
-  (void)arena;
-  (void)is_message_owned;
-  new (&_impl_) Impl_{
-      decltype(_impl_.player_index_){0}
-    , decltype(_impl_.score_){0}
-    , decltype(_impl_.weight_){0}
-    , decltype(_impl_.acquired_item_count_){0}
-    , decltype(_impl_.play_tick_){int64_t{0}}
-    , /*decltype(_impl_._cached_size_)*/{}
-  };
-}
-
-S_MATCH_FUGITIVE_ESCAPE::~S_MATCH_FUGITIVE_ESCAPE() {
-  // @@protoc_insertion_point(destructor:ProjectJ.S_MATCH_FUGITIVE_ESCAPE)
-  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
-  (void)arena;
-    return;
-  }
-  SharedDtor();
-}
-
-inline void S_MATCH_FUGITIVE_ESCAPE::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-}
-
-void S_MATCH_FUGITIVE_ESCAPE::SetCachedSize(int size) const {
-  _impl_._cached_size_.Set(size);
-}
-
-void S_MATCH_FUGITIVE_ESCAPE::Clear() {
-// @@protoc_insertion_point(message_clear_start:ProjectJ.S_MATCH_FUGITIVE_ESCAPE)
-  uint32_t cached_has_bits = 0;
-  // Prevent compiler warnings about cached_has_bits being unused
-  (void) cached_has_bits;
-
-  ::memset(&_impl_.player_index_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&_impl_.play_tick_) -
-      reinterpret_cast<char*>(&_impl_.player_index_)) + sizeof(_impl_.play_tick_));
-  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
-}
-
-const char* S_MATCH_FUGITIVE_ESCAPE::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
-#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
-  while (!ctx->Done(&ptr)) {
-    uint32_t tag;
-    ptr = ::_pbi::ReadTag(ptr, &tag);
-    switch (tag >> 3) {
-      // int32 player_index = 1;
-      case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
-          _impl_.player_index_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      // int32 score = 2;
-      case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
-          _impl_.score_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      // int32 weight = 3;
-      case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
-          _impl_.weight_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      // int32 acquired_item_count = 4;
-      case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
-          _impl_.acquired_item_count_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      // int64 play_tick = 5;
-      case 5:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 40)) {
-          _impl_.play_tick_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      default:
-        goto handle_unusual;
-    }  // switch
-  handle_unusual:
-    if ((tag == 0) || ((tag & 7) == 4)) {
-      CHK_(ptr);
-      ctx->SetLastTag(tag);
-      goto message_done;
-    }
-    ptr = UnknownFieldParse(
-        tag,
-        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
-        ptr, ctx);
-    CHK_(ptr != nullptr);
-  }  // while
-message_done:
-  return ptr;
-failure:
-  ptr = nullptr;
-  goto message_done;
-#undef CHK_
-}
-
-uint8_t* S_MATCH_FUGITIVE_ESCAPE::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:ProjectJ.S_MATCH_FUGITIVE_ESCAPE)
-  uint32_t cached_has_bits = 0;
-  (void) cached_has_bits;
-
-  // int32 player_index = 1;
-  if (this->_internal_player_index() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(1, this->_internal_player_index(), target);
-  }
-
-  // int32 score = 2;
-  if (this->_internal_score() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(2, this->_internal_score(), target);
-  }
-
-  // int32 weight = 3;
-  if (this->_internal_weight() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(3, this->_internal_weight(), target);
-  }
-
-  // int32 acquired_item_count = 4;
-  if (this->_internal_acquired_item_count() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(4, this->_internal_acquired_item_count(), target);
-  }
-
-  // int64 play_tick = 5;
-  if (this->_internal_play_tick() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt64ToArray(5, this->_internal_play_tick(), target);
-  }
-
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
-        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
-  }
-  // @@protoc_insertion_point(serialize_to_array_end:ProjectJ.S_MATCH_FUGITIVE_ESCAPE)
-  return target;
-}
-
-size_t S_MATCH_FUGITIVE_ESCAPE::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:ProjectJ.S_MATCH_FUGITIVE_ESCAPE)
-  size_t total_size = 0;
-
-  uint32_t cached_has_bits = 0;
-  // Prevent compiler warnings about cached_has_bits being unused
-  (void) cached_has_bits;
-
-  // int32 player_index = 1;
-  if (this->_internal_player_index() != 0) {
-    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_player_index());
-  }
-
-  // int32 score = 2;
-  if (this->_internal_score() != 0) {
-    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_score());
-  }
-
-  // int32 weight = 3;
-  if (this->_internal_weight() != 0) {
-    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_weight());
-  }
-
-  // int32 acquired_item_count = 4;
-  if (this->_internal_acquired_item_count() != 0) {
-    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_acquired_item_count());
-  }
-
-  // int64 play_tick = 5;
-  if (this->_internal_play_tick() != 0) {
-    total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(this->_internal_play_tick());
-  }
-
-  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
-}
-
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData S_MATCH_FUGITIVE_ESCAPE::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
-    S_MATCH_FUGITIVE_ESCAPE::MergeImpl
-};
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*S_MATCH_FUGITIVE_ESCAPE::GetClassData() const { return &_class_data_; }
-
-
-void S_MATCH_FUGITIVE_ESCAPE::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
-  auto* const _this = static_cast<S_MATCH_FUGITIVE_ESCAPE*>(&to_msg);
-  auto& from = static_cast<const S_MATCH_FUGITIVE_ESCAPE&>(from_msg);
-  // @@protoc_insertion_point(class_specific_merge_from_start:ProjectJ.S_MATCH_FUGITIVE_ESCAPE)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
-  (void) cached_has_bits;
-
-  if (from._internal_player_index() != 0) {
-    _this->_internal_set_player_index(from._internal_player_index());
-  }
-  if (from._internal_score() != 0) {
-    _this->_internal_set_score(from._internal_score());
-  }
-  if (from._internal_weight() != 0) {
-    _this->_internal_set_weight(from._internal_weight());
-  }
-  if (from._internal_acquired_item_count() != 0) {
-    _this->_internal_set_acquired_item_count(from._internal_acquired_item_count());
-  }
-  if (from._internal_play_tick() != 0) {
-    _this->_internal_set_play_tick(from._internal_play_tick());
-  }
-  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-}
-
-void S_MATCH_FUGITIVE_ESCAPE::CopyFrom(const S_MATCH_FUGITIVE_ESCAPE& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:ProjectJ.S_MATCH_FUGITIVE_ESCAPE)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-bool S_MATCH_FUGITIVE_ESCAPE::IsInitialized() const {
-  return true;
-}
-
-void S_MATCH_FUGITIVE_ESCAPE::InternalSwap(S_MATCH_FUGITIVE_ESCAPE* other) {
-  using std::swap;
-  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(S_MATCH_FUGITIVE_ESCAPE, _impl_.play_tick_)
-      + sizeof(S_MATCH_FUGITIVE_ESCAPE::_impl_.play_tick_)
-      - PROTOBUF_FIELD_OFFSET(S_MATCH_FUGITIVE_ESCAPE, _impl_.player_index_)>(
-          reinterpret_cast<char*>(&_impl_.player_index_),
-          reinterpret_cast<char*>(&other->_impl_.player_index_));
-}
-
-::PROTOBUF_NAMESPACE_ID::Metadata S_MATCH_FUGITIVE_ESCAPE::GetMetadata() const {
-  return ::_pbi::AssignDescriptors(
-      &descriptor_table_Message_2eproto_getter, &descriptor_table_Message_2eproto_once,
-      file_level_metadata_Message_2eproto[44]);
+      file_level_metadata_Message_2eproto[45]);
 }
 
 // ===================================================================
@@ -12335,7 +12682,7 @@ void C_MATCH_CHASER_INSTALL_CCTV::InternalSwap(C_MATCH_CHASER_INSTALL_CCTV* othe
 ::PROTOBUF_NAMESPACE_ID::Metadata C_MATCH_CHASER_INSTALL_CCTV::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2eproto_getter, &descriptor_table_Message_2eproto_once,
-      file_level_metadata_Message_2eproto[45]);
+      file_level_metadata_Message_2eproto[46]);
 }
 
 // ===================================================================
@@ -12586,7 +12933,7 @@ void S_MATCH_CHASER_INSTALL_CCTV::InternalSwap(S_MATCH_CHASER_INSTALL_CCTV* othe
 ::PROTOBUF_NAMESPACE_ID::Metadata S_MATCH_CHASER_INSTALL_CCTV::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2eproto_getter, &descriptor_table_Message_2eproto_once,
-      file_level_metadata_Message_2eproto[46]);
+      file_level_metadata_Message_2eproto[47]);
 }
 
 // ===================================================================
@@ -12764,7 +13111,7 @@ void C_MATCH_LEAVE::InternalSwap(C_MATCH_LEAVE* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata C_MATCH_LEAVE::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2eproto_getter, &descriptor_table_Message_2eproto_once,
-      file_level_metadata_Message_2eproto[47]);
+      file_level_metadata_Message_2eproto[48]);
 }
 
 // ===================================================================
@@ -12942,7 +13289,7 @@ void S_MATCH_LEAVE::InternalSwap(S_MATCH_LEAVE* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata S_MATCH_LEAVE::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2eproto_getter, &descriptor_table_Message_2eproto_once,
-      file_level_metadata_Message_2eproto[48]);
+      file_level_metadata_Message_2eproto[49]);
 }
 
 // @@protoc_insertion_point(namespace_scope)
@@ -13072,6 +13419,14 @@ template<> PROTOBUF_NOINLINE ::ProjectJ::S_MATCH_INFO*
 Arena::CreateMaybeMessage< ::ProjectJ::S_MATCH_INFO >(Arena* arena) {
   return Arena::CreateMessageInternal< ::ProjectJ::S_MATCH_INFO >(arena);
 }
+template<> PROTOBUF_NOINLINE ::ProjectJ::S_MATCH_END_FugitiveSummary*
+Arena::CreateMaybeMessage< ::ProjectJ::S_MATCH_END_FugitiveSummary >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::ProjectJ::S_MATCH_END_FugitiveSummary >(arena);
+}
+template<> PROTOBUF_NOINLINE ::ProjectJ::S_MATCH_END_ChaserSummary*
+Arena::CreateMaybeMessage< ::ProjectJ::S_MATCH_END_ChaserSummary >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::ProjectJ::S_MATCH_END_ChaserSummary >(arena);
+}
 template<> PROTOBUF_NOINLINE ::ProjectJ::S_MATCH_END*
 Arena::CreateMaybeMessage< ::ProjectJ::S_MATCH_END >(Arena* arena) {
   return Arena::CreateMessageInternal< ::ProjectJ::S_MATCH_END >(arena);
@@ -13123,10 +13478,6 @@ Arena::CreateMaybeMessage< ::ProjectJ::S_MATCH_CHASER_HIT >(Arena* arena) {
 template<> PROTOBUF_NOINLINE ::ProjectJ::C_MATCH_FUGITIVE_ESCAPE*
 Arena::CreateMaybeMessage< ::ProjectJ::C_MATCH_FUGITIVE_ESCAPE >(Arena* arena) {
   return Arena::CreateMessageInternal< ::ProjectJ::C_MATCH_FUGITIVE_ESCAPE >(arena);
-}
-template<> PROTOBUF_NOINLINE ::ProjectJ::S_MATCH_FUGITIVE_ESCAPE*
-Arena::CreateMaybeMessage< ::ProjectJ::S_MATCH_FUGITIVE_ESCAPE >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::ProjectJ::S_MATCH_FUGITIVE_ESCAPE >(arena);
 }
 template<> PROTOBUF_NOINLINE ::ProjectJ::C_MATCH_CHASER_INSTALL_CCTV*
 Arena::CreateMaybeMessage< ::ProjectJ::C_MATCH_CHASER_INSTALL_CCTV >(Arena* arena) {
