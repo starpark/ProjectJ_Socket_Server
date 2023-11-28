@@ -40,7 +40,7 @@ class Match : public CommandTaskObject
 	enum : UINT64
 	{
 		START_TIME_OUT = 1000 * 60 * 1,
-		MATCH_END_TICK = 1000 * 60 * 10
+		MATCH_END_TICK = 1000 * 60 * 5
 	};
 
 	enum
@@ -66,6 +66,11 @@ public:
 		CHASER_KILL_SCORE = 500,
 		ACTIVATING_ESCAPE_SCORE = 100,
 		ACTIVATING_ESCAPE_CONTRIBUTION_SCORE = 100,
+	};
+
+	enum : int
+	{
+		DEFAULT_WALK_SPEED = 400
 	};
 
 public:
@@ -104,7 +109,7 @@ public:
 	void FugitiveEscape(const shared_ptr<GameSession>& session, int playerIndex, int scaleIndex);
 	void ChaserInstallCCTV(const shared_ptr<GameSession>& session, const Vector& position, const Rotator& rotation);
 	void PlayerDisconnected(const shared_ptr<GameSession>& session);
-
+	void PlayerLeaveMatch(const shared_ptr<GameSession>& session, int playerIndex);
 
 private:
 	int CalulatePlayerScore(int playerIndex);
@@ -158,6 +163,7 @@ private:
 	atomic<bool> isMatchEnded_ = false;
 	UINT64 matchStartTick_ = 0;
 	UINT64 matchEndTick_ = 0;
+	atomic<UINT64> matchCurrentTick_ = 0;
 	TimePoint matchStartTime_;
 	shared_ptr<Room> ownerRoom_;
 	// 플레이어 인덱스 0 ~ 3

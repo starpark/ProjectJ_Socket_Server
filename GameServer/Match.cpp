@@ -39,6 +39,12 @@ void Match::Tick()
 	{
 		End();
 	}
+	matchCurrentTick_.store(currentTick);
+
+	for (int i = 0; i < 4; i++)
+	{
+		players_[CHASER_INDEX]->CheckAdrenalineEnd(currentTick);
+	}
 
 	{
 		ProjectJ::S_MATCH_INFO sendPacket;
@@ -77,7 +83,7 @@ void Match::Broadcast(shared_ptr<SendBuffer> sendBuffer)
 {
 	for (auto& player : players_)
 	{
-		if (player->GetState() == ProjectJ::DISCONNECTED)
+		if (player->GetState() == ProjectJ::DISCONNECTED || player->GetState() == ProjectJ::ESCAPED)
 		{
 			continue;
 		}
@@ -195,6 +201,7 @@ void Match::Start()
 	matchStartTick_ = GetTickCount64();
 	matchEndTick_ = matchStartTick_ + MATCH_END_TICK;
 	matchStartTime_ = chrono::system_clock::now();
+	matchCurrentTick_.store(matchStartTick_);
 
 	ProjectJ::S_MATCH_START sendPacket;
 	sendPacket.set_current_tick(matchStartTick_);
@@ -293,15 +300,25 @@ void Match::End()
 		GDBConnectionPool->Push(dbConn);
 	}
 
-	ProjectJ::S_MATCH_END sendPacket;
+	for (int i = 0; i < 4; i++)
+	{
+		auto& player = players_[i];
+		if (IsPlayerAlive(player->GetState()))
+		{
+			ProjectJ::S_MATCH_END sendPacket;
 
-	sendPacket.set_chaser_score(scores[CHASER_INDEX]);
-	sendPacket.set_fugitivie_first_score(scores[FUGITIVE_FIRST_INDEX]);
-	sendPacket.set_fugitivie_first_score(scores[FUGITIVE_SECOND_INDEX]);
-	sendPacket.set_fugitivie_first_score(scores[FUGITIVE_THIRD_INDEX]);
+			sendPacket.set_player_index(i);
+			sendPacket.set_score(player->GetScore());
+			sendPacket.set_acquired_item_count(player->GetAcquiredItemCount());
+			sendPacket.set_play_tick(matchCurrentTick_.load() - matchStartTick_);
 
-	auto sendBuffer = GamePacketHandler::MakeSendBuffer(sendPacket);
-	Broadcast(sendBuffer);
+			auto sendBuffer = GamePacketHandler::MakeSendBuffer(sendPacket);
+			if (auto session = player->GetOwnerSession())
+			{
+				session->Send(sendBuffer);
+			}
+		}
+	}
 
 	PlayerBackToRoom();
 	ownerRoom_->DoTaskAsync(&Room::EndMatch);
@@ -364,6 +381,23 @@ void Match::PlayerDisconnected(const shared_ptr<GameSession>& session)
 			}
 
 			return;
+		}
+	}
+}
+
+void Match::PlayerLeaveMatch(const shared_ptr<GameSession>& session, int playerIndex)
+{
+	if (IsPlayer(playerIndex) && players_[playerIndex] == session->GetPlayer())
+	{
+		players_[playerIndex]->SetState(ProjectJ::DISCONNECTED);
+		session->ProcessLeaveMatch();
+
+		if (isMatchStarted_.load() != true)
+		{
+			if (CheckPlayersState())
+			{
+				End();
+			}
 		}
 	}
 }
@@ -613,14 +647,14 @@ void Match::PlayerPickUpItem(const shared_ptr<GameSession>& session, int playerI
 	{
 		item->ownerFlag.store((Item::OWNED_MASK | (playerIndex & Item::OWNER_PLAYER_MASK)), memory_order_release);
 
-		if (item->CheckFirstAdd(player))
+		if (item->CheckFirstAdd(playerIndex))
 		{
 			player->AddScore(PICKUP_NEW_ITEM_SCORE);
 		}
 
 		GLogHelper->Print(LogCategory::LOG_INFO,
-		                  L"Match#%s Player#%d Pick Up Item#%d Item ID: %d\n",
-		                  matchShortGUID_.c_str(), playerIndex, itemIndex, item->id);
+		                  L"Match#%s Player#%d Pick Up Item#%d Item ID: %d Size Row: %d Size Column: %d TopLeft: %d\n",
+		                  matchShortGUID_.c_str(), playerIndex, itemIndex, item->id, item->row, item->column, item->topLeftIndex);
 
 		ProjectJ::S_MATCH_ITEM_SOMEONE_PICKUP sendPacket;
 
@@ -678,12 +712,12 @@ void Match::PlayerMoveItem(const shared_ptr<GameSession>& session, int playerInd
 
 		if (playerIndex == fromIndex)
 		{
-			item->prevOwnedPlayerIndex = player;
+			item->lastOwnedPlayerIndex = playerIndex;
 		}
 
 		if (playerIndex == toIndex)
 		{
-			if (item->CheckFirstAdd(player))
+			if (item->CheckFirstAdd(playerIndex))
 			{
 				player->AddScore(PICKUP_NEW_ITEM_SCORE);
 			}
@@ -719,7 +753,7 @@ void Match::PlayerMoveItem(const shared_ptr<GameSession>& session, int playerInd
 
 			if (isScaleOperating)
 			{
-				scale->CalculateAttribution();
+				scale->CalculateAttribution(players_);
 			}
 		}
 
@@ -738,7 +772,7 @@ void Match::PlayerMoveItem(const shared_ptr<GameSession>& session, int playerInd
 
 			if (isScaleOperating)
 			{
-				scale->CalculateAttribution();
+				scale->CalculateAttribution(players_);
 			}
 		}
 	}
@@ -863,7 +897,11 @@ void Match::HitValidation(const shared_ptr<GameSession>& session, const Vector& 
 
 	float angle = Vector::Angle(chaserVector2D, toTargetVector2D);
 
-	if (angle <= 90.0f && distance <= 100.0f)
+	GLogHelper->Print(LogCategory::LOG_INFO,
+	                  L"Match#%s Chaser Hit Fugitive%d Angle: %f Dist: %f\n",
+	                  matchShortGUID_.c_str(), targetPlayerIndex, angle, distance);
+
+	if (angle <= 90.0f && distance <= 300.0f)
 	{
 		shared_ptr<Player> hitPlayer = players_[targetPlayerIndex];
 		shared_ptr<Player> chaser = players_[CHASER_INDEX];
@@ -891,9 +929,9 @@ void Match::HitValidation(const shared_ptr<GameSession>& session, const Vector& 
 			break;
 		}
 
+		hitPlayer->ActiveAdrenaline(matchCurrentTick_.load() + ADRENALINE_DURATION_TICK);
 		hitPlayer->SetState(changedState);
 		hitPlayer->AddScore(FUGITIVE_HIT_SCORE);
-
 
 		ProjectJ::S_MATCH_CHASER_HIT sendPacket;
 
@@ -921,10 +959,16 @@ void Match::FugitiveEscape(const shared_ptr<GameSession>& session, int playerInd
 		fugitive->AddScore(ESCAPE_SCORE);
 
 		ProjectJ::S_MATCH_FUGITIVE_ESCAPE sendPacket;
-		sendPacket.set_current_tick(GetTickCount64());
-		sendPacket.set_escape_scale_index(scaleIndex);
+
 		sendPacket.set_player_index(playerIndex);
 		sendPacket.set_score(fugitive->GetScore());
+		sendPacket.set_weight(fugitive->GetCurrentWeight());
+		sendPacket.set_acquired_item_count(fugitive->GetAcquiredItemCount());
+		sendPacket.set_play_tick(matchCurrentTick_.load() - matchStartTick_);
+
+
+		auto sendBuffer = GamePacketHandler::MakeSendBuffer(sendPacket);
+		session->Send(sendBuffer);
 	}
 }
 
@@ -932,6 +976,23 @@ void Match::ChaserInstallCCTV(const shared_ptr<GameSession>& session, const Vect
 {
 	if (players_[CHASER_INDEX] != session->GetPlayer() || isMatchStarted_.load() == false)
 	{
+		ProjectJ::S_MATCH_CHASER_INSTALL_CCTV sendPacket;
+		auto installedPosition = new ProjectJ::Vector;
+		auto installedRotation = new ProjectJ::Rotator;
+
+		installedPosition->set_x(position.x_);
+		installedPosition->set_y(position.y_);
+		installedPosition->set_z(position.z_);
+
+		installedRotation->set_pitch(rotation.pitch_);
+		installedRotation->set_roll(rotation.roll_);
+		installedRotation->set_yaw(rotation.yaw_);
+
+		sendPacket.set_allocated_install_position(installedPosition);
+		sendPacket.set_allocated_install_rotation(installedRotation);
+
+		auto sendBuffer = GamePacketHandler::MakeSendBuffer(sendPacket);
+		Broadcast(sendBuffer);
 	}
 }
 
@@ -946,8 +1007,6 @@ void Match::PlayerBackToRoom()
 			{
 				session->ProcessLeaveMatch();
 			}
-
-			players_[i]->SetState(ProjectJ::NONE);
 		}
 	}
 }
