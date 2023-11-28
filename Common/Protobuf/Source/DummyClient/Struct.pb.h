@@ -1600,6 +1600,7 @@ class PlayerInitInfo final :
     kInvSizeRowFieldNumber = 6,
     kInvSizeColunmFieldNumber = 7,
     kInvMaxWeightFieldNumber = 8,
+    kMoveSpeedFieldNumber = 9,
   };
   // .ProjectJ.Player player = 3;
   bool has_player() const;
@@ -1700,6 +1701,15 @@ class PlayerInitInfo final :
   void _internal_set_inv_max_weight(int32_t value);
   public:
 
+  // float move_speed = 9;
+  void clear_move_speed();
+  float move_speed() const;
+  void set_move_speed(float value);
+  private:
+  float _internal_move_speed() const;
+  void _internal_set_move_speed(float value);
+  public:
+
   // @@protoc_insertion_point(class_scope:ProjectJ.PlayerInitInfo)
  private:
   class _Internal;
@@ -1716,6 +1726,7 @@ class PlayerInitInfo final :
     int32_t inv_size_row_;
     int32_t inv_size_colunm_;
     int32_t inv_max_weight_;
+    float move_speed_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -2328,9 +2339,7 @@ class PlayerInfo final :
     kVelocityFieldNumber = 6,
     kStateFieldNumber = 1,
     kPlayerIndexFieldNumber = 2,
-    kInvSizeWidthFieldNumber = 7,
-    kInvSizeHeightFieldNumber = 8,
-    kInvLimitWeightFieldNumber = 9,
+    kMoveSpeedFieldNumber = 7,
   };
   // .ProjectJ.Player player = 3;
   bool has_player() const;
@@ -2422,31 +2431,13 @@ class PlayerInfo final :
   void _internal_set_player_index(int32_t value);
   public:
 
-  // int32 inv_size_width = 7;
-  void clear_inv_size_width();
-  int32_t inv_size_width() const;
-  void set_inv_size_width(int32_t value);
+  // float move_speed = 7;
+  void clear_move_speed();
+  float move_speed() const;
+  void set_move_speed(float value);
   private:
-  int32_t _internal_inv_size_width() const;
-  void _internal_set_inv_size_width(int32_t value);
-  public:
-
-  // int32 inv_size_height = 8;
-  void clear_inv_size_height();
-  int32_t inv_size_height() const;
-  void set_inv_size_height(int32_t value);
-  private:
-  int32_t _internal_inv_size_height() const;
-  void _internal_set_inv_size_height(int32_t value);
-  public:
-
-  // int32 inv_limit_weight = 9;
-  void clear_inv_limit_weight();
-  int32_t inv_limit_weight() const;
-  void set_inv_limit_weight(int32_t value);
-  private:
-  int32_t _internal_inv_limit_weight() const;
-  void _internal_set_inv_limit_weight(int32_t value);
+  float _internal_move_speed() const;
+  void _internal_set_move_speed(float value);
   public:
 
   // @@protoc_insertion_point(class_scope:ProjectJ.PlayerInfo)
@@ -2463,9 +2454,7 @@ class PlayerInfo final :
     ::ProjectJ::Vector* velocity_;
     int state_;
     int32_t player_index_;
-    int32_t inv_size_width_;
-    int32_t inv_size_height_;
-    int32_t inv_limit_weight_;
+    float move_speed_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -4277,6 +4266,26 @@ inline void PlayerInitInfo::set_inv_max_weight(int32_t value) {
   // @@protoc_insertion_point(field_set:ProjectJ.PlayerInitInfo.inv_max_weight)
 }
 
+// float move_speed = 9;
+inline void PlayerInitInfo::clear_move_speed() {
+  _impl_.move_speed_ = 0;
+}
+inline float PlayerInitInfo::_internal_move_speed() const {
+  return _impl_.move_speed_;
+}
+inline float PlayerInitInfo::move_speed() const {
+  // @@protoc_insertion_point(field_get:ProjectJ.PlayerInitInfo.move_speed)
+  return _internal_move_speed();
+}
+inline void PlayerInitInfo::_internal_set_move_speed(float value) {
+  
+  _impl_.move_speed_ = value;
+}
+inline void PlayerInitInfo::set_move_speed(float value) {
+  _internal_set_move_speed(value);
+  // @@protoc_insertion_point(field_set:ProjectJ.PlayerInitInfo.move_speed)
+}
+
 // -------------------------------------------------------------------
 
 // ScaleInitInfo
@@ -5489,64 +5498,24 @@ inline void PlayerInfo::set_allocated_velocity(::ProjectJ::Vector* velocity) {
   // @@protoc_insertion_point(field_set_allocated:ProjectJ.PlayerInfo.velocity)
 }
 
-// int32 inv_size_width = 7;
-inline void PlayerInfo::clear_inv_size_width() {
-  _impl_.inv_size_width_ = 0;
+// float move_speed = 7;
+inline void PlayerInfo::clear_move_speed() {
+  _impl_.move_speed_ = 0;
 }
-inline int32_t PlayerInfo::_internal_inv_size_width() const {
-  return _impl_.inv_size_width_;
+inline float PlayerInfo::_internal_move_speed() const {
+  return _impl_.move_speed_;
 }
-inline int32_t PlayerInfo::inv_size_width() const {
-  // @@protoc_insertion_point(field_get:ProjectJ.PlayerInfo.inv_size_width)
-  return _internal_inv_size_width();
+inline float PlayerInfo::move_speed() const {
+  // @@protoc_insertion_point(field_get:ProjectJ.PlayerInfo.move_speed)
+  return _internal_move_speed();
 }
-inline void PlayerInfo::_internal_set_inv_size_width(int32_t value) {
+inline void PlayerInfo::_internal_set_move_speed(float value) {
   
-  _impl_.inv_size_width_ = value;
+  _impl_.move_speed_ = value;
 }
-inline void PlayerInfo::set_inv_size_width(int32_t value) {
-  _internal_set_inv_size_width(value);
-  // @@protoc_insertion_point(field_set:ProjectJ.PlayerInfo.inv_size_width)
-}
-
-// int32 inv_size_height = 8;
-inline void PlayerInfo::clear_inv_size_height() {
-  _impl_.inv_size_height_ = 0;
-}
-inline int32_t PlayerInfo::_internal_inv_size_height() const {
-  return _impl_.inv_size_height_;
-}
-inline int32_t PlayerInfo::inv_size_height() const {
-  // @@protoc_insertion_point(field_get:ProjectJ.PlayerInfo.inv_size_height)
-  return _internal_inv_size_height();
-}
-inline void PlayerInfo::_internal_set_inv_size_height(int32_t value) {
-  
-  _impl_.inv_size_height_ = value;
-}
-inline void PlayerInfo::set_inv_size_height(int32_t value) {
-  _internal_set_inv_size_height(value);
-  // @@protoc_insertion_point(field_set:ProjectJ.PlayerInfo.inv_size_height)
-}
-
-// int32 inv_limit_weight = 9;
-inline void PlayerInfo::clear_inv_limit_weight() {
-  _impl_.inv_limit_weight_ = 0;
-}
-inline int32_t PlayerInfo::_internal_inv_limit_weight() const {
-  return _impl_.inv_limit_weight_;
-}
-inline int32_t PlayerInfo::inv_limit_weight() const {
-  // @@protoc_insertion_point(field_get:ProjectJ.PlayerInfo.inv_limit_weight)
-  return _internal_inv_limit_weight();
-}
-inline void PlayerInfo::_internal_set_inv_limit_weight(int32_t value) {
-  
-  _impl_.inv_limit_weight_ = value;
-}
-inline void PlayerInfo::set_inv_limit_weight(int32_t value) {
-  _internal_set_inv_limit_weight(value);
-  // @@protoc_insertion_point(field_set:ProjectJ.PlayerInfo.inv_limit_weight)
+inline void PlayerInfo::set_move_speed(float value) {
+  _internal_set_move_speed(value);
+  // @@protoc_insertion_point(field_set:ProjectJ.PlayerInfo.move_speed)
 }
 
 // -------------------------------------------------------------------

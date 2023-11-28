@@ -5505,45 +5505,45 @@ class S_MATCH_END final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kChaserScoreFieldNumber = 1,
-    kFugitivieFirstScoreFieldNumber = 2,
-    kFugitivieSecondScoreFieldNumber = 3,
-    kFugitivieThirdScoreFieldNumber = 4,
+    kPlayerIndexFieldNumber = 1,
+    kScoreFieldNumber = 2,
+    kPlayTickFieldNumber = 4,
+    kAcquiredItemCountFieldNumber = 3,
   };
-  // int32 chaser_score = 1;
-  void clear_chaser_score();
-  int32_t chaser_score() const;
-  void set_chaser_score(int32_t value);
+  // int32 player_index = 1;
+  void clear_player_index();
+  int32_t player_index() const;
+  void set_player_index(int32_t value);
   private:
-  int32_t _internal_chaser_score() const;
-  void _internal_set_chaser_score(int32_t value);
+  int32_t _internal_player_index() const;
+  void _internal_set_player_index(int32_t value);
   public:
 
-  // int32 fugitivie_first_score = 2;
-  void clear_fugitivie_first_score();
-  int32_t fugitivie_first_score() const;
-  void set_fugitivie_first_score(int32_t value);
+  // int32 score = 2;
+  void clear_score();
+  int32_t score() const;
+  void set_score(int32_t value);
   private:
-  int32_t _internal_fugitivie_first_score() const;
-  void _internal_set_fugitivie_first_score(int32_t value);
+  int32_t _internal_score() const;
+  void _internal_set_score(int32_t value);
   public:
 
-  // int32 fugitivie_second_score = 3;
-  void clear_fugitivie_second_score();
-  int32_t fugitivie_second_score() const;
-  void set_fugitivie_second_score(int32_t value);
+  // int64 play_tick = 4;
+  void clear_play_tick();
+  int64_t play_tick() const;
+  void set_play_tick(int64_t value);
   private:
-  int32_t _internal_fugitivie_second_score() const;
-  void _internal_set_fugitivie_second_score(int32_t value);
+  int64_t _internal_play_tick() const;
+  void _internal_set_play_tick(int64_t value);
   public:
 
-  // int32 fugitivie_third_score = 4;
-  void clear_fugitivie_third_score();
-  int32_t fugitivie_third_score() const;
-  void set_fugitivie_third_score(int32_t value);
+  // int32 acquired_item_count = 3;
+  void clear_acquired_item_count();
+  int32_t acquired_item_count() const;
+  void set_acquired_item_count(int32_t value);
   private:
-  int32_t _internal_fugitivie_third_score() const;
-  void _internal_set_fugitivie_third_score(int32_t value);
+  int32_t _internal_acquired_item_count() const;
+  void _internal_set_acquired_item_count(int32_t value);
   public:
 
   // @@protoc_insertion_point(class_scope:ProjectJ.S_MATCH_END)
@@ -5554,10 +5554,10 @@ class S_MATCH_END final :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   struct Impl_ {
-    int32_t chaser_score_;
-    int32_t fugitivie_first_score_;
-    int32_t fugitivie_second_score_;
-    int32_t fugitivie_third_score_;
+    int32_t player_index_;
+    int32_t score_;
+    int64_t play_tick_;
+    int32_t acquired_item_count_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -7872,9 +7872,10 @@ class S_MATCH_FUGITIVE_ESCAPE final :
 
   enum : int {
     kPlayerIndexFieldNumber = 1,
-    kEscapeScaleIndexFieldNumber = 2,
-    kCurrentTickFieldNumber = 4,
-    kScoreFieldNumber = 3,
+    kScoreFieldNumber = 2,
+    kWeightFieldNumber = 3,
+    kAcquiredItemCountFieldNumber = 4,
+    kPlayTickFieldNumber = 5,
   };
   // int32 player_index = 1;
   void clear_player_index();
@@ -7885,31 +7886,40 @@ class S_MATCH_FUGITIVE_ESCAPE final :
   void _internal_set_player_index(int32_t value);
   public:
 
-  // int32 escape_scale_index = 2;
-  void clear_escape_scale_index();
-  int32_t escape_scale_index() const;
-  void set_escape_scale_index(int32_t value);
-  private:
-  int32_t _internal_escape_scale_index() const;
-  void _internal_set_escape_scale_index(int32_t value);
-  public:
-
-  // int64 current_tick = 4;
-  void clear_current_tick();
-  int64_t current_tick() const;
-  void set_current_tick(int64_t value);
-  private:
-  int64_t _internal_current_tick() const;
-  void _internal_set_current_tick(int64_t value);
-  public:
-
-  // int32 score = 3;
+  // int32 score = 2;
   void clear_score();
   int32_t score() const;
   void set_score(int32_t value);
   private:
   int32_t _internal_score() const;
   void _internal_set_score(int32_t value);
+  public:
+
+  // int32 weight = 3;
+  void clear_weight();
+  int32_t weight() const;
+  void set_weight(int32_t value);
+  private:
+  int32_t _internal_weight() const;
+  void _internal_set_weight(int32_t value);
+  public:
+
+  // int32 acquired_item_count = 4;
+  void clear_acquired_item_count();
+  int32_t acquired_item_count() const;
+  void set_acquired_item_count(int32_t value);
+  private:
+  int32_t _internal_acquired_item_count() const;
+  void _internal_set_acquired_item_count(int32_t value);
+  public:
+
+  // int64 play_tick = 5;
+  void clear_play_tick();
+  int64_t play_tick() const;
+  void set_play_tick(int64_t value);
+  private:
+  int64_t _internal_play_tick() const;
+  void _internal_set_play_tick(int64_t value);
   public:
 
   // @@protoc_insertion_point(class_scope:ProjectJ.S_MATCH_FUGITIVE_ESCAPE)
@@ -7921,9 +7931,10 @@ class S_MATCH_FUGITIVE_ESCAPE final :
   typedef void DestructorSkippable_;
   struct Impl_ {
     int32_t player_index_;
-    int32_t escape_scale_index_;
-    int64_t current_tick_;
     int32_t score_;
+    int32_t weight_;
+    int32_t acquired_item_count_;
+    int64_t play_tick_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -11023,84 +11034,84 @@ inline void S_MATCH_INFO::set_allocated_info(::ProjectJ::MatchInfo* info) {
 
 // S_MATCH_END
 
-// int32 chaser_score = 1;
-inline void S_MATCH_END::clear_chaser_score() {
-  _impl_.chaser_score_ = 0;
+// int32 player_index = 1;
+inline void S_MATCH_END::clear_player_index() {
+  _impl_.player_index_ = 0;
 }
-inline int32_t S_MATCH_END::_internal_chaser_score() const {
-  return _impl_.chaser_score_;
+inline int32_t S_MATCH_END::_internal_player_index() const {
+  return _impl_.player_index_;
 }
-inline int32_t S_MATCH_END::chaser_score() const {
-  // @@protoc_insertion_point(field_get:ProjectJ.S_MATCH_END.chaser_score)
-  return _internal_chaser_score();
+inline int32_t S_MATCH_END::player_index() const {
+  // @@protoc_insertion_point(field_get:ProjectJ.S_MATCH_END.player_index)
+  return _internal_player_index();
 }
-inline void S_MATCH_END::_internal_set_chaser_score(int32_t value) {
+inline void S_MATCH_END::_internal_set_player_index(int32_t value) {
   
-  _impl_.chaser_score_ = value;
+  _impl_.player_index_ = value;
 }
-inline void S_MATCH_END::set_chaser_score(int32_t value) {
-  _internal_set_chaser_score(value);
-  // @@protoc_insertion_point(field_set:ProjectJ.S_MATCH_END.chaser_score)
+inline void S_MATCH_END::set_player_index(int32_t value) {
+  _internal_set_player_index(value);
+  // @@protoc_insertion_point(field_set:ProjectJ.S_MATCH_END.player_index)
 }
 
-// int32 fugitivie_first_score = 2;
-inline void S_MATCH_END::clear_fugitivie_first_score() {
-  _impl_.fugitivie_first_score_ = 0;
+// int32 score = 2;
+inline void S_MATCH_END::clear_score() {
+  _impl_.score_ = 0;
 }
-inline int32_t S_MATCH_END::_internal_fugitivie_first_score() const {
-  return _impl_.fugitivie_first_score_;
+inline int32_t S_MATCH_END::_internal_score() const {
+  return _impl_.score_;
 }
-inline int32_t S_MATCH_END::fugitivie_first_score() const {
-  // @@protoc_insertion_point(field_get:ProjectJ.S_MATCH_END.fugitivie_first_score)
-  return _internal_fugitivie_first_score();
+inline int32_t S_MATCH_END::score() const {
+  // @@protoc_insertion_point(field_get:ProjectJ.S_MATCH_END.score)
+  return _internal_score();
 }
-inline void S_MATCH_END::_internal_set_fugitivie_first_score(int32_t value) {
+inline void S_MATCH_END::_internal_set_score(int32_t value) {
   
-  _impl_.fugitivie_first_score_ = value;
+  _impl_.score_ = value;
 }
-inline void S_MATCH_END::set_fugitivie_first_score(int32_t value) {
-  _internal_set_fugitivie_first_score(value);
-  // @@protoc_insertion_point(field_set:ProjectJ.S_MATCH_END.fugitivie_first_score)
+inline void S_MATCH_END::set_score(int32_t value) {
+  _internal_set_score(value);
+  // @@protoc_insertion_point(field_set:ProjectJ.S_MATCH_END.score)
 }
 
-// int32 fugitivie_second_score = 3;
-inline void S_MATCH_END::clear_fugitivie_second_score() {
-  _impl_.fugitivie_second_score_ = 0;
+// int32 acquired_item_count = 3;
+inline void S_MATCH_END::clear_acquired_item_count() {
+  _impl_.acquired_item_count_ = 0;
 }
-inline int32_t S_MATCH_END::_internal_fugitivie_second_score() const {
-  return _impl_.fugitivie_second_score_;
+inline int32_t S_MATCH_END::_internal_acquired_item_count() const {
+  return _impl_.acquired_item_count_;
 }
-inline int32_t S_MATCH_END::fugitivie_second_score() const {
-  // @@protoc_insertion_point(field_get:ProjectJ.S_MATCH_END.fugitivie_second_score)
-  return _internal_fugitivie_second_score();
+inline int32_t S_MATCH_END::acquired_item_count() const {
+  // @@protoc_insertion_point(field_get:ProjectJ.S_MATCH_END.acquired_item_count)
+  return _internal_acquired_item_count();
 }
-inline void S_MATCH_END::_internal_set_fugitivie_second_score(int32_t value) {
+inline void S_MATCH_END::_internal_set_acquired_item_count(int32_t value) {
   
-  _impl_.fugitivie_second_score_ = value;
+  _impl_.acquired_item_count_ = value;
 }
-inline void S_MATCH_END::set_fugitivie_second_score(int32_t value) {
-  _internal_set_fugitivie_second_score(value);
-  // @@protoc_insertion_point(field_set:ProjectJ.S_MATCH_END.fugitivie_second_score)
+inline void S_MATCH_END::set_acquired_item_count(int32_t value) {
+  _internal_set_acquired_item_count(value);
+  // @@protoc_insertion_point(field_set:ProjectJ.S_MATCH_END.acquired_item_count)
 }
 
-// int32 fugitivie_third_score = 4;
-inline void S_MATCH_END::clear_fugitivie_third_score() {
-  _impl_.fugitivie_third_score_ = 0;
+// int64 play_tick = 4;
+inline void S_MATCH_END::clear_play_tick() {
+  _impl_.play_tick_ = int64_t{0};
 }
-inline int32_t S_MATCH_END::_internal_fugitivie_third_score() const {
-  return _impl_.fugitivie_third_score_;
+inline int64_t S_MATCH_END::_internal_play_tick() const {
+  return _impl_.play_tick_;
 }
-inline int32_t S_MATCH_END::fugitivie_third_score() const {
-  // @@protoc_insertion_point(field_get:ProjectJ.S_MATCH_END.fugitivie_third_score)
-  return _internal_fugitivie_third_score();
+inline int64_t S_MATCH_END::play_tick() const {
+  // @@protoc_insertion_point(field_get:ProjectJ.S_MATCH_END.play_tick)
+  return _internal_play_tick();
 }
-inline void S_MATCH_END::_internal_set_fugitivie_third_score(int32_t value) {
+inline void S_MATCH_END::_internal_set_play_tick(int64_t value) {
   
-  _impl_.fugitivie_third_score_ = value;
+  _impl_.play_tick_ = value;
 }
-inline void S_MATCH_END::set_fugitivie_third_score(int32_t value) {
-  _internal_set_fugitivie_third_score(value);
-  // @@protoc_insertion_point(field_set:ProjectJ.S_MATCH_END.fugitivie_third_score)
+inline void S_MATCH_END::set_play_tick(int64_t value) {
+  _internal_set_play_tick(value);
+  // @@protoc_insertion_point(field_set:ProjectJ.S_MATCH_END.play_tick)
 }
 
 // -------------------------------------------------------------------
@@ -12645,27 +12656,7 @@ inline void S_MATCH_FUGITIVE_ESCAPE::set_player_index(int32_t value) {
   // @@protoc_insertion_point(field_set:ProjectJ.S_MATCH_FUGITIVE_ESCAPE.player_index)
 }
 
-// int32 escape_scale_index = 2;
-inline void S_MATCH_FUGITIVE_ESCAPE::clear_escape_scale_index() {
-  _impl_.escape_scale_index_ = 0;
-}
-inline int32_t S_MATCH_FUGITIVE_ESCAPE::_internal_escape_scale_index() const {
-  return _impl_.escape_scale_index_;
-}
-inline int32_t S_MATCH_FUGITIVE_ESCAPE::escape_scale_index() const {
-  // @@protoc_insertion_point(field_get:ProjectJ.S_MATCH_FUGITIVE_ESCAPE.escape_scale_index)
-  return _internal_escape_scale_index();
-}
-inline void S_MATCH_FUGITIVE_ESCAPE::_internal_set_escape_scale_index(int32_t value) {
-  
-  _impl_.escape_scale_index_ = value;
-}
-inline void S_MATCH_FUGITIVE_ESCAPE::set_escape_scale_index(int32_t value) {
-  _internal_set_escape_scale_index(value);
-  // @@protoc_insertion_point(field_set:ProjectJ.S_MATCH_FUGITIVE_ESCAPE.escape_scale_index)
-}
-
-// int32 score = 3;
+// int32 score = 2;
 inline void S_MATCH_FUGITIVE_ESCAPE::clear_score() {
   _impl_.score_ = 0;
 }
@@ -12685,24 +12676,64 @@ inline void S_MATCH_FUGITIVE_ESCAPE::set_score(int32_t value) {
   // @@protoc_insertion_point(field_set:ProjectJ.S_MATCH_FUGITIVE_ESCAPE.score)
 }
 
-// int64 current_tick = 4;
-inline void S_MATCH_FUGITIVE_ESCAPE::clear_current_tick() {
-  _impl_.current_tick_ = int64_t{0};
+// int32 weight = 3;
+inline void S_MATCH_FUGITIVE_ESCAPE::clear_weight() {
+  _impl_.weight_ = 0;
 }
-inline int64_t S_MATCH_FUGITIVE_ESCAPE::_internal_current_tick() const {
-  return _impl_.current_tick_;
+inline int32_t S_MATCH_FUGITIVE_ESCAPE::_internal_weight() const {
+  return _impl_.weight_;
 }
-inline int64_t S_MATCH_FUGITIVE_ESCAPE::current_tick() const {
-  // @@protoc_insertion_point(field_get:ProjectJ.S_MATCH_FUGITIVE_ESCAPE.current_tick)
-  return _internal_current_tick();
+inline int32_t S_MATCH_FUGITIVE_ESCAPE::weight() const {
+  // @@protoc_insertion_point(field_get:ProjectJ.S_MATCH_FUGITIVE_ESCAPE.weight)
+  return _internal_weight();
 }
-inline void S_MATCH_FUGITIVE_ESCAPE::_internal_set_current_tick(int64_t value) {
+inline void S_MATCH_FUGITIVE_ESCAPE::_internal_set_weight(int32_t value) {
   
-  _impl_.current_tick_ = value;
+  _impl_.weight_ = value;
 }
-inline void S_MATCH_FUGITIVE_ESCAPE::set_current_tick(int64_t value) {
-  _internal_set_current_tick(value);
-  // @@protoc_insertion_point(field_set:ProjectJ.S_MATCH_FUGITIVE_ESCAPE.current_tick)
+inline void S_MATCH_FUGITIVE_ESCAPE::set_weight(int32_t value) {
+  _internal_set_weight(value);
+  // @@protoc_insertion_point(field_set:ProjectJ.S_MATCH_FUGITIVE_ESCAPE.weight)
+}
+
+// int32 acquired_item_count = 4;
+inline void S_MATCH_FUGITIVE_ESCAPE::clear_acquired_item_count() {
+  _impl_.acquired_item_count_ = 0;
+}
+inline int32_t S_MATCH_FUGITIVE_ESCAPE::_internal_acquired_item_count() const {
+  return _impl_.acquired_item_count_;
+}
+inline int32_t S_MATCH_FUGITIVE_ESCAPE::acquired_item_count() const {
+  // @@protoc_insertion_point(field_get:ProjectJ.S_MATCH_FUGITIVE_ESCAPE.acquired_item_count)
+  return _internal_acquired_item_count();
+}
+inline void S_MATCH_FUGITIVE_ESCAPE::_internal_set_acquired_item_count(int32_t value) {
+  
+  _impl_.acquired_item_count_ = value;
+}
+inline void S_MATCH_FUGITIVE_ESCAPE::set_acquired_item_count(int32_t value) {
+  _internal_set_acquired_item_count(value);
+  // @@protoc_insertion_point(field_set:ProjectJ.S_MATCH_FUGITIVE_ESCAPE.acquired_item_count)
+}
+
+// int64 play_tick = 5;
+inline void S_MATCH_FUGITIVE_ESCAPE::clear_play_tick() {
+  _impl_.play_tick_ = int64_t{0};
+}
+inline int64_t S_MATCH_FUGITIVE_ESCAPE::_internal_play_tick() const {
+  return _impl_.play_tick_;
+}
+inline int64_t S_MATCH_FUGITIVE_ESCAPE::play_tick() const {
+  // @@protoc_insertion_point(field_get:ProjectJ.S_MATCH_FUGITIVE_ESCAPE.play_tick)
+  return _internal_play_tick();
+}
+inline void S_MATCH_FUGITIVE_ESCAPE::_internal_set_play_tick(int64_t value) {
+  
+  _impl_.play_tick_ = value;
+}
+inline void S_MATCH_FUGITIVE_ESCAPE::set_play_tick(int64_t value) {
+  _internal_set_play_tick(value);
+  // @@protoc_insertion_point(field_set:ProjectJ.S_MATCH_FUGITIVE_ESCAPE.play_tick)
 }
 
 // -------------------------------------------------------------------

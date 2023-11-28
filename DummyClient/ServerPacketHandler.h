@@ -89,7 +89,7 @@ bool Handle_S_MATCH_LEAVE(const shared_ptr<SessionBase>& session, ProjectJ::S_MA
 // 소켓 수신 데이터 처리 및 송신 버퍼 생성 클래스
 // 최초 작성자: 박별
 // 수정자: 
-// 최종 수정일: 2023-11-26 자동 생성
+// 최종 수정일: 2023-11-28 자동 생성
 class ServerPacketHandler
 {
 public:

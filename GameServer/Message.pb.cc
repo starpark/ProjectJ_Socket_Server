@@ -461,10 +461,10 @@ struct S_MATCH_INFODefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 S_MATCH_INFODefaultTypeInternal _S_MATCH_INFO_default_instance_;
 PROTOBUF_CONSTEXPR S_MATCH_END::S_MATCH_END(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.chaser_score_)*/0
-  , /*decltype(_impl_.fugitivie_first_score_)*/0
-  , /*decltype(_impl_.fugitivie_second_score_)*/0
-  , /*decltype(_impl_.fugitivie_third_score_)*/0
+    /*decltype(_impl_.player_index_)*/0
+  , /*decltype(_impl_.score_)*/0
+  , /*decltype(_impl_.play_tick_)*/int64_t{0}
+  , /*decltype(_impl_.acquired_item_count_)*/0
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct S_MATCH_ENDDefaultTypeInternal {
   PROTOBUF_CONSTEXPR S_MATCH_ENDDefaultTypeInternal()
@@ -663,9 +663,10 @@ PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORIT
 PROTOBUF_CONSTEXPR S_MATCH_FUGITIVE_ESCAPE::S_MATCH_FUGITIVE_ESCAPE(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.player_index_)*/0
-  , /*decltype(_impl_.escape_scale_index_)*/0
-  , /*decltype(_impl_.current_tick_)*/int64_t{0}
   , /*decltype(_impl_.score_)*/0
+  , /*decltype(_impl_.weight_)*/0
+  , /*decltype(_impl_.acquired_item_count_)*/0
+  , /*decltype(_impl_.play_tick_)*/int64_t{0}
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct S_MATCH_FUGITIVE_ESCAPEDefaultTypeInternal {
   PROTOBUF_CONSTEXPR S_MATCH_FUGITIVE_ESCAPEDefaultTypeInternal()
@@ -994,10 +995,10 @@ const uint32_t TableStruct_Message_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::ProjectJ::S_MATCH_END, _impl_.chaser_score_),
-  PROTOBUF_FIELD_OFFSET(::ProjectJ::S_MATCH_END, _impl_.fugitivie_first_score_),
-  PROTOBUF_FIELD_OFFSET(::ProjectJ::S_MATCH_END, _impl_.fugitivie_second_score_),
-  PROTOBUF_FIELD_OFFSET(::ProjectJ::S_MATCH_END, _impl_.fugitivie_third_score_),
+  PROTOBUF_FIELD_OFFSET(::ProjectJ::S_MATCH_END, _impl_.player_index_),
+  PROTOBUF_FIELD_OFFSET(::ProjectJ::S_MATCH_END, _impl_.score_),
+  PROTOBUF_FIELD_OFFSET(::ProjectJ::S_MATCH_END, _impl_.acquired_item_count_),
+  PROTOBUF_FIELD_OFFSET(::ProjectJ::S_MATCH_END, _impl_.play_tick_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::ProjectJ::C_MATCH_ITEM_PICKUP, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -1118,9 +1119,10 @@ const uint32_t TableStruct_Message_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
   PROTOBUF_FIELD_OFFSET(::ProjectJ::S_MATCH_FUGITIVE_ESCAPE, _impl_.player_index_),
-  PROTOBUF_FIELD_OFFSET(::ProjectJ::S_MATCH_FUGITIVE_ESCAPE, _impl_.escape_scale_index_),
   PROTOBUF_FIELD_OFFSET(::ProjectJ::S_MATCH_FUGITIVE_ESCAPE, _impl_.score_),
-  PROTOBUF_FIELD_OFFSET(::ProjectJ::S_MATCH_FUGITIVE_ESCAPE, _impl_.current_tick_),
+  PROTOBUF_FIELD_OFFSET(::ProjectJ::S_MATCH_FUGITIVE_ESCAPE, _impl_.weight_),
+  PROTOBUF_FIELD_OFFSET(::ProjectJ::S_MATCH_FUGITIVE_ESCAPE, _impl_.acquired_item_count_),
+  PROTOBUF_FIELD_OFFSET(::ProjectJ::S_MATCH_FUGITIVE_ESCAPE, _impl_.play_tick_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::ProjectJ::C_MATCH_CHASER_INSTALL_CCTV, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -1198,10 +1200,10 @@ static const ::_pbi::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protode
   { 358, -1, -1, sizeof(::ProjectJ::S_MATCH_CHASER_HIT)},
   { 367, -1, -1, sizeof(::ProjectJ::C_MATCH_FUGITIVE_ESCAPE)},
   { 375, -1, -1, sizeof(::ProjectJ::S_MATCH_FUGITIVE_ESCAPE)},
-  { 385, -1, -1, sizeof(::ProjectJ::C_MATCH_CHASER_INSTALL_CCTV)},
-  { 393, -1, -1, sizeof(::ProjectJ::S_MATCH_CHASER_INSTALL_CCTV)},
-  { 401, -1, -1, sizeof(::ProjectJ::C_MATCH_LEAVE)},
-  { 408, -1, -1, sizeof(::ProjectJ::S_MATCH_LEAVE)},
+  { 386, -1, -1, sizeof(::ProjectJ::C_MATCH_CHASER_INSTALL_CCTV)},
+  { 394, -1, -1, sizeof(::ProjectJ::S_MATCH_CHASER_INSTALL_CCTV)},
+  { 402, -1, -1, sizeof(::ProjectJ::C_MATCH_LEAVE)},
+  { 409, -1, -1, sizeof(::ProjectJ::S_MATCH_LEAVE)},
 };
 
 static const ::_pb::Message* const file_default_instances[] = {
@@ -1309,58 +1311,58 @@ const char descriptor_table_protodef_Message_2eproto[] PROTOBUF_SECTION_VARIABLE
   "ectJ.Vector\022#\n\010rotation\030\002 \001(\0132\021.ProjectJ"
   ".Rotator\022\"\n\010Velocity\030\003 \001(\0132\020.ProjectJ.Ve"
   "ctor\"G\n\014S_MATCH_INFO\022\024\n\014current_tick\030\001 \001"
-  "(\004\022!\n\004info\030\002 \001(\0132\023.ProjectJ.MatchInfo\"\201\001"
-  "\n\013S_MATCH_END\022\024\n\014chaser_score\030\001 \001(\005\022\035\n\025f"
-  "ugitivie_first_score\030\002 \001(\005\022\036\n\026fugitivie_"
-  "second_score\030\003 \001(\005\022\035\n\025fugitivie_third_sc"
-  "ore\030\004 \001(\005\"\?\n\023C_MATCH_ITEM_PICKUP\022\024\n\014play"
-  "er_index\030\001 \001(\005\022\022\n\nitem_index\030\002 \001(\005\"\233\001\n\021C"
-  "_MATCH_ITEM_MOVE\022\024\n\014player_index\030\001 \001(\005\022\022"
-  "\n\nfrom_index\030\002 \001(\005\022\020\n\010to_index\030\003 \001(\005\022\022\n\n"
-  "item_index\030\004 \001(\005\022\035\n\025target_top_left_inde"
-  "x\030\005 \001(\005\022\027\n\017is_item_rotated\030\006 \001(\010\"\232\001\n\021C_M"
-  "ATCH_ITEM_DROP\022\024\n\014player_index\030\001 \001(\005\022\022\n\n"
-  "item_index\030\002 \001(\005\022,\n\022drop_item_position\030\003"
-  " \001(\0132\020.ProjectJ.Vector\022-\n\022drop_item_rota"
-  "tion\030\004 \001(\0132\021.ProjectJ.Rotator\"x\n\033S_MATCH"
-  "_ITEM_SOMEONE_PICKUP\022\024\n\014player_index\030\001 \001"
-  "(\005\022\022\n\nitem_index\030\002 \001(\005\022\026\n\016top_left_index"
-  "\030\003 \001(\005\022\027\n\017is_item_rotated\030\004 \001(\010\"\234\001\n\031S_MA"
-  "TCH_ITEM_SOMEONE_MOVE\022\024\n\014player_index\030\001 "
-  "\001(\005\022\022\n\nfrom_index\030\002 \001(\005\022\020\n\010to_index\030\003 \001("
-  "\005\022\022\n\nitem_index\030\004 \001(\005\022\026\n\016top_left_index\030"
-  "\005 \001(\005\022\027\n\017is_item_rotated\030\006 \001(\010\"\242\001\n\031S_MAT"
-  "CH_ITEM_SOMEONE_DROP\022\024\n\014player_index\030\001 \001"
-  "(\005\022\022\n\nitem_index\030\002 \001(\005\022,\n\022drop_item_posi"
-  "tion\030\003 \001(\0132\020.ProjectJ.Vector\022-\n\022drop_ite"
-  "m_rotation\030\004 \001(\0132\021.ProjectJ.Rotator\"]\n\030S"
-  "_MATCH_SCALE_ON_CHANGED\022\023\n\013scale_index\030\001"
-  " \001(\005\022\026\n\016current_weight\030\002 \001(\005\022\024\n\014is_opera"
-  "ting\030\003 \001(\010\"n\n\025C_MATCH_CHASER_ATTACK\022)\n\017a"
+  "(\004\022!\n\004info\030\002 \001(\0132\023.ProjectJ.MatchInfo\"b\n"
+  "\013S_MATCH_END\022\024\n\014player_index\030\001 \001(\005\022\r\n\005sc"
+  "ore\030\002 \001(\005\022\033\n\023acquired_item_count\030\003 \001(\005\022\021"
+  "\n\tplay_tick\030\004 \001(\003\"\?\n\023C_MATCH_ITEM_PICKUP"
+  "\022\024\n\014player_index\030\001 \001(\005\022\022\n\nitem_index\030\002 \001"
+  "(\005\"\233\001\n\021C_MATCH_ITEM_MOVE\022\024\n\014player_index"
+  "\030\001 \001(\005\022\022\n\nfrom_index\030\002 \001(\005\022\020\n\010to_index\030\003"
+  " \001(\005\022\022\n\nitem_index\030\004 \001(\005\022\035\n\025target_top_l"
+  "eft_index\030\005 \001(\005\022\027\n\017is_item_rotated\030\006 \001(\010"
+  "\"\232\001\n\021C_MATCH_ITEM_DROP\022\024\n\014player_index\030\001"
+  " \001(\005\022\022\n\nitem_index\030\002 \001(\005\022,\n\022drop_item_po"
+  "sition\030\003 \001(\0132\020.ProjectJ.Vector\022-\n\022drop_i"
+  "tem_rotation\030\004 \001(\0132\021.ProjectJ.Rotator\"x\n"
+  "\033S_MATCH_ITEM_SOMEONE_PICKUP\022\024\n\014player_i"
+  "ndex\030\001 \001(\005\022\022\n\nitem_index\030\002 \001(\005\022\026\n\016top_le"
+  "ft_index\030\003 \001(\005\022\027\n\017is_item_rotated\030\004 \001(\010\""
+  "\234\001\n\031S_MATCH_ITEM_SOMEONE_MOVE\022\024\n\014player_"
+  "index\030\001 \001(\005\022\022\n\nfrom_index\030\002 \001(\005\022\020\n\010to_in"
+  "dex\030\003 \001(\005\022\022\n\nitem_index\030\004 \001(\005\022\026\n\016top_lef"
+  "t_index\030\005 \001(\005\022\027\n\017is_item_rotated\030\006 \001(\010\"\242"
+  "\001\n\031S_MATCH_ITEM_SOMEONE_DROP\022\024\n\014player_i"
+  "ndex\030\001 \001(\005\022\022\n\nitem_index\030\002 \001(\005\022,\n\022drop_i"
+  "tem_position\030\003 \001(\0132\020.ProjectJ.Vector\022-\n\022"
+  "drop_item_rotation\030\004 \001(\0132\021.ProjectJ.Rota"
+  "tor\"]\n\030S_MATCH_SCALE_ON_CHANGED\022\023\n\013scale"
+  "_index\030\001 \001(\005\022\026\n\016current_weight\030\002 \001(\005\022\024\n\014"
+  "is_operating\030\003 \001(\010\"n\n\025C_MATCH_CHASER_ATT"
+  "ACK\022)\n\017attack_position\030\001 \001(\0132\020.ProjectJ."
+  "Vector\022*\n\017attack_rotation\030\002 \001(\0132\021.Projec"
+  "tJ.Rotator\"n\n\025S_MATCH_CHASER_ATTACK\022)\n\017a"
   "ttack_position\030\001 \001(\0132\020.ProjectJ.Vector\022*"
   "\n\017attack_rotation\030\002 \001(\0132\021.ProjectJ.Rotat"
-  "or\"n\n\025S_MATCH_CHASER_ATTACK\022)\n\017attack_po"
-  "sition\030\001 \001(\0132\020.ProjectJ.Vector\022*\n\017attack"
-  "_rotation\030\002 \001(\0132\021.ProjectJ.Rotator\"\205\001\n\022C"
-  "_MATCH_CHASER_HIT\022)\n\017attack_position\030\001 \001"
-  "(\0132\020.ProjectJ.Vector\022*\n\017attack_rotation\030"
-  "\002 \001(\0132\021.ProjectJ.Rotator\022\030\n\020hit_player_i"
-  "ndex\030\003 \001(\005\"q\n\022S_MATCH_CHASER_HIT\022\016\n\006resu"
-  "lt\030\001 \001(\010\022\030\n\020hit_player_index\030\002 \001(\005\0221\n\rch"
-  "anged_state\030\003 \001(\0162\032.ProjectJ.MatchPlayer"
-  "State\"K\n\027C_MATCH_FUGITIVE_ESCAPE\022\024\n\014play"
-  "er_index\030\001 \001(\005\022\032\n\022escape_scale_index\030\002 \001"
-  "(\005\"p\n\027S_MATCH_FUGITIVE_ESCAPE\022\024\n\014player_"
-  "index\030\001 \001(\005\022\032\n\022escape_scale_index\030\002 \001(\005\022"
-  "\r\n\005score\030\003 \001(\005\022\024\n\014current_tick\030\004 \001(\003\"v\n\033"
-  "C_MATCH_CHASER_INSTALL_CCTV\022*\n\020install_p"
-  "osition\030\001 \001(\0132\020.ProjectJ.Vector\022+\n\020insta"
-  "ll_rotation\030\002 \001(\0132\021.ProjectJ.Rotator\"v\n\033"
-  "S_MATCH_CHASER_INSTALL_CCTV\022*\n\020install_p"
-  "osition\030\001 \001(\0132\020.ProjectJ.Vector\022+\n\020insta"
-  "ll_rotation\030\002 \001(\0132\021.ProjectJ.Rotator\"%\n\r"
-  "C_MATCH_LEAVE\022\024\n\014player_index\030\001 \001(\005\"\037\n\rS"
-  "_MATCH_LEAVE\022\016\n\006result\030\001 \001(\010b\006proto3"
+  "or\"\205\001\n\022C_MATCH_CHASER_HIT\022)\n\017attack_posi"
+  "tion\030\001 \001(\0132\020.ProjectJ.Vector\022*\n\017attack_r"
+  "otation\030\002 \001(\0132\021.ProjectJ.Rotator\022\030\n\020hit_"
+  "player_index\030\003 \001(\005\"q\n\022S_MATCH_CHASER_HIT"
+  "\022\016\n\006result\030\001 \001(\010\022\030\n\020hit_player_index\030\002 \001"
+  "(\005\0221\n\rchanged_state\030\003 \001(\0162\032.ProjectJ.Mat"
+  "chPlayerState\"K\n\027C_MATCH_FUGITIVE_ESCAPE"
+  "\022\024\n\014player_index\030\001 \001(\005\022\032\n\022escape_scale_i"
+  "ndex\030\002 \001(\005\"~\n\027S_MATCH_FUGITIVE_ESCAPE\022\024\n"
+  "\014player_index\030\001 \001(\005\022\r\n\005score\030\002 \001(\005\022\016\n\006we"
+  "ight\030\003 \001(\005\022\033\n\023acquired_item_count\030\004 \001(\005\022"
+  "\021\n\tplay_tick\030\005 \001(\003\"v\n\033C_MATCH_CHASER_INS"
+  "TALL_CCTV\022*\n\020install_position\030\001 \001(\0132\020.Pr"
+  "ojectJ.Vector\022+\n\020install_rotation\030\002 \001(\0132"
+  "\021.ProjectJ.Rotator\"v\n\033S_MATCH_CHASER_INS"
+  "TALL_CCTV\022*\n\020install_position\030\001 \001(\0132\020.Pr"
+  "ojectJ.Vector\022+\n\020install_rotation\030\002 \001(\0132"
+  "\021.ProjectJ.Rotator\"%\n\rC_MATCH_LEAVE\022\024\n\014p"
+  "layer_index\030\001 \001(\005\"\037\n\rS_MATCH_LEAVE\022\016\n\006re"
+  "sult\030\001 \001(\010b\006proto3"
   ;
 static const ::_pbi::DescriptorTable* const descriptor_table_Message_2eproto_deps[2] = {
   &::descriptor_table_Enum_2eproto,
@@ -1368,7 +1370,7 @@ static const ::_pbi::DescriptorTable* const descriptor_table_Message_2eproto_dep
 };
 static ::_pbi::once_flag descriptor_table_Message_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_Message_2eproto = {
-    false, false, 4156, descriptor_table_protodef_Message_2eproto,
+    false, false, 4138, descriptor_table_protodef_Message_2eproto,
     "Message.proto",
     &descriptor_table_Message_2eproto_once, descriptor_table_Message_2eproto_deps, 2, 49,
     schemas, file_default_instances, TableStruct_Message_2eproto::offsets,
@@ -8402,16 +8404,16 @@ S_MATCH_END::S_MATCH_END(const S_MATCH_END& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
   S_MATCH_END* const _this = this; (void)_this;
   new (&_impl_) Impl_{
-      decltype(_impl_.chaser_score_){}
-    , decltype(_impl_.fugitivie_first_score_){}
-    , decltype(_impl_.fugitivie_second_score_){}
-    , decltype(_impl_.fugitivie_third_score_){}
+      decltype(_impl_.player_index_){}
+    , decltype(_impl_.score_){}
+    , decltype(_impl_.play_tick_){}
+    , decltype(_impl_.acquired_item_count_){}
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  ::memcpy(&_impl_.chaser_score_, &from._impl_.chaser_score_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.fugitivie_third_score_) -
-    reinterpret_cast<char*>(&_impl_.chaser_score_)) + sizeof(_impl_.fugitivie_third_score_));
+  ::memcpy(&_impl_.player_index_, &from._impl_.player_index_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.acquired_item_count_) -
+    reinterpret_cast<char*>(&_impl_.player_index_)) + sizeof(_impl_.acquired_item_count_));
   // @@protoc_insertion_point(copy_constructor:ProjectJ.S_MATCH_END)
 }
 
@@ -8420,10 +8422,10 @@ inline void S_MATCH_END::SharedCtor(
   (void)arena;
   (void)is_message_owned;
   new (&_impl_) Impl_{
-      decltype(_impl_.chaser_score_){0}
-    , decltype(_impl_.fugitivie_first_score_){0}
-    , decltype(_impl_.fugitivie_second_score_){0}
-    , decltype(_impl_.fugitivie_third_score_){0}
+      decltype(_impl_.player_index_){0}
+    , decltype(_impl_.score_){0}
+    , decltype(_impl_.play_tick_){int64_t{0}}
+    , decltype(_impl_.acquired_item_count_){0}
     , /*decltype(_impl_._cached_size_)*/{}
   };
 }
@@ -8451,9 +8453,9 @@ void S_MATCH_END::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  ::memset(&_impl_.chaser_score_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&_impl_.fugitivie_third_score_) -
-      reinterpret_cast<char*>(&_impl_.chaser_score_)) + sizeof(_impl_.fugitivie_third_score_));
+  ::memset(&_impl_.player_index_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&_impl_.acquired_item_count_) -
+      reinterpret_cast<char*>(&_impl_.player_index_)) + sizeof(_impl_.acquired_item_count_));
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -8463,34 +8465,34 @@ const char* S_MATCH_END::_InternalParse(const char* ptr, ::_pbi::ParseContext* c
     uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // int32 chaser_score = 1;
+      // int32 player_index = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
-          _impl_.chaser_score_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.player_index_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
-      // int32 fugitivie_first_score = 2;
+      // int32 score = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
-          _impl_.fugitivie_first_score_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.score_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
-      // int32 fugitivie_second_score = 3;
+      // int32 acquired_item_count = 3;
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
-          _impl_.fugitivie_second_score_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.acquired_item_count_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
-      // int32 fugitivie_third_score = 4;
+      // int64 play_tick = 4;
       case 4:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
-          _impl_.fugitivie_third_score_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.play_tick_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -8524,28 +8526,28 @@ uint8_t* S_MATCH_END::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // int32 chaser_score = 1;
-  if (this->_internal_chaser_score() != 0) {
+  // int32 player_index = 1;
+  if (this->_internal_player_index() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(1, this->_internal_chaser_score(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(1, this->_internal_player_index(), target);
   }
 
-  // int32 fugitivie_first_score = 2;
-  if (this->_internal_fugitivie_first_score() != 0) {
+  // int32 score = 2;
+  if (this->_internal_score() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(2, this->_internal_fugitivie_first_score(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(2, this->_internal_score(), target);
   }
 
-  // int32 fugitivie_second_score = 3;
-  if (this->_internal_fugitivie_second_score() != 0) {
+  // int32 acquired_item_count = 3;
+  if (this->_internal_acquired_item_count() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(3, this->_internal_fugitivie_second_score(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(3, this->_internal_acquired_item_count(), target);
   }
 
-  // int32 fugitivie_third_score = 4;
-  if (this->_internal_fugitivie_third_score() != 0) {
+  // int64 play_tick = 4;
+  if (this->_internal_play_tick() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(4, this->_internal_fugitivie_third_score(), target);
+    target = ::_pbi::WireFormatLite::WriteInt64ToArray(4, this->_internal_play_tick(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -8564,24 +8566,24 @@ size_t S_MATCH_END::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // int32 chaser_score = 1;
-  if (this->_internal_chaser_score() != 0) {
-    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_chaser_score());
+  // int32 player_index = 1;
+  if (this->_internal_player_index() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_player_index());
   }
 
-  // int32 fugitivie_first_score = 2;
-  if (this->_internal_fugitivie_first_score() != 0) {
-    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_fugitivie_first_score());
+  // int32 score = 2;
+  if (this->_internal_score() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_score());
   }
 
-  // int32 fugitivie_second_score = 3;
-  if (this->_internal_fugitivie_second_score() != 0) {
-    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_fugitivie_second_score());
+  // int64 play_tick = 4;
+  if (this->_internal_play_tick() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(this->_internal_play_tick());
   }
 
-  // int32 fugitivie_third_score = 4;
-  if (this->_internal_fugitivie_third_score() != 0) {
-    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_fugitivie_third_score());
+  // int32 acquired_item_count = 3;
+  if (this->_internal_acquired_item_count() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_acquired_item_count());
   }
 
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
@@ -8602,17 +8604,17 @@ void S_MATCH_END::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PR
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from._internal_chaser_score() != 0) {
-    _this->_internal_set_chaser_score(from._internal_chaser_score());
+  if (from._internal_player_index() != 0) {
+    _this->_internal_set_player_index(from._internal_player_index());
   }
-  if (from._internal_fugitivie_first_score() != 0) {
-    _this->_internal_set_fugitivie_first_score(from._internal_fugitivie_first_score());
+  if (from._internal_score() != 0) {
+    _this->_internal_set_score(from._internal_score());
   }
-  if (from._internal_fugitivie_second_score() != 0) {
-    _this->_internal_set_fugitivie_second_score(from._internal_fugitivie_second_score());
+  if (from._internal_play_tick() != 0) {
+    _this->_internal_set_play_tick(from._internal_play_tick());
   }
-  if (from._internal_fugitivie_third_score() != 0) {
-    _this->_internal_set_fugitivie_third_score(from._internal_fugitivie_third_score());
+  if (from._internal_acquired_item_count() != 0) {
+    _this->_internal_set_acquired_item_count(from._internal_acquired_item_count());
   }
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
@@ -8632,11 +8634,11 @@ void S_MATCH_END::InternalSwap(S_MATCH_END* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(S_MATCH_END, _impl_.fugitivie_third_score_)
-      + sizeof(S_MATCH_END::_impl_.fugitivie_third_score_)
-      - PROTOBUF_FIELD_OFFSET(S_MATCH_END, _impl_.chaser_score_)>(
-          reinterpret_cast<char*>(&_impl_.chaser_score_),
-          reinterpret_cast<char*>(&other->_impl_.chaser_score_));
+      PROTOBUF_FIELD_OFFSET(S_MATCH_END, _impl_.acquired_item_count_)
+      + sizeof(S_MATCH_END::_impl_.acquired_item_count_)
+      - PROTOBUF_FIELD_OFFSET(S_MATCH_END, _impl_.player_index_)>(
+          reinterpret_cast<char*>(&_impl_.player_index_),
+          reinterpret_cast<char*>(&other->_impl_.player_index_));
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata S_MATCH_END::GetMetadata() const {
@@ -11819,15 +11821,16 @@ S_MATCH_FUGITIVE_ESCAPE::S_MATCH_FUGITIVE_ESCAPE(const S_MATCH_FUGITIVE_ESCAPE& 
   S_MATCH_FUGITIVE_ESCAPE* const _this = this; (void)_this;
   new (&_impl_) Impl_{
       decltype(_impl_.player_index_){}
-    , decltype(_impl_.escape_scale_index_){}
-    , decltype(_impl_.current_tick_){}
     , decltype(_impl_.score_){}
+    , decltype(_impl_.weight_){}
+    , decltype(_impl_.acquired_item_count_){}
+    , decltype(_impl_.play_tick_){}
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   ::memcpy(&_impl_.player_index_, &from._impl_.player_index_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.score_) -
-    reinterpret_cast<char*>(&_impl_.player_index_)) + sizeof(_impl_.score_));
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.play_tick_) -
+    reinterpret_cast<char*>(&_impl_.player_index_)) + sizeof(_impl_.play_tick_));
   // @@protoc_insertion_point(copy_constructor:ProjectJ.S_MATCH_FUGITIVE_ESCAPE)
 }
 
@@ -11837,9 +11840,10 @@ inline void S_MATCH_FUGITIVE_ESCAPE::SharedCtor(
   (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_.player_index_){0}
-    , decltype(_impl_.escape_scale_index_){0}
-    , decltype(_impl_.current_tick_){int64_t{0}}
     , decltype(_impl_.score_){0}
+    , decltype(_impl_.weight_){0}
+    , decltype(_impl_.acquired_item_count_){0}
+    , decltype(_impl_.play_tick_){int64_t{0}}
     , /*decltype(_impl_._cached_size_)*/{}
   };
 }
@@ -11868,8 +11872,8 @@ void S_MATCH_FUGITIVE_ESCAPE::Clear() {
   (void) cached_has_bits;
 
   ::memset(&_impl_.player_index_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&_impl_.score_) -
-      reinterpret_cast<char*>(&_impl_.player_index_)) + sizeof(_impl_.score_));
+      reinterpret_cast<char*>(&_impl_.play_tick_) -
+      reinterpret_cast<char*>(&_impl_.player_index_)) + sizeof(_impl_.play_tick_));
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -11887,26 +11891,34 @@ const char* S_MATCH_FUGITIVE_ESCAPE::_InternalParse(const char* ptr, ::_pbi::Par
         } else
           goto handle_unusual;
         continue;
-      // int32 escape_scale_index = 2;
+      // int32 score = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
-          _impl_.escape_scale_index_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      // int32 score = 3;
-      case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
           _impl_.score_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
-      // int64 current_tick = 4;
+      // int32 weight = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+          _impl_.weight_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // int32 acquired_item_count = 4;
       case 4:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
-          _impl_.current_tick_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.acquired_item_count_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // int64 play_tick = 5;
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 40)) {
+          _impl_.play_tick_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -11946,22 +11958,28 @@ uint8_t* S_MATCH_FUGITIVE_ESCAPE::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteInt32ToArray(1, this->_internal_player_index(), target);
   }
 
-  // int32 escape_scale_index = 2;
-  if (this->_internal_escape_scale_index() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(2, this->_internal_escape_scale_index(), target);
-  }
-
-  // int32 score = 3;
+  // int32 score = 2;
   if (this->_internal_score() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(3, this->_internal_score(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(2, this->_internal_score(), target);
   }
 
-  // int64 current_tick = 4;
-  if (this->_internal_current_tick() != 0) {
+  // int32 weight = 3;
+  if (this->_internal_weight() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt64ToArray(4, this->_internal_current_tick(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(3, this->_internal_weight(), target);
+  }
+
+  // int32 acquired_item_count = 4;
+  if (this->_internal_acquired_item_count() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(4, this->_internal_acquired_item_count(), target);
+  }
+
+  // int64 play_tick = 5;
+  if (this->_internal_play_tick() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt64ToArray(5, this->_internal_play_tick(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -11985,19 +12003,24 @@ size_t S_MATCH_FUGITIVE_ESCAPE::ByteSizeLong() const {
     total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_player_index());
   }
 
-  // int32 escape_scale_index = 2;
-  if (this->_internal_escape_scale_index() != 0) {
-    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_escape_scale_index());
-  }
-
-  // int64 current_tick = 4;
-  if (this->_internal_current_tick() != 0) {
-    total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(this->_internal_current_tick());
-  }
-
-  // int32 score = 3;
+  // int32 score = 2;
   if (this->_internal_score() != 0) {
     total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_score());
+  }
+
+  // int32 weight = 3;
+  if (this->_internal_weight() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_weight());
+  }
+
+  // int32 acquired_item_count = 4;
+  if (this->_internal_acquired_item_count() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_acquired_item_count());
+  }
+
+  // int64 play_tick = 5;
+  if (this->_internal_play_tick() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(this->_internal_play_tick());
   }
 
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
@@ -12021,14 +12044,17 @@ void S_MATCH_FUGITIVE_ESCAPE::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg
   if (from._internal_player_index() != 0) {
     _this->_internal_set_player_index(from._internal_player_index());
   }
-  if (from._internal_escape_scale_index() != 0) {
-    _this->_internal_set_escape_scale_index(from._internal_escape_scale_index());
-  }
-  if (from._internal_current_tick() != 0) {
-    _this->_internal_set_current_tick(from._internal_current_tick());
-  }
   if (from._internal_score() != 0) {
     _this->_internal_set_score(from._internal_score());
+  }
+  if (from._internal_weight() != 0) {
+    _this->_internal_set_weight(from._internal_weight());
+  }
+  if (from._internal_acquired_item_count() != 0) {
+    _this->_internal_set_acquired_item_count(from._internal_acquired_item_count());
+  }
+  if (from._internal_play_tick() != 0) {
+    _this->_internal_set_play_tick(from._internal_play_tick());
   }
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
@@ -12048,8 +12074,8 @@ void S_MATCH_FUGITIVE_ESCAPE::InternalSwap(S_MATCH_FUGITIVE_ESCAPE* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(S_MATCH_FUGITIVE_ESCAPE, _impl_.score_)
-      + sizeof(S_MATCH_FUGITIVE_ESCAPE::_impl_.score_)
+      PROTOBUF_FIELD_OFFSET(S_MATCH_FUGITIVE_ESCAPE, _impl_.play_tick_)
+      + sizeof(S_MATCH_FUGITIVE_ESCAPE::_impl_.play_tick_)
       - PROTOBUF_FIELD_OFFSET(S_MATCH_FUGITIVE_ESCAPE, _impl_.player_index_)>(
           reinterpret_cast<char*>(&_impl_.player_index_),
           reinterpret_cast<char*>(&other->_impl_.player_index_));

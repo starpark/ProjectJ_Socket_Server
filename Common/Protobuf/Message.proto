@@ -200,10 +200,10 @@ message S_MATCH_INFO
 
 message S_MATCH_END
 {
-	int32 chaser_score = 1;
-	int32 fugitivie_first_score = 2;
-	int32 fugitivie_second_score = 3;
-	int32 fugitivie_third_score = 4;
+	int32 player_index = 1;
+	int32 score = 2;	
+	int32 acquired_item_count = 3;
+	int64 play_tick = 4;
 }
 
 message C_MATCH_ITEM_PICKUP
@@ -298,9 +298,10 @@ message C_MATCH_FUGITIVE_ESCAPE
 message S_MATCH_FUGITIVE_ESCAPE
 {
 	int32 player_index = 1;
-	int32 escape_scale_index = 2;
-	int32 score = 3;	
-	int64 current_tick = 4;
+	int32 score = 2;	
+	int32 weight = 3;
+	int32 acquired_item_count = 4;
+	int64 play_tick = 5;
 }
 
 message C_MATCH_CHASER_INSTALL_CCTV

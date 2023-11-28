@@ -70,6 +70,7 @@ message PlayerInitInfo
 	int32 inv_size_row = 6;
 	int32 inv_size_colunm = 7;
 	int32 inv_max_weight = 8;
+	float move_speed = 9;
 }
 
 message ScaleInitInfo
@@ -101,9 +102,7 @@ message PlayerInfo
 	Vector position = 4;
 	Rotator rotation = 5;
 	Vector velocity = 6;
-	int32 inv_size_width = 7;
-	int32 inv_size_height = 8;
-	int32 inv_limit_weight = 9;
+	float move_speed = 7;
 }
 
 message MatchInfo
