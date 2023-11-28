@@ -18,7 +18,7 @@ class Inventory : public enable_shared_from_this<Inventory>
 {
 	enum
 	{
-		EMPTY_ITEM_ID = 0,
+		EMPTY_ITEM_ID = -1,
 	};
 
 public:
@@ -28,22 +28,22 @@ public:
 public:
 	mutex& GetLock() { return lock_; }
 	shared_ptr<Inventory> GetInventory() { return shared_from_this(); }
-	int GetCurrentWeight() const { return currentWeight_; }
+	int GetCurrentWeight() const { return currentWeight_.load(); }
 	int GetMaxWeight() const { return maxWeight_; }
 	int GetIndex() const { return index_; }
 	int GetItemsCount() const { return owningItems_.size(); }
 	int GetRow() const { return row_; }
 	int GetColumn() const { return column_; }
 
-	InventoryErrorCode TryAddItem(const shared_ptr<Item>& item);
-	InventoryErrorCode RelocateItem(const shared_ptr<Inventory>& to, const shared_ptr<Item>& item, int slotIndex, bool isRotated);
-	InventoryErrorCode DropItem(const shared_ptr<Item>& item, Vector position, Rotator rotation);
+	virtual InventoryErrorCode TryAddItem(const shared_ptr<Item>& item);
+	virtual InventoryErrorCode RelocateItem(const shared_ptr<Inventory>& to, const shared_ptr<Item>& item, int slotIndex, bool isRotated);
+	virtual InventoryErrorCode DropItem(const shared_ptr<Item>& item, Vector position, Rotator rotation);
 	static const wchar_t* GetErrorWhat(InventoryErrorCode errorCode);
 
 protected:
 	Point IndexToPoint(int index) { return {index % column_, index / column_}; }
 	int PointToIndex(Point tile) { return tile.x + tile.y * column_; }
-	virtual bool CheckWeightLimit(int weight) { return weight + currentWeight_ <= maxWeight_; }
+	virtual bool CheckWeightLimit(int weight) { return weight + currentWeight_.load() <= maxWeight_; }
 	virtual bool CheckValidSlot(const shared_ptr<Item>& item, int slotIndex, bool isRotated);
 	bool CheckValidPoint(int column, int row);
 	void AddItemAt(const shared_ptr<Item>& item, int slotIndex);
@@ -58,7 +58,7 @@ protected:
 	int index_;
 	int row_;
 	int column_;
-	int currentWeight_;
+	atomic<int> currentWeight_;
 	int maxWeight_;
 	weak_ptr<Player> ownerPlayer;
 	vector<int> inventorySlots_;

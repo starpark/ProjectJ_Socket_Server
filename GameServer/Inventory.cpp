@@ -208,13 +208,13 @@ void Inventory::PickUpItem(shared_ptr<Item> item)
 void Inventory::AcquireItem(const shared_ptr<Item>& item)
 {
 	owningItems_.insert({item->index, item});
-	currentWeight_ += item->weight;
+	currentWeight_.fetch_add(item->weight);
 }
 
 void Inventory::ReleaseItem(const shared_ptr<Item>& item)
 {
 	owningItems_.erase(item->index);
-	currentWeight_ -= item->weight;
+	currentWeight_.fetch_sub(item->weight);
 }
 
 void Inventory::PrintInventory()
