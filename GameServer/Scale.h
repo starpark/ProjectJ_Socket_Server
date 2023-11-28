@@ -16,7 +16,7 @@ public:
 	bool IsOperating();
 	int GetOperatingWeight() const { return operatingWeight_; }
 	int GetTolerance() const { return tolerance_; }
-	void CalculateAttribution();
+	void CalculateAttribution(const vector<shared_ptr<Player>>& players);
 
 private:
 	bool CheckIsOperated() final { return IsOperating(); }

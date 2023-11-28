@@ -19,13 +19,13 @@ bool Scale::IsOperating()
 	return isOpen_.load();
 }
 
-void Scale::CalculateAttribution()
+void Scale::CalculateAttribution(const vector<shared_ptr<Player>>& players)
 {
 	for (auto item : owningItems_)
 	{
-		if (auto addedPlayerIndex = item.second->prevOwnedPlayerIndex)
+		if (auto playerIndex = item.second->lastOwnedPlayerIndex)
 		{
-			addedPlayerIndex->AddScore(Match::ACTIVATING_ESCAPE_CONTRIBUTION_SCORE);
+			players[playerIndex]->AddScore(Match::ACTIVATING_ESCAPE_CONTRIBUTION_SCORE);
 		}
 	}
 }
