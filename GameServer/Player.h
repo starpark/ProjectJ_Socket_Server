@@ -8,6 +8,7 @@ class GameSession;
 constexpr float PLAYER_DEFAULT_MOVE_SPEED = 400.0f;
 constexpr float PLAYER_ADRENALINE_MOVE_SPEED = 480.0f;
 constexpr UINT64 ADRENALINE_DURATION_TICK = 3000;
+constexpr float PLAYER_MAX_MOVE_SPEED_SLOW_RATIO = 0.25f;
 
 class Player : public Inventory
 {
@@ -42,6 +43,24 @@ public:
 	{
 		READ_LOCK;
 		return acquireItemCount_;
+	}
+
+	int GetFugitiveHitCount()
+	{
+		READ_LOCK;
+		return fugitiveHitCount_;
+	}
+
+	int GetChaserKillCount()
+	{
+		READ_LOCK;
+		return chaserKillCount_;
+	}
+
+	int GetChaserHitCount()
+	{
+		READ_LOCK;
+		return chaserHitCount_;
 	}
 
 	void SetSession(const shared_ptr<GameSession>& session)
@@ -120,6 +139,24 @@ public:
 		adrenalineEndTick_ = endTick;
 	}
 
+	void AddFugitiveHitCount()
+	{
+		READ_LOCK;
+		++fugitiveHitCount_;
+	}
+
+	void AddChaserKillCount()
+	{
+		WRITE_LOCK;
+		++chaserKillCount_;
+	}
+
+	void AddChaserHitCount()
+	{
+		WRITE_LOCK;
+		++chaserHitCount_;
+	}
+
 	void CheckAdrenalineEnd(UINT64 currentTick)
 	{
 		WRITE_LOCK;
@@ -145,7 +182,7 @@ public:
 			return PLAYER_ADRENALINE_MOVE_SPEED;
 		}
 		return PLAYER_DEFAULT_MOVE_SPEED - (PLAYER_DEFAULT_MOVE_SPEED * (static_cast<float>(GetCurrentWeight()) / static_cast<float>(GetMaxWeight()) *
-			0.25f));
+			PLAYER_MAX_MOVE_SPEED_SLOW_RATIO));
 	}
 
 	ProjectJ::PlayerInfo* GetPlayerInfo();
@@ -168,5 +205,8 @@ private:
 	bool isAdrenaline_ = false;
 	UINT64 adrenalineEndTick_ = 0;
 	int acquireItemCount_ = 0;
+	int fugitiveHitCount_ = 0;
+	int chaserKillCount_ = 0;
+	int chaserHitCount_ = 0;
 	weak_ptr<GameSession> ownerSession_;
 };

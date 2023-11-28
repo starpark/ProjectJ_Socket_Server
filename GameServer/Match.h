@@ -46,7 +46,7 @@ class Match : public CommandTaskObject
 	enum
 	{
 		INV_WEIGHT_LIMIT = 1000,
-		SCALE_INV_WEIGHT_CRITERIA = 2000,
+		SCALE_INV_WEIGHT_CRITERIA = 3000,
 		SCALE_INV_WEIGHT_TOLERANCE = 50,
 		CHASER_INV_ROW = 5,
 		CHASER_INV_COL = 5,
@@ -64,8 +64,8 @@ public:
 		CHASER_HIT_SUCCESS_SCORE = 300,
 		FUGITIVE_HIT_SCORE = 50,
 		CHASER_KILL_SCORE = 500,
-		ACTIVATING_ESCAPE_SCORE = 100,
-		ACTIVATING_ESCAPE_CONTRIBUTION_SCORE = 100,
+		ACTIVATING_ESCAPE_SCORE = 300,
+		ACTIVATING_ESCAPE_CONTRIBUTION_SCORE = 50,
 	};
 
 	enum : int
@@ -110,6 +110,7 @@ public:
 	void ChaserInstallCCTV(const shared_ptr<GameSession>& session, const Vector& position, const Rotator& rotation);
 	void PlayerDisconnected(const shared_ptr<GameSession>& session);
 	void PlayerLeaveMatch(const shared_ptr<GameSession>& session, int playerIndex);
+	void FugitiveMurdered(const shared_ptr<Player>& fugitive);
 
 private:
 	int CalulatePlayerScore(int playerIndex);

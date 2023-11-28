@@ -41,13 +41,18 @@ ProjectJ::PlayerInfo* Player::GetPlayerInfo()
 	player->set_account_id(GetID());
 	player->set_nickname(GetNickname());
 
+	auto currentState = state_.load();
 	playerInfo->set_state(state_);
 	playerInfo->set_player_index(index_);
-	playerInfo->set_allocated_player(player);
-	playerInfo->set_allocated_position(position);
-	playerInfo->set_allocated_rotation(rotation);
-	playerInfo->set_allocated_velocity(velocity);
-	playerInfo->set_move_speed(moveSpeed_);
+
+	if (currentState == ProjectJ::ALIVE || currentState == ProjectJ::ALIVE_DAMAGED || currentState == ProjectJ::ALIVE_CRITICAL || currentState ==
+		ProjectJ::ALIVE_MORIBUND)
+	{
+		playerInfo->set_allocated_position(position);
+		playerInfo->set_allocated_rotation(rotation);
+		playerInfo->set_allocated_velocity(velocity);
+		playerInfo->set_move_speed(moveSpeed_);
+	}
 
 	return playerInfo;
 }

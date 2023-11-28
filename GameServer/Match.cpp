@@ -278,7 +278,7 @@ void Match::End()
 				params[i].playerID = player->GetID();
 				params[i].isChaser = i == CHASER_INDEX ? true : false;
 				params[i].isFugitive = !params[i].isChaser;
-				params[i].kills = 0;
+				params[i].kills = player->GetChaserKillCount();
 				params[i].isMurdered = i != CHASER_INDEX ? (player->GetState() == ProjectJ::MURDERED) : false;
 				params[i].escaped = i != CHASER_INDEX ? (player->GetState() == ProjectJ::ESCAPED) : false;
 				params[i].score = scores[i];
@@ -300,25 +300,64 @@ void Match::End()
 		GDBConnectionPool->Push(dbConn);
 	}
 
-	for (int i = 0; i < 4; i++)
+	// Chaser End
 	{
-		auto& player = players_[i];
-		if (IsPlayerAlive(player->GetState()))
+		auto chaser = players_[CHASER_INDEX];
+		if (IsPlayerAlive(chaser->GetState()))
 		{
-			ProjectJ::S_MATCH_END sendPacket;
-
-			sendPacket.set_player_index(i);
-			sendPacket.set_score(player->GetScore());
-			sendPacket.set_acquired_item_count(player->GetAcquiredItemCount());
-			sendPacket.set_play_tick(matchCurrentTick_.load() - matchStartTick_);
-
-			auto sendBuffer = GamePacketHandler::MakeSendBuffer(sendPacket);
-			if (auto session = player->GetOwnerSession())
+			if (auto session = chaser->GetOwnerSession())
 			{
+				ProjectJ::S_MATCH_END sendPacket;
+				auto chaserEnd = new ProjectJ::S_MATCH_END_ChaserSummary();
+
+				sendPacket.set_player_index(CHASER_INDEX);
+				sendPacket.set_score(chaser->GetScore());
+				sendPacket.set_acquired_item_count(chaser->GetAcquiredItemCount());
+				sendPacket.set_play_tick(matchCurrentTick_.load() - matchStartTick_);
+
+				chaserEnd->set_chaser_hit_count(chaser->GetChaserHitCount());
+				chaserEnd->set_chaser_kill_count(chaser->GetChaserKillCount());
+
+				sendPacket.set_allocated_chaser_summary(chaserEnd);
+
+				auto sendBuffer = GamePacketHandler::MakeSendBuffer(sendPacket);
 				session->Send(sendBuffer);
 			}
 		}
 	}
+
+	// Fugitive End
+	{
+		for (int i = 1; i < 4; i++)
+		{
+			auto& fugitive = players_[i];
+			if (IsPlayerAlive(fugitive->GetState()) == false)
+			{
+				continue;
+			}
+
+			if (auto session = fugitive->GetOwnerSession())
+			{
+				ProjectJ::S_MATCH_END sendPacket;
+				auto fugitiveEnd = new ProjectJ::S_MATCH_END_FugitiveSummary();
+
+				sendPacket.set_player_index(i);
+				sendPacket.set_score(fugitive->GetScore());
+				sendPacket.set_acquired_item_count(fugitive->GetAcquiredItemCount());
+				sendPacket.set_play_tick(matchCurrentTick_.load() - matchStartTick_);
+
+				fugitiveEnd->set_is_fugitive_escape(false);
+				fugitiveEnd->set_fugitive_weight(fugitive->GetCurrentWeight());
+				fugitiveEnd->set_fugitive_hit_count(fugitive->GetFugitiveHitCount());
+
+				sendPacket.set_allocated_fugitive_summary(fugitiveEnd);
+
+				auto sendBuffer = GamePacketHandler::MakeSendBuffer(sendPacket);
+				session->Send(sendBuffer);
+			}
+		}
+	}
+
 
 	PlayerBackToRoom();
 	ownerRoom_->DoTaskAsync(&Room::EndMatch);
@@ -399,6 +438,34 @@ void Match::PlayerLeaveMatch(const shared_ptr<GameSession>& session, int playerI
 				End();
 			}
 		}
+	}
+}
+
+void Match::FugitiveMurdered(const shared_ptr<Player>& fugitive)
+{
+	if (IsFugitive(fugitive->GetIndex()) == false)
+	{
+		return;
+	}
+
+	if (auto session = fugitive->GetOwnerSession())
+	{
+		ProjectJ::S_MATCH_END sendPacket;
+		auto fugitiveEnd = new ProjectJ::S_MATCH_END_FugitiveSummary();
+
+		sendPacket.set_player_index(fugitive->GetIndex());
+		sendPacket.set_score(fugitive->GetScore());
+		sendPacket.set_acquired_item_count(fugitive->GetAcquiredItemCount());
+		sendPacket.set_play_tick(matchCurrentTick_.load() - matchStartTick_);
+
+		fugitiveEnd->set_is_fugitive_escape(false);
+		fugitiveEnd->set_fugitive_weight(fugitive->GetCurrentWeight());
+		fugitiveEnd->set_fugitive_hit_count(fugitive->GetFugitiveHitCount());
+
+		sendPacket.set_allocated_fugitive_summary(fugitiveEnd);
+
+		auto sendBuffer = GamePacketHandler::MakeSendBuffer(sendPacket);
+		session->Send(sendBuffer);
 	}
 }
 
@@ -909,6 +976,8 @@ void Match::HitValidation(const shared_ptr<GameSession>& session, const Vector& 
 		ProjectJ::MatchPlayerState changedState = currentState;
 
 		chaser->AddScore(CHASER_HIT_SUCCESS_SCORE);
+		chaser->AddChaserHitCount();
+		hitPlayer->AddFugitiveHitCount();
 
 		switch (currentState)
 		{
@@ -924,6 +993,7 @@ void Match::HitValidation(const shared_ptr<GameSession>& session, const Vector& 
 		case ProjectJ::ALIVE_MORIBUND:
 			changedState = ProjectJ::MURDERED;
 			chaser->AddScore(CHASER_KILL_SCORE);
+			chaser->AddChaserKillCount();
 			break;
 		default:
 			break;
@@ -941,6 +1011,11 @@ void Match::HitValidation(const shared_ptr<GameSession>& session, const Vector& 
 
 		auto sendBuffer = GamePacketHandler::MakeSendBuffer(sendPacket);
 		Broadcast(sendBuffer);
+
+		if (hitPlayer->GetState() == ProjectJ::MURDERED)
+		{
+			FugitiveMurdered(hitPlayer);
+		}
 	}
 }
 
@@ -958,14 +1033,19 @@ void Match::FugitiveEscape(const shared_ptr<GameSession>& session, int playerInd
 		fugitive->SetState(ProjectJ::ESCAPED);
 		fugitive->AddScore(ESCAPE_SCORE);
 
-		ProjectJ::S_MATCH_FUGITIVE_ESCAPE sendPacket;
+		ProjectJ::S_MATCH_END sendPacket;
 
 		sendPacket.set_player_index(playerIndex);
 		sendPacket.set_score(fugitive->GetScore());
-		sendPacket.set_weight(fugitive->GetCurrentWeight());
 		sendPacket.set_acquired_item_count(fugitive->GetAcquiredItemCount());
 		sendPacket.set_play_tick(matchCurrentTick_.load() - matchStartTick_);
 
+		auto fugitiveEnd = new ProjectJ::S_MATCH_END_FugitiveSummary();
+		fugitiveEnd->set_is_fugitive_escape(true);
+		fugitiveEnd->set_fugitive_weight(fugitive->GetCurrentWeight());
+		fugitiveEnd->set_fugitive_hit_count(fugitive->GetFugitiveHitCount());
+
+		sendPacket.set_allocated_fugitive_summary(fugitiveEnd);
 
 		auto sendBuffer = GamePacketHandler::MakeSendBuffer(sendPacket);
 		session->Send(sendBuffer);
