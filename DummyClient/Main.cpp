@@ -3,17 +3,28 @@
 
 #define TEST_PORT 55141
 #define LIVE_PORT 3000
-#define SESSION_COUNT 6
+#define SESSION_COUNT 4
+
 
 int main(int argc, char* argv[])
 {
+	vector<string> roomTitles;
+	roomTitles.push_back(u8"같이 한 판 하실분");
+	roomTitles.push_back(u8"초보만");
+	roomTitles.push_back(u8"진짜 초보만");
+	roomTitles.push_back(u8"Project J");
+	roomTitles.push_back(u8"고수만");
+	roomTitles.push_back(u8"프로젝트 제이");
+	roomTitles.push_back(u8"2023-2 캡스톤디자인");
+
+
 	this_thread::sleep_for(1s);
 
 	ServerPacketHandler::Init();
 	auto service = make_shared<ClientService>(
 		NetAddress(L"127.0.0.1", TEST_PORT),
 		[=]() { return make_shared<ClientSession>(); },
-		SESSION_COUNT
+		argc > 2 ? stoi(argv[1]) : SESSION_COUNT
 	);
 
 	if (service->Init())
@@ -34,50 +45,152 @@ int main(int argc, char* argv[])
 		return 0;
 	}
 
-	this_thread::sleep_for(5s);
-	auto sessions = service->GetSessions();
-
-	int threadCount = 3;
-	int offset = sessions.size() / threadCount;
-	for (int i = 0; i < threadCount; i++)
+	if (argc == 3)
 	{
-		int start = i * offset;
-		int end = (i + 1) * offset;
+		int clientSize = stoi(argv[1]);
+		int roomTitleIndex = stoi(argv[2]);
 
-		for (int k = start; k < end; k++)
+		this_thread::sleep_for(5s);
+		auto sessions = service->GetSessions();
+
+		int threadCount = 1;
+		int offset = sessions.size() / threadCount;
+		for (int i = 0; i < threadCount; i++)
 		{
-			sessions[k]->TestCreateAccount("MyTest", k);
-			sessions[k]->TestLoginHttp("MyTest", k);
-			this_thread::sleep_for(100ms);
-			if (sessions[k]->token.empty() == false)
+			int start = i * offset;
+			int end = (i + 1) * offset;
+
+			for (int k = start; k < end; k++)
 			{
-				sessions[k]->TestVerifyToken();
+				sessions[k]->TestCreateAccount("MyTest", k);
+				sessions[k]->TestLoginHttp("MyTest", k);
+				this_thread::sleep_for(100ms);
+				if (sessions[k]->token.empty() == false)
+				{
+					sessions[k]->TestVerifyToken();
+				}
+				else
+				{
+					cout << "Error" << endl;
+				}
 			}
-			else
+
+			int clientPerTest = clientSize;
+			for (int k = 0; k < offset / clientPerTest; k++)
 			{
-				cout << "Error" << endl;
+				int p = k * clientPerTest + start;
+
+				sessions[p]->TestCreateRoom(roomTitles[roomTitleIndex]);
+				this_thread::sleep_for(2s);
+				int roomId = sessions[p]->roomID;
+				for (int i = 1; i < clientPerTest; i++)
+				{
+					sessions[p + i]->TestEnterRoom(roomId);
+				}
+
+				this_thread::sleep_for(2s);
+				for (int i = 0; i < clientPerTest; i++)
+				{
+					sessions[p + i]->TestRoomReady();
+				}
 			}
-		}
-
-		int clientPerTest = 2;
-		for (int k = 0; k < offset / clientPerTest; k++)
-		{
-			int p = k * clientPerTest + start;
-
-			sessions[p]->TestCreateRoom(u8"이동 동기화 테스트 방 " + to_string(p));
-			this_thread::sleep_for(2s);
-			int roomId = sessions[p]->roomID;
-			sessions[p + 1]->TestEnterRoom(roomId);
-			//sessions[p + 2]->TestEnterRoom(roomId);
-			//sessions[p + 3]->TestEnterRoom(roomId);
-
-			this_thread::sleep_for(2s);
-			sessions[p]->TestRoomReady();
-			sessions[p + 1]->TestRoomReady();
-			//sessions[p + 2]->TestRoomReady();
-			//sessions[p + 3]->TestRoomReady();
 		}
 	}
+	else if (argc == 4)
+	{
+		int clientSize = stoi(argv[1]);
+		int roomId = stoi(argv[3]);
+
+		this_thread::sleep_for(5s);
+		auto sessions = service->GetSessions();
+
+		int threadCount = 1;
+		int offset = sessions.size() / threadCount;
+		for (int i = 0; i < threadCount; i++)
+		{
+			int start = i * offset;
+			int end = (i + 1) * offset;
+
+			for (int k = start; k < end; k++)
+			{
+				sessions[k]->TestCreateAccount("MyTest", k);
+				sessions[k]->TestLoginHttp("MyTest", k);
+				this_thread::sleep_for(100ms);
+				if (sessions[k]->token.empty() == false)
+				{
+					sessions[k]->TestVerifyToken();
+				}
+				else
+				{
+					cout << "Error" << endl;
+				}
+			}
+
+			int clientPerTest = clientSize;
+			for (int k = 0; k < offset / clientPerTest; k++)
+			{
+				int p = k * clientPerTest + start;
+
+				for (int i = 0; i < clientPerTest; i++)
+				{
+					sessions[p + i]->TestEnterRoom(roomId);
+				}
+
+				this_thread::sleep_for(2s);
+				for (int i = 0; i < clientPerTest; i++)
+				{
+					sessions[p + i]->TestRoomReady();
+				}
+			}
+		}
+	}
+	else
+	{
+		this_thread::sleep_for(5s);
+		auto sessions = service->GetSessions();
+
+		int threadCount = 1;
+		int offset = sessions.size() / threadCount;
+		for (int i = 0; i < threadCount; i++)
+		{
+			int start = i * offset;
+			int end = (i + 1) * offset;
+
+			for (int k = start; k < end; k++)
+			{
+				sessions[k]->TestCreateAccount("MyTest", k);
+				sessions[k]->TestLoginHttp("MyTest", k);
+				this_thread::sleep_for(100ms);
+				if (sessions[k]->token.empty() == false)
+				{
+					sessions[k]->TestVerifyToken();
+				}
+				else
+				{
+					cout << "Error" << endl;
+				}
+			}
+
+			int clientPerTest = 4;
+			for (int k = 0; k < offset / clientPerTest; k++)
+			{
+				int p = k * clientPerTest + start;
+				sessions[p]->TestCreateRoom(u8"테스트 방");
+				this_thread::sleep_for(2s);
+				int roomId = sessions[p]->roomID;
+				sessions[p + 1]->TestEnterRoom(roomId);
+				sessions[p + 2]->TestEnterRoom(roomId);
+				sessions[p + 3]->TestEnterRoom(roomId);
+
+				this_thread::sleep_for(2s);
+				sessions[p]->TestRoomReady();
+				sessions[p + 1]->TestRoomReady();
+				sessions[p + 2]->TestRoomReady();
+				sessions[p + 3]->TestRoomReady();
+			}
+		}
+	}
+
 
 	/*for (auto session : sessions)
 	{
