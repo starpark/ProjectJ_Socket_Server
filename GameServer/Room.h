@@ -57,7 +57,6 @@ public:
 	void DestroyMatch();
 
 private:
-	atomic<bool> standby_ = false;
 	RoomState state_ = RoomState::WAITING;
 	int roomID_ = -1;
 	int numberOfPlayers_ = 0;
@@ -66,4 +65,5 @@ private:
 	shared_ptr<Match> match_;
 	// 0: Chaser, 1-3: Fugitive
 	vector<pair<shared_ptr<GameSession>, bool>> sessionSlots_;
+	TimerHandle standbyTimerHandle_;
 };

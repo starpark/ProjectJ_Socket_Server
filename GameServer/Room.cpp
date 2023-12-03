@@ -321,6 +321,11 @@ void Room::ToggleReady(shared_ptr<GameSession> session, int slotIndex)
 		return;
 	}
 
+	if (state_ == RoomState::INGAME)
+	{
+		return;
+	}
+
 	sessionSlots_[slotIndex].second ^= true;
 
 	GLogHelper->Print(LogCategory::LOG_INFO, L"%s Slot#%d %s In Room#%d\n",
@@ -336,6 +341,12 @@ void Room::ToggleReady(shared_ptr<GameSession> session, int slotIndex)
 
 	auto sendBuffer = GamePacketHandler::MakeSendBuffer(sendPacket);
 	Broadcast(sendBuffer);
+
+	if (sessionSlots_[slotIndex].second == false)
+	{
+		GTimerTaskManager->RemoveTimer(standbyTimerHandle_);
+		return;
+	}
 
 	StandByMatch(STANDBY_COUNT);
 }
@@ -357,13 +368,11 @@ void Room::StandByMatch(int count)
 {
 	if (CheckAllReady())
 	{
-		{
-			ProjectJ::S_ROOM_STANDBY_MATCH sendPacket;
-			sendPacket.set_count(count);
+		ProjectJ::S_ROOM_STANDBY_MATCH sendPacket;
+		sendPacket.set_count(count);
 
-			auto sendBuffer = GamePacketHandler::MakeSendBuffer(sendPacket);
-			Broadcast(sendBuffer);
-		}
+		auto sendBuffer = GamePacketHandler::MakeSendBuffer(sendPacket);
+		Broadcast(sendBuffer);
 
 		if (count == 0)
 		{
@@ -371,12 +380,12 @@ void Room::StandByMatch(int count)
 		}
 		else
 		{
-			GTimerTaskManager->AddTimer(1000, false, this, &Room::StandByMatch, count - 1);
+			standbyTimerHandle_ = GTimerTaskManager->AddTimer(1000, false, this, &Room::StandByMatch, count - 1);
 		}
 	}
 	else
 	{
-		standby_.store(false);
+		GTimerTaskManager->RemoveTimer(standbyTimerHandle_);
 	}
 }
 
@@ -385,19 +394,22 @@ void Room::StartMatch()
 	state_ = RoomState::INGAME;
 
 	shared_ptr<GameSession> chaser = sessionSlots_[0].first;
+	sessionSlots_[0].second = false;
 	shared_ptr<GameSession> fugitiveFirst = sessionSlots_[1].first;
+	sessionSlots_[1].second = false;
 	shared_ptr<GameSession> fugitiveSecond = sessionSlots_[2].first;
+	sessionSlots_[2].second = false;
 	shared_ptr<GameSession> fugitiveThird = sessionSlots_[3].first;
+	sessionSlots_[3].second = false;
 
 	match_ = make_shared<Match>(GetRoomPtr());
 	match_->DoTaskAsync(&Match::Init, chaser, fugitiveFirst, fugitiveSecond, fugitiveThird);
-	{
-		ProjectJ::S_ROOM_START_MATCH sendPacket;
-		sendPacket.set_start(true);
 
-		auto sendBuffer = GamePacketHandler::MakeSendBuffer(sendPacket);
-		Broadcast(sendBuffer);
-	}
+	ProjectJ::S_ROOM_START_MATCH sendPacket;
+	sendPacket.set_start(true);
+
+	auto sendBuffer = GamePacketHandler::MakeSendBuffer(sendPacket);
+	Broadcast(sendBuffer);
 }
 
 void Room::EndMatch()
