@@ -35,16 +35,12 @@ void Match::Tick()
 	}
 
 	UINT64 currentTick = GetTickCount64();
-	if (currentTick >= matchEndTick_)
+	if (currentTick >= matchEndTick_ || CheckMatchEnd())
 	{
 		End();
 	}
-	matchCurrentTick_.store(currentTick);
 
-	for (int i = 0; i < 4; i++)
-	{
-		players_[CHASER_INDEX]->CheckAdrenalineEnd(currentTick);
-	}
+	matchCurrentTick_.store(currentTick);
 
 	{
 		ProjectJ::S_MATCH_INFO sendPacket;
@@ -52,24 +48,24 @@ void Match::Tick()
 
 		auto info = new ProjectJ::MatchInfo();
 
-		if (IsPlayerAlive(players_[CHASER_INDEX]->GetState()))
+		if (IsPlayerConneted(players_[CHASER_INDEX]->GetState()))
 		{
-			info->set_allocated_chaser(players_[CHASER_INDEX]->GetPlayerInfo());
+			info->set_allocated_chaser(players_[CHASER_INDEX]->GetPlayerInfo(currentTick));
 		}
 
-		if (IsPlayerAlive(players_[FUGITIVE_FIRST_INDEX]->GetState()))
+		if (IsPlayerConneted(players_[FUGITIVE_FIRST_INDEX]->GetState()))
 		{
-			info->set_allocated_fugitive_first(players_[FUGITIVE_FIRST_INDEX]->GetPlayerInfo());
+			info->set_allocated_fugitive_first(players_[FUGITIVE_FIRST_INDEX]->GetPlayerInfo(currentTick));
 		}
 
-		if (IsPlayerAlive(players_[FUGITIVE_SECOND_INDEX]->GetState()))
+		if (IsPlayerConneted(players_[FUGITIVE_SECOND_INDEX]->GetState()))
 		{
-			info->set_allocated_fugitive_second(players_[FUGITIVE_SECOND_INDEX]->GetPlayerInfo());
+			info->set_allocated_fugitive_second(players_[FUGITIVE_SECOND_INDEX]->GetPlayerInfo(currentTick));
 		}
 
-		if (IsPlayerAlive(players_[FUGITIVE_THIRD_INDEX]->GetState()))
+		if (IsPlayerConneted(players_[FUGITIVE_THIRD_INDEX]->GetState()))
 		{
-			info->set_allocated_fugitive_third(players_[FUGITIVE_THIRD_INDEX]->GetPlayerInfo());
+			info->set_allocated_fugitive_third(players_[FUGITIVE_THIRD_INDEX]->GetPlayerInfo(currentTick));
 		}
 
 		sendPacket.set_allocated_info(info);
@@ -83,7 +79,9 @@ void Match::Broadcast(shared_ptr<SendBuffer> sendBuffer)
 {
 	for (auto& player : players_)
 	{
-		if (player->GetState() == ProjectJ::DISCONNECTED || player->GetState() == ProjectJ::ESCAPED)
+		auto playerState = player->GetState();
+
+		if (playerState == ProjectJ::DISCONNECTED || playerState == ProjectJ::ESCAPED || playerState == ProjectJ::MURDERED)
 		{
 			continue;
 		}
@@ -106,7 +104,7 @@ void Match::Init(shared_ptr<GameSession> chaser, shared_ptr<GameSession> fugitiv
 	// Init Players
 	{
 		auto chaserPlayer = make_shared<Player>(CHASER_INDEX, CHASER_INV_ROW, CHASER_INV_COL, INV_WEIGHT_LIMIT, chaser->GetID(),
-		                                        chaser->GetNickname());
+		                                        chaser->GetNickname(), CHASER_DEFAULT_MOVE_SPEED);
 		chaserPlayer->SetSession(chaser);
 		chaser->ProcessEnterMatch(thisPtr, chaserPlayer);
 		players_[CHASER_INDEX] = chaserPlayer;
@@ -117,7 +115,7 @@ void Match::Init(shared_ptr<GameSession> chaser, shared_ptr<GameSession> fugitiv
 	{
 		auto fugitiveFirstPlayer = make_shared<Player>(FUGITIVE_FIRST_INDEX, FUGITIVE_INV_ROW, FUGITIVE_INV_COL, INV_WEIGHT_LIMIT,
 		                                               fugitiveFirst->GetID(),
-		                                               fugitiveFirst->GetNickname());
+		                                               fugitiveFirst->GetNickname(), FUGITIVE_DEFAULT_MOVE_SPEED);
 		fugitiveFirstPlayer->SetSession(fugitiveFirst);
 		fugitiveFirst->ProcessEnterMatch(thisPtr, fugitiveFirstPlayer);
 		players_[FUGITIVE_FIRST_INDEX] = fugitiveFirstPlayer;
@@ -128,7 +126,7 @@ void Match::Init(shared_ptr<GameSession> chaser, shared_ptr<GameSession> fugitiv
 	{
 		auto fugitiveSecondPlayer = make_shared<Player>(FUGITIVE_SECOND_INDEX, FUGITIVE_INV_ROW, FUGITIVE_INV_COL, INV_WEIGHT_LIMIT,
 		                                                fugitiveSecond->GetID(),
-		                                                fugitiveSecond->GetNickname());
+		                                                fugitiveSecond->GetNickname(), FUGITIVE_DEFAULT_MOVE_SPEED);
 		fugitiveSecondPlayer->SetSession(fugitiveSecond);
 		fugitiveSecond->ProcessEnterMatch(thisPtr, fugitiveSecondPlayer);
 		players_[FUGITIVE_SECOND_INDEX] = fugitiveSecondPlayer;
@@ -139,7 +137,7 @@ void Match::Init(shared_ptr<GameSession> chaser, shared_ptr<GameSession> fugitiv
 	{
 		auto fugitiveThirdPlayer = make_shared<Player>(FUGITIVE_THIRD_INDEX, FUGITIVE_INV_ROW, FUGITIVE_INV_COL, INV_WEIGHT_LIMIT,
 		                                               fugitiveThird->GetID(),
-		                                               fugitiveThird->GetNickname());
+		                                               fugitiveThird->GetNickname(), FUGITIVE_DEFAULT_MOVE_SPEED);
 		fugitiveThirdPlayer->SetSession(fugitiveThird);
 		fugitiveThird->ProcessEnterMatch(thisPtr, fugitiveThirdPlayer);
 		players_[FUGITIVE_THIRD_INDEX] = fugitiveThirdPlayer;
@@ -373,7 +371,7 @@ void Match::StartTimeOut()
 	}
 }
 
-bool Match::CheckPlayersState()
+bool Match::CheckMatchEnd()
 {
 	// 추격자 상태 확인
 	if (players_[CHASER_INDEX]->GetState() == ProjectJ::DISCONNECTED)
@@ -414,7 +412,7 @@ void Match::PlayerDisconnected(const shared_ptr<GameSession>& session)
 			players_[i]->SetState(ProjectJ::DISCONNECTED);
 			session->ProcessLeaveMatch();
 
-			if (CheckPlayersState())
+			if (CheckMatchEnd())
 			{
 				End();
 			}
@@ -428,16 +426,23 @@ void Match::PlayerLeaveMatch(const shared_ptr<GameSession>& session, int playerI
 {
 	if (IsPlayer(playerIndex) && players_[playerIndex] == session->GetPlayer())
 	{
-		players_[playerIndex]->SetState(ProjectJ::DISCONNECTED);
+		GLogHelper->Print(LogCategory::LOG_INFO,
+		                  L"Match#%s Player#%d Leave Match\n",
+		                  matchShortGUID_.c_str(), playerIndex);
+
+
+		if (players_[playerIndex]->GetState() != ProjectJ::MURDERED)
+		{
+			players_[playerIndex]->SetState(ProjectJ::DISCONNECTED);
+		}
+
 		session->ProcessLeaveMatch();
 
-		if (isMatchStarted_.load() != true)
-		{
-			if (CheckPlayersState())
-			{
-				End();
-			}
-		}
+		ProjectJ::S_MATCH_LEAVE sendPacket;
+		sendPacket.set_result(true);
+
+		auto sendBuffer = GamePacketHandler::MakeSendBuffer(sendPacket);
+		session->Send(sendBuffer);
 	}
 }
 
@@ -450,6 +455,8 @@ void Match::FugitiveMurdered(const shared_ptr<Player>& fugitive)
 
 	if (auto session = fugitive->GetOwnerSession())
 	{
+		session->ProcessLeaveMatch();
+
 		ProjectJ::S_MATCH_END sendPacket;
 		auto fugitiveEnd = new ProjectJ::S_MATCH_END_FugitiveSummary();
 
@@ -716,6 +723,7 @@ void Match::PlayerPickUpItem(const shared_ptr<GameSession>& session, int playerI
 
 		if (item->CheckFirstAdd(playerIndex))
 		{
+			player->AddAcquireItemCount();
 			player->AddScore(PICKUP_NEW_ITEM_SCORE);
 		}
 
@@ -786,6 +794,7 @@ void Match::PlayerMoveItem(const shared_ptr<GameSession>& session, int playerInd
 		{
 			if (item->CheckFirstAdd(playerIndex))
 			{
+				player->AddAcquireItemCount();
 				player->AddScore(PICKUP_NEW_ITEM_SCORE);
 			}
 		}
@@ -953,6 +962,12 @@ void Match::HitValidation(const shared_ptr<GameSession>& session, const Vector& 
 		return;
 	}
 
+	shared_ptr<Player> targetPlayer = players_[targetPlayerIndex];
+	if (IsPlayerAlive(targetPlayer->GetState()) == false)
+	{
+		return;
+	}
+
 	const Vector chaserPosition(position);
 	const Vector targetPosition(players_[targetPlayerIndex]->GetVector());
 	const Rotator chaserRotation(rotation);
@@ -968,29 +983,22 @@ void Match::HitValidation(const shared_ptr<GameSession>& session, const Vector& 
 	                  L"Match#%s Chaser Hit Fugitive%d Angle: %f Dist: %f\n",
 	                  matchShortGUID_.c_str(), targetPlayerIndex, angle, distance);
 
-	if (angle <= 90.0f && distance <= 300.0f)
+	if (angle <= 90.0f && distance <= 1000.f)
 	{
-		shared_ptr<Player> hitPlayer = players_[targetPlayerIndex];
 		shared_ptr<Player> chaser = players_[CHASER_INDEX];
-		ProjectJ::MatchPlayerState currentState = hitPlayer->GetState();
+		ProjectJ::MatchPlayerState currentState = targetPlayer->GetState();
 		ProjectJ::MatchPlayerState changedState = currentState;
 
 		chaser->AddScore(CHASER_HIT_SUCCESS_SCORE);
 		chaser->AddChaserHitCount();
-		hitPlayer->AddFugitiveHitCount();
+		targetPlayer->AddFugitiveHitCount();
 
 		switch (currentState)
 		{
 		case ProjectJ::ALIVE:
-			changedState = ProjectJ::ALIVE_DAMAGED;
-			break;
-		case ProjectJ::ALIVE_DAMAGED:
 			changedState = ProjectJ::ALIVE_CRITICAL;
 			break;
 		case ProjectJ::ALIVE_CRITICAL:
-			changedState = ProjectJ::ALIVE_MORIBUND;
-			break;
-		case ProjectJ::ALIVE_MORIBUND:
 			changedState = ProjectJ::MURDERED;
 			chaser->AddScore(CHASER_KILL_SCORE);
 			chaser->AddChaserKillCount();
@@ -999,9 +1007,9 @@ void Match::HitValidation(const shared_ptr<GameSession>& session, const Vector& 
 			break;
 		}
 
-		hitPlayer->ActiveAdrenaline(matchCurrentTick_.load() + ADRENALINE_DURATION_TICK);
-		hitPlayer->SetState(changedState);
-		hitPlayer->AddScore(FUGITIVE_HIT_SCORE);
+		targetPlayer->ActiveAdrenaline(matchCurrentTick_.load());
+		targetPlayer->SetState(changedState);
+		targetPlayer->AddScore(FUGITIVE_HIT_SCORE);
 
 		ProjectJ::S_MATCH_CHASER_HIT sendPacket;
 
@@ -1012,9 +1020,9 @@ void Match::HitValidation(const shared_ptr<GameSession>& session, const Vector& 
 		auto sendBuffer = GamePacketHandler::MakeSendBuffer(sendPacket);
 		Broadcast(sendBuffer);
 
-		if (hitPlayer->GetState() == ProjectJ::MURDERED)
+		if (targetPlayer->GetState() == ProjectJ::MURDERED)
 		{
-			FugitiveMurdered(hitPlayer);
+			FugitiveMurdered(targetPlayer);
 		}
 	}
 }
@@ -1026,17 +1034,25 @@ void Match::FugitiveEscape(const shared_ptr<GameSession>& session, int playerInd
 		return;
 	}
 
-	shared_ptr<Scale> scale = scales_[scaleIndex];
+	shared_ptr<Scale> scale = scales_[scaleIndex - MAX_SCALE_NUMBER];
 	shared_ptr<Player> fugitive = players_[playerIndex];
+
+	if (IsPlayerAlive(fugitive->GetState()) == false)
+	{
+		return;
+	}
+
 	if (scale->IsOperating())
 	{
 		fugitive->SetState(ProjectJ::ESCAPED);
 		fugitive->AddScore(ESCAPE_SCORE);
 
+		session->ProcessLeaveMatch();
+
 		ProjectJ::S_MATCH_END sendPacket;
 
 		sendPacket.set_player_index(playerIndex);
-		sendPacket.set_score(fugitive->GetScore());
+		sendPacket.set_score(fugitive->GetScore() + fugitive->GetCurrentWeight() * 3);
 		sendPacket.set_acquired_item_count(fugitive->GetAcquiredItemCount());
 		sendPacket.set_play_tick(matchCurrentTick_.load() - matchStartTick_);
 

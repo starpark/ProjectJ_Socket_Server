@@ -40,14 +40,14 @@ class Match : public CommandTaskObject
 	enum : UINT64
 	{
 		START_TIME_OUT = 1000 * 60 * 1,
-		MATCH_END_TICK = 1000 * 60 * 5
+		MATCH_END_TICK = 1000 * 60 * 7
 	};
 
 	enum
 	{
 		INV_WEIGHT_LIMIT = 1000,
 		SCALE_INV_WEIGHT_CRITERIA = 3000,
-		SCALE_INV_WEIGHT_TOLERANCE = 50,
+		SCALE_INV_WEIGHT_TOLERANCE = 100,
 		CHASER_INV_ROW = 5,
 		CHASER_INV_COL = 5,
 		FUGITIVE_INV_ROW = 7,
@@ -68,11 +68,6 @@ public:
 		ACTIVATING_ESCAPE_CONTRIBUTION_SCORE = 50,
 	};
 
-	enum : int
-	{
-		DEFAULT_WALK_SPEED = 400
-	};
-
 public:
 	Match(shared_ptr<Room> owner);
 	~Match() override;
@@ -90,7 +85,7 @@ public:
 	void Start();
 	void End();
 	void StartTimeOut();
-	bool CheckPlayersState();
+	bool CheckMatchEnd();
 
 
 	// Contents
@@ -154,6 +149,15 @@ private:
 			return false;
 		}
 
+		return true;
+	}
+
+	bool IsPlayerConneted(ProjectJ::MatchPlayerState state)
+	{
+		if (state == ProjectJ::NONE || state == ProjectJ::LOADING || state == ProjectJ::DISCONNECTED)
+		{
+			return false;
+		}
 		return true;
 	}
 
