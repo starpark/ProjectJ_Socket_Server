@@ -336,11 +336,6 @@ bool Handle_S_MATCH_CHASER_HIT(const shared_ptr<SessionBase>& session, ProjectJ:
 	return true;
 }
 
-bool Handle_S_MATCH_FUGITIVE_ESCAPE(const shared_ptr<SessionBase>& session, ProjectJ::S_MATCH_FUGITIVE_ESCAPE& packet)
-{
-	return true;
-}
-
 bool Handle_S_MATCH_CHASER_INSTALL_CCTV(const shared_ptr<SessionBase>& session, ProjectJ::S_MATCH_CHASER_INSTALL_CCTV& packet)
 {
 	return true;

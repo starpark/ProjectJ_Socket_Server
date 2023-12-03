@@ -74,13 +74,13 @@ public:
 		if (JGameInstance)
 		{
 			TSharedPtr<JPackets> Packet;
-			if (JGameInstance->GetPacketQueue().Dequeue(Packet))
+			while (JGameInstance->GetPacketQueue().Dequeue(Packet))
 			{
-				return GPacketProcessor[Packet->Type](World, Packet, DeltaSeconds);
+				GPacketProcessor[Packet->Type](World, Packet, DeltaSeconds);
 			}
 		}
 
-		return false;
+		return true;
 	}
 
 	// 수신 스레드에서 수신 받은 데이터를 가공하는 함수

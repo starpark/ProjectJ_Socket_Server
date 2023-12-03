@@ -593,15 +593,41 @@ bool Handle_C_MATCH_CHASER_HIT(const shared_ptr<SessionBase>& session, ProjectJ:
 
 bool Handle_C_MATCH_FUGITIVE_ESCAPE(const shared_ptr<SessionBase>& session, ProjectJ::C_MATCH_FUGITIVE_ESCAPE& packet)
 {
+	shared_ptr<GameSession> gameSession = static_pointer_cast<GameSession>(session);
+	auto match = gameSession->TryGetMatch();
+
+	if (match)
+	{
+		match->FugitiveEscape(gameSession, packet.player_index(), packet.escape_scale_index());
+	}
 	return true;
 }
 
 bool Handle_C_MATCH_CHASER_INSTALL_CCTV(const shared_ptr<SessionBase>& session, ProjectJ::C_MATCH_CHASER_INSTALL_CCTV& packet)
 {
+	shared_ptr<GameSession> gameSession = static_pointer_cast<GameSession>(session);
+	auto match = gameSession->TryGetMatch();
+
+	if (match)
+	{
+		Vector position(packet.install_position().x(), packet.install_position().y(), packet.install_position().z());
+		Rotator rotation(packet.install_rotation().roll(), packet.install_rotation().pitch(), packet.install_rotation().yaw());
+
+		match->ChaserInstallCCTV(gameSession, position, rotation);
+	}
+
 	return true;
 }
 
 bool Handle_C_MATCH_LEAVE(const shared_ptr<SessionBase>& session, ProjectJ::C_MATCH_LEAVE& packet)
 {
+	shared_ptr<GameSession> gameSession = static_pointer_cast<GameSession>(session);
+	auto match = gameSession->TryGetMatch();
+
+	if (match)
+	{
+		match->PlayerLeaveMatch(gameSession, packet.player_index());
+	}
+
 	return true;
 }

@@ -129,7 +129,7 @@ DECLARE_DELEGATE_RetVal_ThreeParams(bool, FPacket_S_MATCH_LEAVE, UWorld*, Projec
 // 소켓 수신 데이터 처리 및 송신 버퍼 생성 클래스
 // 최초 작성자: 박별
 // 수정자: 
-// 최종 수정일: 2023-11-28 자동 생성
+// 최종 수정일: 2023-11-29 자동 생성
 class PROJECTJ_API UJPacketHandler : public UObject
 {
 public:
@@ -211,13 +211,13 @@ public:
 		if (JGameInstance)
 		{
 			TSharedPtr<JPackets> Packet;
-			if (JGameInstance->GetPacketQueue().Dequeue(Packet))
+			while (JGameInstance->GetPacketQueue().Dequeue(Packet))
 			{
-				return GPacketProcessor[Packet->Type](World, Packet, DeltaSeconds);
+				GPacketProcessor[Packet->Type](World, Packet, DeltaSeconds);
 			}
 		}
 
-		return false;
+		return true;
 	}
 
 	// 수신 스레드에서 수신 받은 데이터를 가공하는 함수
