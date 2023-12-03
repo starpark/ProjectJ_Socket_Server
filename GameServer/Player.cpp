@@ -4,9 +4,9 @@
 #include "GameSession.h"
 
 
-Player::Player(int index, int row, int column, int maxWeight, int sessionID, string nickname)
+Player::Player(int index, int row, int column, int maxWeight, int sessionID, string nickname, float defaultMoveSpeed)
 	: Inventory(index, row, column, maxWeight), state_(ProjectJ::MatchPlayerState::NONE), score_(0), sessionID_(sessionID), nickname_(nickname),
-	  moveSpeed_(PLAYER_DEFAULT_MOVE_SPEED)
+	  moveSpeed_(defaultMoveSpeed), defaultMoveSpeed_(defaultMoveSpeed)
 {
 }
 
@@ -15,7 +15,7 @@ Player::~Player()
 	GLogHelper->Print(LogCategory::LOG_INFO, L"~Player()\n");
 }
 
-ProjectJ::PlayerInfo* Player::GetPlayerInfo()
+ProjectJ::PlayerInfo* Player::GetPlayerInfo(UINT64 currentTick)
 {
 	auto playerInfo = new ProjectJ::PlayerInfo();
 	auto position = new ProjectJ::Vector();
@@ -42,7 +42,7 @@ ProjectJ::PlayerInfo* Player::GetPlayerInfo()
 	player->set_nickname(GetNickname());
 
 	auto currentState = state_.load();
-	playerInfo->set_state(state_);
+	playerInfo->set_state(currentState);
 	playerInfo->set_player_index(index_);
 
 	if (currentState == ProjectJ::ALIVE || currentState == ProjectJ::ALIVE_DAMAGED || currentState == ProjectJ::ALIVE_CRITICAL || currentState ==
@@ -51,7 +51,7 @@ ProjectJ::PlayerInfo* Player::GetPlayerInfo()
 		playerInfo->set_allocated_position(position);
 		playerInfo->set_allocated_rotation(rotation);
 		playerInfo->set_allocated_velocity(velocity);
-		playerInfo->set_move_speed(moveSpeed_);
+		playerInfo->set_move_speed(index_ == CHASER_INDEX ? GetDefaultMoveSpeed() : GetCurrentMoveSpeed(currentTick));
 	}
 
 	return playerInfo;
@@ -95,7 +95,7 @@ InventoryErrorCode Player::TryAddItem(const shared_ptr<Item>& item)
 {
 	InventoryErrorCode result = Inventory::TryAddItem(item);
 
-	SetMoveSpeed(GetCurrentMoveSpeed());
+	SetMoveSpeed(CalculateWeightMoveSpeed());
 
 	return result;
 }
@@ -104,7 +104,7 @@ InventoryErrorCode Player::RelocateItem(const shared_ptr<Inventory>& to, const s
 {
 	InventoryErrorCode result = Inventory::RelocateItem(to, item, slotIndex, isRotated);
 
-	SetMoveSpeed(GetCurrentMoveSpeed());
+	SetMoveSpeed(CalculateWeightMoveSpeed());
 
 	return result;
 }
@@ -113,7 +113,7 @@ InventoryErrorCode Player::DropItem(const shared_ptr<Item>& item, Vector positio
 {
 	InventoryErrorCode result = Inventory::DropItem(item, position, rotation);
 
-	SetMoveSpeed(GetCurrentMoveSpeed());
+	SetMoveSpeed(CalculateWeightMoveSpeed());
 
 	return result;
 }

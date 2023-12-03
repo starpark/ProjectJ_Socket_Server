@@ -5,15 +5,16 @@
 class Match;
 class GameSession;
 
-constexpr float PLAYER_DEFAULT_MOVE_SPEED = 400.0f;
-constexpr float PLAYER_ADRENALINE_MOVE_SPEED = 480.0f;
-constexpr UINT64 ADRENALINE_DURATION_TICK = 3000;
-constexpr float PLAYER_MAX_MOVE_SPEED_SLOW_RATIO = 0.25f;
+constexpr float FUGITIVE_DEFAULT_MOVE_SPEED = 400.0f;
+constexpr float CHASER_DEFAULT_MOVE_SPEED = 420.0f;
+constexpr float FUGITIVE_ADRENALINE_MOVE_SPEED = 480.0f;
+constexpr UINT64 ADRENALINE_DURATION_TICK = 1000 * 3;
+constexpr float FUGITIVE_MAX_MOVE_SPEED_SLOW_RATIO = 0.25f;
 
 class Player : public Inventory
 {
 public:
-	Player(int index, int row, int column, int maxWeight, int sessionID, string nickname);
+	Player(int index, int row, int column, int maxWeight, int sessionID, string nickname, float defaultMoveSpeed);
 	~Player() override;
 
 	shared_ptr<GameSession> GetOwnerSession() { return ownerSession_.lock(); }
@@ -37,6 +38,11 @@ public:
 	{
 		READ_LOCK;
 		return moveSpeed_;
+	}
+
+	float GetDefaultMoveSpeed() const
+	{
+		return defaultMoveSpeed_;
 	}
 
 	int GetAcquiredItemCount()
@@ -87,7 +93,7 @@ public:
 		worldRotation_ = rotation;
 	}
 
-	void SetRotatoin(Rotator&& rotation)
+	void SetRotation(Rotator&& rotation)
 	{
 		WRITE_LOCK;
 		worldRotation_ = move(rotation);
@@ -123,7 +129,6 @@ public:
 	void AddScore(int score)
 	{
 		score_.fetch_add(score);
-		AddAcquireItemCount();
 	}
 
 	void AddAcquireItemCount()
@@ -132,11 +137,10 @@ public:
 		++acquireItemCount_;
 	}
 
-	void ActiveAdrenaline(UINT64 endTick)
+	void ActiveAdrenaline(UINT64 currentTick)
 	{
 		WRITE_LOCK;
-		isAdrenaline_ = true;
-		adrenalineEndTick_ = endTick;
+		adrenalineEndTick_ = currentTick + ADRENALINE_DURATION_TICK;
 	}
 
 	void AddFugitiveHitCount()
@@ -157,35 +161,30 @@ public:
 		++chaserHitCount_;
 	}
 
-	void CheckAdrenalineEnd(UINT64 currentTick)
-	{
-		WRITE_LOCK;
-		if (isAdrenaline_ == true)
-		{
-			if (currentTick >= adrenalineEndTick_)
-			{
-				isAdrenaline_ = false;
-			}
-		}
-	}
-
 	int GetScore() const
 	{
 		return score_.load();
 	}
 
-	float GetCurrentMoveSpeed()
+	float CalculateWeightMoveSpeed()
 	{
-		READ_LOCK;
-		if (isAdrenaline_ == true)
-		{
-			return PLAYER_ADRENALINE_MOVE_SPEED;
-		}
-		return PLAYER_DEFAULT_MOVE_SPEED - (PLAYER_DEFAULT_MOVE_SPEED * (static_cast<float>(GetCurrentWeight()) / static_cast<float>(GetMaxWeight()) *
-			PLAYER_MAX_MOVE_SPEED_SLOW_RATIO));
+		return defaultMoveSpeed_ - (defaultMoveSpeed_ * (static_cast<float>(GetCurrentWeight()) / static_cast<float>(
+				GetMaxWeight()) *
+			FUGITIVE_MAX_MOVE_SPEED_SLOW_RATIO));
 	}
 
-	ProjectJ::PlayerInfo* GetPlayerInfo();
+	float GetCurrentMoveSpeed(UINT64 currentTick)
+	{
+		READ_LOCK;
+		if (adrenalineEndTick_ >= currentTick)
+		{
+			return FUGITIVE_ADRENALINE_MOVE_SPEED;
+		}
+
+		return moveSpeed_;
+	}
+
+	ProjectJ::PlayerInfo* GetPlayerInfo(UINT64 currentTick);
 	ProjectJ::PlayerInitInfo* GetPlayerInitInfo();
 	InventoryErrorCode TryAddItem(const shared_ptr<Item>& item) final;
 	InventoryErrorCode RelocateItem(const shared_ptr<Inventory>& to, const shared_ptr<Item>& item, int slotIndex, bool isRotated) final;
@@ -202,7 +201,7 @@ private:
 	Rotator worldRotation_;
 	Vector velocity_;
 	float moveSpeed_;
-	bool isAdrenaline_ = false;
+	const float defaultMoveSpeed_;
 	UINT64 adrenalineEndTick_ = 0;
 	int acquireItemCount_ = 0;
 	int fugitiveHitCount_ = 0;
