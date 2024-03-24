@@ -17,7 +17,7 @@
 ## 시스템 구조
 ![화면 캡처 2024-03-23 013219](https://github.com/starpark/ProjectJ_Socket_Server/assets/62285975/7fdf9801-389e-4052-b048-85ef7538056c)
 ![Untitled-2023-11-28-1549](https://github.com/starpark/ProjectJ_Socket_Server/assets/62285975/0fbc16a1-bf24-4918-a763-2b407a9017d8)
-![erdia drawio (2)](https://github.com/starpark/ProjectJ_Socket_Server/assets/62285975/c4039e84-4af9-4943-bc8a-b106b0de8d1a)
+![project_j_schema](https://github.com/starpark/ProjectJ_Socket_Server/assets/62285975/e089396b-c242-43d1-b6d6-f459571bb359)
 <br/>
 
 ## 자료
