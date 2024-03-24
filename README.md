@@ -6,7 +6,7 @@
 ## 개발 환경
 - 운영체제: Windows 10 & 11 64-bit  
 - IDE: Visual Studio 2022  
-- 언어: C++ 17, Python(패킷 핸들러 생성 툴)  
+- 언어: C++ 17, Python 3.11(패킷 핸들러 생성 툴)  
 - 소켓 입출력 모델: IOCP  
 - 프로토콜: TCP/IP
 - 라이브러리: Google Protobuf 3.21.12, ServerLibrary(개인 라이브러리)  
